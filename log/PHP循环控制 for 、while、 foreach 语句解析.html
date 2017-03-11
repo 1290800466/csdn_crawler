@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2>for循环控制语句</h2>&#13;
+<span style="font-size:14px">基本语法结构：<br/>&#13;
+for(循环初值;循环的条件;步长){<br/><span style="white-space:pre"/>//n多语句,循环体;<br/></span>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<p><span style="font-size:14px">for循环实例：</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;?php
+for($i=0;$i&lt;99999;$i++){
+	echo "&lt;br&gt;$i.hello beijing!";
+}
+ ?&gt;</pre><br/><p/>&#13;
+<h2>while循环控制语句</h2>&#13;
+<div><span style="font-family:Verdana,Arial,宋体; line-height:18px; background-color:rgb(249,249,249)"><span style="font-size:14px">只要指定的条件为真，while 循环就会执行代码块。</span></span><br/></div>&#13;
+<p/>&#13;
+<p><span style="font-size:14px">基本语法结构：<br/>&#13;
+while(循环条件){<br/><span style="white-space:pre"/>//循环体语句<span style="white-space:pre"> <br/></span>}</span></p>&#13;
+<p><span style="font-size:14px">while循环实例：</span></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="php">&lt;?php
+$a = 0;
+while ($a&lt;100){
+	echo "&lt;br&gt;$a.hello qingdao!";
+	$a = $a+1;	
+}
+?&gt;</pre><br/><p/>&#13;
+<h2><span style="font-size:14px">do while 循环控制语句</span></h2>&#13;
+<div><span style="font-size:14px"><span style="font-family:Verdana,Arial,宋体; line-height:18px; background-color:rgb(249,249,249)">do...while 循环首先会执行一次代码块，然后检查条件，如果指定条件为真，则重复循环。</span><br/></span></div>&#13;
+<span style="font-size:14px">基本语法结构：<br/>&#13;
+do{<br/><span style="white-space:pre"/>//循环体<br/>&#13;
+}while(循环条件) <br/></span>&#13;
+<p/>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<p><span style="font-size:14px">do while 循环实例：</span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+<pre name="code" class="php">&lt;?php
+$s = 1;
+do{
+	echo "&lt;br&gt;$s.hello jinan!";
+	$s = $s+1;
+}while($s&lt;100);
+?&gt;</pre>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<h2 style="margin:0px; padding:0px; border:0px; font-family:微软雅黑; font-size:14px; background-color:rgb(249,249,249)">&#13;
+ foreach 循环控制语句</h2>&#13;
+<div><br/></div>&#13;
+<p/>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+foreach 循环只适用于数组，并用于遍历数组中的每个键/值对。</p>&#13;
+<p style="margin:20px 0px 0px; padding:0px; border:0px; font-size:12px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+语法</p>&#13;
+<pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">foreach ($array as $value) {
+  code to be executed;
+}
+</pre>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+每进行一次循环迭代，当前数组元素的值就会被赋值给 $value 变量，并且数组指针会逐一地移动，直到到达最后一个数组元素。</p>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+下面的例子演示的循环将输出给定数组（$colors）的值：</p>&#13;
+<h3 style="margin:20px 0px 0px; padding:0px; border:0px; font-size:12px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+实例</h3>&#13;
+<pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">&lt;?php 
+$colors = array("red","green","blue","yellow"); 
+
+foreach ($colors as $value) {
+  echo "$value &lt;br&gt;";
+}
+?&gt;</pre>&#13;
+<h2 style="margin:0px; padding:0px; border:0px; font-family:微软雅黑; background-color:rgb(249,249,249)">&#13;
+<span style="font-size:24px"> foreach 的第二种用法：</span></h2>&#13;
+<h1>&#13;
+<div class="line number1 index0 alt2" style="line-height:15.3999996185303px; font-family:Consolas,'Bitstream Vera Sans Mono','Courier New',Courier,monospace; color:rgb(51,51,51); border:0px!important; margin:0px!important; padding:0px 1em!important; bottom:auto!important; float:none!important; height:auto!important; left:auto!important; outline:0px!important; overflow:visible!important; position:static!important; right:auto!important; top:auto!important; vertical-align:baseline!important; width:auto!important; min-height:inherit!important; white-space:pre!important">&#13;
+<pre name="code" class="php">&lt;pre name="code" class="php"&gt;&lt;?php
+$arr = array("1"=&gt;"111","2"=&gt;"222","3"=&gt;"333");
+foreach($arr as $key=&gt;$value)
+{
+  echo $key."=&gt;".$value."\n";
+}
+?&gt;
+结果如下：
+1=&gt;111
+2=&gt;222
+3=&gt;333</pre><br/><br/><pre/>&#13;
+<br/></div>&#13;
+</h1>&#13;
+<h1>循环控制语句实例：</h1>&#13;
+<pre name="code" class="php">&lt;!--5层半边金字塔代码--&gt;
+&lt;?php
+for($i = 1;$i&lt;=5;$i++){
+	$a = 1;
+	while($a&lt;=$i){
+		echo "*";
+		$a = $a+1;
+		}
+	echo "&lt;br&gt;";	
+}
+?&gt;
+
+
+&lt;!--5层金字塔代码--&gt;
+&lt;?php
+for($i = 1;$i&lt;=5;$i++){
+	$a = 1;
+	$c = 1;
+	while($a&lt;=(5-$i))
+	{
+		echo "&amp;nbsp";
+		$a = $a+1;
+	}
+	while($c&lt;=(2*$i-1))
+	{
+		echo "*";
+		$c = $c+1;
+	}	
+	echo "&lt;br&gt;";	
+}
+?&gt;</pre>&#13;
+<p><br/></p>&#13;
+<pre name="code" class="php">&lt;!--5层空心金字塔--&gt;</pre><pre name="code" class="php">&lt;?php  
+for($i = 1;$i&lt;=5;$i++){  
+    $a = 1;  
+    $c = 1;  
+    while($a&lt;=(5-$i))  
+    {  
+        echo " ";  
+        $a = $a+1;  
+    }  
+    while($c&lt;=(2*$i-1))  
+    {   
+         if(($c==1)||($c==(2*$i-1)))
+         {
+              echo "*";
+          }
+         else{echo " ";}
+        $c = $c+1;  
+    }     
+echo "&lt;br&gt;";    
+}  
+?&gt; </pre><br/><br/><br/><p><span style="font-size:14px"><br/></span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

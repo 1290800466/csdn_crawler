@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p align="left"><span style="font-size:18px"><span style="color:rgb(51,51,51)"><strong>PHP&#13;
+</strong></span><span style="color:rgb(51,51,51)"><strong>中的引用</strong></span></span></p>&#13;
+<p align="left"><span style="font-size:18px"><span style="color:#1A2536"><span style="white-space:pre"/>在PHP&#13;
+</span>中，变量名和变量内容是不一样的，因此同样的内容可以有不同的名字。在 PHP 中引用意味着用不同的名字访问同一个变量内容。最接近的比喻是 Unix 的文件名和文件本身——变量名是目录条目，而变量内容则是文件本身。引用可以被看作是 Unix 文件系统中的 hardlink。</span></p>&#13;
+<p align="left"><span style="color:#1A2536"><span style="font-size:18px">举个例子：</span></span></p>&#13;
+<p align="left"/><pre name="code" class="php">$a = "nowamagic";
+$b =&amp; $a;
+echo $b.$a;</pre>&#13;
+<p align="left"><span style="font-size:18px"><span style="color:#1A2536"><span style="white-space:pre"/>这意味着 $a&#13;
+</span>和 $b 指向了同一个变量。同一个变量内容有不同的变量名，引用就是这么个回事。</span></p>&#13;
+<h1><span style="color:rgb(51,51,51); font-weight:normal"><span style="font-size:18px">函数的引用传递（传址调用）：</span></span></h1>&#13;
+<p align="left"><span style="font-size:18px"><span style="color:#1A2536">我们先来一个函数<a target="_blank" href="http://www.nowamagic.net/academy/tag/%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span style="color:#0099CC">引用传递</span></a></span>问题：</span></p>&#13;
+<p align="left"/><pre name="code" class="php">function test(&amp;$a)
+{
+          $a = $a+100;
+}
+$b = 1;
+test($b);
+echo $b;</pre>&#13;
+<p align="left"><span style="font-size:18px"><span style="color:#1A2536">答案是 101 </span>&#13;
+；</span></p>&#13;
+<p align="left"><span style="font-size:18px"><span style="white-space:pre"/>函数 test() 直接拿变量的地址作为参数……然后将变量的值+100. test($b) 这里$b传递给函数的其实是$b的变量内容所处的内存地址，通过在函数里改变$a的值就可以改变$b的值了。</span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

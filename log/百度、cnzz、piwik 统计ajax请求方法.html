@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>百度统计 ：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript">  
+    $(<span class="hljs-string">'area'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>  
+        <span class="hljs-comment">//目标url</span>
+        <span class="hljs-keyword">var</span> baiduStatUrl = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'href'</span>).replace(<span class="hljs-string">'http://'</span>, <span class="hljs-string">'/'</span>)+<span class="hljs-string">'/'</span>+encodeURL($(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'alt'</span>));  
+        _hmt.push([<span class="hljs-string">'_trackPageview'</span>, baiduStatUrl]);  
+    });  
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p><img src="http://img.blog.csdn.net/20160825143519363" alt="这里写图片描述" title=""/></p>
+
+<p><strong>cnzz统计：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scala">&lt;script <span class="hljs-keyword">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;
+<span class="hljs-javadoc">/**
+ * 1、content_url(目标url)需要填写为以’/’开头的相对路径，支持中文。
+ * 2、referer_url(来源页URL)需要填写带有域名的完整URL地址，若不填，则虚拟PV的来路会按它母页面的来路进行统计，如果填写成空，则来路按“直接输入网址或书签”进行统计
+ */</span>
+$(<span class="hljs-string">'area'</span>).click(function(){  
+<span class="hljs-keyword">var</span> content_url = <span class="hljs-string">'/user/login'</span>;
+<span class="hljs-keyword">var</span> referer_url = <span class="hljs-string">''</span>;
+_czc.push(﻿[<span class="hljs-string">"_trackPageview"</span>,content_url,referer_url]); 
+});  
+&lt;/script&gt;</code></pre>
+
+<p><img src="http://img.blog.csdn.net/20160825143939024" alt="这里写图片描述" title=""/></p>
+
+<p><strong>piwik统计 :</strong> </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript">  
+$(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+    $(<span class="hljs-string">'.button'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>  
+
+        <span class="hljs-comment">//自定义变量,可有可无</span>
+        _paq.push([<span class="hljs-string">'setCustomVariable'</span>,<span class="hljs-number">1</span>,<span class="hljs-string">"ajax"</span>,<span class="hljs-string">"AddProductToCart"</span>,<span class="hljs-string">"visit"</span>]);  
+        <span class="hljs-comment">//目标url</span>
+        _paq.push([<span class="hljs-string">'setCustomUrl'</span>, <span class="hljs-string">"http://www.baidu.com"</span>]);  
+        <span class="hljs-comment">//自定义标题,可有可无</span>
+        _paq.push([<span class="hljs-string">'setDocumentTitle'</span>, <span class="hljs-string">"ajax"</span>]);  
+        <span class="hljs-comment">//追踪命令</span>
+        _paq.push([<span class="hljs-string">'trackPageView'</span>]); 
+
+    });  
+
+});
+
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p>请求参数：</p>
+
+<p><img src="http://img.blog.csdn.net/20160825144214822" alt="这里写图片描述" title=""/></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

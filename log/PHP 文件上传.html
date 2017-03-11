@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">示例代码：</span></p>&#13;
+<p><span style="font-size:18px">upload.html</span></p>&#13;
+<p/><pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+	&lt;div class="register"&gt;
+	&lt;!-- 
+	文件上传要注意:①enctype  ②method post
+	enctype 属性规定在将表单数据发送到服务器之前如何对其进行编码。
+	注意：只有 method="post" 时才使用 enctype 属性。
+	&lt;form enctype="value"&gt;
+	属性值描述
+	application/x-www-form-urlencoded	默认。在发送前对所有字符进行编码（将空格转换为 "+" 符号，特殊字符转换为 ASCII HEX 值）。
+	multipart/form-data	不对字符编码。当使用有文件上传控件的表单时，该值是必需的。
+	text/plain	将空格转换为 "+" 符号，但不编码特殊字符。
+	--&gt;
+		&lt;form enctype="multipart/form-data" method="post"  action="upload.php" name="myform"&gt;
+		&lt;table&gt;
+		&lt;tr&gt;&lt;td align="center"  colspan="2"&gt;&lt;font style="font-size: 40px;font-family: 华文彩云;"&gt;文件上传&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;请填写用户名:&lt;/td&gt;&lt;td&gt;&lt;input type="text" name="username" /&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;请简单介绍该文件&lt;/td&gt;&lt;td&gt;&lt;textarea name="fileintro" rows="10" cols="80"&gt;&lt;/textarea&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;请选择你要上传文件1:&lt;/td&gt;&lt;td&gt;&lt;input type="file" name="myfile" /&gt;&lt;/td&gt;&lt;/tr&gt;
+		&lt;tr&gt;&lt;td&gt;&lt;input type="submit" value="上传文件" /&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;		
+		&lt;/table&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><span style="font-size:18px"/>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+upload.php&#13;
+<p/><pre name="code" class="php">&lt;?php
+header("Content-Type:text/html;Charset=utf-8");
+	//1、接收提交的文件及其用户信息
+	$username=$_POST['username'];
+	$fileintro=$_POST['fileintro'];
+
+	//echo $username."||".$fileintro;
+
+	//我们这里需要使用到 $_FILE
+	echo "&lt;pre&gt;";
+	/* $_FILES["file"]["name"] - 被上传文件的名称
+	$_FILES["file"]["type"] - 被上传文件的类型
+	$_FILES["file"]["size"] - 被上传文件的大小，以字节计
+	$_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+	$_FILES["file"]["error"] - 由文件上传导致的错误代码 */
+	print_r($_FILES);
+	echo "&lt;/pre&gt;";
+	if ($_FILES["myfile"]["error"] &gt; 0)
+	{
+	    echo "Error: " . $_FILES["myfile"]["error"] . "&lt;br&gt;";
+	}
+	else
+	{
+	    echo "Upload: " . $_FILES["myfile"]["name"] . "&lt;br&gt;";
+	    echo "Type: " . $_FILES["myfile"]["type"] . "&lt;br&gt;";
+	    echo "Size: " . ($_FILES["myfile"]["size"] / 1024) . " kB&lt;br&gt;";
+	    echo "Stored in: " . $_FILES["myfile"]["tmp_name"]. "&lt;br&gt;";
+	}
+	/* 上传文件需要考虑的细节:
+	(1), 如何控制用户上传的文件大小 &lt; 2m
+	(2), 如何控制用户上传的文件类型(问题!)
+	(3), 如何防止用户图片覆盖问题
+	(4), 如何防止同一个用户上传的文件名相同问题 */
+	
+	//2、获取文件大小、格式等
+	//获取文件的大小
+	$file_size=$_FILES['myfile']['size'];
+
+	if($file_size&gt;2*1024*1024){
+		echo "文件过大,不能上传大于2m文件";
+		exit();
+	}
+
+	//获取文件的类型
+	$file_type=$_FILES['myfile']['type'];
+	
+	if (($file_type!="image/gif")&amp;&amp;($file_type!="image/jpeg")&amp;&amp;($file_type!="image/jpg")
+	    &amp;&amp;($file_type!="image/pjpeg")&amp;&amp;($file_type!="image/x-png")&amp;&amp;($file_type!="image/png")){
+		echo "文件类型只能是图片";
+		exit();
+	}
+	//3、转存文件
+	//is_uploaded_file() 函数检查指定的文件是否是通过 HTTP POST 上传的。
+    //如果文件是通过 HTTP POST 上传的，该函数返回 TRUE。
+	if(is_uploaded_file($_FILES['myfile']['tmp_name'])){
+		//要转存的文件
+		$uploaded_file=$_FILES['myfile']['tmp_name'];
+		//我们给每个用户动态的创建一个文件夹
+		$user_path=$_SERVER['DOCUMENT_ROOT']."/file/upload/$username/";
+		echo '要创建的文件目录：'.$user_path;
+		//判断该用户是否已经有文件夹
+		if(!file_exists($user_path)){
+		    //如果不存在，创建该目录
+			mkdir("$user_path",0777,true);
+		} 
+		$file_true_name=$_FILES['myfile']['name'];
+		/* strrpos() 函数查找字符串在另一字符串中最后一次出现的位置（区分大小写）。
+		注释：strrpos() 函数是区分大小写的。
+		相关函数：
+		strpos() - 查找字符串在另一字符串中第一次出现的位置（区分大小写）
+		stripos() - 查找字符串在另一字符串中第一次出现的位置（不区分大小写）
+		strripos() - 查找字符串在另一字符串中最后一次出现的位置（不区分大小写）
+		语法
+		strrpos(string,find,start)
+		string	必需。规定被搜索的字符串。
+		find	必需。规定要查找的字符。
+		start	可选。规定开始搜索的位置。 */
+		/* substr() 函数返回字符串的一部分。
+		注释：如果 start 参数是负数且 length 小于或等于 start，则 length 为 0。
+		语法
+		substr(string,start,length)
+		
+		参数	描述
+		string	必需。规定要返回其中一部分的字符串。
+		start	必需。规定在字符串的何处开始。
+		正数 - 在字符串的指定位置开始
+		负数 - 在从字符串结尾的指定位置开始
+		0 - 在字符串中的第一个字符处开始
+		length	可选。规定要返回的字符串长度。默认是直到字符串的结尾。
+		正数 - 从 start 参数所在的位置返回
+		负数 - 从字符串末端返回 */
+		//文件转存后的文件名
+		$move_to_file=$user_path.time().rand(1,1000).substr($file_true_name,strrpos($file_true_name,".")); 
+		//转存文件
+		//move_uploaded_file() 函数把上传的文件移动到新位置。
+        //如果成功该函数返回 TRUE，如果失败则返回 FALSE。
+		if(move_uploaded_file($uploaded_file,iconv("utf-8","gb2312",$move_to_file))){
+			echo $_FILES['myfile']['name']."转存ok&lt;br/&gt;";
+			echo '文件上传后的具体路径：'.$move_to_file;
+		}else{
+			echo "文件转存失败";
+		}
+	}else{
+		echo "文件上传失败";
+	}
+?&gt;
+</pre><br/><br/></div>  </body>
+            </html>

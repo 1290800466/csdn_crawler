@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><strong>1、构造方法的8点说明:</strong><br/><span style="white-space:pre"/>①构造方法名和类名相同(php4版),php5版的构造方法名可以和类名相同，也可以是__construct()<br/><span style="white-space:pre"/>②构造方法没有返回值<br/><span style="white-space:pre"/>③构造方法的主要作用是完成对<strong>新对象的初始化</strong>，并不是创建对象本身。<br/><span style="white-space:pre"/>④在创建新对象后,系统会自动的调用该类的构造方法，不需要自己写代码调用   <br/><span style="white-space:pre"/>⑤一个类有且只有一个构造方法,在php5后虽然__construct()  和 类名() 可以共存，但是实际上也只能使用一个。<br/><span style="white-space:pre"/>⑥如果没有给类自定义构造方法，则该类使用系统默认的构造方法。 */<br/><span style="white-space:pre"/>⑦如果给类自定义了构造方法，则该类的默认构造方法被覆盖。<br/></span>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>⑧构造方法的默认访问修饰符是public</span></p>&#13;
+<p><span style="font-size:18px">2、在php 5 中一个类可以同时有 两种形式的构造方法：<br/>&#13;
+      __construct() 和 类名() , 当两个同时存在的时候，优先调用__construct(), 请大家以后使用__construct()</span></p>&#13;
+<p><span style="font-size:18px">      两种构造函数如下：</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"><span style="font-size:18px; white-space:pre">public</span></span>function  __construt()<br/><span style="white-space:pre"/>{<br/><span style="white-space:pre"/>//函数体;<br/><span style="white-space:pre"/>}      <br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"><span style="font-size:18px; white-space:pre">public</span><span style="font-size:18px">function 类名()</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">{</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">//函数体;</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">}</span></span></span></p>&#13;
+<p><span style="font-size:18px">     PHP4中只能有一种形式的构造函数：</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px; white-space:pre"><span style="font-size:18px; white-space:pre">public</span><span style="font-size:18px">function 类名()</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">{</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">//函数体;</span><br style="font-size:18px"/><span style="font-size:18px; white-space:pre"/><span style="font-size:18px">}</span></span><br/></span></p>&#13;
+<p><span style="font-size:18px">3、构造方法注意事项：<br/><span style="white-space:pre"/>(1)一旦自定义了一个构造函数，默认的构造函数就被覆盖了,这时在创建对象的时候就要使用自定义的构造函数.<br/><span style="white-space:pre"/>(2)一个类只能有一个构造函数.(不能重载)<br/></span></p>&#13;
+<p><span style="font-size:18px">4、构造方法代码实例：</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;?php
+//屏蔽程序 notice 级错误  
+error_reporting(E_ALL^E_NOTICE); 
+//php面向对象编程之构造方法： 
+class Person1{
+       public $name;
+       public $age;
+}
+$p1=new Person1();
+//再给属性赋值
+$p1-&gt;name="宋江";
+$p1-&gt;age=33;
+//this的理解：
+class Person2
+{
+	public $name;
+	public $age;
+	//这个就是构造方法,php5独有
+	public function __construct($iname,$iage)
+	{
+		//这里如果我们直接用$name，$age，系统认为我们是创建了两个新的变量
+		//$name=$iname;
+		//$age=$iage;
+		//此处的$this-&gt;name、$this-&gt;age则解决了以上问题，加上$this之后该变量就是指上面创建的成员属性；
+		//$this 本质可以理解就是这个对象的地址，哪个对象传递时使用到$this, 就是传递哪个对象地址；</pre><pre name="code" class="php">&lt;span style="white-space:pre"&gt;		&lt;/span&gt;//this就相当于传的是地址，把上面$name的地址传过来了而不是再新建一个$name变量</pre><pre name="code" class="php">		//注意：$this只能在类中使用，不能在类外部使用.
+		$this-&gt;name=$iname;
+		$this-&gt;age=$iage;
+		echo "执行构造方法&lt;br/&gt;";
+	}  
+}
+$p1=new Person2("张清",90);
+echo "我是".$p1-&gt;name."--我现在的年龄是".$p1-&gt;age."&lt;br/&gt;";
+$p2=new Person2("宋江",33);
+echo "我是".$p2-&gt;name."--我现在的年龄是".$p2-&gt;age."&lt;br/&gt;";
+
+class Cat
+{	
+	//每一个类中必须有一个构造方法，若我们不定义，系统会自动生成
+	//若不定义构造方法，则该类使用系统默认的构造方法，类中默认的构造方法如下：      
+	function __construt()
+	{
+		
+	}      
+}
+$cat1=new Cat();
+?&gt;</pre><span style="font-size:18px"><br/></span><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 style="font-size:25px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:0px">&#13;
+JavaScript <span class="color_h1" style="color:rgb(138,192,7)">输出</span></h1>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><p class="intro" style="line-height:20.1599998474121px; font-size:14px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(64,64,64); margin-top:10px">&#13;
+JavaScript 没有任何打印或者输出的函数。</p>&#13;
+<p class="intro" style="line-height:20.1599998474121px; font-size:14px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(64,64,64); margin-top:10px">&#13;
+在 HTML 中， JavaScript 通常用于操作 HTML 元素。</p>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+操作 HTML 元素</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+如需从 JavaScript 访问某个 HTML 元素，您可以使用 document.getElementById(<em>id</em>) 方法。</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+请使用 "id" 属性来标识 HTML 元素，并 innerHTML 来获取或插入元素内容：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;我的第一个 Web 页面&lt;/h1&gt;
+
+&lt;p id="demo"&gt;我的第一个段落&lt;/p&gt;
+
+&lt;script&gt;
+document.getElementById("demo").innerHTML = "段落已修改。";
+//将“我的第一个段落”修改为“段落已修改”
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<strong>document.getElementById("demo")</strong> 是使用 id 属性来查找 HTML 元素的 JavaScript 代码 。</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<strong>innerHTML = "Paragraph changed."</strong> 是用于修改元素的 HTML 内容(innerHTML)的 JavaScript 代码。</p>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+在本教程中</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的例子直接把 id="demo" 的 &lt;p&gt; 元素写到 HTML 文档输出中：</p>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+写到 HTML 文档</h2>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;我的第一个 Web 页面&lt;/h1&gt;
+
+&lt;p&gt;我的第一个段落。&lt;/p&gt;
+
+&lt;script&gt;
+document.write(Date());  //将Date()函数获取的数据打印到web页面上
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+</p>&#13;
+<table class="lamp  " style="font-size:12px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; width:721px; padding:0px; border:1px solid rgb(212,212,212); color:rgb(0,0,0)"><tbody><tr><th style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; padding:10px 5px 10px 10px; width:34px">&#13;
+<img src="http://www.w3cschool.cc/images/lamp.jpg" alt="Note" style="max-width:705px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; font-weight:bold; text-align:center; border:0px; padding:2px; height:32px; width:32px"/></th>&#13;
+<td style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; padding:4px 10px 4px 0px">&#13;
+<p style="line-height:16.7999992370605px">请使用 document.write() 仅仅向文档输出写内容。</p>&#13;
+<p style="line-height:16.7999992370605px">如果在文档已完成加载后执行 document.write，整个 HTML 页面将被覆盖。</p>&#13;
+</td>&#13;
+</tr></tbody></table><div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;我的第一个 Web 页面&lt;/h1&gt;
+
+&lt;p&gt;我的第一个段落。&lt;/p&gt;
+
+&lt;button onclick="myFunction()"&gt;点我&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction() {
+    document.write(Date());
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>&#13;
+</div>&#13;
+<br/></div>  </body>
+            </html>

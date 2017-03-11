@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre code_snippet_id="672747" snippet_file_name="blog_20150522_1_4273893" name="code" class="vb">
+Dim sj, h, m, mm
+Rem begin
+
+//调用时间函数
+
+Call 获取时间
+
+TracePrint h
+TracePrint m
+TracePrint mm
+
+//---以下每隔5秒截屏一次，并将所截图片放到C:\aaa\ 文件下---
+//在运行该程序之前要提前在C盘下创建文件夹aaa
+
+Call Lib.图像.无限屏幕截图(0,0,1920,1080,"C:\aaa\","jpg")
+Delay 5000
+Goto begin
+
+
+//---以下是时间的函数---
+Function 获取时间
+sj = split(time, ":")
+h=sj(0)
+m=sj(1)
+mm=sj(2)       
+End Function</pre><br/></div>  </body>
+            </html>

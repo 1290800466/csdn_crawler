@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">为你的phpcms创建一个模块的一般开发流程是：</span></div>&#13;
+<ol><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">创建数据库和数据表；（没有数据库操作可略过，可通过phpcms的模型管理创建或直接操作数据库，创建表格）</span></li><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">创建模块目录</span> <span style="font-family:tahoma">phpcms/modules/xxx</span></li><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">创建模块控制器类；</span> <span style="font-family:tahoma">&#13;
+phpcms/modules/xxx/yyy.php</span></li><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">创建模块类与模块函数；（如果只是简单的模块可以不必创建）</span> <span style="font-family:tahoma">&#13;
+phpcms/modules/xxx/yyy.php 中的 function zzz(){}</span></li><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">创建模板文件；</span><span style="font-family:tahoma">phpcms/modules/xxx/</span>templates/zzz.tpl.php</li><li style="list-style-type:decimal; list-style-position:inside; white-space:pre-wrap; text-align:left; line-height:1.7857142857142858; font-size:14px">&#13;
+<span style="font-family:tahoma">运行和调试。</span></li></ol><div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+若想在后台管理系统中创建指向菜单，过程如下：</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+<img src="http://img.blog.csdn.net/20160331155533569?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+对应中文语言名称： 随便填</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+菜单英文名称：随便填</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+模块名： xxx</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+文件名：yyy</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; text-indent:40px; font-size:14px">&#13;
+方法名： zzz</div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-size:26px; font-family:tahoma"><strong>创建模块</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">位于phpcms/modules目录中 每一个目录称之为一个模块</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">如果要创建一个模块，只要在 phpcms/modules 目录下创建文件夹并放入你的控制器类就可以了。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">例如我要开发一个叫做test的模块，那么首先在 phpcms/modules 目录下创建文件夹，并将其命名为test。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">test模块的</span><span style="font-family:tahoma"><strong>标准结构</strong></span><span style="font-family:tahoma">通常是这样的。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><img src="http://img.blog.csdn.net/20160331155636429?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">如果您的模板有单独的</span><span style="font-family:tahoma; color:rgb(255,0,0)"><strong>前台模板</strong></span><span style="font-family:tahoma">，你需要在phpcms\templates\default下创建一个您的模块目录来放置前台模板，"default"为你的风格包名称，我们默认适用default</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><img src="http://img.blog.csdn.net/20160331155804695?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"/>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-size:26px; font-family:tahoma"><strong>创建模块控制器类</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">在创建模块中我们已经创建好了一个名为“test”的模块，接下来我们继续为这个模块添加两个控制器类。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">phpcms v9的控制器就是模块的类文件，位于phpcms/modules/模块/目录下面。类名成就是文件名+.php，例如一个名为mytest的控制器,那么他的命名为mytest.php即可。控制器类默认继承系统的函数库，可以直接使用。控制器类的</span><span style="font-family:tahoma"><strong>类名称与控制器文件名必须相同</strong></span><span style="font-family:tahoma">。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">控制器类文件包含两种形式：</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><strong>1.mytest.php 控制器，前台浏览（不含权限控制）</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<pre code_snippet_id="1630583" snippet_file_name="blog_20160331_1_8946832" name="code" class="php">&lt;?php
+	defined('IN_PHPCMS') or exit('No permission resources.');
+	class mytest {
+		function __construct() {
+			
+		}
+		public function init() {
+			$myvar = 'hello world!';
+			echo $myvar;
+		}
+		public function mylist() {
+			$myvar = 'hello world!this is a example!';
+			echo $myvar;
+		}
+	}
+?&gt;</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">这个控制器的url访问方法前面已经介绍过了，</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"> </span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<span style="font-family:tahoma; background-color:rgb(247,247,247)">http</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">:</span><span style="font-family:tahoma; color:rgb(136,0,0); background-color:rgb(247,247,247)">//www.yourname.com/index.php?m=test&amp;c=mytest</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<span style="line-height:1.78571; font-family:tahoma; background-color:rgb(247,247,247)">http</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">:</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(136,0,0); background-color:rgb(247,247,247)">//www.yourname.com/index.php?m=test&amp;c=mytest&amp;a=mylist</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">没有填写 “a” 的情况下，默认调用init方法</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><strong>2.mytest_admin.php 控制器，后台管理(含权限控制)</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">后台控制控制器需要</span><span style="font-family:tahoma"><strong>加载admin模块下的admin类</strong></span><span style="font-family:tahoma">，并继承该类。需要注意的是因为你添加的控制器类继承了其他的类，你要小心你控制器的方法名不要和该类中的方法名一样了，否则会造成影响，具体请查看admin类中有哪些方法。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<pre code_snippet_id="1630583" snippet_file_name="blog_20160331_2_2774080" name="code" class="php"> &lt;?php
+	defined('IN_PHPCMS') or exit('No permission resources.');
+	pc_base::load_app_class('admin','admin',0);
+	class mytest_admin extends admin {
+	　　public function __construct() {
+	
+	　　}
+	　　public function init() {
+	　　　　$myvar = 'oh,i am phpcmser';
+	　　　　echo $myvar;
+	　　}
+		public function mylist() {
+			$myvar = 'hello world!this is a example!';
+			echo $myvar;
+		}
+	}
+?&gt;</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><strong>在控制器中增加模板调用</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">phpcms 可以实现完全的模板与程序分离，所以在我们的控制器程序中要加载模板，才可以更友好的显示出来。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><strong>1.加载前台模板</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">前台模板文件在phpcms\templates\default\模块名称 目录中，本示例也就在phpcms\templates\default\test中</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">加载模板方法如下:</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<span style="font-family:tahoma; background-color:rgb(247,247,247)">　include </span><span style="font-family:tahoma; color:rgb(0,0,136); background-color:rgb(247,247,247)">template</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">(</span><span style="font-family:tahoma; color:rgb(0,136,0); background-color:rgb(247,247,247)">'test'</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">,</span><span style="font-family:tahoma; background-color:rgb(247,247,247)"> </span><span style="font-family:tahoma; color:rgb(0,136,0); background-color:rgb(247,247,247)">'mytest'</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">,</span><span style="font-family:tahoma; background-color:rgb(247,247,247)"> </span><span style="font-family:tahoma; color:rgb(0,136,0); background-color:rgb(247,247,247)">'default'</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">);</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">其中</span><span style="font-family:tahoma; color:rgb(255,0,0)"> test</span><span style="font-family:tahoma">为模块名称</span><span style="font-family:tahoma; color:rgb(255,0,0)"> mytest </span><span style="font-family:tahoma">为模板目录下模板名称,</span><span style="font-family:tahoma; color:rgb(255,0,0)">default</span><span style="font-family:tahoma">为风格名称，默认不填为defalut</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">在上面例子中如果要给mytest.php中init方法加载一个mytest的模板，如下</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"> </span><pre code_snippet_id="1630583" snippet_file_name="blog_20160331_3_4617243" name="code" class="php">public function init() {
+	$var = 'hello world!';
+	include template('test', 'mytest', 'default');
+}</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">这样我们通过url访问该方法的时候也就加载了对应的模板。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"><strong>2.加载后台模板</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">后台模板文件在phpcms\modules\模块名称\templates 目录中，本示例也就在phpcms\modules\test\templates 中</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">加载模板方法如下：</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<span style="line-height:1.78571; font-family:tahoma; background-color:rgb(247,247,247)">include $this</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">-&gt;</span><span style="line-height:1.78571; font-family:tahoma; background-color:rgb(247,247,247)">admin_tpl</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">(</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(0,136,0); background-color:rgb(247,247,247)">'mytest_admin_list'</span><span style="line-height:1.78571; font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">);</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">其中mytest_admin_list为phpcms\modules\test\templates中mytest_admin_list.tpl.php，</span><span style="font-family:tahoma; color:rgb(255,0,0)"><strong>注意：</strong></span><span style="font-family:tahoma">此处模板必须以.tpl.php&#13;
+ 作为后缀</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">在上面例子中如果要给mytest_admin.php中init方法加载一个mytest_admin_list的模板，如下</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma"/><pre code_snippet_id="1630583" snippet_file_name="blog_20160331_4_9459029" name="code" class="php">public function init() {
+	$myvar = 'oh,i am phpcmser';
+	include $this-&gt;admin_tpl('mytest_admin_list');
+}</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-size:26px; font-family:tahoma"><strong>创建数据库模型类</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">数据库模型位于：phpcms/model/ 目录下。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">数据模型文件的命名规则建议为</span><span style="font-family:tahoma"><strong>数据表名称+'_model.class.php'</strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">如果在我们的创建的模块中我要使用一个数据库“test”，首先需要建立一个数据库模型文件，文件名称为'test_model.class.php'</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">内容如下：</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<pre code_snippet_id="1630583" snippet_file_name="blog_20160331_5_4300816" name="code" class="php">&lt;?php
+ 　　defined('IN_PHPCMS') or exit('No permission resources.');
+ 　　pc_base::load_sys_class('model', '', 0);
+ 　　class test_model extends model {
+ 　　　　public function __construct() {
+ 　　　　$this-&gt;db_config = pc_base::load_config('database');
+ 　　　　$this-&gt;db_setting = 'default';
+ 　　　　$this-&gt;table_name = 'test';
+ 　　　　parent::__construct();
+ 　　}
+ 　}
+?&gt;</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">注意：</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">1.数据库模型类名称必须与文件名称相同；</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">2.$this-&gt;db_setting = 'default'为数据库配置文件中配置数据库链接池名称，默认为default，一般情况下不需要修改。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">3.$this-&gt;table_name = 'test'为数据表名称</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">这样我们就建立好了一个数据库模型类。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">在模块的控制器中使用</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<span style="font-family:tahoma; background-color:rgb(247,247,247)">$this</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">-&gt;</span><span style="font-family:tahoma; background-color:rgb(247,247,247)">db </span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">=</span><span style="font-family:tahoma; background-color:rgb(247,247,247)"> pc_base</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">::</span><span style="font-family:tahoma; background-color:rgb(247,247,247)">load_model</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">(</span><span style="font-family:tahoma; color:rgb(0,136,0); background-color:rgb(247,247,247)">'test_model'</span><span style="font-family:tahoma; color:rgb(102,102,0); background-color:rgb(247,247,247)">);</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">来加载。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">具体如下</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; margin-left:40px; font-size:14px">&#13;
+<pre code_snippet_id="1630583" snippet_file_name="blog_20160331_6_8619214" name="code" class="php">&lt;?php
+	defined('IN_PHPCMS') or exit('No permission resources.');
+	class mytest {
+		private $db;
+ 　　 　function __construct() {
+			$this-&gt;db = pc_base::load_model('test_model');
+		}
+		public function init() {
+			$result = $this-&gt;db-&gt;select();
+			var_dump($result);
+		}
+	}
+?&gt;</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><span style="font-family:tahoma">其中$this-&gt;db中所支持的方法请参照phpcms/libs/classes/model.class.php中方法</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.78571; font-size:14px"><br/></div>&#13;
+</div>&#13;
+<br/></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

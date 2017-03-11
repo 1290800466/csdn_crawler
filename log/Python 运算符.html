@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、Python算术运算符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">运算符          描述        
+  +       加 - 两个对象相加    
+  -       减 - 得到负数或是一个数减去另一个数
+  *       乘 - 两个数相乘或是返回一个被重复若干次的字符串，
+          若b=<span class="hljs-number">2</span>,<span class="hljs-operator">a</span>=int(b)*<span class="hljs-number">4</span> 则<span class="hljs-operator">a</span>=<span class="hljs-number">8</span>， 若<span class="hljs-operator">a</span>=b*<span class="hljs-number">4</span> 返回<span class="hljs-number">4</span>次b
+  /       除 - x除以y  
+  %       取模 - 返回除法的余数  
+  **      幂 - 返回x的y次幂   
+ <span class="hljs-comment"> //      取整除 - 返回商的整数部分    9//2 输出结果 4 , 9.0//2.0 输出结果 4.0</span></code></pre>
+
+<p><strong>2、Python比较运算符</strong></p>
+
+<pre class="prettyprint"><code class=" hljs haml">运算符              描述 
+ =<span class="ruby">=        等于 - 比较对象是否相等    
+</span> !=<span class="ruby">        不等于 - 比较两个对象是否不相等    
+</span> &lt;&gt;        不等于 - 比较两个对象是否不相等。这个运算符类似 != 。
+ &gt;         大于 - 返回x是否大于y    
+ &lt;         小于 - 返回x是否小于y。
+ &gt;=        大于等于 - 返回x是否大于等于y。
+ &lt;=        小于等于 -   返回x是否小于等于y。</code></pre>
+
+<p><strong>3、Python赋值运算符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">运算符          描述             实例
+  =       简单的赋值运算符    c = <span class="hljs-operator">a</span> + b 将 <span class="hljs-operator">a</span> + b 的运算结果赋值为 c
+  +=      加法赋值运算符     c += <span class="hljs-operator">a</span> 等效于 c = c + <span class="hljs-operator">a</span>
+  -=      减法赋值运算符     c -= <span class="hljs-operator">a</span> 等效于 c = c - <span class="hljs-operator">a</span>
+  *=      乘法赋值运算符     c *= <span class="hljs-operator">a</span> 等效于 c = c * <span class="hljs-operator">a</span>
+  /=      除法赋值运算符     c /= <span class="hljs-operator">a</span> 等效于 c = c / <span class="hljs-operator">a</span>
+  %=      取模赋值运算符     c %= <span class="hljs-operator">a</span> 等效于 c = c % <span class="hljs-operator">a</span>
+  **=     幂赋值运算符      c **= <span class="hljs-operator">a</span> 等效于 c = c ** <span class="hljs-operator">a</span>
+ <span class="hljs-comment"> //=     取整除赋值运算符    c //= a 等效于 c = c // a</span></code></pre>
+
+<p><strong>4、Python位运算符</strong> <br/>
+按位运算符是把数字看作二进制来进行计算的。Python中的按位运算法则如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs 1c">运算符                      描述
+ &amp;     按位与运算符：参与运算的两个值,如果两个相应位都为<span class="hljs-number">1</span>,则该位的结果为<span class="hljs-number">1</span>,否则为<span class="hljs-number">0</span> 
+ <span class="hljs-string">|     按位或运算符：只要对应的二个二进位有一个为1时，结果位就为1。  </span>
+ ^     按位异或运算符：当两对应的二进位相异时，结果为<span class="hljs-number">1</span>
+ ~     按位取反运算符：对数据的每个二进制位取反,即把<span class="hljs-number">1</span>变为<span class="hljs-number">0</span>,把<span class="hljs-number">0</span>变为<span class="hljs-number">1</span>   
+ &lt;&lt;    左移动运算符：运算数的各二进位全部左移若干位，由<span class="hljs-string">"&lt;&lt;"</span>右边的数指定移动的位数，高位丢弃，低位补<span class="hljs-number">0</span>。
+ &gt;&gt;    右移动运算符：把<span class="hljs-string">"&gt;&gt;"</span>左边的运算数的各二进位全部右移若干位，<span class="hljs-string">"&gt;&gt;"</span>右边的数指定移动的位数</code></pre>
+
+<p>以下实例演示了Python所有位运算符的操作：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+a = <span class="hljs-number">60</span>            <span class="hljs-comment"># 60 = 0011 1100 </span>
+b = <span class="hljs-number">13</span>            <span class="hljs-comment"># 13 = 0000 1101 </span>
+c = <span class="hljs-number">0</span>
+
+c = a &amp; b;        <span class="hljs-comment"># 12 = 0000 1100</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"1 - c 的值为："</span>, c
+
+c = a | b;        <span class="hljs-comment"># 61 = 0011 1101 </span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"2 - c 的值为："</span>, c
+
+c = a ^ b;        <span class="hljs-comment"># 49 = 0011 0001</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"3 - c 的值为："</span>, c
+
+c = ~a;           <span class="hljs-comment"># -61 = 1100 0011</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"4 - c 的值为："</span>, c
+
+<span class="hljs-comment">#左移一位相当于乘以2</span>
+c = a &lt;&lt; <span class="hljs-number">2</span>;       <span class="hljs-comment"># 240 = 1111 0000</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"5 - c 的值为："</span>, c
+
+<span class="hljs-comment">#右移一位相当于除以2</span>
+c = a &gt;&gt; <span class="hljs-number">2</span>;       <span class="hljs-comment"># 15 = 0000 1111</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"6 - c 的值为："</span>, c</code></pre>
+
+<p><strong>5、Python逻辑运算符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python">运算符  逻辑表达式                     描述                  
+ <span class="hljs-keyword">and</span>    x <span class="hljs-keyword">and</span> y    布尔<span class="hljs-string">"与"</span> - 如果 x 为 <span class="hljs-keyword">False</span>，x <span class="hljs-keyword">and</span> y 返回 <span class="hljs-keyword">False</span>，否则它返回 y 的计算值。  
+ <span class="hljs-keyword">or</span>     x <span class="hljs-keyword">or</span> y     布尔<span class="hljs-string">"或"</span>    - 如果 x 是 <span class="hljs-keyword">True</span>，它返回 <span class="hljs-keyword">True</span>，否则它返回 y 的计算值。    
+ <span class="hljs-keyword">not</span>    <span class="hljs-keyword">not</span> x      布尔<span class="hljs-string">"非"</span> - 如果 x 为 <span class="hljs-keyword">True</span>，返回 <span class="hljs-keyword">False</span> 。如果 x 为 <span class="hljs-keyword">False</span>，它返回 <span class="hljs-keyword">True</span>。 </code></pre>
+
+<p><strong>6、Python成员运算符</strong> <br/>
+除了以上的一些运算符之外，Python还支持成员运算符，测试实例中包含了一系列的成员，包括字符串，列表或元组。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python">运算符                  描述
+ <span class="hljs-keyword">in</span>         如果在指定的序列中找到值返回 <span class="hljs-keyword">True</span>，否则返回 <span class="hljs-keyword">False</span>。
+ <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span>     如果在指定的序列中没有找到值返回 <span class="hljs-keyword">True</span>，否则返回 <span class="hljs-keyword">False</span>。   </code></pre>
+
+<p>以下实例演示了Python所有成员运算符的操作：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+a = <span class="hljs-number">10</span>
+b = <span class="hljs-number">20</span>
+list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ];
+
+<span class="hljs-keyword">if</span> ( a <span class="hljs-keyword">in</span> list ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"1 - 变量 a 在给定的列表中 list 中"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"1 - 变量 a 不在给定的列表中 list 中"</span>
+
+<span class="hljs-keyword">if</span> ( b <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> list ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"2 - 变量 b 不在给定的列表中 list 中"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"2 - 变量 b 在给定的列表中 list 中"</span>
+
+<span class="hljs-comment"># 修改变量 a 的值</span>
+a = <span class="hljs-number">2</span>
+<span class="hljs-keyword">if</span> ( a <span class="hljs-keyword">in</span> list ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"3 - 变量 a 在给定的列表中 list 中"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"3 - 变量 a 不在给定的列表中 list 中"</span></code></pre>
+
+<p><strong>7、Python身份运算符</strong> <br/>
+身份运算符用于比较两个对象的存储单元</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript">运算符                  描述
+<span class="hljs-keyword">is</span>       判断两个标识符是不是引用自一个对象，x <span class="hljs-keyword">is</span> y, 如果 <span class="hljs-property">id</span>(x) 等于 <span class="hljs-property">id</span>(y) , <span class="hljs-keyword">is</span> 返回结果 <span class="hljs-number">1</span>
+<span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span>   判断两个标识符是不是引用自不同对象，x <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> y, 如果 <span class="hljs-property">id</span>(x) 不等于<span class="hljs-property">id</span>(y).<span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span>返回结果<span class="hljs-number">1</span></code></pre>
+
+<p>以下实例演示了Python所有身份运算符的操作：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+a = <span class="hljs-number">20</span>
+b = <span class="hljs-number">20</span>
+
+<span class="hljs-keyword">if</span> ( a <span class="hljs-keyword">is</span> b ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"1 - a 和 b 有相同的标识"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"1 - a 和 b 没有相同的标识"</span>
+
+<span class="hljs-keyword">if</span> ( id(a) == id(b) ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"2 - a 和 b 有相同的标识"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"2 - a 和 b 没有相同的标识"</span>
+
+<span class="hljs-comment"># 修改变量 b 的值</span>
+b = <span class="hljs-number">30</span>
+<span class="hljs-keyword">if</span> ( a <span class="hljs-keyword">is</span> b ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"3 - a 和 b 有相同的标识"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"3 - a 和 b 没有相同的标识"</span>
+
+<span class="hljs-keyword">if</span> ( a <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> b ):
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"4 - a 和 b 没有相同的标识"</span>
+<span class="hljs-keyword">else</span>:
+   <span class="hljs-keyword">print</span> <span class="hljs-string">"4 - a 和 b 有相同的标识"</span></code></pre>
+
+<p><strong>8、Python运算符优先级</strong> <br/>
+运算符从最高到最低优先级的排序：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs oxygene">运算符            描述
+ **         指数 (最高优先级)
+ ~ + -     按位翻转, 一元加号和减号 (最后两个的方法名为 +@ 和 -@)
+ * / % <span class="hljs-comment">//   乘，除，取模和取整除</span>
+ + -        加法减法
+ &gt;&gt; &lt;&lt;      右移，左移运算符
+ &amp;          位 <span class="hljs-string">'AND'</span>
+ ^ |        位运算符
+ &lt;= &lt; &gt; &gt;=  比较运算符
+ &lt;&gt; == !=   等于运算符
+ = %= /= <span class="hljs-comment">//= -= += *= **=   赋值运算符</span>
+ <span class="hljs-keyword">is</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span>  身份运算符
+ <span class="hljs-keyword">in</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span>  成员运算符
+ <span class="hljs-keyword">not</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">and</span> 逻辑运算符</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>Heredoc技术。可用来输出大段的html和javascript脚本</p>
+
+<p>1.PHP定界符的作用就是按照原样，包括换行格式什么的，输出在其内部的东西；  <br/>
+2.在PHP定界符中的任何特殊字符都不需要转义；  <br/>
+3.PHP定界符中的PHP变量会被正常的用其值来替换。  <br/>
+如下：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-variable">$name</span> = <span class="hljs-string">'浅水游'</span>;
+    <span class="hljs-comment">//下面&lt;&lt;&lt;EOT后面不能有空格</span>
+    <span class="hljs-keyword">print</span> <span class="hljs-string">&lt;&lt;&lt;EOT
+            &lt;html&gt;
+            &lt;head&gt;
+            &lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312" /&gt;
+            &lt;title&gt;Untitled Document&lt;/title&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+            &lt;!--12321--&gt;
+            Hello,{$name}!
+            Hello,$name!
+            &lt;/body&gt;
+            &lt;/html&gt;
+EOT;</span> <span class="hljs-comment">//注意末尾的结束符必须靠边，其前面不能有空格</span>
+
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$out</span> = 
+<span class="hljs-string">&lt;&lt;&lt;EOF
+    &lt;a href="javascript:edit('asd', 'aaa')"&gt;编辑&lt;/a&gt; |
+
+    &lt;font color="#ccc"&gt;删除&lt;/font&gt;
+
+    &lt;a href="javascript:confirmurl('?m=admin&amp;posid=12')"&gt;删除&lt;/a&gt; |
+
+    &lt;font color="red"&gt;启用&lt;/font&gt;&lt;/a&gt; |  
+
+    &lt;a href="javascript:preview('3','ds')"&gt;&lt;font color="green"&gt;演示&lt;/font&gt;&lt;/a&gt;
+EOF;</span>
+
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$out</span>;
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><strong>注意：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-number">1</span>.以&lt;&lt;&lt;End开始标记开始，以End结束标记结束，**结束标记必须顶头写**，不能有缩进和空格，且在结束标记末尾要有分号 。
+
+<span class="hljs-number">2</span>.开始标记和开始标记相同，比如常用大写的EOT、EOD、EOF来表示，但是不只限于那几个，只要保证开始标记和结束标记不在正文中出现即可。
+
+<span class="hljs-number">3</span>.位于开始标记和结束标记之间的变量可以被正常解析，但是函数则不可以。在heredoc中，变量不需要用连接符.或,来拼接，如下：
+<span class="hljs-variable">$v</span>=<span class="hljs-number">2</span>;
+<span class="hljs-variable">$a</span>= &lt;&lt;&lt;EOF
+<span class="hljs-string">"abc"</span><span class="hljs-variable">$v</span><span class="hljs-string">"123"</span>
+EOF;
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$a</span>; //结果连同双引号一起输出：<span class="hljs-string">"abc"</span><span class="hljs-number">2</span> <span class="hljs-string">"123"</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs handlebars"><span class="xml">4.heredoc常用在输出包含大量HTML语法d文档的时候。比如：函数outputhtml()要输出HTML的主页。可以有两种写法。很明显第二种写法比较简单和易于阅读。
+第一种
+
+function outputhtml(){
+    echo "<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>";
+    echo "<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>主页<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>";
+    echo "<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>主页内容<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>";
+    echo "<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>;
+}
+第二种
+function outputhtml()
+{
+    echo <span class="hljs-tag">&lt;&lt;&lt;<span class="hljs-attribute">EOT</span>
+    &lt;<span class="hljs-attribute">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>主页<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>主页内容<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+EOT;
+}
+outputhtml();</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

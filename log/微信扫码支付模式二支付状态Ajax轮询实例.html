@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>Ajax 轮训支付状态代码：</strong></span></p>&#13;
+<p/>&#13;
+<pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;script&gt;
+    //设置每隔1000毫秒执行一次load() 方法
+    setInterval(function(){load()},1000);
+    function load(){
+    	var xmlhttp;  
+        if (window.XMLHttpRequest){  
+            // code for IE7+, Firefox, Chrome, Opera, Safari  
+            xmlhttp=new XMLHttpRequest();  
+        }else{  
+            // code for IE6, IE5  
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  
+        }  
+        xmlhttp.onreadystatechange=function(){  
+            if (xmlhttp.readyState==4 &amp;&amp; xmlhttp.status==200){  
+            	trade_state=xmlhttp.responseText;
+            	if(trade_state=='SUCCESS'){
+                	document.getElementById("myDiv").innerHTML='支付成功';
+                	document.getElementById('green').style.background="green";
+                	//alert(transaction_id);
+                	//延迟3000毫秒执行tz() 方法
+                	setTimeout(function(){tz()},3000);
+                	function tz(){
+                		window.location.href="要跳转的URL路径";
+                    }
+                }else if(trade_state=='REFUND'){
+                	document.getElementById("myDiv").innerHTML='转入退款';
+                }else if(trade_state=='NOTPAY'){
+                	document.getElementById("myDiv").innerHTML='请扫码支付';
+                	
+                }else if(trade_state=='CLOSED'){
+                	document.getElementById("myDiv").innerHTML='已关闭';
+                }else if(trade_state=='REVOKED'){
+                	document.getElementById("myDiv").innerHTML='已撤销';
+                }else if(trade_state=='USERPAYING'){
+                	document.getElementById("myDiv").innerHTML='用户支付中';
+                }else if(trade_state=='PAYERROR'){
+                	document.getElementById("myDiv").innerHTML='支付失败';
+                }
+            	
+            }  
+        }  
+        //orderquery.php 文件返回订单状态，通过订单状态确定支付状态
+        xmlhttp.open("POST","orderquery.php",true);  
+        //下面这句话必须有  
+        //把标签/值对添加到要发送的头文件。  
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");  
+        xmlhttp.send("out_trade_no=&lt;?php echo $payment_notice['notice_sn'];?&gt;"); 
+        }
+    &lt;/script&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

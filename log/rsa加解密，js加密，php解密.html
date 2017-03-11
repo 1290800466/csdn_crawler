@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>PHP服务端与客户端交互、提供开放api时，通常需要对敏感的部分api数据传输进行数据加密，这时候rsa非对称加密就能派上用处了，下面通过一个例子来说明如何用php来实现数据的加密解密</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">    加密解密的第一步是生成公钥、私钥对，私钥加密的内容能通过公钥解密（反过来亦可以）
+下载开源RSA密钥生成工具openssl（通常Linux系统都自带该程序），解压缩至独立的文件夹，进入其中的bin目录，
+执行以下命令：
+
+openssl genrsa -<span class="hljs-keyword">out</span> rsa_private_key<span class="hljs-preprocessor">.pem</span> <span class="hljs-number">1024</span>
+openssl pkcs8 -topk8 -inform PEM -<span class="hljs-keyword">in</span> rsa_private_key<span class="hljs-preprocessor">.pem</span> -outform PEM -nocrypt -<span class="hljs-keyword">out</span> private_key<span class="hljs-preprocessor">.pem</span>
+openssl rsa -<span class="hljs-keyword">in</span> rsa_private_key<span class="hljs-preprocessor">.pem</span> -pubout -<span class="hljs-keyword">out</span> rsa_public_key<span class="hljs-preprocessor">.pem</span>
+
+第一条命令生成原始 RSA私钥文件 rsa_private_key<span class="hljs-preprocessor">.pem</span>，
+第二条命令将原始 RSA私钥转换为 pkcs8格式，
+第三条生成RSA公钥 rsa_public_key<span class="hljs-preprocessor">.pem</span>
+    从上面看出通过私钥能生成对应的公钥，因此我们将私钥private_key<span class="hljs-preprocessor">.pem</span>用在服务器端，
+公钥发放给Android跟iOS等前端</code></pre>
+
+<p>详细代码见如下地址：<a href="https://code.csdn.net/u013372487/rsa_php-js/tree/master">https://code.csdn.net/u013372487/rsa_php-js/tree/master</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

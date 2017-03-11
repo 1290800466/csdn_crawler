@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px">编译安装步骤如下：<br/><br/>&#13;
+（1）首先先更新系统<span style="white-space:pre"><br/></span></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_1_6473635" name="code" class="html">sudo yum update</pre><span style="font-size:18px">（2）安装依赖的包<br/></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_2_3900124" name="code" class="plain">sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker</pre><span style="font-size:18px">（3）下载git源码并解压缩<br/></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_3_8361009" name="code" class="plain">$ wget https://github.com/git/git/archive/v2.3.0.zip
+$ unzip v2.3.0.zip
+$ cd git-2.3.0</pre><span style="font-size:18px">（4）编译安装<br/><span style="white-space:pre"/>将其安装在“/usr/local/git”目录下。<span style="white-space:pre"><br/></span></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_4_2614151" name="code" class="plain">make prefix=/usr/local/git all
+sudo make prefix=/usr/local/git install</pre><span style="font-size:18px">（5）此时你如果使用git --version 查看git版本的话，发现git命令无法识别。<br/>&#13;
+你可以用下面的命令查看git所在的路径：<span style="white-space:pre"><br/></span></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_5_3835650" name="code" class="plain">$ whereis git</pre><span style="white-space:pre"> </span>结果：<br/><span style="white-space:pre"/>git: /usr/bin/git /usr/local/git /usr/share/man/man1/git.1.gz<br/>&#13;
+（6）我们要把编译安装的git路径放到环境变量里，让它替换"/usr/bin"下的git。为此我们可以修改“/etc/profile”文件（或者/etc/bashrc文件）。<span style="white-space:pre"><br/></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_6_8437456" name="code" class="plain">sudo vim /etc/profile</pre><span style="white-space:pre"> </span>然后在文件的最后一行，添加下面的内容，然后保存退出。<br/><span style="white-space:pre"/>export PATH=/usr/local/git/bin:$PATH<br/>&#13;
+（7）使用source命令应用修改。<span style="white-space:pre"><br/></span><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_7_2690599" name="code" class="plain">source /etc/profile</pre>（8）然后再次使用git --version 查看git版本，发现输出2.3.0，表明安装成功。<br/><br/>&#13;
+2. 设置Git<br/>&#13;
+（1）设置用户名和email。<br/><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_8_880455" name="code" class="sql">git config --global user.name "Your Name"
+git config --global user.email "youremail@domain.com"</pre>此时，Home目录下会新建一个.gitconfig文件<br/>&#13;
+3. 为GitHub账号添加SSH Keys<br/>&#13;
+以公钥认证方式访问SSH协议的Git服务器时无需输入口令，而且更安全。（访问HTTP协议的Git服务器时，比如提交修改，每次都需要输入口令。）<br/>&#13;
+（1）创建SSH key<br/><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_9_7118464" name="code" class="sql">$ ssh-keygen -t rsa -C "youremail@163.com"</pre>系统会提示key的保存位置（一般是~/.ssh目录）和指定口令，保持默认(可修改密钥保存位置)，连续三次回车即可。<br/>&#13;
+（2）Copy SSH Key<br/>&#13;
+然后用vim打开该文件，id_rsa.pub文件内的内容，粘帖到github帐号管理的添加SSH key界面中。<br/><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_10_5308320" name="code" class="plain">vim ~/.ssh/id_rsa.pub</pre>（3）添加到GitHub<br/>&#13;
+登录github-&gt; Accounting settings图标-&gt; SSH key-&gt; Add SSH key-&gt; 填写SSH key的名称（可以起一个自己容易区分的），然后将拷贝的~/.ssh/id_rsa.pub文件内容粘帖-&gt; add key”按钮添加。<br/>&#13;
+（4）测试<br/><pre code_snippet_id="1664178" snippet_file_name="blog_20160427_11_5101360" name="code" class="sql">ssh -T git@github.com</pre>&#13;
+&#13;
+                      </div>  </body>
+            </html>

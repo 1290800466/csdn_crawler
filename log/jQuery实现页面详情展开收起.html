@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8" /&gt;
+&lt;title&gt;jQuery实现页面详情展开收起&lt;/title&gt;
+&lt;style&gt;
+.detailpd { padding-top:10px; }
+&lt;/style&gt; 
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+// 显隐项目介绍详情
+	$(function view_details_click(){
+		$("#detailmain_a").bind('click',function(){
+			if($("#deal_info_box").is(":hidden")){
+				$("#deal_info_box").show();
+				$(this).find("#view_details").text("收起详情");
+				$(this).find(".fa").removeClass("fa-angle-right").addClass("fa-angle-down");
+			}
+			else{
+				$("#deal_info_box").hide();
+				$(this).find("#view_details").text("展开详情");
+				$(this).find(".fa").removeClass("fa-angle-down").addClass("fa-angle-right");
+			}
+		});
+		$("#detailmain_aa").bind('click',function(){
+			$("#deal_info_box").hide();
+			$("#view_details").text("展开详情");
+		});
+	});
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;p class="detailpd"&gt;
+		项目详情介绍:
+	&lt;/p&gt;
+	&lt;a class="detailmain_a" href="javascript:void(0);" id="detailmain_a"&gt;
+		&lt;span id="view_details"&gt;展开详情&gt;&lt;/span&gt;&lt;i class="fa fa-angle-right"&gt;&lt;/i&gt;
+	&lt;/a&gt;
+	&lt;div class="deal_info_box pb15" id="deal_info_box" style="display:none"&gt;
+	&lt;!-- 此处引入要展开的具体文件内容 --&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		123&lt;br/&gt;
+		&lt;a class="detailmain_aa tc" href="javascript:void(0);" id="detailmain_aa" style="width:130px;display:block;margin:0 auto"&gt;
+			&lt;span class="theme_fcolor" id="view_detailss"&gt;收起详情&lt;/span&gt;&lt;i class="fa fa-angle-up theme_fcolor"&gt;&lt;/i&gt;
+		&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/></div>  </body>
+            </html>

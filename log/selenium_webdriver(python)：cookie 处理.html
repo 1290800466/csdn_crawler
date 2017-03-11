@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p/><pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import time
+driver=webdriver.Ie()
+driver.get("http://m.mail.10086.cn")
+driver.implicitly_wait(30)
+driver.find_element_by_id("ur").send_keys("15610537527")
+driver.find_element_by_id("pw").send_keys("15866584957")
+driver.find_element_by_class_name("loading_btn").click()
+#向cookie 的name 和value 添加会话信息。
+driver.add_cookie({'name':'key-aaaaaaa', 'value':'value-bbbb'})
+print "1、遍历所有cookie："
+#遍历cookies 中的name 和value 信息打印，当然还有上面添加的信息
+for cookie in driver.get_cookies():
+    print "%s:%s" % (cookie['name'], cookie['value'])
+print "2、输出所有cookie："
+# 获得全部cookie 信息
+cookie= driver.get_cookies()
+#将获得cookie 的信息打印
+print cookie
+print "3、输出删除指定cookie的cookie："
+# 删除一个特定的cookie
+driver.delete_cookie("cookie_username")
+for cookie in driver.get_cookies():
+    print "%s:%s" % (cookie['name'], cookie['value'])
+print "4、输出删除所有cookie的cookie："
+# 删除所有cookie
+driver.delete_all_cookies()
+for cookie in driver.get_cookies():
+    print "%s:%s" % (cookie['name'], cookie['value'])
+time.sleep(2)
+driver.quit()</pre><br/><br/></div>  </body>
+            </html>

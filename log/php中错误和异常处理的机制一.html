@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<br/><p><span style="font-size:24px"><strong>php中错误和异常处理的机制</strong></span></p>&#13;
+<p><span style="font-size:18px">实例代码：</span></p>&#13;
+<p/><pre name="code" class="php">&lt;?php
+header("Content-type: text/html; charset=utf-8"); 
+//$fp=fopen("aaa.txt","r");
+//echo "ok";
+//1.判断文件是否存在.
+//2. 绝对路径和相对路径
+if(!file_exists("web.txt")){
+    echo "文件不存在!";
+    exit();
+}else{
+    $fp=fopen("web.txt","r");
+    $a=1000*1000*1000*8;
+    $b=disk_total_space("D:")/$a;
+    echo $b."G&lt;br/&gt;";
+    echo "文件打开成功!&lt;br/&gt;读取文件，文件内容如下：&lt;br/&gt;";
+    
+    //按字符读取文件
+    while (! feof ($fp))
+    {
+        echo fgetc($fp);
+    } 
+    //....关闭
+    fclose($fp);
+}
+    
+?&gt;</pre><br/><br/><span style="font-size:18px">php处理错误的三种方法<br/>&#13;
+1.使用简单的die 语句<br/>&#13;
+使用方法如下 ：<br/>&#13;
+(1)<br/>&#13;
+ if(!file_exists("aaa.txt")){<br/>&#13;
+      //die() 函数输出一条消息，并退出当前脚本。<br/>&#13;
+      die("文件不存在");<br/>&#13;
+ }else{<br/>&#13;
+      //打开文件操作<br/>&#13;
+ }<br/>&#13;
+ echo "ok";<br/>&#13;
+(2) 更简单的方法<br/>&#13;
+   file_exists("aaa.txt") or die("文件不存在!!!");<br/></span>&#13;
+&#13;
+                      </div>  </body>
+            </html>

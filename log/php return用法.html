@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px">php return用法：<br/>&#13;
+基本用法：<br/>&#13;
+a)、return expression // 返回一个表达式结果<br/>&#13;
+b)、return(expr) // 函数表达式(只有表达式时加括号)<br/>&#13;
+c)、return // 直接返回，或返回空值<br/>&#13;
+注意：最好不要用return($val)这种方式。<br/>&#13;
+1、return()是语言结构而不是函数，仅在参数包含表达式时才需要用括号将其括起来。当返回一个变量时通常不用括号，这样可以降低PHP的负担。<br/>&#13;
+2、在同一个文件中，如果执行了return，则return 语句后面的内容将不会被执行了；若文件调用另一个文件中的方法或其他代码，在该方法或代码中使用return 则该方法后面的语句不再执行，但调用该方法或代码的源文件照常执行。若将方法中的return换为exit在该文件也将停止运行。<br/></span>&#13;
+<p><span style="font-size:18px">3、在函数方法中用return，一般不会用exit,exit 一般只用在主文件中。</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p/>&#13;
+<p class="simpara" style="margin-top:0px; margin-bottom:1.5rem; color:rgb(51,51,51); font-family:'Fira Sans','Source Sans Pro',Helvetica,Arial,sans-serif; line-height:24px; background-color:rgb(242,242,242)">&#13;
+<span style="font-size:18px">如果在一个函数中调用 <span class="function"><span style="">return</span></span> 语句，将立即结束此函数的执行并将它的参数作为函数的值返回。<span class="function"><span style="">return</span></span> 也会终止 <span class="function"><a target="_blank" href="http://php.net/manual/zh/function.eval.php" class="function" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">eval()</a></span> 语句或者脚本文件的执行。</span></p>&#13;
+<p class="simpara" style="margin-top:0px; margin-bottom:1.5rem; color:rgb(51,51,51); font-family:'Fira Sans','Source Sans Pro',Helvetica,Arial,sans-serif; line-height:24px; background-color:rgb(242,242,242)">&#13;
+<span style="font-size:18px">如果在全局范围中调用，则当前脚本文件中止运行。如果当前脚本文件是被 <span class="function"><a target="_blank" href="http://php.net/manual/zh/function.include.php" class="function" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">include</a></span> 的或者 <span class="function"><a target="_blank" href="http://php.net/manual/zh/function.require.php" class="function" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">require</a></span> 的，则控制交回调用文件。此外，如果当前脚本是被 <span class="function"><a target="_blank" href="http://php.net/manual/zh/function.include.php" class="function" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">include</a></span> 的，则 <span class="function"><span style="">return</span></span> 的值会被当作 <span class="function"><a target="_blank" href="http://php.net/manual/zh/function.include.php" class="function" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">include</a></span> 调用的返回值。如果在主脚本文件中调用 <span class="function"><span style="">return</span></span>，则脚本中止运行。如果当前脚本文件是在<var class="filename" style="padding:2px 4px; white-space:nowrap; font-style:normal; line-height:1.46; font-family:'Source Code Pro',monospace; background-color:rgb(230,230,230)">php.ini</var> 中的配置选项 <a target="_blank" href="http://php.net/manual/zh/ini.core.php#ini.auto-prepend-file" class="link" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">auto_prepend_file</a> 或者 <a target="_blank" href="http://php.net/manual/zh/ini.core.php#ini.auto-append-file" class="link" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">auto_append_file</a> 所指定的，则此脚本文件中止运行。</span></p>&#13;
+<br/></div>  </body>
+            </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>标签使用(Tag)</strong></p>
+
+<p>标签作用: 在开发的一些关键时期,使用标签来记录这些关键时刻, 例如发布版本, 有重大修改, 升级的时候, 会使用标签记录这些时刻, 来永久标记项目中的关键历史时刻;</p>
+
+<p>查看标签: 列出的标签安装ASCII字母顺序确定, 排序没有很明确的意义;</p>
+
+<p>– 列出所有的标签 :  </p>
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span>  </code></pre>
+
+<p>– 使用限定列出限定后的标签 : </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span> <span class="hljs-attribute">-l</span> v1<span class="hljs-built_in">.</span><span class="hljs-subst">*</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026182140761" alt="这里写图片描述" title=""/></p>
+
+<p>标签分类</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">Git中的标签分为 轻量级标签(lightweight) 和 带注释的标签(annotated), 一般情况下推荐使用带注释的标签, 如果标签是临时的可以采用轻量级标签;
+-<span class="ruby">- 轻量级标签 <span class="hljs-symbol">:</span> 轻量级标签中的信息含量很少, 这种标签只代表某时刻代码的提交, 相当于指向这个提交的指针;
+</span>-<span class="ruby">- 带注释标签 <span class="hljs-symbol">:</span> 这种标签是一种校验和, 包含标签名, 邮箱, 日期, 标签信息, <span class="hljs-constant">GPG</span>签名 和 验证, 它相当于一个对象, 封装了这些信息;</span></code></pre>
+
+<p><font color="red">创建标签 :</font></p>
+
+<p>– 创建轻量级标签 : 这样的标签没有附带其它的信息;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span> v2<span class="hljs-number">.0</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026182325496" alt="这里写图片描述" title=""/></p>
+
+<p>– 创建带注释标签 : -m 后跟的是注释信息, 当使用git show v2.1的时候, 会显示这个注释信息;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span> <span class="hljs-attribute">-a</span> v2<span class="hljs-number">.1</span> <span class="hljs-attribute">-m</span> <span class="hljs-string">'first version'</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026182602294" alt="这里写图片描述" title=""/></p>
+
+<p>– 为之前的提交添加标签 :  <br/>
+先使用 git log –oneline 命令列出之前的提交, 会有一个七位的十六进制数进行标记, 使用git tag -a v3.1 f1bb97a 命令即可为这个提交添加标签;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">$ git <span class="hljs-built_in">log</span> <span class="hljs-comment">--oneline  </span></code></pre>
+
+<p>f1bb97a first commit  </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span> <span class="hljs-attribute">-a</span> v3<span class="hljs-number">.1</span> f1bb97a  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026183012139" alt="这里写图片描述" title=""/></p>
+
+<p>删除标签 : 使用命令 git tag -d 标签名 命令删除标签;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">git <span class="hljs-built_in">tag</span> <span class="hljs-attribute">-d</span> v0<span class="hljs-number">.1</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026183101905" alt="这里写图片描述" title=""/></p>
+
+<p>共享标签 : 即将标签提交到GitHub中;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs brainfuck"><span class="hljs-comment">git</span> <span class="hljs-comment">push</span> <span class="hljs-comment">origin</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">tags</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026183241546" alt="这里写图片描述" title=""/></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>在Android的开发调试过程中，特别是针对网络编程的情况，很多时候我们希望能够对Android的网络请求进行抓包，用来定位以及分析我们程序的问题。下面我介绍使用Fiddler对Android模拟器的网络请求进行抓包的方法。</p>
+
+<p><strong>Fiddler介绍</strong> <br/>
+Fiddler是一个http协议调试代理工具，它能够记录并检查所有你的电脑和互联网之间的http通讯，设置断点，查看所有的“进出”Fiddler的数据（指cookie,html,js,css等文件，这些都可以让你胡乱修改的意思）。 Fiddler 要比其他的网络调试器要更加简单，因为它不仅仅暴露http通讯还提供了一个用户友好的格式。</p>
+
+<p><strong>安装使用Fiddler</strong> <br/>
+下载安装Fiddler的方法这里就略过了，一路Next就行了。装好之后运行软件，正常情况这个时候我们已经可以对电脑的网络请求进行抓包了。Fiddler默认的代理地址是127.0.0.1，端口是8888。此时打开IE浏览器，默认是通过代理地址上网的，所以可以对所有网络访问抓包。</p>
+
+<p><strong>对Android手机网络请求抓包</strong> <br/>
+ 配置PC端Fiddler和手机 <br/>
+(1) 配置Fiddler允许监听https <br/>
+打开Fiddler菜单项Tools-&gt;Fiddler Options，选中decrypt https traffic和ignore server certificate errors两项，如下图： <br/><img src="http://img.blog.csdn.net/20161028145808781" alt="这里写图片描述" title=""/><br/>
+fiddler https options <br/>
+第一次会提示是否信任fiddler证书及安全提醒，选择yes，之后也可以在系统的证书管理中进行管理。</p>
+
+<p>(2) 配置Fiddler允许远程连接 <br/>
+如上图的菜单中点击connections，选中allow remote computers to connect，默认监听端口为8888，若被占用也可以设置，配置好后需要重启Fiddler，如下图： <br/><img src="http://img.blog.csdn.net/20161028145826083" alt="这里写图片描述" title=""/><br/>
+(3) 配置手机端 <br/>
+Pc端命令行ipconfig查看Fiddler所在机器ip，本机ip为10.0.4.37，如下图 <br/>
+ipconfig <br/><img src="http://img.blog.csdn.net/20161028145954501" alt="这里写图片描述" title=""/><br/>
+打开手机连接到<strong>同一局域网的wifi</strong>，并修改该wifi网络详情(长按wifi选择-&gt;修改网络)-&gt;显示高级选项，选择手动代理设置，主机名填写Fiddler所在机器ip，端口填写Fiddler端口，默认8888，如下图： <br/>
+android network proxy <br/><img src="http://img.blog.csdn.net/20161028150154720" alt="这里写图片描述" title=""/></p>
+
+<p>这时，手机上的网络访问在Fiddler就可以查看了，如下图微博和微信的网络请求： <br/><img src="http://img.blog.csdn.net/20161028150255793" alt="这里写图片描述" title=""/></p>
+
+<p>Android模拟器网络请求抓包测试 <br/>
+经过以上的设置，Fiddler就可以抓包到Android模拟器的网络请求了。使用Android原生浏览器打开网页，测试通过。</p>
+
+<p>可以发现Fiddler可以以各种格式查看网络请求返回的数据，包括Header, TextView(文字), ImageView(图片), HexView(十六进制)，WebView(网页形式), Auth(Proxy-Authenticate Header), Caching(Header cache), Cookies, Raw(原数据格式), JSON(json格式), XML(xml格式)很是方便。</p>
+
+<p>停止网络监控的话去掉wifi的代理设置即可，否则Fiddler退出后手机就上不网了哦。</p>
+
+<p>如果需要恢复手机无密码状态，Android端之后可以通过系统设置-安全-受信任的凭据-用户，点击证书进行删除或清除凭据删除所有用户证书，再设置密码为无。</p>
+
+<p>如果只需要监控一个软件，可结合系统流量监控，关闭其他应用网络访问的权限。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

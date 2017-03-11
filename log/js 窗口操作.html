@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>jquery获取父窗口的元素：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-js hljs ">$(<span class="hljs-string">"#父窗口元素ID"</span>,window.parent.document).find(<span class="hljs-string">"#man_id"</span>).val(); 
+<span class="hljs-comment">//对应javascript版本为</span>
+window.parent.document.getElementByIdx_x(<span class="hljs-string">"父窗口元素ID"</span>).value；
+$(window.parent.frames[<span class="hljs-string">"mainFrame"</span>].document).find(<span class="hljs-string">"#man_id"</span>).val(); 
+<span class="hljs-comment">//取父窗口的元素方法：</span>
+$(selector, window.parent.document);
+<span class="hljs-comment">//那么你取父窗口的父窗口的元素就可以用：</span>
+$(selector, window.parent.parent.document);
+
+<span class="hljs-comment">//上述代码是针对frameset框架的，在frameset框架中parent表示上一级，top表示最顶级。</span>
+<span class="hljs-comment">//类似的，取其它窗口的方法大同小异</span>
+$(selector, window.top.document);
+$(selector, window.opener.document);
+$(selector, window.top.frames[<span class="hljs-number">0</span>].document);
+
+<span class="hljs-comment">//在父窗口中自定义方法</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myGetValue</span><span class="hljs-params">(elem)</span>
+{</span>
+    <span class="hljs-keyword">return</span> $(elem).val();
+}
+<span class="hljs-comment">//在子窗口中操作</span>
+self.parent.frames[<span class="hljs-number">1</span>].mySetValue1(<span class="hljs-string">"#relation"</span>,newrelation_ids);
+self.parent.frames[<span class="hljs-number">1</span>].myGetValue(<span class="hljs-string">"#relation"</span>);</code></pre>
+
+<p><strong>子窗口创建及父窗口与子窗口之间通信：</strong></p>
+
+<p><strong>1、Javascript弹出子窗口</strong></p>
+
+<p>可以通过多种方式实现，下面介绍几种方法</p>
+
+<p><strong>(1) 通过window对象的open()方法，open()方法将会产生一个新的window窗口对象</strong></p>
+
+<p>其用法为：</p>
+
+<pre class="prettyprint"><code class=" hljs fsharp">window.<span class="hljs-keyword">open</span>(URL,windowName,parameters);</code></pre>
+
+<p>URL: 描述要打开的窗口的URL地址，如何为空则不打开任何网页；</p>
+
+<p>windowName:描述被打开的窗口的民称，可以使用’_top’、’_blank’等内建名称，这里的名称跟里的target属性是一样的。</p>
+
+<p>parameters:描述被打开的窗口的参数值，或者说是样貌，其包括窗口的各个属性值，及要传入的参数值。</p>
+
+<p>例如：</p>
+
+<p>打开一个 400 x 100 的干净的窗口：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">open</span>(<span class="hljs-string">''</span>,<span class="hljs-string">'_blank'</span>,<span class="hljs-string">'width=400,height=100,menubar=no,toolbar=no,
+location=no,directories=no,status=no,scrollbars=yes,resizable=yes'</span>)</code></pre>
+
+<p>也可以这样写： var newWindow = open(”,’_blank’);</p>
+
+<p>参数说明如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">top=<span class="hljs-comment"># 窗口顶部离开屏幕顶部的像素数</span>
+left=<span class="hljs-comment"># 窗口左端离开屏幕左端的像素数</span>
+width=<span class="hljs-comment"># 窗口的宽度</span>
+height=<span class="hljs-comment"># 窗口的高度</span>
+menubar=<span class="hljs-keyword">...</span> 窗口有没有菜单，取值yes或no
+toolbar=<span class="hljs-keyword">...</span> 窗口有没有工具条，取值yes或no
+location=<span class="hljs-keyword">...</span> 窗口有没有地址栏，取值yes或no
+directories=<span class="hljs-keyword">...</span> 窗口有没有连接区，取值yes或no
+scrollbars=<span class="hljs-keyword">...</span> 窗口有没有滚动条，取值yes或no
+status=<span class="hljs-keyword">...</span> 窗口有没有状态栏，取值yes或no
+resizable=<span class="hljs-keyword">...</span> 窗口给不给调整大小，取值yes或no</code></pre>
+
+<p><strong>(2) 在javascript中除了通过open()方法建立window对象实现弹出窗口外，还可以通过建立对话框的方式弹出窗口。</strong> <br/>
+如：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss"><span class="hljs-function">alert(<span class="hljs-string">""</span>)</span>; <span class="hljs-comment">//弹出信息提示对话框</span>
+<span class="hljs-function">confirm(<span class="hljs-string">""</span>)</span>; <span class="hljs-comment">//弹出信息确认对话框</span>
+<span class="hljs-function">prompt(<span class="hljs-string">""</span>)</span>; <span class="hljs-comment">//具有交互性质的对话框</span></code></pre>
+
+<p>但是，上述实现的弹出窗口具有的功能较为单一，只能完成较为简单的功能。对于需要在对话框中显示多个数据信息，</p>
+
+<p>甚至是HTML控件就无能为力了。</p>
+
+<p><strong>(3) 使用模态对话框实现复杂的对话框需求</strong> <br/>
+在javascript的内建方法中还有一类方法可以实现通过对话框显示HTML内容， <br/>
+也就是说可以通过创建对话框的方式来完成创建窗口对象所能完成的功能。 <br/>
+包括创建模态对话框和非模态对话框两种。</p>
+
+<p>实现方法为：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mel"><span class="hljs-comment">//创建模态你对话框</span>
+<span class="hljs-keyword">window</span>.showModalDialog(sURL,vArguments,sFeatures)
+
+<span class="hljs-comment">//创建非模态对话框</span>
+<span class="hljs-keyword">window</span>.showModelessDialog(sURL,vArguments,sFeatures)</code></pre>
+
+<p>其区别在于：</p>
+
+<p>用showModelessDialog()打开窗口时，不必用window.close()去关闭它，当以非模态方式［IE5］打开时，打开对话框的窗口仍可以进行其他的操作，即对话框不总是最上面的焦点，当打开它的窗口URL改变时，它自动关闭。而模态［IE4］方式的对话框始终有焦点（焦点不可移走，直到它关闭）。模态对话框和打开它的窗口相联系，因此我们打开另外的窗口时，他们的链接关系依然保存，并且隐藏在活动窗口的下面。 showModeDialog()则不然。</p>
+
+<p>参数说明：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs coffeescript">sURL：必选参数，类型：字符串。
+
+用来指定对话框要显示的文档的URL。
+
+vArguments：可选参数，类型：变体。
+
+用来向对话框传递参数。传递的参数类型不限，包括数组等。对话框通过<span class="hljs-built_in">window</span>.dialogArguments来取得传递进来的参数。
+
+sFeatures：选参数，类型：字符串。
+
+用来描述对话框的外观等信息，可以使用以下的一个或几个，用分号“;”隔开。
+
+dialogHeight：对话框高度
+
+不小于<span class="hljs-number">100</span>px，IE4中dialogHeight和dialogWidth 默认的单位是em，而IE5中是px，为方便其见，在定义modal方式的对话框时，用px做单位。
+　　
+<span class="hljs-attribute">dialogWidth</span>: 对话框宽度。
+　
+<span class="hljs-attribute">dialogLeft</span>: 距离桌面左的距离。
+　　
+<span class="hljs-attribute">dialogTop</span>: 离桌面上的距离。
+　
+<span class="hljs-attribute">center</span>: 窗口是否居中
+
+默认<span class="hljs-literal">yes</span>，但仍可以指定高度和宽度,取值范围{<span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> }。
+　　
+<span class="hljs-attribute">help</span>: 是否显示帮助按钮
+
+默认<span class="hljs-literal">yes</span>，取值范围 {<span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> }。
+
+　<span class="hljs-attribute">resizable</span>: 是否可被改变大小。
+
+默认<span class="hljs-literal">no</span>，取值范围 {<span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> } ［IE5+］。
+
+　<span class="hljs-attribute">status</span>: 是否显示状态栏。
+
+默认为<span class="hljs-literal">yes</span>[ Modeless]或<span class="hljs-literal">no</span>[Modal]，
+
+取值范围{<span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> } ［IE5+］。
+
+<span class="hljs-attribute">scroll</span>:指明对话框是否显示滚动条。
+
+默认为<span class="hljs-literal">yes</span>，取值范围{ <span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> | <span class="hljs-literal">on</span> | <span class="hljs-literal">off</span> }。
+
+还有几个属性是用在HTA中的，在一般的网页中一般不使用。
+
+<span class="hljs-attribute">dialogHide</span>:在打印或者打印预览时对话框是否隐藏。
+
+默认为<span class="hljs-literal">no</span>，取值范围{ <span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> | <span class="hljs-literal">on</span> | <span class="hljs-literal">off</span> }。
+
+<span class="hljs-attribute">edge</span>:指明对话框的边框样式。
+
+默认为raised，取值范围{ sunken | raised }。
+
+<span class="hljs-attribute">unadorned</span>:默认为<span class="hljs-literal">no</span>，取值范围{ <span class="hljs-literal">yes</span> | <span class="hljs-literal">no</span> | <span class="hljs-number">1</span> | <span class="hljs-number">0</span> | <span class="hljs-literal">on</span> | <span class="hljs-literal">off</span> }。</code></pre>
+
+<p>传入参数：</p>
+
+<p>要想对话框传递参数，是通过vArguments来进行传递的。类型不限制，对于字符串类型，最大为4096个字符。也可以传递对象</p>
+
+<p>例如：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs coffeescript"><span class="hljs-reserved">var</span> newWin=<span class="hljs-built_in">window</span>.showModalDialog(url,<span class="hljs-built_in">window</span>,<span class="hljs-string">'dialogHeight:500px, dialogLeft:100px, dialogTop:100px,dialogWidth:300px, status:0, edge:sunken'</span>);
+
+newWin.open();</code></pre>
+
+<p>与使用window.open()方法创建窗口相比，模态方法创建窗口的区别在于有模态方法创建的窗口后将不能操作父窗口.</p>
+
+<p><strong>2、子窗口与父窗口间通信</strong></p>
+
+<p><strong>(1) 使用window.open()创建的窗口与父窗口通信</strong> <br/>
+可以在子窗口页面中通过window.opener来获取父窗口对象，获取之后子窗口便可以对父窗口执行刷新，传值等操作。 <br/>
+如：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">window<span class="hljs-preprocessor">.opener</span><span class="hljs-preprocessor">.location</span><span class="hljs-preprocessor">.reload</span>()<span class="hljs-comment">; //子窗口刷新父窗口</span>
+window<span class="hljs-preprocessor">.opener</span><span class="hljs-preprocessor">.location</span><span class="hljs-preprocessor">.href</span> //获取父窗口href
+window<span class="hljs-preprocessor">.opener</span><span class="hljs-preprocessor">.locaiton</span><span class="hljs-preprocessor">.pathname</span> //获取父窗口路径名
+
+//刷新父页面
+window<span class="hljs-preprocessor">.location</span><span class="hljs-preprocessor">.href</span>=window<span class="hljs-preprocessor">.location</span><span class="hljs-preprocessor">.href</span> <span class="hljs-comment">; //重新定位父页面</span>
+window<span class="hljs-preprocessor">.location</span><span class="hljs-preprocessor">.reload</span><span class="hljs-comment">;</span></code></pre>
+
+<p><strong>(2) 模态窗口与父窗口通信</strong> <br/>
+通过使用showModelDialog(),及showModelessDialog（）方法创建的子窗口想与父窗口通信时，不能通过window.opener来获取父窗口对象。要实现通信，必须在创建模态子窗口时向子窗口传入父窗口对象。</p>
+
+<p>实现方式为：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mel">在父窗口中：
+
+var newWin=<span class="hljs-keyword">window</span>.showModelDialog(url,<span class="hljs-keyword">window</span>,<span class="hljs-string">''</span>);
+newWin.open();
+
+此时参数<span class="hljs-keyword">window</span>即是父窗口对象
+
+在子窗口中：
+
+需首先获取父窗口对象，然后才能使用父窗口对象。由于父窗口对象是在创建
+子窗口时通过传入参数的方式传入的，因此，在子窗口中也只能通过获取窗口参数的方式获取父窗口对象。获取方式如下
+
+：
+
+var <span class="hljs-keyword">parent</span>=widnow.dialogArguments；
+变量<span class="hljs-keyword">parent</span>便是父窗口对象。
+
+例如：
+
+<span class="hljs-comment">//通过子窗口提交父窗口中的表单：form1,提交后执行查询操作</span>
+var <span class="hljs-keyword">parent</span>=<span class="hljs-keyword">window</span>.dialogArguments;
+<span class="hljs-keyword">parent</span>.document.form1.action=<span class="hljs-string">"QueryInfor.jsp"</span>;
+<span class="hljs-keyword">parent</span>.submit();
+
+<span class="hljs-comment">//刷新父页面</span>
+var <span class="hljs-keyword">parent</span>=<span class="hljs-keyword">window</span>.dialogArguments;
+<span class="hljs-keyword">parent</span>.location.reload();
+
+<span class="hljs-comment">//从子窗口传值到父窗口</span>
+要实现在模态子窗口中传值到父窗口，需要使用<span class="hljs-keyword">window</span>.returnValue完成
+
+实现方法如下：
+
+在子窗口中：
+
+<span class="hljs-comment">//获取父窗口某字段值，对该值加一后返回父窗口</span>
+var <span class="hljs-keyword">parent</span>=<span class="hljs-keyword">window</span>.dialogArguments;
+var x=<span class="hljs-keyword">parent</span>.docuement.getElementById(<span class="hljs-string">"age"</span>).value;
+x=x+<span class="hljs-number">1</span>；
+
+<span class="hljs-comment">//传回x值</span>
+<span class="hljs-keyword">window</span>.returnValue=x;
+
+在父窗口中：
+
+<span class="hljs-comment">//获取来自子窗口的值</span>
+var newWin=<span class="hljs-keyword">window</span>.showModelDialog(url,<span class="hljs-keyword">window</span>,<span class="hljs-string">''</span>);
+<span class="hljs-keyword">if</span>(newWin!=null)
+document.getElementByIdx_x_x_x_x(<span class="hljs-string">"age"</span>).value=newWin;
+
+<span class="hljs-comment">//在子窗口中设置父窗口的值</span>
+在子窗口中向父窗口中传入值似乎没有直接设置父窗口中的值来得明了。直接设置父窗口中元素的值显得要更灵活一些,不过具体使用哪种方法要根据实际情况和已有的实现方式而定，因为如果使用了不切实际的方法不仅降低开发效率，也降低了执行效率，往往也会造成不优雅的实现方式和代码风格。
+
+子窗口设置父窗口的值使用方法如下：
+
+子窗口中：
+
+var <span class="hljs-keyword">parent</span>=<span class="hljs-keyword">window</span>.dialogArguments;
+var x=<span class="hljs-keyword">parent</span>.document.getElementByIdx_x_x_x_x(<span class="hljs-string">"age"</span>).value;
+x=x+<span class="hljs-number">1</span>；
+<span class="hljs-comment">//设置父窗口中age属性值</span>
+<span class="hljs-keyword">parent</span>.document.getElementByIdx_x_x_x_x(<span class="hljs-string">"age"</span>).value=x;</code></pre>
+
+<p>以上是我在项目中使用javascript解决子窗口问题时，收集及积累的一些方法和资料。我是使用建立模态窗口的方式来实现的（这主要与项目本身有关），不过其实不论是使用window.open()还是使用window.showModelDialog()进行传参等操作时虽然在实现方法上有很大的差别，初次接触会觉得有点乱，但只要理清子窗口与父窗口之间的关系和角色之后，就很好理解了。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

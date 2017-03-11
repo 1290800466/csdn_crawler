@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>对于PHP开发者来说，一旦某个产品投入使用，应该立即将 display_errors选项关闭，以免因为这些错误所透露的路径、数据库连接、数据表等信息而遭到黑客攻击。但是，任何一个产品在投入使用后，都难 免会有错误出现，那么如何记录一些对开发者有用的错误报告呢？我们可以在单独的文本文件中将错误报告作为日志记录。错误日志的记录，可以帮助开发人员或者 管理人员查看系统是否存在问题。 如果需要将程序中的错误报告写入错误日志中，只要在PHP的配置文件中，将配置指令log_errors开启即可。错误 报告默认就会记录到Web服务器的日志文件里，例如记录到Apache服务器的错误日志文件error.log中。当然也可以记录错误日志到指定的文件中 或发送给系统syslog，分别介绍如下： </p>
+
+<p><strong>使用指定的文件记录错误报告日志：</strong></p>
+
+<p>使用指定的文件记录错误报告日志使用指定的文件记录错误报告日志使用指定的文件记录错误报告日志 如果使用自己指定的文件记录错误日志，一定要确保将这个文件存放在文档根目录之外，以减少遭到攻击的可能。并且该文件一定要让PHP脚本的执行用户（Web服务器进程所有者）具有写权限。假设在Linux操作系 统中，将/usr/local/目录下的error.log文件作为错误日志文件，并设置Web服务器进程用户具有写的权限。然后在PHP的配置文件中， 将error_log指令的值设置为这个错误日志文件的绝对路径。</p>
+
+<p>需要将php.ini中的配置指令做如下修改： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ini"><span class="hljs-setting">error_reporting  =  <span class="hljs-value">E_ALL &amp; ~E_NOTICE                  ;将会向PHP报告发生的每个错误   </span></span>
+
+<span class="hljs-setting">display_errors = <span class="hljs-value"><span class="hljs-keyword">Off</span>                        ;不显示满足上条 指令所定义规则的所有错误报告   </span></span>
+
+<span class="hljs-setting">log_errors = <span class="hljs-value"><span class="hljs-keyword">On</span>                             ;决定是否记录错误日志   </span></span>
+
+<span class="hljs-setting">log_errors_max_len = <span class="hljs-value"><span class="hljs-number">1024</span>                   ;设置每个日志项的最大长度   </span></span>
+
+<span class="hljs-setting">error_log = <span class="hljs-value">/usr/local/error.log                ;指定产生的 错误报告写入的日志文件位置  </span></span></code></pre>
+
+<p><font color="red"><strong>注意：在生产环境中一定要设置  display_errors = Off</strong></font></p>
+
+<p>PHP 的配置文件按上面的方式设置完成以后，并重新启动Web服务器。这样，在执行PHP的任何脚本文件时，所产生的所有错误报告都不会在浏览器中显示，而会记 录在自己指定的错误日志/usr/local/error.log中。</p>
+
+<p>此外，不仅可以记录满足error_reporting所定义规则的所有错误，而且 还可以使用PHP中的error_log()函数，送出一个用户自定义的错误信息。</p>
+
+<p>该函数的原型如下所示：</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">bool</span> error_log ( <span class="hljs-keyword">string</span> message [, <span class="hljs-keyword">int</span> message_type  [, <span class="hljs-keyword">string</span> destination [, <span class="hljs-keyword">string</span> extra_headers]]] ) </code></pre>
+
+<p>此函数会送出错误信息到Web服务器的错误日志文件、某个TCP服务器或到指定文件中。该函数执行成功则返回TRUE，失败则返回FALSE。第一个参数 message 是必选项，即为要送出的错误信息。如果仅使用这一个参数，会按配置文件php.ini中所设置的位置处发送消息。第二个参数 message_type为整数值：0表示送到操作系统的日志中；1则使用PHP的Mail()函数，发送信息到某E-mail处，第四个参数 extra_headers亦会用到；2则将错误信息送到TCP 服务器中，此时第三个参数destination表示目的地IP及Port；3则将信息 存到文件destination中。</p>
+
+<p>如果以登入Oracle数据库出现问题的处理为例，该函数的使用如下所示： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>      
+
+    <span class="hljs-keyword">if</span>(!Ora_Logon(<span class="hljs-variable">$username</span>, <span class="hljs-variable">$password</span>)){     
+
+         error_log(<span class="hljs-string">"Oracle数据库不可用!"</span>, <span class="hljs-number">0</span>);        <span class="hljs-comment">//将错误消息写入到操作系统日志中   </span>
+
+    }   
+     <span class="hljs-keyword">if</span>(!(<span class="hljs-variable">$foo</span>=allocate_new_foo()){   
+
+         error_log(<span class="hljs-string">"出现大麻烦了!"</span>, <span class="hljs-number">1</span>, <span class="hljs-string">". mydomain.com"</span>);   <span class="hljs-comment">//发送到管理员邮箱中   </span>
+
+    }  
+
+     error_log(<span class="hljs-string">"搞砸了!"</span>,   <span class="hljs-number">2</span>,   <span class="hljs-string">"localhost:5000"</span>);     <span class="hljs-comment">//发送到本机对应5000端口的服务器中   </span>
+
+    error_log(<span class="hljs-string">"搞砸了!"</span>,   <span class="hljs-number">3</span>,   <span class="hljs-string">"/usr/local/errors.log"</span>);  <span class="hljs-comment">//发送到指定的文件中   </span>
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

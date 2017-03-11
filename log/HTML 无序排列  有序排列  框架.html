@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px">HTML 无序排列  有序排列 :</span><br/></p>&#13;
+<p/>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt; 第四讲代码汇总&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;!--
+margin-left 对象左边外延边距 （margin-left:5px; 左边外延距离5px）
+margin-right 对象右边外延边距 （margin-right:5px; 右边外延距离5px）
+margin-top 对象上边外延边距 （margin-top:5px; 上边外延距离5px）
+margin-bottom 对象下边外延边距 （margin-bottom:5px; 下边外延距离5px）
+表示与周围边框的距离，如下0px所示，表示列表位于可视界面的最顶端，紧贴可视界面边框。
+--&gt;
+&lt;body style="margin-top :0px; margin-left :0px"&gt;
+
+*****************************************************************************************************************************************
+&lt;h3&gt;1.无序列表如下：&lt;/h3&gt;
+&lt;!--&lt;ul&gt; 标签表示无序列表--&gt;
+&lt;ul type = "disc"&gt;
+&lt;!--&lt;li&gt; 标签定义列表项，有序列表和无序列表中都使用 &lt;li&gt; 标签--&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!--type元素定制列表元素，无序列表中disc表示圆点，circle表示圆圈，squars表示方块--&gt;
+&lt;ul type = "circle"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul type = "square"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ul&gt;
+
+*****************************************************************************************************************************************
+&lt;h3&gt;2.有序列表如下：&lt;/h3&gt;
+
+&lt;!--&lt;ol&gt; 标签表示有序列表--&gt;
+&lt;ol type = "i"&gt;
+&lt;!--&lt;li&gt; 标签定义列表项，有序列表和无序列表中都使用 &lt;li&gt; 标签--&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!--type元素定制列表元素，有序列表中type属性值有a,A,i,I,1
+a 表示以小写字母a,b,c,...排序
+A表示以大写字母A,B,C,...排序
+i表示以小写罗马数字i,ii,iii,iv,...排序
+I表示以大写罗马数字I,II,III,...排序
+1表示以阿拉伯数字1,2,3，...排序
+--&gt;
+&lt;!--start属性设定开始数目，以1,2,3，...表示，否则默认从1开始排序--&gt;
+
+&lt;ol type = "I" start = "3"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol type = "a"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol type = "A"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol type = "1"&gt;
+&lt;li&gt; 传奇&lt;/li&gt;
+&lt;li&gt; 反恐精英&lt;/li&gt;
+&lt;li&gt; 三国&lt;/li&gt;
+&lt;li&gt; 生化危机&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/body&gt;
+
+
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p/>&#13;
+<p><span style="font-size:14px">HTML框架示例1:</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="html">&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;HTML框架示例&lt;/title&gt;
+
+&lt;/head&gt;
+
+&lt;!--各窗口的尺寸设置，
+cols表示纵向排列多个窗口：
+rows表示横向排列多个窗口--&gt;
+&lt;frameset  cols = "80%,20%"&gt;
+
+&lt;!--默认情况下排列好的窗口可以用鼠标移动，若在其后加 noresize 属性，则排列好后不能移动--&gt;
+&lt;!--frameborder属性确定有无边框，0表示无，1表示有边框--&gt;
+&lt;!--name 对窗口进行标识，之后可对此标识进行各窗口间相互操作（起名，以便进行替换）--&gt;
+&lt;frame src = "歌曲列表.html" name = "a1" noresize &gt;
+
+&lt;frame src = "b.html"  name = "a2" frameborder = "0"&gt;
+
+&lt;/frameset&gt;
+
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><strong>注意：</strong></span><span style="font-size:14px">如果a.html包括了其他的页面（frameset）则要求a.html本身不能有body模块(不能出现body标记，代码中也不能出现body模块中才有的内容，如文字等)。</span></p>&#13;
+<p><br/></p>&#13;
+<p/>&#13;
+<h1 class="postTitle" style="margin:0px; padding:0px 0px 0px 5px; float:left; line-height:1.5; width:948.453125px; clear:both; font-size:14px; font-family:Verdana,Arial,Helvetica,sans-serif; background-color:rgb(254,254,242)">&#13;
+<a target="_blank" id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/aspneteye/archive/2012/05/09/2491433.html" style="margin:0px; padding:0px; color:rgb(7,93,179); text-decoration:none">如何去掉Html中frameset产生的横向滚动条</a></h1>&#13;
+<div class="clear" style="margin:0px; padding:0px; clear:both; font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(254,254,242)">&#13;
+</div>&#13;
+<div class="postBody" style="margin:5px 0px 0px; padding:5px 2px 5px 5px; line-height:1.5; font-size:13px; font-family:Verdana,Arial,Helvetica,sans-serif; background-color:rgb(254,254,242)">&#13;
+<div id="cnblogs_post_body" style="margin:0px 0px 20px; padding:0px; word-break:break-word">&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:1.5">&#13;
+在body标签里写上style="OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN"</p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:1.5">&#13;
+同理去竖条的话就是把OVERFLOW-X:HIDDEN改成OVERFLOW-<span style="margin:0px; padding:0px; line-height:1.5; color:rgb(255,0,0)">y</span>:HIDDEN</p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:1.5">&#13;
+如在一下的  <span style="font-size:14px">歌曲列表.html  的body标签中加上该style</span></p>&#13;
+</div>&#13;
+</div>&#13;
+<p/>&#13;
+<span style="font-size:14px">歌曲列表.html</span>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;歌曲列表&lt;/title&gt;
+&lt;/head&gt;
+&lt;p&gt;&lt;body &lt;span style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; line-height: 19.5px; background-color: rgb(254, 254, 242);"&gt;style="OVERFLOW:SCROLL;OVERFLOW-X:HIDDEN"&lt;/span&gt;&gt;&lt;/p&gt;&lt;!--target表示我们点击后，目标指向谁（也就是在哪显示）--&gt;
+&lt;a href = "周杰伦.html" target="a2"&gt;周杰伦&lt;/a&gt;&lt;br&gt;
+&lt;a href = "汪峰.html" target="a2"&gt;汪峰&lt;/a&gt;&lt;br&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<p>Ø  <strong>Target属性有四个属性值：</strong></p>&#13;
+<p align="left">Ø  <strong>&lt;a href=url  target=_blank&gt; 在新窗口打开<br/>&#13;
+&lt;a href=url  target=_self&gt; 在本窗口打开<br/>&#13;
+&lt;a href=url  target=_parent&gt; 父窗口<br/>&#13;
+&lt;a href=url  target=_top&gt; 整个浏览器窗口</strong></p>&#13;
+<p>Ø  <strong>还有一种就是在target后直接写上要替换的frame的名字</strong></p>&#13;
+<br/>&#13;
+周杰伦.html&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;周杰伦歌词&lt;/title&gt;
+&lt;/head&gt;
+&lt;body bgcolor = "red" &gt;
+这是周杰伦的歌词
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p>汪峰.html</p>&#13;
+<p/>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;汪峰的歌词&lt;/title&gt;
+&lt;/head&gt;
+&lt;body bgcolor = "yellow"&gt;
+这是汪峰的歌词
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/>&#13;
+b.html&#13;
+<p/>&#13;
+<p/>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;歌词&lt;/title&gt;
+&lt;/head&gt;
+&lt;body bgcolor = "red" &gt;
+这边是歌词
+&lt;/body&gt;
+&lt;/html&gt;</pre>显示效果如下图所示：&#13;
+<p/>&#13;
+<p><img src="http://img.blog.csdn.net/20150511221552586?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="300" alt=""/><br/></p>&#13;
+<p><br/></p>&#13;
+<p>HTML框架示例2:<br/></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;all&lt;/title&gt;
+&lt;/head&gt;
+&lt;frameset rows = "20%,80%"&gt;
+&lt;frame src = "top.html" nmae = "a1"&gt;
+	&lt;!--嵌套分割界面--&gt;
+	&lt;frameset cols = "20%,80%"&gt;
+	&lt;frame src = "left.html" name = "a2"&gt;
+	&lt;frame src = "right.html" name = "a3"&gt;
+	&lt;/frameset&gt;
+&lt;/frameset&gt;
+
+
+
+&lt;/html&gt;</pre><br/>&#13;
+left.html&#13;
+<p/>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;left歌曲列表&lt;/title&gt;
+&lt;/head&gt;
+&lt;body bgcolor = "#FFB5B5"&gt;
+&lt;a href="青花瓷.html" target="a3"&gt;青花瓷&lt;/a&gt;&lt;br&gt;
+&lt;a href="当兵的人.html" target="a3"&gt;当兵的人&lt;/a&gt;&lt;br&gt;
+&lt;a href="青花瓷.html" target="a3"&gt;青花瓷&lt;/a&gt;&lt;br&gt;
+&lt;a href="当兵的人.html" target="a3"&gt;当兵的人&lt;/a&gt;&lt;br&gt;
+&lt;a href="青花瓷.html" target="a3"&gt;青花瓷&lt;/a&gt;&lt;br&gt;
+&lt;a href="当兵的人.html" target="a3"&gt;当兵的人&lt;/a&gt;&lt;br&gt;
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;a href="right.html" target="a3"&gt;返回&lt;/a&gt;&lt;br&gt;
+&lt;/body&gt;
+
+
+
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p>top.html</p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=gb2312"&gt;
+&lt;title&gt;top&lt;/title&gt;
+&lt;/head&gt;
+&lt;body bgcolor="#DFFFDF"&gt;
+&lt;img src = "top.png" width="200px" height = "80px"/&gt;
+&lt;table border = "0px" width = "60%" height = "80px" align = "right" &gt;
+&lt;tr align = "left"&gt;
+&lt;td &gt;音乐&lt;/td &gt;
+&lt;td&gt;排行榜&lt;/td&gt;
+&lt;td&gt;空间&lt;/td&gt;
+&lt;td &gt;原创&lt;/td &gt;
+&lt;td&gt;舞曲&lt;/td&gt;
+&lt;td&gt;美图&lt;/td&gt;
+&lt;td &gt;娱乐&lt;/td &gt;
+&lt;td&gt;电台&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;table border = "0px" width = "70%" height = "10px" align = "right" bgcolor = "yellow"&gt;
+&lt;tr align = "left"&gt;
+&lt;td &gt;音乐&lt;/td &gt;
+&lt;td&gt;排行榜&lt;/td&gt;
+&lt;td&gt;空间&lt;/td&gt;
+&lt;td &gt;原创&lt;/td &gt;
+&lt;td&gt;舞曲&lt;/td&gt;
+&lt;td&gt;美图&lt;/td&gt;
+&lt;td &gt;娱乐&lt;/td &gt;
+&lt;td&gt;电台&lt;/td&gt;
+&lt;td&gt;舞曲&lt;/td&gt;
+&lt;td&gt;美图&lt;/td&gt;
+&lt;td &gt;娱乐&lt;/td &gt;
+&lt;td&gt;电台&lt;/td&gt;
+&lt;/table&gt;
+
+
+&lt;/body&gt;
+
+
+
+&lt;/html&gt;</pre>&#13;
+<p><br/></p>&#13;
+<p>right.html</p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;right显示屏&lt;/title&gt;
+&lt;/head&gt;
+&lt;body 	bgcolor="#CEFFCE"&gt;
+&lt;table width="50%" height="50%" align = "center"&gt;
+&lt;tr&gt;
+&lt;td&gt;
+这边是歌词
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>显示效果如下图：&#13;
+<p><span style="font-size:14px"><img src="http://img.blog.csdn.net/20150511221238909?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="300" alt=""/><br/><br/><br/></span></p>&#13;
+<br/></div>  </body>
+            </html>

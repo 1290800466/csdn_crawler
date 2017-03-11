@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>对象—对象（成员）函数的初步介绍</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">在某些情况下，我们要需要定义对象函数。比如人对象：除了有一些属性外（成员变量表示的年龄，姓名……），我们人对象还有一些行为比如：可以说话，跑步……，通过学习，我们人还可以做算术题。这是就要用函数才能完成。现在要对Person对象完善：</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">①添加speak函数，输出我是一个好人</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">②添加jisuan函数，可以计算从1+...+1000的结果</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">③修改jisuan函数，该方法可以接收一个数n，计算从1+...+n的结果</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">④添加add成员函数，可以计算两个数的和</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>对象——成员函数（方法）</strong></span></span><br style="font-family:Arial; line-height:26px"/></span>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">比如：我们希望对象不但有属性，还希望他有行为。（行为在程序中要靠函数来体现）</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function Person(name,age){
+				//这个就是使用传入的实际参数，去初始化属性。
+				this.name=name;
+				this.age=age;
+				//输出自己的名字
+				//这里this.手腕就是一个公开的函数，函数名是show
+				//有一个麻烦事，先点出来。这样的方式有一个弊病，你用这样的方式分配一个函数，那么每个对象都有show这段函数代码。如p1有，p2也有等等，在一定程度上效率会有以一点影响，这个问题怎么解决，在后面讲解。这样去分配函数，会使每一个Person对象实例，都有一段这样的show函数代码，也就是show这个函数不会放在一个所谓的代码区让所有对象共享，而是每一个对象都会有一段这样的代码，这就造成一种浪费了，当然在对象不多的情况下，也无所谓，一旦对象用完了就会被垃圾回收给回收了。如果连这点浪费也要避免的话，就要用原型的方式来解决。在后面会讲解。当然，this.show类似的方法在开发中也有用到。
+				this.show=function(){
+					document.writeln("名字="+this.name); //this要带上，如果不带this，就会认为name是另外一个变量了
+				}
+
+				//添加jisuan函数，可以计算从1+...+1000的结果
+				this.jisuan=function(){
+					var res=0;
+					for(var i=1;i&lt;=1000;i++){
+						res+=i;
+					}
+					return res;
+				}
+				//改进jisuan函数，可以计算从1+...+n的结果
+				this.jisuan2=function(n){
+					var res=0;
+					for(var i=1;i&lt;=n;i++){
+						res+=i;
+					}
+					return res;
+				}
+			}
+
+			var p1=new Person("宋江",90);
+			p1.show();
+
+			document.writeln("&lt;br/&gt; res="+p1.jisuan());
+			document.writeln("&lt;br/&gt; res="+p1.jisuan2(10));
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px">上面方式存在弊端，以下方式可避免上述现象：</span></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>给一个对象添加（指定）函数的几种方式</strong></span></span><br/></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function Person(){
+				this.name="abc";
+				this.age=900;
+			}
+			function show1(){
+				window.alert("hello"+this.name);
+			}
+			//创建一个p1对象&lt;span style="font-family: Consolas, 'Courier New', Courier, mono, serif; line-height: 18px; background-color: rgb(248, 248, 248);"&gt;
+&lt;/span&gt;&lt;span style="white-space:pre"&gt;			&lt;/span&gt;var p1=new Person();
+			p1.abc=show1; //把show1本身给了p1.abc属性，相当于在Person类中定义的
+&lt;span style="white-space:pre"&gt;			//这样就相当于把show1的函数指针给它了，这个时候大家是共享的一个了，不是每个对象都有这个show1，不是每个对象都指向show1了，对比上面的&lt;/span&gt;给对象添加函数方式&lt;span style="white-space:pre"&gt;  
+			//把原来写在里面的show1函数，写在外面了，仅此而已  
+			//★★★带括号和不带括号的区别★★如果是p1.abc=show1();就是把show1函数的返回值交给p1.abc这个属性，即hello；如果是p1.abc=show1;就是把函数本身交给p1.abc这个属性值，this会起作用，即helloabc。  &lt;/span&gt;
+			p1.abc(); //输出helloabc
+
+			window.alert(p1.abc);//没有括号，不是p1.abc()这样的，输出function show1这个整个函数，打印函数本身
+			window.alert(show1);//同理和上面一样，同样没有括号，把整个function show1整个函数打印出来
+			window.alert(p1.abc());//输出helloabc，再输出undefined，这里是调用了，abc后面跟括号了。★★★为什么还会输出undefined★★★
+			window.alert(show1());//先输出hello，再输出undefined，show1的返回值。
+
+			p1.bcd=show1(); //把show1函数的返回值给P1.bcd属性，为什么没有this.name呢了，此时show1函数仅仅传递结果，对于show1函数来讲，它不知道this是指向谁（默认为window,但window.name  没有值）
+			p1.bcd(); //输出hello
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>给对象添加方法还有一种方式</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">function 类名(){</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">this.属性;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">}</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var 对象名=new 类名();</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">function 函数名(){</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">//执行</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">}</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">对象名.属性名=函数名; //这样就相当于把 函数赋给 对象名.属性名，此时这个属性就表示一个函数了</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">对象名.属性名(); //调用</span></span>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">示例代码：</span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"/></p>&#13;
+<pre name="code" class="html" style="font-size: 18px;">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function Person(){
+				this.name="abc2";
+				this.age=900;
+			}
+			var name="北京";
+			function show1(){
+				window.alert("hello"+this.name); //这个this是谁在调用它，一定要看清楚了
+			}
+			var p1=new Person();
+			p1.abc=show1;
+			p1.abc(); //输出helloabc2
+			show1(); //输出hello北京，window的name属性的值定义了，var name="北京"; 
+&lt;span style="white-space:pre"&gt;				//&lt;/span&gt;若上面没有定义 var name="北京"; ,&lt;span style="white-space:pre"&gt;输出hello，在这里，this是window在调用，那么this就是window，但window的name没有值&lt;/span&gt;
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><span style="font-family:Arial; line-height:26px"><span style="font-size:18px; color:#ff0000"><strong>给所有对象添加（指定）函数</strong></span></span><br/><pre name="code" class="html">function Person(){
+	this.name="abc";
+	this.age=900;
+	this.abc=function(v1,v2){
+		window.alert(this.name+" "+this.age+" "+v1+" "+v2);
+	}
+}
+var p1=new Person();
+p1.abc(); //输出 abc 900 undefined undefined；虽然没有传入参数，但是函数是可以调用起来的，只是遇到 v1和v2会undefined
+p1.abc("北京","天津"); //输出 abc 900 北京 天津
+var p2=new Person();
+p2.abc(); //输出 abc 900 undefined undefined
+p2.abc("南京","东京"); //输出 abc 900 南京 东京
+//p1 p2 每个对象创建的对象属性和函数是不一样的</pre><br/><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; font-size:18px; line-height:26px"><strong><span style="color:#ff0000">原型法 prototype 共享对象方法：</span></strong></span><br/></span></span>&#13;
+<p/>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">如果我们对象很多，就不是件好事，因为每一个对象实例都带有这段代码。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">prototype是原型，prototype上绑定的所有都是共享的，独一份的。</span></span><br/></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"/></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function Dog(){
+			}
+			//希望所有的对象，共享某个函数
+			//使用prototype[绑定在类上的] 去绑定一个函数给shout
+			Dog.prototype.shout=function(){
+				window.alert("小狗");
+			} // 这里就是让所有的Dog对象共享同一个shout属性function(){}
+			var dog1=new Dog();
+			dog1.shout();
+			var dog2=new Dog();
+			dog2.shout();  //这里ok 
+
+			window.alert(dog1.shout==dog2.shout); //true
+
+			//扩展
+			var dog3=new Dog();
+			var dog4=new Dog();
+			window.alert("dog3==dog4"+(dog3==dog4));//false，dog3和dog4指向的堆区地址不一样
+			var dog5=dog4; // 让dog5指向dog4
+			window.alert("dog4==dog5"+(dog4==dog5));//true，dog4和dog5指向的堆区地址一样
+
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">结论：</span><span style="font-family:Arial; line-height:26px">前面的几种方法有一个问题：那就是每个对象，独占函数代码，这样如果对象很多，则会影响效率，js设计者，给我们提供了另一个方法 原型法 prototype</span><br/></span>&#13;
+<p/>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>补讲：==号的作用</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">①当 ==的两边都是字符串的时候，则比较内容 相等否。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">②如 ==的两边是数字，则数的大小是否相等</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">③如 ==的两边是对象 或者是对象函数，则比较地址是否相通。</span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><strong><span style="color:#ff0000">成员函数—细节说明</span></strong><br/>&#13;
+①函数的参数列表可以是多个</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">案例：在Person类中编写一个成员方法（面向对象方式），从键盘输入三个数，返回最大的那个数。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">参数列表可以是多个，并且数据类型可以是任意的类型，整数、小数、类</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">========&gt;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">function 函数名(参数列表){</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">语句; //函数主体</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">return 返回值;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">}</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">②函数可以没有返回值，但最多只能有一个返回值</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">案例：编写一个函数(面向对象方式)，从页面输入一个整数打印出对应的金字塔。</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">返回类型可以是任意的数据类型（整数、小数、字符串）也可以没有返回值</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">==========&gt;&gt;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">function 函数名(参数列表){</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">语句; //函数主体</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">return 返回值;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">}</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">js中的函数还有以下两点特别说明一下</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">①js支持参数个数可变的函数</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">②js支持创建动态函数，这个用的比较少，了解即可</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px">③js中不支持函数的重载</span><span style="font-family:Arial; line-height:26px">（重载：同样的函数名，根据参数个数或者参数类型的不一样，来实现不同的函数调用）</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">结论：</span><span style="font-family:Arial; line-height:26px">js在调用一个函数的时候，是根据函数名来调用，如果有多个函数名相同，则认最后那个函数。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">（1）js函数不支持重载</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">（2）直接定义一个函数或者变量实际上这些函数和变量就是全局函数和全局变量（本质上他们是属于window对象的，这个后面讲面向对象的时候还有精讲）</span></span><br/></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></span></p><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function abc(a,b){
+				return a+b;
+			}
+			function abc(a,b,c){
+				return a+b+c;
+			}
+			window.alert(abc(1,2));
+			window.alert(abc(1,2,3));
+
+			function bcd(){
+				var s=0;
+&lt;span style="white-space:pre"&gt;				&lt;/span&gt;//js中arguments.length表示方法参数个数&#13;
+				for(var i=0;i&lt;arguments.length;i++){
+					s+=arguments[i];
+				}
+				return s;
+			}
+			window.alert(bcd(1,2)); //输出3
+			window.alert(bcd(7,8,9));   //输出24&#13;
+
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><br/><br/></div>  </body>
+            </html>

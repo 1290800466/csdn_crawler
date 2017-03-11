@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>在nginx与php环境下，务必要设置好nginx目录权限，安全的目录权限设置，将是网站安全的一道屏障，有需要的朋友做个参考吧</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">配置权限的原则是，在保证网站正常运行下，尽量给最低权限。</code></pre>
+
+<p>nginx目录权限配置： <br/>
+1、nginx进程用户是默认用户wwwboy;(暂时还不知道nginx进程用户会对服务器什么地方的权限有影响，配置nginx好像都没碰到权限设置问题) <br/>
+2、php-fpm进程用户配置为wwwboy; <br/>
+3、网站目录所有者设置为ftpuser，由于需要在FTP中对网站文件进行下载(读取)、上传(写入)，ftpuser肯定对网站目录有读写权限。 <br/>
+关键点：php-fpm 子进程所使用的用户，不能是网站文件所有者。 <br/>
+网站文件所有者和php-fpm进程用户设为不同的好处是在PHP程序中无法对网站文件进行修改，这样即使网站被挂马了，也能降低很多损失，例如，对方无法在你的正常代码里混入后门。 <br/>
+以前总习惯性地把缓存目录权限设置为777，这回既然注意到安全问题，就想顺便弄清楚一下缓存目录怎么设置才正确合理并安全。</p>
+
+<p>目录访问权限设置 <br/><strong>1.目录列表(directory listing)</strong> <br/>
+nginx让目录中的文件以列表的形式展现只需要一条指令这样就不会返回403 <br/>
+autoindex on; <br/>
+autoindex可以放在location中，只对当前location的目录起作用。你也可以将它放在server指令块则对整个站点都起作用。或者放到http指令块，则对所有站点都生效。 <br/>
+下面是一个简单的例子: <br/>
+ 代码如下   复制代码</p>
+
+<pre class="prettyprint"><code class="language-php hljs ">server {
+        listen   <span class="hljs-number">80</span>;
+        server_name  domain.com www.domain.com;
+        access_log  /<span class="hljs-keyword">var</span>/...........................;
+        root   /<span class="hljs-keyword">var</span>/www/html;
+        location / {
+                index  index.php index.html index.htm;
+        }
+        <span class="hljs-comment">#允许访问 /api 目录</span>
+        location /api {
+               autoindex on;
+        }
+}</code></pre>
+
+<p><strong>2.nginx禁止访问某个目录</strong> <br/>
+跟Apache的Deny from all类似，nginx有deny all指令来实现。 <br/>
+禁止对叫dirdeny目录的访问并返回403 Forbidden，可以使用下面的配置: <br/>
+ 代码如下   复制代码</p>
+
+<pre class="prettyprint"><code class=" hljs glsl">location /dirdeny {
+      deny <span class="hljs-built_in">all</span>;
+      <span class="hljs-keyword">return</span> <span class="hljs-number">403</span>;
+}</code></pre>
+
+<p>autoindex_exact_size off;//人性化方式显示文件大小否则以byte显示 <br/>
+autoindex_localtime on;//按服务器时间显示，否则以gmt时间显示，gmt时间指格林尼治时间 <br/>
+autoindex_exact_size off; <br/>
+默认为on，显示出文件的确切大小，单位是bytes。 <br/>
+改为off后，显示出文件的大概大小，单位是kB或者MB或者GB <br/>
+autoindex_localtime on; <br/>
+默认为off，显示的文件时间为GMT时间。 <br/>
+改为on后，显示的文件时间为文件的服务器时间 <br/>
+上传目录无执行权限 <br/>
+ 代码如下   复制代码</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby">
+location ~ ^<span class="hljs-regexp">/upload/</span>.*.(php|php5)<span class="hljs-variable">$ </span>
+{ 
+deny all; 
+}</code></pre>
+
+<p>设置目录浏览 <br/>
+1、打开/usr/local/nginx/conf/nginx.conf,找到WebServer配置处,加入以下内容: <br/>
+ 代码如下   复制代码</p>
+
+<pre class="prettyprint"><code class=" hljs coffeescript">location <span class="hljs-regexp">/soft/</span> {
+root <span class="hljs-regexp">/var/www/</span>;  此处为soft的上一级目录
+autoindex <span class="hljs-literal">on</span>;
+autoindex_exact_size <span class="hljs-literal">off</span>;
+autoindex_localtime <span class="hljs-literal">on</span>;
+}
+</code></pre>
+
+<p>文章转自：<a href="http://www.111cn.net/sys/nginx/61498.htm">http://www.111cn.net/sys/nginx/61498.htm</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

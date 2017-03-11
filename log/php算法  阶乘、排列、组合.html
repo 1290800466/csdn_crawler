@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span> 
+<span class="hljs-comment">/**
+ * 阶乘
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">factorial</span><span class="hljs-params">(<span class="hljs-variable">$n</span>)</span> {</span>
+    <span class="hljs-comment">//array_product 计算并返回数组的乘积</span>
+    <span class="hljs-comment">//range 创建一个包含指定范围的元素的数组</span>
+    <span class="hljs-keyword">return</span> array_product(range(<span class="hljs-number">1</span>, <span class="hljs-variable">$n</span>));
+}
+
+<span class="hljs-comment">/**
+ * 排列数
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">A</span><span class="hljs-params">(<span class="hljs-variable">$n</span>, <span class="hljs-variable">$m</span>)</span> {</span>
+    <span class="hljs-keyword">return</span> factorial(<span class="hljs-variable">$n</span>)/factorial(<span class="hljs-variable">$n</span>-<span class="hljs-variable">$m</span>);
+}
+
+<span class="hljs-comment">/**
+ * 组合数
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">C</span><span class="hljs-params">(<span class="hljs-variable">$n</span>, <span class="hljs-variable">$m</span>)</span> {</span>
+    <span class="hljs-keyword">return</span> A(<span class="hljs-variable">$n</span>, <span class="hljs-variable">$m</span>)/factorial(<span class="hljs-variable">$m</span>);
+}
+
+<span class="hljs-comment">/**
+ * 排列结果
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">arrangement</span><span class="hljs-params">(<span class="hljs-variable">$a</span>, <span class="hljs-variable">$m</span>)</span> {</span>
+    <span class="hljs-variable">$r</span> = <span class="hljs-keyword">array</span>();
+    <span class="hljs-variable">$n</span> = count(<span class="hljs-variable">$a</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$m</span> &lt;= <span class="hljs-number">0</span> || <span class="hljs-variable">$m</span> &gt; <span class="hljs-variable">$n</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$r</span>;
+    }
+    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>; <span class="hljs-variable">$i</span>&lt;<span class="hljs-variable">$n</span>; <span class="hljs-variable">$i</span>++) {
+        <span class="hljs-variable">$b</span> = <span class="hljs-variable">$a</span>;
+        <span class="hljs-comment">//从数组中移除选定的元素，并用新元素取代它。该函数也将返回包含被移除元素的数组</span>
+        <span class="hljs-variable">$t</span> = array_splice(<span class="hljs-variable">$b</span>, <span class="hljs-variable">$i</span>, <span class="hljs-number">1</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$m</span> == <span class="hljs-number">1</span>) {
+            <span class="hljs-variable">$r</span>[] = <span class="hljs-variable">$t</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable">$c</span> = arrangement(<span class="hljs-variable">$b</span>, <span class="hljs-variable">$m</span>-<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$c</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$v</span>) {
+                <span class="hljs-variable">$r</span>[] = array_merge(<span class="hljs-variable">$t</span>, <span class="hljs-variable">$v</span>);
+            }
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$r</span>;
+}
+
+
+<span class="hljs-comment">/**
+ * 组合结果
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">combination</span><span class="hljs-params">(<span class="hljs-variable">$a</span>, <span class="hljs-variable">$m</span>)</span> {</span>
+    <span class="hljs-variable">$r</span> = <span class="hljs-keyword">array</span>();
+
+    <span class="hljs-variable">$n</span> = count(<span class="hljs-variable">$a</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$m</span> &lt;= <span class="hljs-number">0</span> || <span class="hljs-variable">$m</span> &gt; <span class="hljs-variable">$n</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$r</span>;
+    }
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-variable">$i</span>=<span class="hljs-number">0</span>; <span class="hljs-variable">$i</span>&lt;<span class="hljs-variable">$n</span>; <span class="hljs-variable">$i</span>++) {
+        <span class="hljs-variable">$t</span> = <span class="hljs-keyword">array</span>(<span class="hljs-variable">$a</span>[<span class="hljs-variable">$i</span>]);
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$m</span> == <span class="hljs-number">1</span>) {
+            <span class="hljs-variable">$r</span>[] = <span class="hljs-variable">$t</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">//array_slice() 函数在数组中根据条件取出一段值，并返回。</span>
+            <span class="hljs-comment">//array_slice(array,start,length,preserve)</span>
+            <span class="hljs-variable">$b</span> = array_slice(<span class="hljs-variable">$a</span>, <span class="hljs-variable">$i</span>+<span class="hljs-number">1</span>);
+            <span class="hljs-variable">$c</span> = combination(<span class="hljs-variable">$b</span>, <span class="hljs-variable">$m</span>-<span class="hljs-number">1</span>);
+            <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$c</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$v</span>) {
+                <span class="hljs-comment">//array_merge() 函数把一个或多个数组合并为一个数组</span>
+                <span class="hljs-variable">$r</span>[] = array_merge(<span class="hljs-variable">$t</span>, <span class="hljs-variable">$v</span>);
+            }
+        }
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$r</span>;
+}
+
+
+
+var_dump(C(<span class="hljs-number">5</span>, <span class="hljs-number">3</span>));
+<span class="hljs-variable">$res</span> = combination(range(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>), <span class="hljs-number">3</span>);
+<span class="hljs-variable">$res</span> = var_export(<span class="hljs-variable">$res</span>, <span class="hljs-keyword">true</span>);
+error_log(<span class="hljs-variable">$res</span>);
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

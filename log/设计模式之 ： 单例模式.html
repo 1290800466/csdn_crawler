@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>单例模式（Singleton）:用于为一个类生成一个唯一的对象。</p>
+
+<p><strong>特点：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">1、一个类只能有一个实例
+2、它必须自行创建这个实例
+3、它必须自行向整个系统提供这个实例</code></pre>
+
+<p><strong>使用场景：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">单例模式一般使用在资源共享和需要控制资源的情况下：
+
+例如：购物车，回收站，数据库连接，计数器，配置文件共享等所有项目中只需要存在一个的模块，你都可以采用单例模式。</code></pre>
+
+<p><strong>实现 :</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">三私一公
+①私有化构造方法:防止实例化
+②私有化克隆方法:防止克隆
+③私有化静态属性:保存对象
+④私有化静态方法:获取对象</code></pre>
+
+<p><font color="green"><strong>代码实例：</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"> <span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Database</span> {</span>
+
+        <span class="hljs-comment">//数据库连接资源</span>
+
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$_db</span>;
+
+        <span class="hljs-comment">//单例标识符</span>
+
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$_instance</span> = <span class="hljs-keyword">NULL</span>;
+
+        <span class="hljs-comment">//定义一个私有的构造函数，确保单例类不能通过new关键字实例化，只能被其自身实例化</span>
+
+        <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>{</span>
+
+        }
+
+        <span class="hljs-comment">//外部调用的是 getInstance</span>
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getInstance</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-comment">//检测类是否被实例化</span>
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span> :: <span class="hljs-variable">$_instance</span> === <span class="hljs-keyword">null</span>) {
+
+                <span class="hljs-keyword">self</span>::<span class="hljs-variable">$_instance</span> = <span class="hljs-keyword">new</span> <span class="hljs-keyword">self</span>();
+
+                <span class="hljs-keyword">self</span>::<span class="hljs-variable">$_db</span> = mysql_connect(<span class="hljs-string">'localhost'</span>,<span class="hljs-string">'root'</span>,<span class="hljs-string">'root'</span>);
+
+                <span class="hljs-keyword">echo</span> <span class="hljs-string">'只有一次实例化'</span>;
+
+            }
+
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::<span class="hljs-variable">$_instance</span>;
+
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">select_db</span><span class="hljs-params">(<span class="hljs-variable">$db</span>)</span>{</span>
+
+            <span class="hljs-keyword">return</span> mysql_select_db(<span class="hljs-variable">$db</span>,<span class="hljs-keyword">self</span>::<span class="hljs-variable">$_db</span>);
+
+        }
+
+        <span class="hljs-comment">//定义私有的__clone()方法，确保单例类不能被复制或克隆</span>
+
+        <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__clone</span><span class="hljs-params">()</span>{</span>
+
+        }
+
+    }
+
+    <span class="hljs-variable">$db</span> = Database::getInstance();
+
+    print_r(<span class="hljs-variable">$db</span>-&gt;select_db(<span class="hljs-string">'test'</span>));
+
+    print_r(<span class="hljs-variable">$db</span>-&gt;select_db(<span class="hljs-string">'test'</span>));
+
+    print_r(<span class="hljs-variable">$db</span>-&gt;select_db(<span class="hljs-string">'test'</span>));
+
+    <span class="hljs-comment">//output:只有一次实例化111</span>
+
+    <span class="hljs-preprocessor">?&gt;</span></span>
+
+     通过输出（output）可以看出页面执行中，数据库类（class Database）只有第一次调用的时候是真实实例化的，剩下的调用都是直接从静态变量获取该实例的，这样的话就防止了在一次生命周期中多次连接数据库了，极大的节省了资源，这就是单例模式。
+</code></pre>
+
+<p>pdo类单例模式实例：<a href="http://blog.csdn.net/u013372487/article/details/52700674">http://blog.csdn.net/u013372487/article/details/52700674</a></p>
+
+<p><font color="red"><strong>注意：</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs ">单例模式的好处就在于当前进程只产生一个对象（或者叫做模块），
+但有一点需要指出，如果单例模式的操作对象是一个资源类型，那么此时的单例模式并不是纯粹的单例模式，因为php的生命周期仅仅是页面级别的，所以他无法像Java语言那样在内存中将这个资源类型存起来，并且我们也无法借助类似redis的nosql缓存数据库，因为资源类型（类似mysql_connect的返回值）是无法被序列化（指的是资源无法转成字符串）。
+即，php的单例,仅指进程中单例,不似java,在整个内存中单例，所以在PHP语言下，单例模式是有瑕疵的。</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

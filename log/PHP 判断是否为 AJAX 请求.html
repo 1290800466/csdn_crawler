@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>先说前端使用 jQuery 时怎么区分：</p>
+
+<p>　　jQuery 发出 ajax 请求时，会在请求头部添加一个名为 X-Requested-With 的信息，信息内容为：XMLHttpRequest</p>
+
+<p>　　在后端可以使用 $_SERVER[“HTTP_X_REQUESTED_WITH”] 来获取。（注意：中划线换成了下划线，不区分大小写）</p>
+
+<p>　　由此，我们可以这样来判断是否为 ajax 请求：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">// php 判断是否为 ajax 请求  http://www.cnblogs.com/sosoft/</span>
+<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_X_REQUESTED_WITH"</span>]) &amp;&amp; strtolower(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_X_REQUESTED_WITH"</span>])==<span class="hljs-string">"xmlhttprequest"</span>){ 
+    <span class="hljs-comment">// ajax 请求的处理方式 </span>
+}<span class="hljs-keyword">else</span>{ 
+    <span class="hljs-comment">// 正常请求的处理方式 </span>
+};</code></pre>
+
+<p>在使用原生 JavaScript 发出 ajax 请求时，我们也可以给头部添加信息，以方便后端同学进行区分，方法如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">var</span> xmlhttp=<span class="hljs-keyword">new</span> XMLHttpRequest(); 
+xmlhttp.open(<span class="hljs-string">"GET"</span>,<span class="hljs-string">"test.php"</span>,<span class="hljs-keyword">true</span>); 
+xmlhttp.setRequestHeader(<span class="hljs-string">"X-Requested-With"</span>,<span class="hljs-string">"XMLHttpRequest"</span>); 
+xmlhttp.send();</code></pre>
+
+<p>这里我们也一样是给头部添加 X_REQUESTED_WITH 信息，与 jQuery 的一致。当然你也可以更改为别的信息来进行区分。</p>
+
+<p>　　OK，进行区分之后有什么好处呢？说两个例子：</p>
+
+<p>　　1.当 js 文件未加载完时，用户点击了某个按钮或链接，本应是 ajax 请求的成了 正常请求，后端根据判断，不输出 ajax 时的 json 数据，而是跳转，这也是优雅降级的形式。</p>
+
+<p>　　2. [A 页面]使用 ajax 方式进行登录，[B 页面]使用正常方式登录，如果不区分，后端需要写两次几乎完全相同的代码，而有了区分，可以把重复的代码消掉。</p>
+
+<p>转自：<a href="http://www.cnblogs.com/sosoft/p/3793425.html">http://www.cnblogs.com/sosoft/p/3793425.html</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1><span style="font-size:18px">1、循环控制break语句：</span></h1>&#13;
+<p><span style="font-size:18px">         break结束当前 for，while，do-while 或者switch 结构的执行。</span></p>&#13;
+<p><span style="font-size:18px">         Break可以接受一个可选的数字参数来决定跳出几重循环。</span></p>&#13;
+<p/><pre name="code" class="php">&lt;?php	
+
+$i = 0;
+while(++$i){
+	switch($i){
+		case 5:
+		echo "quit at 5 &lt;br&gt;";
+		break;
+		case 10:
+		echo "quit at 10&lt;br&gt;";
+		break 2;  //跳出switch结构和while循环
+		default:
+		break;	//只跳出switch结构
+	}
+}
+echo "$i=".$i;
+&lt;span style="font-size:18px;"&gt;?&gt;	&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px">执行结果如下：</span></p>&#13;
+<p><span style="font-size:18px">quit at 5 <br/>&#13;
+quit at 10<br/>&#13;
+10=10  </span>     </p>&#13;
+<p>                                   <br/></p>&#13;
+<p/>&#13;
+<h1><span style="font-size:18px">2、循环控制continue语句：</span></h1>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>Continue在循环结构中用来跳过本次循环中剩余的代码并在条件求值为真时开始执行下一次循环，continue可接受一个可选的数字参数来决定跳过几重循环到循环结尾。</span></p>&#13;
+<p/><pre name="code" class="php">&lt;?php 
+
+for($i=0;$i&lt;2;$i++)
+{
+	for($j=1;$j&lt;4;$j++)
+	{
+		if($j==2)
+		{
+			continue 2;   //跳出最近的一个for循环的2次循环（j=2和j=3）
+		}
+	echo '$i='.$i.'$j='.$j."&lt;br&gt;";
+	}
+}
+ ?&gt;</pre>&#13;
+<p><span style="font-size:18px">输出结果：</span></p>&#13;
+<span style="font-size:18px">$i=0$j=1<br/>&#13;
+$i=1$j=1</span><br/><p><span style="font-size:18px"><br/></span></p>&#13;
+<p/>&#13;
+<h1><span style="font-size:18px">3、goto语句：</span></h1>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">         PHP5.3以上版本增加了goto 语句；</span></p>&#13;
+<p><span style="font-size:18px">         Php中的goto语句有一定限制，只能在同一个文件和作用域中跳转，也就是说你无法跳出一个函数或类方法，也无法跳入到另一个函数。常见的用法是用来跳出循环或switch，可以代替多层的break。</span></p>&#13;
+<p/><pre name="code" class="php"> &lt;?php 	
+for($i=0,$j=50;$i&lt;100;$i++)
+{
+	while($j--)
+	{
+		if($j==7) goto a;//a可任意起名
+		Echo "i=$i&lt;br&gt;";
+	}
+}
+a://跳转到次
+echo 'j=17';	
+ ?&gt;	</pre><span style="font-size:18px">输出结果：</span>&#13;
+<p><span style="font-size:18px">i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+i=0<br/>&#13;
+j=37 <br/></span><br/></p>&#13;
+<p/>&#13;
+<h1><span style="font-size:18px">4、Php常量：</span></h1>&#13;
+<p/>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量类似变量，但是常量一旦被定义就无法更改或撤销定义。</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><strong>PHP 常量和变量有如下不同：</strong></span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量前面没有美元符号（$）</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量用define()函数或const定义，而不能通过赋值语句</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量可以不用理会变量的作用域而在任何地方定义和访问（<span style="font-size:18px; background-color:rgb(249,249,249)">与变量不同，常量贯穿整个脚本是自动全局的。</span>）</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量定义时就必须赋初值且一旦被定义就不能被重新定义或取消定义</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>常量的值是标量，可以是（string、integer、float、boolean）等</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>有效的常量名以字符或下划线开头,默认用大写字母表示，用下划线间隔。</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><br/></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>设置 PHP 常量：</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>如需设置常量，请使用 define() 函数 - 它使用三个参数：</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>1.   首个参数定义常量的名称</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>2.   第二个参数定义常量的值</span></p>&#13;
+<p align="left" style="background:rgb(249,249,249)"><span style="font-size:18px"><span style="white-space:pre"/>3.   可选的第三个参数规定常量名是否对大小写敏感。默认是 false。</span></p>&#13;
+<p><span style="font-size:18px">在程序中我们不希望某个值变化，则可以考虑使用常量，比如圆周率，税率。</span></p>&#13;
+<p/><pre name="code" class="php">&lt;?php  
+
+//第一种定义常量方法：
+
+define("TAX_RATE",0.08);
+echo TAX_RATE."&lt;br&gt;";
+
+//第二种定义常量方法：
+
+const TAX_RATE2 = 0.07;
+echo TAX_RATE2;
+
+?&gt;</pre><br/><br/><p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Python 模块：</strong></p>
+
+<p>模块就是一个保存了Python代码的文件。模块能定义函数，类和变量。模块里也能包含可执行的代码。 <br/>
+一个叫做aname的模块里的Python代码一般都能在一个叫aname.py的文件中找到。 <br/>
+想使用Python源文件，只需在另一个源文件里执行import语句，语法如下： <br/>
+import module1[, module2[,… moduleN] <br/>
+当解释器遇到import语句，如果模块在当前的搜索路径就会被导入。 <br/>
+搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块hello.py，需要把命令放在脚本的顶端：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 导入模块</span>
+<span class="hljs-keyword">import</span> support</code></pre>
+
+<p>一个模块只会被导入一次，不管你执行了多少次import。这样可以防止导入模块被一遍又一遍地执行。</p>
+
+<p><strong>From…import 语句 :</strong> <br/>
+Python的from语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">from modname import name1[, name2[, <span class="hljs-keyword">...</span> nameN]]
+</code></pre>
+
+<p>例如，要导入模块fib的fibonacci函数，使用如下语句：</p>
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-keyword">from</span> fib <span class="hljs-keyword">import</span> fibonacci</code></pre>
+
+<p>这个声明不会把整个fib模块导入到当前的命名空间中，它只会将fib里的fibonacci单个引入到执行这个声明的模块的全局符号表。</p>
+
+<p><strong>From…import* 语句</strong> <br/>
+把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-keyword">from</span> modname <span class="hljs-keyword">import</span> *</code></pre>
+
+<p>这提供了一个简单的方法来导入一个模块中的所有项目。然而这种声明不该被过多地使用。</p>
+
+<p><strong>定位模块 :</strong> <br/>
+当你导入一个模块，Python解析器对模块位置的搜索顺序是： <br/>
+当前目录 <br/>
+如果不在当前目录，Python 则搜索在 shell 变量 PYTHONPATH 下的每个目录。 <br/>
+如果都找不到，Python会察看默认路径。UNIX下，默认路径一般为/usr/local/lib/python/。 <br/>
+模块搜索路径存储在system模块的sys.path变量中。变量里包含当前目录，PYTHONPATH和由安装过程决定的默认目录。</p>
+
+<p><strong>命名空间和作用域：</strong> <br/>
+Python会智能地猜测一个变量是局部的还是全局的，它假设任何在函数内赋值的变量都是局部的。 <br/>
+因此，如果要给全局变量在一个函数里赋值，必须使用global语句。 <br/>
+global VarName的表达式会告诉Python， VarName是一个全局变量，这样Python就不会在局部命名空间里寻找这个变量了。</p>
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+Money = <span class="hljs-number">2000</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">AddMoney</span><span class="hljs-params">()</span>:</span>
+   <span class="hljs-comment"># 想改正代码就取消以下注释:</span>
+   <span class="hljs-comment"># global Money</span>
+   Money = Money + <span class="hljs-number">1</span>
+
+<span class="hljs-keyword">print</span> Money
+AddMoney()
+<span class="hljs-keyword">print</span> Money</code></pre>
+
+<p><strong>dir()函数：</strong> <br/>
+返回的列表容纳了在一个模块里定义的所有模块，变量和函数。如下一个简单的实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 导入内置math模块</span>
+<span class="hljs-keyword">import</span> math
+
+content = dir(math)
+
+<span class="hljs-keyword">print</span> content;
+<span class="hljs-string">'''
+以上实例输出结果：
+['__doc__', '__file__', '__name__', 'acos', 'asin', 'atan', 
+'atan2', 'ceil', 'cos', 'cosh', 'degrees', 'e', 'exp', 
+'fabs', 'floor', 'fmod', 'frexp', 'hypot', 'ldexp', 'log',
+'log10', 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 
+'sqrt', 'tan', 'tanh']'''</span></code></pre>
+
+<p>在这里，特殊字符串变量<strong>name</strong>指向模块的名字，<strong>file</strong>指向该模块的导入文件名。</p>
+
+<p><strong>reload()函数：</strong> <br/>
+当一个模块被导入到一个脚本，模块顶层部分的代码只会被执行一次。 <br/>
+因此，如果你想重新执行模块里顶层部分的代码，可以用reload()函数。该函数会重新导入之前导入过的模块。语法如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-function"><span class="hljs-title">reload</span><span class="hljs-params">(module_name)</span></span></code></pre>
+
+<p>在这里，module_name要直接放模块的名字，而不是一个字符串形式。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

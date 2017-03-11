@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、网页的加载流程如下：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">解析HTML结构。
+加载外部脚本和样式表文件。
+解析并执行脚本代码。<span class="hljs-comment">// 部分脚本会阻塞页面的加载</span>
+DOM树构建完成。<span class="hljs-comment">//DOMContentLoaded 事件</span>
+加载图片等外部文件。
+页面加载完毕。<span class="hljs-comment">//load 事件</span></code></pre>
+
+<p><font color="red"><strong>优化网页的加载速度，最本质的方式就是：减少请求数量 与 减小请求大小</strong></font></p>
+
+<p><strong>DOM 渲染流程</strong></p>
+
+<p>要理解异步脚本载入的用处首先要了解浏览器渲染DOM的流程，以及各阶段用户体验的差别。 一般地，一个包含外部样式表文件和外部脚本文件的HTML载入和渲染过程是这样的：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml">浏览器下载HTML文件并开始解析DOM。
+遇到样式表文件link[rel=stylesheet]时，将其加入资源文件下载队列，继续解析DOM。
+遇到脚本文件时，暂停DOM解析并立即下载脚本文件。
+下载结束后立即执行脚本，在脚本中可访问当前<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">以上的DOM。
+脚本执行结束，继续解析DOM。
+整个DOM解析完成，触发DOMContentLoaded事件。</span></code></pre>
+
+<p>上述步骤只是大致的描述，你可能还会关心下面两个问题：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml">资源文件下载队列。样式表、图片等资源文件的下载不会暂停DOM解析。浏览器会并行地下载这些文件，但通常会限制并发下载数，一般为3-5个。可以在开发者工具的Network标签页中看到。
+
+执行脚本文件前，浏览器可能会等待该<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">之前的样式下载完成并渲染结束。</span></code></pre>
+
+<p><strong>减少请求数量:</strong></p>
+
+<pre class="prettyprint"><code class=" hljs r">将小图标合并成sprite图或者iconfont字体文件 : 合并图标，减少网络请求
+用base64减少不必要的网络请求
+图片延迟加载
+JS/CSS按需打包
+延迟加载ga统计
+等等<span class="hljs-keyword">...</span></code></pre>
+
+<p><strong>减小请求大小:</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">JS/CSS/HTML压缩
+gzip压缩
+JS/CSS按需加载
+图片压缩，jpg优化
+webp优化 &amp; srcset优化
+等等<span class="hljs-keyword">...</span></code></pre>
+
+<p><strong>将脚本放在尾部</strong></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

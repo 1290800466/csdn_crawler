@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>一般地，当需要使用数字的时候，我们通常使用内置数据类型，如：byte、int、long、double 等。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">int</span> a = <span class="hljs-number">5000</span>;
+<span class="hljs-keyword">float</span> b = <span class="hljs-number">13.65</span>;
+<span class="hljs-keyword">byte</span> c = <span class="hljs-number">0x4a</span>;</code></pre>
+
+<p>然而，在实际开发过程中，我们经常会遇到需要使用对象，而不是内置数据类型的情形。为了解决这个问题，Java 语言为每一个内置数据类型提供了对应的包装类。</p>
+
+<p>所有的包装类（Integer、Long、Byte、Double、Float、Short）都是抽象类 Number 的子类。 <br/><img src="http://img.blog.csdn.net/20161121144448979" alt="这里写图片描述" title=""/></p>
+
+<p>这种由编译器特别支持的包装称为装箱，所以当内置数据类型被当作对象使用的时候，编译器会把内置类型装箱为包装类。相似的，编译器也可以把一个对象拆箱为内置类型。Number 类属于 java.lang 包。 <br/>
+下面是一个使用 Integer 对象的实例：</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      Integer x = <span class="hljs-number">5</span>;
+      x =  x + <span class="hljs-number">10</span>;
+      System.<span class="hljs-keyword">out</span>.println(x); 
+   }
+}</code></pre>
+
+<p>当x被赋为整型值时，由于x是一个对象，所以编译器要对x进行装箱。然后，为了使x能进行加运算，所以要对x进行拆箱。</p>
+
+<p><font color="red"><strong>Number 方法：</strong></font></p>
+
+<p><font color="red">注意以下方法有的适用于Number 对象有的适用于Java内置数据类型</font></p>
+
+<p><strong>1、xxxValue() ：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">//以 byte 形式返回指定的数值。</span>
+
+byteValue() :
+
+<span class="hljs-comment">//以 double 形式返回指定的数值。</span>
+
+doubleValue() :
+
+<span class="hljs-comment">//以 float 形式返回指定的数值。</span>
+floatValue() :
+
+<span class="hljs-comment">//以 int 形式返回指定的数值。</span>
+intValue() :
+
+<span class="hljs-comment">//以 long 形式返回指定的数值。</span>
+longValue() :
+
+<span class="hljs-comment">//以 short 形式返回指定的数值。</span>
+shortValue() :</code></pre>
+
+<p>参数 <br/>
+以上各函数不接受任何的参数。</p>
+
+<p>返回值 <br/>
+转换为 xxx 类型后该对象表示的数值。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{ 
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      Integer x = <span class="hljs-number">5</span>;
+      <span class="hljs-comment">// 返回 byte 原生数据类型</span>
+      System.<span class="hljs-keyword">out</span>.println( x.byteValue() );
+
+      <span class="hljs-comment">// 返回 double 原生数据类型</span>
+      System.<span class="hljs-keyword">out</span>.println(x.doubleValue());
+
+      <span class="hljs-comment">// 返回 long 原生数据类型</span>
+      System.<span class="hljs-keyword">out</span>.println( x.longValue() );      
+   }
+}</code></pre>
+
+<p><strong>2、compareTo()</strong> </p>
+
+<p>用于将 <font color="red">Number 对象</font>与方法的参数进行比较。可用于比较 Byte, Long, Integer等。</p>
+
+<p>该方法用于两个相同数据类型的比较，两个不同类型的数据不能用此方法来比较。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{ 
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      Integer x = <span class="hljs-number">5</span>;
+      System.<span class="hljs-keyword">out</span>.println(x.compareTo(<span class="hljs-number">3</span>));  <span class="hljs-comment">//1</span>
+      System.<span class="hljs-keyword">out</span>.println(x.compareTo(<span class="hljs-number">5</span>));  <span class="hljs-comment">//0</span>
+      System.<span class="hljs-keyword">out</span>.println(x.compareTo(<span class="hljs-number">8</span>));  <span class="hljs-comment">//-1         </span>
+     }
+}</code></pre>
+
+<p>参数 <br/>
+可以是一个 Byte, Double, Integer, Float, Long 或 Short 类型的参数。</p>
+
+<p>返回值 <br/>
+如果指定的数与参数相等返回0。 <br/>
+如果指定的数小于参数返回 -1。 <br/>
+如果指定的数大于参数返回 1。</p>
+
+<p><strong>3、 equals() </strong> </p>
+
+<p>用于判断 Number 对象与方法的参数进是否相等。</p>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        Integer x = <span class="hljs-number">5</span>;
+        Integer y = <span class="hljs-number">10</span>;
+        Integer z =<span class="hljs-number">5</span>;
+        Short a = <span class="hljs-number">5</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(x.equals(y));  <span class="hljs-comment">//false</span>
+        System.<span class="hljs-keyword">out</span>.println(x.equals(z));  <span class="hljs-comment">//true</span>
+        System.<span class="hljs-keyword">out</span>.println(x.equals(a));  <span class="hljs-comment">//false</span>
+    }
+}</code></pre>
+
+<p>参数 <br/>
+o – 任何对象。</p>
+
+<p>返回值 <br/>
+如 Number 对象不为 Null，且与方法的参数类型与数值都相等返回 True，否则返回 False。</p>
+
+<p><strong>4、valueOf()</strong> </p>
+
+<p>用于返回给定参数的原生 Number 对象值，参数可以是原生数据类型, String等。 <br/>
+该方法是静态方法。该方法可以接收两个参数一个是字符串，一个是基数。</p>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{ 
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        Integer x =Integer.valueOf(<span class="hljs-number">9</span>);
+        Double c = Double.valueOf(<span class="hljs-number">5</span>);
+        Float a = Float.valueOf(<span class="hljs-string">"80"</span>);               
+
+        Integer b = Integer.valueOf(<span class="hljs-string">"444"</span>,<span class="hljs-number">16</span>);   <span class="hljs-comment">// 使用 16 进制</span>
+
+        System.<span class="hljs-keyword">out</span>.println(x); <span class="hljs-comment">//9 </span>
+        System.<span class="hljs-keyword">out</span>.println(c); <span class="hljs-comment">//5.0</span>
+        System.<span class="hljs-keyword">out</span>.println(a); <span class="hljs-comment">//80.0</span>
+        System.<span class="hljs-keyword">out</span>.println(b); <span class="hljs-comment">//1092</span>
+    }
+}</code></pre>
+
+<p>参数 <br/>
+i – Integer 对象的整数。 <br/>
+s – Integer 对象的字符串。 <br/>
+radix –在解析字符串 s 时使用的基数，用于指定使用的进制数。</p>
+
+<p>返回值 <br/>
+Integer valueOf(int i)：返回一个表示指定的 int 值的 Integer 实例。 <br/>
+Integer valueOf(String s):返回保存指定的 String 的值的 Integer 对象。 <br/>
+Integer valueOf(String s, int radix): 返回一个 Integer 对象，该对象中保存了用第二个参数提供的基数进行解析时从指定的 String 中提取的值。</p>
+
+<p><strong>5、toString()</strong> </p>
+
+<p>用于返回以一个字符串表示的 Number 对象值。 <br/>
+如果方法使用了原生的数据类型作为参数，返回原生数据类型的 String 对象值。 <br/>
+如果方法有两个参数， 返回用第二个参数指定基数表示的第一个参数的字符串表示形式。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        Integer x = <span class="hljs-number">5</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(x.toString());  <span class="hljs-comment">//5</span>
+        System.<span class="hljs-keyword">out</span>.println(Integer.toString(<span class="hljs-number">12</span>));  <span class="hljs-comment">//12 </span>
+    }
+}</code></pre>
+
+<p>参数 <br/>
+i – 要转换的整数。</p>
+
+<p>返回值 <br/>
+toString(): 返回表示 Integer 值的 String 对象。 <br/>
+toString(int i): 返回表示指定 int 的 String 对象。</p>
+
+<p><strong>6、parseInt()</strong>  <br/>
+用于将字符串参数作为有符号的十进制整数进行解析。 <br/>
+如果方法有两个参数， 使用第二个参数指定的基数，将字符串参数解析为有符号的整数。</p>
+
+<p>语法 <br/>
+所有 Number 派生类 parseInt 方法格式类似如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> parseInt(String s)
+
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> parseInt(String s, <span class="hljs-keyword">int</span> radix)</code></pre>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        <span class="hljs-keyword">int</span> x =Integer.parseInt(<span class="hljs-string">"9"</span>);
+        <span class="hljs-keyword">double</span> c = Double.parseDouble(<span class="hljs-string">"5"</span>);
+        <span class="hljs-keyword">int</span> b = Integer.parseInt(<span class="hljs-string">"444"</span>,<span class="hljs-number">16</span>);
+
+        System.<span class="hljs-keyword">out</span>.println(x); <span class="hljs-comment">//9</span>
+        System.<span class="hljs-keyword">out</span>.println(c); <span class="hljs-comment">//5.0</span>
+        System.<span class="hljs-keyword">out</span>.println(b); <span class="hljs-comment">//1092</span>
+    }
+}</code></pre>
+
+<p>参数 <br/>
+s – 十进制表示的字符串。 <br/>
+radix – 指定的基数。</p>
+
+<p>返回值 <br/>
+parseInt(String s): 返回用十进制参数表示的整数值。 <br/>
+parseInt(int i): 使用指定基数的字符串参数表示的整数 (基数可以是 10, 2, 8, 或 16 等进制数) 。</p>
+
+<p><strong>7、abs()</strong>  <br/>
+返回参数的绝对值。参数可以是 int, float, long, double, short, byte类型。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{ 
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        Integer a = -<span class="hljs-number">8</span>;
+        <span class="hljs-keyword">double</span> d = -<span class="hljs-number">100</span>;
+        <span class="hljs-keyword">float</span> f = -<span class="hljs-number">90</span>;    
+
+        System.<span class="hljs-keyword">out</span>.println(Math.abs(a)); <span class="hljs-comment">//8</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.abs(d)); <span class="hljs-comment">//100.0 </span>
+        System.<span class="hljs-keyword">out</span>.println(Math.abs(f)); <span class="hljs-comment">//90.0</span>
+    }
+}</code></pre>
+
+<p><strong>8、ceil() &amp; floor()</strong></p>
+
+<p>ceil() 方法可对一个数进行上舍入，返回值大于或等于给定的参数。 <br/>
+floor() 方法可对一个数进行下舍入，返回给定参数最大的整数，该整数小于或等给定的参数。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        <span class="hljs-keyword">double</span> d = <span class="hljs-number">100.675</span>;
+        <span class="hljs-keyword">float</span> f = -<span class="hljs-number">90</span>;    
+
+        System.<span class="hljs-keyword">out</span>.println(Math.ceil(d)); <span class="hljs-comment">//101.0</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.ceil(f)); <span class="hljs-comment">//-90</span>
+
+        System.<span class="hljs-keyword">out</span>.println(Math.floor(d)); <span class="hljs-comment">//100.0</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.floor(f)); <span class="hljs-comment">//-90</span>
+    }
+}</code></pre>
+
+<p><strong>9、rint() &amp; round()</strong></p>
+
+<p>rint() 方法返回最接近参数的整数值。(接受double , 返回double) <br/>
+round() 方法返回一个最接近的int、long型值。(四舍五入)</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        <span class="hljs-keyword">double</span> d = <span class="hljs-number">100.675</span>;
+        <span class="hljs-keyword">double</span> e = <span class="hljs-number">100.500</span>;
+        <span class="hljs-keyword">double</span> f = <span class="hljs-number">100.200</span>;
+
+        System.<span class="hljs-keyword">out</span>.println(Math.rint(d)); <span class="hljs-comment">//101.0</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.rint(e)); <span class="hljs-comment">//100.0</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.rint(f)); <span class="hljs-comment">//100.0</span>
+
+        System.<span class="hljs-keyword">out</span>.println(Math.round(d)); <span class="hljs-comment">//101</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.round(e)); <span class="hljs-comment">//101</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.round(f)); <span class="hljs-comment">//100</span>
+        System.<span class="hljs-keyword">out</span>.println(Math.round(g)); /<span class="hljs-number">99</span>
+    }
+}</code></pre>
+
+<p><strong>10、min() &amp; max()</strong></p>
+
+<p>min() 方法用于返回两个参数中的最小值。 <br/>
+max() 方法用于返回两个参数中的最大值。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+
+        System.<span class="hljs-keyword">out</span>.println(Math.min(<span class="hljs-number">12.123</span>, <span class="hljs-number">12.456</span>));  <span class="hljs-comment">//12.123   </span>
+        System.<span class="hljs-keyword">out</span>.println(Math.min(<span class="hljs-number">23.12</span>, <span class="hljs-number">23.0</span>));  <span class="hljs-comment">//23.0</span>
+
+        System.<span class="hljs-keyword">out</span>.println(Math.max(<span class="hljs-number">12.123</span>, <span class="hljs-number">18.456</span>));   <span class="hljs-comment">//18.456  </span>
+
+    }
+}</code></pre>
+
+<p><strong>11、random()</strong> </p>
+
+<p>random() 方法用于返回一个随机数，随机数范围为 0.0 =&lt; Math.random &lt; 1.0。 <br/>
+该方法返回 double 值。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+        System.<span class="hljs-keyword">out</span>.println( Math.random() ); <span class="hljs-comment">//0.5444085967267008</span>
+        System.<span class="hljs-keyword">out</span>.println( Math.random() ); <span class="hljs-comment">//0.7960235983184115</span>
+    }
+}</code></pre>
+
+<p>其他方法详见  ：<a href="http://www.runoob.com/java/java-number.html">http://www.runoob.com/java/java-number.html</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>浏览器访问获取用户ip：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">/**
+ * php获取用户真实 IP
+ * 注意这种方式只适用于浏览器访问时
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getIP</span><span class="hljs-params">()</span>
+{</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SERVER</span>)){
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_X_FORWARDED_FOR"</span>])){
+            <span class="hljs-variable">$realip</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_X_FORWARDED_FOR"</span>];
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_CLIENT_IP"</span>])) {
+            <span class="hljs-variable">$realip</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"HTTP_CLIENT_IP"</span>];
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable">$realip</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">"REMOTE_ADDR"</span>];
+        }
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">if</span> (getenv(<span class="hljs-string">"HTTP_X_FORWARDED_FOR"</span>)){
+            <span class="hljs-variable">$realip</span> = getenv(<span class="hljs-string">"HTTP_X_FORWARDED_FOR"</span>);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (getenv(<span class="hljs-string">"HTTP_CLIENT_IP"</span>)) {
+            <span class="hljs-variable">$realip</span> = getenv(<span class="hljs-string">"HTTP_CLIENT_IP"</span>);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable">$realip</span> = getenv(<span class="hljs-string">"REMOTE_ADDR"</span>);
+        }
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$realip</span>;
+}</code></pre>
+
+<p><strong>注意：</strong> <br/>
+1、以上方式只适用于用浏览器访问后台服务时可用 <br/>
+2、以浏览器访问和在后台直接执行php脚本所生成的  $_SERVER  变量是不同的</p>
+
+<p><strong>后台脚本执行获取服务器ip：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">/**
+*方法一：使用 gethostbyname() 方法,此方法获取的是内网ip
+*/</span>
+<span class="hljs-variable">$realip</span> =  gethostbyname(gethostname());
+print_r(<span class="hljs-variable">$realip</span>);
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"\n"</span>;
+
+<span class="hljs-comment">/**
+*方法二：php执行linux系统命令 ifconfig 
+* 利用正则表达式获取 ip
+*/</span>
+
+<span class="hljs-variable">$output</span> = shell_exec(<span class="hljs-string">'ifconfig'</span>);
+preg_match(<span class="hljs-string">"/\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/"</span>,<span class="hljs-variable">$output</span>,<span class="hljs-variable">$realip</span> );
+print_r(<span class="hljs-variable">$realip</span> [<span class="hljs-number">0</span>]);
+
+<span class="hljs-comment">/**
+*方法三：php执行linux系统命令 ifconfig ，此方法获取外网ip
+* 利用grep获取 ip
+*/</span>
+<span class="hljs-variable">$shell</span> = <span class="hljs-string">"/sbin/ifconfig | grep -oP '(?&lt;=addr:).*(?=\s+B)' | sed '1d'"</span>;
+<span class="hljs-variable">$output</span> = shell_exec(<span class="hljs-variable">$shell</span>);
+<span class="hljs-variable">$shell</span> = <span class="hljs-string">"/sbin/ifconfig | grep -oP '(?&lt;=addr:).*(?=\s+B)'"</span>;
+<span class="hljs-variable">$output</span> = exec(<span class="hljs-variable">$shell</span>);
+<span class="hljs-keyword">return</span> <span class="hljs-variable">$output</span>;
+
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><strong>注意：</strong> <br/>
+1、gethostname() 获取的是 eth0 的ip，虚拟机下linux没有eth0项，所以当在虚拟机下执行该方法时返回  127.0.0.1</p>
+
+<p><strong>其他方法解释：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs mel">gethostbyname(<span class="hljs-keyword">string</span> <span class="hljs-variable">$hostname</span>) : 获取对应主机名的一个ipv4地址
+
+gethostbyaddr ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$ip_address</span> ) : 获取指定的IP地址对应的主机名
+
+gethostbynamel ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$hostname</span> ) : 获取对应主机名的一系列所以ipv4地址</code></pre>
+
+<p><strong>php获取ip所属城市：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">/**
+ * php获取 IP  地理位置
+ * 淘宝IP接口
+ *<span class="hljs-phpdoc"> @Return</span>: array
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCity</span><span class="hljs-params">(<span class="hljs-variable">$ip</span> = <span class="hljs-string">''</span>)</span>
+{</span>
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$ip</span> == <span class="hljs-string">''</span>){
+        <span class="hljs-variable">$url</span> = <span class="hljs-string">"http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json"</span>;
+        <span class="hljs-variable">$ip</span>=json_decode(file_get_contents(<span class="hljs-variable">$url</span>),<span class="hljs-keyword">true</span>);
+        <span class="hljs-variable">$data</span> = <span class="hljs-variable">$ip</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-variable">$url</span>=<span class="hljs-string">"http://ip.taobao.com/service/getIpInfo.php?ip="</span>.<span class="hljs-variable">$ip</span>;
+        <span class="hljs-variable">$ip</span>=json_decode(file_get_contents(<span class="hljs-variable">$url</span>));
+        <span class="hljs-keyword">if</span>((string)<span class="hljs-variable">$ip</span>-&gt;code==<span class="hljs-string">'1'</span>){
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+        <span class="hljs-variable">$data</span> = (<span class="hljs-keyword">array</span>)<span class="hljs-variable">$ip</span>-&gt;data;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$data</span>[<span class="hljs-string">'city'</span>];
+}
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

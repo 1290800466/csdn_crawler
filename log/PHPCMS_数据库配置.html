@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+数据库配置文件位置：caches/configs/database.php</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+我们打开这个配置文件，加入我们的数据库配置信息。数据库配置信息为二维数组结构，默认为default,可以根据default结构配置多个数据库链接（如：extended_1）</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+</p><pre code_snippet_id="1630794" snippet_file_name="blog_20160331_1_2395455" name="code" class="php"> ﻿&lt;?php
+ return array (
+ 　　'default' =&gt; array (
+ 　　　　'hostname' =&gt; 'localhost',
+ 　　　　'database' =&gt; 'phpcms',
+ 　　　　'username' =&gt; 'admin',
+ 　　　　'password' =&gt; 'admin',
+ 　　　　'tablepre' =&gt; 'v9_',
+ 　　　　'charset' =&gt; 'gbk',
+ 　　　　'type' =&gt; 'mysql',
+ 　　　　'debug' =&gt; true,
+ 　　　　'pconnect' =&gt; 0,
+ 　　　　'autoconnect' =&gt; 0
+ 　　),
+    /* 以下默认不存在 */
+ 　　'extended_1' =&gt; array (
+ 　　　　'hostname' =&gt; '10.10.125.2',
+ 　　　　'database' =&gt; 'phpcms',
+ 　　　　'username' =&gt; 'admin',
+ 　　　　'password' =&gt; 'admin',
+ 　　　　'tablepre' =&gt; 'v9_',
+ 　　　　'charset' =&gt; 'gbk',
+ 　　　　'type' =&gt; 'mysql',
+ 　　　　'debug' =&gt; true,
+ 　　　　'pconnect' =&gt; 0,
+ 　　　　'autoconnect' =&gt; 0
+ 　　),
+ );
+ ?&gt;</pre><br/><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">根据您的数据库连接信息修改上面的配置内容，修改完成后，保存该数据库配置文件。</span><br/><p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px">&#13;
+<span style="font-family:tahoma,verdana,arial,sans-serif"><span style="font-size:14px; line-height:25px">配置好数据库后，可通过下面</span></span><span style="font-family:tahoma; font-size:26px; line-height:46.4285px; color:rgb(85,85,85); text-indent:40px; white-space:pre-wrap">数据库模型类</span><span style="color:rgb(85,85,85); text-indent:40px; white-space:pre-wrap"><span style="font-family:tahoma,verdana,arial,sans-serif"><span style="font-size:14px; line-height:25px">选择数据库配置文件，数据库等！</span></span><span style="font-family:tahoma"><span style="font-size:26px; line-height:46.4285px">&#13;
+</span></span></span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+<span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="color:rgb(85,85,85); font-family:tahoma; font-size:14px; line-height:24.9999px; text-indent:40px; white-space:pre-wrap">数据库模型位于：phpcms/model/ 目录下</span><br/></span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+<span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"/></p><pre code_snippet_id="1630794" snippet_file_name="blog_20160331_2_7444202" name="code" class="php">&lt;?php
+ 　　defined('IN_PHPCMS') or exit('No permission resources.');
+ 　　pc_base::load_sys_class('model', '', 0);
+ 　　class test_model extends model {
+ 　　　　public function __construct() {
+ 　　　　$this-&gt;db_config = pc_base::load_config('database');
+ 　　　　$this-&gt;db_setting = 'default';
+ 　　　　$this-&gt;table_name = 'test';
+ 　　　　parent::__construct();
+ 　　}
+ 　}
+?&gt;</pre><br/><br/></div>  </body>
+            </html>

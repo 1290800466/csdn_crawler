@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+1、<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_1_2223067" name="code" class="php">//打开(true)或关闭(false)本次数据库连接的自动命令提交事务模式
+//参数如果设置为 FALSE，则表示关闭 auto-commit。如果设置为 TRUE，则表示开启 auto-commit（提交任何等待查询）。
+bool mysqli::autocommit ( bool $mode )</pre>2、<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_2_8558569" name="code" class="php">//回退当前事务
+bool mysqli::rollback ()</pre>3、<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_3_6780662" name="code" class="php">//提交一个事务
+bool mysqli::commit ()</pre>4、<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_4_6987623" name="code" class="php">//关闭先前打开的数据库连接
+bool mysqli::close ()</pre>&#13;
+<p>5、</p>&#13;
+<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_5_9650127" name="code" class="php">//对数据库执行一次查询
+//失败时返回 FALSE，通过mysqli_query() 成功执行SELECT, SHOW, DESCRIBE或 EXPLAIN查询会返回一个mysqli_result 对象，其他查询则返回TRUE
+//参数$resultmode可选。一个常量。可以是下列值中的任意一个：
+//MYSQLI_USE_RESULT（如果需要检索大量数据，请使用这个）
+//MYSQLI_STORE_RESULT（默认）
+mixed mysqli::query ( string $query [, int $resultmode = MYSQLI_STORE_RESULT ] )</pre>&#13;
+<p/>&#13;
+<p>代码示例：</p>&#13;
+<pre code_snippet_id="1653955" snippet_file_name="blog_20160420_5_3257869" name="code" class="php">&lt;?php
+$mysqli = new mysqli("127.0.0.1","root","111111","test");
+if ($mysqli-&gt;connect_errno){
+	echo "Failed to connect to MySQL: " . $mysqli-&gt;connect_error;
+}
+//默认auto-commit 是打开的，可直接提交sql语句
+$b1 = $mysqli-&gt;query("INSERT INTO test (id,name) values (0,'000')");
+//若要执行事务，先关闭auto-commit
+//关闭 auto-commit
+$mysqli-&gt;autocommit(false);
+$res1 = $mysqli-&gt;query("INSERT INTO test (id,n1ame) values (1,'111')");
+$b2 = $mysqli-&gt;query("INSERT INTO test (id,name) values (2,'222')");
+//有一条失败则回滚，全部成功则提交
+if(!$res1 || !$b2){
+    echo '回滚！';
+    $mysqli-&gt;rollback();
+} else {
+    echo '提交！';
+    $mysqli-&gt;commit();
+}
+//若想再次自动提交非事务语句，要打开auto-commit
+$mysqli-&gt;autocommit(true);
+$b3 = $mysqli-&gt;query("INSERT INTO test (id,name) values (3,'333')");
+//关闭连接
+$mysqli-&gt;close();
+
+?&gt;</pre><br/><p/>&#13;
+<p><br/></p>&#13;
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>  </body>
+            </html>

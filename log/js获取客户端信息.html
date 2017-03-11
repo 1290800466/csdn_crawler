@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>js获取客户端time,cookie,url,ip,refer,user_agent信息：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs ">&lt;script src=<span class="hljs-string">"http://pv.sohu.com/cityjson?ie=utf-8"</span>&gt;<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>  
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript">
+window.onload=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+    gettime();  <span class="hljs-comment">//js获取当前时间</span>
+    getip();    <span class="hljs-comment">//js获取客户端ip</span>
+    geturl();    <span class="hljs-comment">//js获取客户端当前url</span>
+    getrefer();    <span class="hljs-comment">//js获取客户端当前页面的上级页面的url</span>
+    getuser_agent();       <span class="hljs-comment">//js获取客户端类型</span>
+    getcookie()  <span class="hljs-comment">//js获取客户端cookie</span>
+    loadXMLDoc();
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">gettime</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">var</span> nowDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+    <span class="hljs-keyword">return</span> nowDate.toLocaleString();
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">geturl</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">return</span> window.location.href;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getip</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">return</span> returnCitySN[<span class="hljs-string">"cip"</span>]+<span class="hljs-string">','</span>+returnCitySN[<span class="hljs-string">"cname"</span>];
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getrefer</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">return</span> document.referrer;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getcookie</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">return</span> document.cookie;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getuser_agent</span><span class="hljs-params">()</span>{</span>
+    <span class="hljs-keyword">return</span> navigator.userAgent;
+}
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadXMLDoc</span><span class="hljs-params">()</span>{</span>  
+    <span class="hljs-keyword">var</span> xmlhttp;  
+    <span class="hljs-keyword">if</span> (window.XMLHttpRequest){    
+        xmlhttp=<span class="hljs-keyword">new</span> XMLHttpRequest();  
+    }<span class="hljs-keyword">else</span>{  
+        xmlhttp=<span class="hljs-keyword">new</span> ActiveXObject(<span class="hljs-string">"Microsoft.XMLHTTP"</span>);  
+    }  
+    xmlhttp.onreadystatechange=<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>  
+        <span class="hljs-keyword">if</span> (xmlhttp.readyState==<span class="hljs-number">4</span> &amp;&amp; xmlhttp.status==<span class="hljs-number">200</span>){  
+            <span class="hljs-comment">//alert(xmlhttp.responseText);</span>
+        }  
+    }  <span class="hljs-comment">//http://localhost/git_work/log.php   //http://localhost:8088/log.php</span>
+    xmlhttp.open(<span class="hljs-string">"POST"</span>,<span class="hljs-string">"http://analysis.wml.com:8088/log.php"</span>,<span class="hljs-literal">true</span>);  
+    xmlhttp.setRequestHeader(<span class="hljs-string">"Content-type"</span>,<span class="hljs-string">"application/x-www-form-urlencoded"</span>);  
+    xmlhttp.send(<span class="hljs-string">"time="</span>+gettime()+<span class="hljs-string">"&amp;ip="</span>+getip()+<span class="hljs-string">"&amp;url="</span>+geturl()+<span class="hljs-string">"&amp;refer="</span>+getrefer()+<span class="hljs-string">"&amp;user_agent="</span>+getuser_agent()+<span class="hljs-string">"&amp;cookie="</span>+getcookie());  
+}  
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>通常所说的密码找回功能不是真的能把忘记的密码找回，因为我们的密码是加密保存的，一般开发者会在验证用户信息后通过程序生成一个新密码或者生成一个特定的链接并发送邮件到用户邮箱，用户从邮箱链接到网站的重置密码模块重新设置新密码。</p>
+
+<p>当然现在有的网站也有手机短信的方式找回密码，原理就是通过发送验证码来验明正身，和发送邮件验证一样，最终还是要通过重置密码来完成找回密码的流程。 <br/>
+密码找回的功能，一般步骤是：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mathematica"><span class="hljs-number">1.</span>表单输入注册时的邮箱；
+<span class="hljs-number">2.</span>验证用户邮箱是否正确，如果用户邮箱不存在网站的用户表中，则提示用户邮箱未注册；
+<span class="hljs-number">3.</span>发送邮件，如果用户邮箱确实存在用户表中，则组合用于验证用户信息的字符串，并构造<span class="hljs-keyword">URL</span>发送到用户邮箱中;
+<span class="hljs-number">4.</span>用户登录邮箱收取邮件，点击<span class="hljs-keyword">URL</span>链接到网站验证程序；
+<span class="hljs-number">5.</span>网站程序通过用户请求的字符串查询本地用户表，比对用户信息是否正确；
+<span class="hljs-number">6.</span>如果正确则转到重置密码页面重新设置新密码，反之则提示用户验证无效。</code></pre>
+
+<p>HTML <br/>
+我们在找回密码的页面上放置一个要求用户输入注册时所用的邮箱，然后提交前台js来处理交互。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">strong</span>&gt;</span>输入您注册的电子邮箱，找回密码：<span class="hljs-tag">&lt;/<span class="hljs-title">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"input"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"email"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"email"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"chkmsg"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"button"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"sub_btn"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"提 交"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span> </code></pre>
+
+<p>jQuery <br/>
+当用户输入完邮箱并点击提交后，jQuery先验证邮箱格式是否正确，如果正确则通过向后台sendmail.php发送Ajax请求，sendmail.php负责验证邮箱是否存在和发送邮件，并会返回相应的处理结果给前台页面，请看jQuery代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+    $(<span class="hljs-string">"#sub_btn"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+        <span class="hljs-keyword">var</span> email = $(<span class="hljs-string">"#email"</span>).val(); 
+        <span class="hljs-keyword">var</span> preg = <span class="hljs-regexp">/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/</span>; <span class="hljs-comment">//匹配Email </span>
+        <span class="hljs-keyword">if</span>(email==<span class="hljs-string">''</span> || !preg.test(email)){ 
+            $(<span class="hljs-string">"#chkmsg"</span>).html(<span class="hljs-string">"请填写正确的邮箱！"</span>); 
+        }<span class="hljs-keyword">else</span>{ 
+            $(<span class="hljs-string">"#sub_btn"</span>).attr(<span class="hljs-string">"disabled"</span>,<span class="hljs-string">"disabled"</span>).val(<span class="hljs-string">'提交中..'</span>).css(<span class="hljs-string">"cursor"</span>,<span class="hljs-string">"default"</span>); 
+            $.post(<span class="hljs-string">"sendmail.php"</span>,{mail:email},<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(msg)</span>{</span> 
+                <span class="hljs-keyword">if</span>(msg==<span class="hljs-string">"noreg"</span>){ 
+                    $(<span class="hljs-string">"#chkmsg"</span>).html(<span class="hljs-string">"该邮箱尚未注册！"</span>); 
+                    $(<span class="hljs-string">"#sub_btn"</span>).removeAttr(<span class="hljs-string">"disabled"</span>).val(<span class="hljs-string">'提 交'</span>).css(<span class="hljs-string">"cursor"</span>,<span class="hljs-string">"pointer"</span>); 
+                }<span class="hljs-keyword">else</span>{ 
+                    $(<span class="hljs-string">".demo"</span>).html(<span class="hljs-string">"&lt;h3&gt;"</span>+msg+<span class="hljs-string">"&lt;/h3&gt;"</span>); 
+                } 
+            }); 
+        } 
+    }); 
+}) </code></pre>
+
+<p>以上使用的jQuery代码很方便简洁的完成了前端交互操作，如果您有一定的jQuery基础，那上面的代码一目了然，不多解释。</p>
+
+<p>PHP <br/>
+sendmail.php需要验证Email是否存在系统用户表中，如果有，则读取用户信息，将用户id、用户名和密码惊醒md5加密生成一个特别的字符串作为找回密码的验证码，然后构造URL。同时我们为了控制URL链接的时效性，将记录用户提交找回密码动作的操作时间，最后调用邮件发送类发送邮件到用户邮箱，发送邮件类smtp.class.php已经打包好，请下载。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">include_once</span>(<span class="hljs-string">"connect.php"</span>);<span class="hljs-comment">//连接数据库 </span>
+
+<span class="hljs-variable">$email</span> = stripslashes(trim(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">'mail'</span>])); 
+
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"select id,username,password from `t_user` where `email`='$email'"</span>; 
+<span class="hljs-variable">$query</span> = mysql_query(<span class="hljs-variable">$sql</span>); 
+<span class="hljs-variable">$num</span> = mysql_num_rows(<span class="hljs-variable">$query</span>); 
+<span class="hljs-keyword">if</span>(<span class="hljs-variable">$num</span>==<span class="hljs-number">0</span>){<span class="hljs-comment">//该邮箱尚未注册！ </span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'noreg'</span>; 
+    <span class="hljs-keyword">exit</span>;     
+}<span class="hljs-keyword">else</span>{ 
+    <span class="hljs-variable">$row</span> = mysql_fetch_array(<span class="hljs-variable">$query</span>); 
+    <span class="hljs-variable">$getpasstime</span> = time(); 
+    <span class="hljs-variable">$uid</span> = <span class="hljs-variable">$row</span>[<span class="hljs-string">'id'</span>]; 
+    <span class="hljs-variable">$token</span> = md5(<span class="hljs-variable">$uid</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">'username'</span>].<span class="hljs-variable">$row</span>[<span class="hljs-string">'password'</span>]);<span class="hljs-comment">//组合验证码 </span>
+    <span class="hljs-variable">$url</span> = <span class="hljs-string">"http://www.helloweba.com/demo/resetpass/reset.php?email="</span>.<span class="hljs-variable">$email</span>.<span class="hljs-string">" 
+&amp;token="</span>.<span class="hljs-variable">$token</span>;<span class="hljs-comment">//构造URL </span>
+    <span class="hljs-variable">$time</span> = date(<span class="hljs-string">'Y-m-d H:i'</span>); 
+    <span class="hljs-variable">$result</span> = sendmail(<span class="hljs-variable">$time</span>,<span class="hljs-variable">$email</span>,<span class="hljs-variable">$url</span>); 
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$result</span>==<span class="hljs-number">1</span>){<span class="hljs-comment">//邮件发送成功 </span>
+        <span class="hljs-variable">$msg</span> = <span class="hljs-string">'系统已向您的邮箱发送了一封邮件&lt;br/&gt;请登录到您的邮箱及时重置您的密码！'</span>; 
+        <span class="hljs-comment">//更新数据发送时间 </span>
+        mysql_query(<span class="hljs-string">"update `t_user` set `getpasstime`='$getpasstime' where id='$uid '"</span>); 
+    }<span class="hljs-keyword">else</span>{ 
+        <span class="hljs-variable">$msg</span> = <span class="hljs-variable">$result</span>; 
+    } 
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$msg</span>; 
+} 
+
+<span class="hljs-comment">//发送邮件 </span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendmail</span><span class="hljs-params">(<span class="hljs-variable">$time</span>,<span class="hljs-variable">$email</span>,<span class="hljs-variable">$url</span>)</span>{</span> 
+    <span class="hljs-keyword">include_once</span>(<span class="hljs-string">"smtp.class.php"</span>); 
+    <span class="hljs-variable">$smtpserver</span> = <span class="hljs-string">""</span>; <span class="hljs-comment">//SMTP服务器，如smtp.163.com </span>
+    <span class="hljs-variable">$smtpserverport</span> = <span class="hljs-number">25</span>; <span class="hljs-comment">//SMTP服务器端口 </span>
+    <span class="hljs-variable">$smtpusermail</span> = <span class="hljs-string">""</span>; <span class="hljs-comment">//SMTP服务器的用户邮箱 </span>
+    <span class="hljs-variable">$smtpuser</span> = <span class="hljs-string">""</span>; <span class="hljs-comment">//SMTP服务器的用户帐号 </span>
+    <span class="hljs-variable">$smtppass</span> = <span class="hljs-string">""</span>; <span class="hljs-comment">//SMTP服务器的用户密码 </span>
+    <span class="hljs-variable">$smtp</span> = <span class="hljs-keyword">new</span> Smtp(<span class="hljs-variable">$smtpserver</span>, <span class="hljs-variable">$smtpserverport</span>, <span class="hljs-keyword">true</span>, <span class="hljs-variable">$smtpuser</span>, <span class="hljs-variable">$smtppass</span>);  
+    <span class="hljs-comment">//这里面的一个true是表示使用身份验证,否则不使用身份验证. </span>
+    <span class="hljs-variable">$emailtype</span> = <span class="hljs-string">"HTML"</span>; <span class="hljs-comment">//信件类型，文本:text；网页：HTML </span>
+    <span class="hljs-variable">$smtpemailto</span> = <span class="hljs-variable">$email</span>; 
+    <span class="hljs-variable">$smtpemailfrom</span> = <span class="hljs-variable">$smtpusermail</span>; 
+    <span class="hljs-variable">$emailsubject</span> = <span class="hljs-string">"Helloweba.com - 找回密码"</span>; 
+    <span class="hljs-variable">$emailbody</span> = <span class="hljs-string">"亲爱的"</span>.<span class="hljs-variable">$email</span>.<span class="hljs-string">"：&lt;br/&gt;您在"</span>.<span class="hljs-variable">$time</span>.<span class="hljs-string">"提交了找回密码请求。请点击下面的链接重置密码 
+（按钮24小时内有效）。&lt;br/&gt;&lt;a href='"</span>.<span class="hljs-variable">$url</span>.<span class="hljs-string">"'target='_blank'&gt;"</span>.<span class="hljs-variable">$url</span>.<span class="hljs-string">"&lt;/a&gt;"</span>; 
+    <span class="hljs-variable">$rs</span> = <span class="hljs-variable">$smtp</span>-&gt;sendmail(<span class="hljs-variable">$smtpemailto</span>, <span class="hljs-variable">$smtpemailfrom</span>, <span class="hljs-variable">$emailsubject</span>, <span class="hljs-variable">$emailbody</span>, <span class="hljs-variable">$emailtype</span>); 
+
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$rs</span>; 
+} </code></pre>
+
+<p>好了，这个时候你的邮箱将会收到一封来自helloweba的密码找回邮件，邮件内容中有一个URL链接，点击该链接到helloweba.com的reset.php来验证邮箱。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">include_once</span>(<span class="hljs-string">"connect.php"</span>);<span class="hljs-comment">//连接数据库 </span>
+
+<span class="hljs-variable">$token</span> = stripslashes(trim(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">'token'</span>])); 
+<span class="hljs-variable">$email</span> = stripslashes(trim(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">'email'</span>])); 
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"select * from `t_user` where email='$email'"</span>; 
+
+<span class="hljs-variable">$query</span> = mysql_query(<span class="hljs-variable">$sql</span>); 
+<span class="hljs-variable">$row</span> = mysql_fetch_array(<span class="hljs-variable">$query</span>); 
+<span class="hljs-keyword">if</span>(<span class="hljs-variable">$row</span>){ 
+    <span class="hljs-variable">$mt</span> = md5(<span class="hljs-variable">$row</span>[<span class="hljs-string">'id'</span>].<span class="hljs-variable">$row</span>[<span class="hljs-string">'username'</span>].<span class="hljs-variable">$row</span>[<span class="hljs-string">'password'</span>]); 
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$mt</span>==<span class="hljs-variable">$token</span>){ 
+        <span class="hljs-keyword">if</span>(time()-<span class="hljs-variable">$row</span>[<span class="hljs-string">'getpasstime'</span>]&gt;<span class="hljs-number">24</span>*<span class="hljs-number">60</span>*<span class="hljs-number">60</span>){ 
+            <span class="hljs-variable">$msg</span> = <span class="hljs-string">'该链接已过期！'</span>; 
+        }<span class="hljs-keyword">else</span>{ 
+            <span class="hljs-comment">//重置密码... </span>
+            <span class="hljs-variable">$msg</span> = <span class="hljs-string">'请重新设置密码，显示重置密码表单，&lt;br/&gt;这里只是演示，略过。'</span>; 
+        } 
+    }<span class="hljs-keyword">else</span>{ 
+        <span class="hljs-variable">$msg</span> =  <span class="hljs-string">'无效的链接'</span>; 
+    } 
+}<span class="hljs-keyword">else</span>{ 
+    <span class="hljs-variable">$msg</span> =  <span class="hljs-string">'错误的链接！'</span>;     
+} 
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$msg</span>; </code></pre>
+
+<p>reset.php首先接受参数email和token，然后根据email查询数据表t_user中是否存在该Email，如果存在则获取该用户的信息，并且和sendmail.php中的token组合方式一样构建token值，然后与url传过来的token进行对比，如果当前时间与发送邮件时的时间相差超过24小时的，则提示“该链接已过期！”，反之，则说明链接有效，并且调转到重置密码页面，最后就是用户自己设置新密码了。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>php.ini 设置：</strong></p>
+
+<pre class="prettyprint"><code class="language-ini hljs "><span class="hljs-title">[mail function]</span>
+<span class="hljs-comment">; For Win32 only.</span>
+<span class="hljs-comment">; http://php.net/smtp</span>
+<span class="hljs-setting">SMTP = <span class="hljs-value">localhost</span></span>
+<span class="hljs-comment">; http://php.net/smtp-port</span>
+<span class="hljs-setting">smtp_port = <span class="hljs-value"><span class="hljs-number">25</span></span></span>
+
+<span class="hljs-comment">; For Win32 only.</span>
+<span class="hljs-comment">; http://php.net/sendmail-from</span>
+<span class="hljs-setting">sendmail_from = <span class="hljs-value">要用的发送邮件的邮箱地址</span></span>
+
+<span class="hljs-comment">; For Unix only.  You may supply arguments as well (default: "sendmail -t -i").</span>
+<span class="hljs-comment">; http://php.net/sendmail-path</span>
+<span class="hljs-comment">;sendmail_path 可在系统中查找 sendmail.exe 绝对路径</span>
+<span class="hljs-setting">sendmail_path = <span class="hljs-value"><span class="hljs-string">"C:\Bitnami\nginxstack-1.9.10-0\sendmail\sendmail.exe -t"</span></span></span>
+
+<span class="hljs-comment">; Force the addition of the specified parameters to be passed as extra parameters</span>
+<span class="hljs-comment">; to the sendmail binary. These parameters will always replace the value of</span>
+<span class="hljs-comment">; the 5th parameter to mail().</span>
+<span class="hljs-comment">;mail.force_extra_parameters =</span>
+
+<span class="hljs-comment">; Add X-PHP-Originating-Script: that will include uid of the script followed by the filename</span>
+mail.add_x_header = On
+
+<span class="hljs-comment">; The path to a log file that will log all mail() calls. Log entries include</span>
+<span class="hljs-comment">; the full path of the script, line number, To address and headers.</span>
+<span class="hljs-comment">;mail.log =</span>
+<span class="hljs-comment">; Log mail to syslog (Event Log on Windows).</span>
+mail.log = C:/Bitnami/nginxstack-1.9.10-0/nginx/logs/php_errors.log</code></pre>
+
+<p><strong>安装sendmail :</strong> <br/>
+1.从<a href="http://glob.com.au/sendmail/">http://glob.com.au/sendmail/</a>下载sendmail.zip <br/>
+2.解压即可。 <br/><strong>注意：</strong>对于 sendmail.exe 在安装xampp时在xampp包中已自动安装</p>
+
+<p>接下来要配置 sendmail 包中的sendmail.ini文件</p>
+
+<p><strong>sendmail.ini配置：</strong></p>
+
+<pre class="prettyprint"><code class="language-ini hljs "><span class="hljs-comment">; configuration for fake sendmail</span>
+
+<span class="hljs-comment">; if this file doesn't exist, sendmail.exe will look for the settings in</span>
+<span class="hljs-comment">; the registry, under HKLM\Software\Sendmail</span>
+
+<span class="hljs-title">[sendmail]</span>
+
+<span class="hljs-comment">; you must change mail.mydomain.com to your smtp server,</span>
+<span class="hljs-comment">; or to IIS's "pickup" directory.  (generally C:\Inetpub\mailroot\Pickup)</span>
+<span class="hljs-comment">; emails delivered via IIS's pickup directory cause sendmail to</span>
+<span class="hljs-comment">; run quicker, but you won't get error messages back to the calling</span>
+<span class="hljs-comment">; application.</span>
+
+<span class="hljs-setting">smtp_server=<span class="hljs-value">smtp.qq.com</span></span>
+
+<span class="hljs-comment">; smtp port (normally 25)</span>
+
+<span class="hljs-setting">smtp_port=<span class="hljs-value"><span class="hljs-number">25</span></span></span>
+
+<span class="hljs-comment">; SMTPS (SSL) support</span>
+<span class="hljs-comment">;   auto = use SSL for port 465, otherwise try to use TLS</span>
+<span class="hljs-comment">;   ssl  = alway use SSL</span>
+<span class="hljs-comment">;   tls  = always use TLS</span>
+<span class="hljs-comment">;   none = never try to use SSL</span>
+
+<span class="hljs-setting">smtp_ssl=<span class="hljs-value">auto</span></span>
+
+<span class="hljs-comment">; the default domain for this server will be read from the registry</span>
+<span class="hljs-comment">; this will be appended to email addresses when one isn't provided</span>
+<span class="hljs-comment">; if you want to override the value in the registry, uncomment and modify</span>
+
+<span class="hljs-comment">;default_domain=mydomain.com</span>
+
+<span class="hljs-comment">; log smtp errors to error.log (defaults to same directory as sendmail.exe)</span>
+<span class="hljs-comment">; uncomment to enable logging</span>
+
+<span class="hljs-setting">error_logfile=<span class="hljs-value">C:/Bitnami/nginxstack-<span class="hljs-number">1.9</span>.<span class="hljs-number">10</span>-<span class="hljs-number">0</span>/nginx/logs/php_errors.log</span></span>
+
+<span class="hljs-comment">; create debug log as debug.log (defaults to same directory as sendmail.exe)</span>
+<span class="hljs-comment">; uncomment to enable debugging</span>
+
+<span class="hljs-setting">debug_logfile=<span class="hljs-value">C:/Bitnami/nginxstack-<span class="hljs-number">1.9</span>.<span class="hljs-number">10</span>-<span class="hljs-number">0</span>/nginx/logs/php_errors.log</span></span>
+
+<span class="hljs-comment">; if your smtp server requires authentication, modify the following two lines</span>
+
+<span class="hljs-setting">auth_username= <span class="hljs-value">要用作发送邮件的服务邮箱地址</span></span>
+<span class="hljs-setting">auth_password= <span class="hljs-value">要用做发送邮件的邮箱的密码</span></span>
+
+<span class="hljs-comment">; if your smtp server uses pop3 before smtp authentication, modify the </span>
+<span class="hljs-comment">; following three lines.  do not enable unless it is required.</span>
+
+<span class="hljs-setting">pop3_server= <span class="hljs-value"/></span>
+<span class="hljs-setting">pop3_username=<span class="hljs-value"/></span>
+<span class="hljs-setting">pop3_password=<span class="hljs-value"/></span>
+
+<span class="hljs-comment">; force the sender to always be the following email address</span>
+<span class="hljs-comment">; this will only affect the "MAIL FROM" command, it won't modify </span>
+<span class="hljs-comment">; the "From: " header of the message content</span>
+
+<span class="hljs-setting">force_sender= <span class="hljs-value">要用作发送邮件的服务邮箱地址</span></span>
+
+<span class="hljs-comment">; force the sender to always be the following email address</span>
+<span class="hljs-comment">; this will only affect the "RCTP TO" command, it won't modify </span>
+<span class="hljs-comment">; the "To: " header of the message content</span>
+
+<span class="hljs-setting">force_recipient=<span class="hljs-value"/></span>
+
+<span class="hljs-comment">; sendmail will use your hostname and your default_domain in the ehlo/helo</span>
+<span class="hljs-comment">; smtp greeting.  you can manually set the ehlo/helo name if required</span>
+
+<span class="hljs-setting">hostname=<span class="hljs-value"/></span>
+
+</code></pre>
+
+<p><strong>error_log发送邮件实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+error_log(<span class="hljs-string">"测试邮件内容！"</span>, <span class="hljs-number">1</span>,<span class="hljs-string">"zigzag@my.domain"</span>,<span class="hljs-string">"From: operator@example.com"</span>);
+error_log(<span class="hljs-string">"Big trouble, we're all out of FOOs!"</span>, <span class="hljs-number">1</span>,<span class="hljs-string">"operator@example.com"</span>);
+error_log(<span class="hljs-string">"sometext"</span>, <span class="hljs-number">1</span>, <span class="hljs-string">"zigzag@my.domain"</span>,<span class="hljs-string">"Subject: Foo\nFrom: Rizzlas@my.domain\n"</span>);
+<span class="hljs-preprocessor">?&gt;</span>
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

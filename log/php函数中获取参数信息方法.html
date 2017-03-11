@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><br/><span style="color:#ff0000">1、func_num_args() 返回传递给该函数参数的个数 </span><br/></span><pre code_snippet_id="1695633" snippet_file_name="blog_20160524_1_6512607" name="code" class="php">&lt;?php
+function foo()
+{
+    $numargs = func_num_args();
+    echo $numargs;   //输出3
+}
+
+
+foo(1, 2, 3);   
+?&gt;</pre><br/><span style="color:#ff0000">2、func_get_arg(int $arg_num) 取得指定位置的参数值，$arg_num位置index从0开始n-1。 </span><br/><br/><pre code_snippet_id="1695633" snippet_file_name="blog_20160524_2_9609506" name="code" class="php">&lt;?php
+function foo()
+{
+     $numargs = func_num_args();
+     echo $numargs;   //输出3
+     if ($numargs &gt;= 2) {
+         echo func_get_arg(1); //输出2
+     }
+}
+
+foo (1, 2, 3);
+?&gt;</pre><br/><span style="color:#ff6666">3、func_get_args() 返回包含所有参数的数组 </span><br/><pre code_snippet_id="1695633" snippet_file_name="blog_20160524_3_2848110" name="code" class="php">&lt;?php
+function foo()
+{
+    $numargs = func_get_args();
+    var_dump($numargs);   //输出 array(3) { [0]=&gt; int(1) [1]=&gt; int(2) [2]=&gt; int(3) } 
+}
+
+
+foo(1, 2, 3);   
+?&gt;</pre><br/></div>  </body>
+            </html>

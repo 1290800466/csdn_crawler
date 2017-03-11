@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Python 字典 :</strong> <br/>
+字典是另一种<strong>可变容器模型</strong>，且可存储任意类型对象。 <br/>
+字典的每个键值(key=&gt;value)对用冒号(:)分割，每个对之间用逗号(,)分割，整个字典包括在花括号({})中 ,格式如下所示：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">d </span>=<span class="hljs-string"> {key1 : value1, key2 : value2 }</span></code></pre>
+
+<p><strong>键必须是唯一的，但值则不必。</strong> <br/>
+值可以取任何数据类型，但键必须是不可变的，如字符串，数字或元组。 <br/>
+一个简单的字典实例：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">dict = {<span class="hljs-string">'Alice'</span>: <span class="hljs-string">'2341'</span>, <span class="hljs-string">'Beth'</span>: <span class="hljs-string">'9102'</span>, <span class="hljs-string">'Cecil'</span>: <span class="hljs-string">'3258'</span>}</code></pre>
+
+<p>也可如此创建字典：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">dict1 = { <span class="hljs-string">'abc'</span>: <span class="hljs-number">456</span> };
+dict2 = { <span class="hljs-string">'abc'</span>: <span class="hljs-number">123</span>, <span class="hljs-number">98.6</span>: <span class="hljs-number">37</span> };</code></pre>
+
+<p><strong>访问字典里的值：</strong> <br/>
+把相应的键放入熟悉的方括弧，如下实例:</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+
+dict = {<span class="hljs-string">'Name'</span>: <span class="hljs-string">'Zara'</span>, <span class="hljs-string">'Age'</span>: <span class="hljs-number">7</span>, <span class="hljs-string">'Class'</span>: <span class="hljs-string">'First'</span>};
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"dict['Name']: "</span>, dict[<span class="hljs-string">'Name'</span>];
+<span class="hljs-keyword">print</span> <span class="hljs-string">"dict['Age']: "</span>, dict[<span class="hljs-string">'Age'</span>];
+<span class="hljs-string">'''
+以上实例输出结果：
+dict['Name']:  Zara
+dict['Age']:  7
+'''</span></code></pre>
+
+<p><strong>修改字典：</strong> <br/>
+向字典添加新内容的方法是增加新的键/值对，修改或删除已有键/值对如下实例:</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+
+dict = {<span class="hljs-string">'Name'</span>: <span class="hljs-string">'Zara'</span>, <span class="hljs-string">'Age'</span>: <span class="hljs-number">7</span>, <span class="hljs-string">'Class'</span>: <span class="hljs-string">'First'</span>};
+
+dict[<span class="hljs-string">'Age'</span>] = <span class="hljs-number">8</span>; <span class="hljs-comment"># 修改已存在的键值</span>
+dict[<span class="hljs-string">'School'</span>] = <span class="hljs-string">"DPS School"</span>; <span class="hljs-comment"># 增加新的键值对</span>
+
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"dict['Age']: "</span>, dict[<span class="hljs-string">'Age'</span>];
+<span class="hljs-keyword">print</span> <span class="hljs-string">"dict['School']: "</span>, dict[<span class="hljs-string">'School'</span>]; 
+<span class="hljs-string">'''
+以上实例输出结果：
+dict['Age']:  8
+dict['School']:  DPS School
+'''</span></code></pre>
+
+<p><strong>删除字典元素：</strong> <br/>
+能删单一的元素也能清空字典，清空只需一项操作。 <br/>
+显示删除一个字典用del命令，如下实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+dict = {<span class="hljs-string">'Name'</span>: <span class="hljs-string">'Zara'</span>, <span class="hljs-string">'Age'</span>: <span class="hljs-number">7</span>, <span class="hljs-string">'Class'</span>: <span class="hljs-string">'First'</span>};
+
+<span class="hljs-keyword">del</span> dict[<span class="hljs-string">'Name'</span>]; <span class="hljs-comment"># 删除键是'Name'的条目</span>
+dict.clear();     <span class="hljs-comment"># 清空词典所有条目</span>
+<span class="hljs-keyword">del</span> dict ;        <span class="hljs-comment"># 删除词典</span></code></pre>
+
+<p><strong>字典键的特性：</strong> <br/>
+1）不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住， <br/>
+2）键必须不可变，所以可以用数字，字符串或元组充当，所以用列表就不行，</p>
+
+<p><strong>字典内置函数&amp;方法：</strong> <br/>
+Python字典包含了以下内置函数：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">cmp(dict1, dict2)   <span class="hljs-comment">#比较两个字典元素。</span>
+len(dict)   <span class="hljs-comment">#计算字典元素个数，即键的总数。</span>
+str(dict)   <span class="hljs-comment">#输出字典可打印的字符串表示。</span>
+type(variable)  <span class="hljs-comment">#返回输入的变量类型，如果变量是字典就返回字典类型。</span></code></pre>
+
+<p>Python字典包含了以下内置方法：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">radiansdict.clear() <span class="hljs-comment">#删除字典内所有元素，字典还在，其中元素没有了</span>
+radiansdict.pop(<span class="hljs-string">'k'</span>)    <span class="hljs-comment">#删除并返回键为k的元素</span>
+radiansdict.copy()  <span class="hljs-comment">#返回一个字典的浅复制，将字典复制给其他字典</span>
+radiansdict.fromkeys()  <span class="hljs-comment">#创建一个新字典，以序列seq中元素做字典的键，val为字典所有键对应的初始值</span></code></pre>
+
+<p>以下实例展示了 fromkeys()函数的使用方法： <br/>
+该方法只适应于键不相等，所有值相等的字典</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+
+seq = (<span class="hljs-string">'name'</span>, <span class="hljs-string">'age'</span>, <span class="hljs-string">'sex'</span>)
+
+dict = dict.fromkeys(seq)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"New Dictionary : %s"</span> %  str(dict)
+
+dict = dict.fromkeys(seq, <span class="hljs-number">10</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"New Dictionary : %s"</span> %  str(dict)
+<span class="hljs-string">'''
+以上实例输出结果为：
+New Dictionary : {'age': None, 'name': None, 'sex': None}
+New Dictionary : {'age': 10, 'name': 10, 'sex': 10}
+'''</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">radiansdict.get(key, default=<span class="hljs-keyword">None</span>)  <span class="hljs-comment">#返回指定键的值，如果值不在字典中返回default值</span>
+radiansdict.has_key(key)    <span class="hljs-comment">#如果键在字典dict里返回true，否则返回false</span>
+radiansdict.items()     <span class="hljs-comment">#以列表返回可遍历的(键, 值) 元组数组</span></code></pre>
+
+<p>以下实例展示了 items()函数的使用方法：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+dict = {<span class="hljs-string">'Name'</span>: <span class="hljs-string">'Zara'</span>, <span class="hljs-string">'Age'</span>: <span class="hljs-number">7</span>}
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Value : %s"</span> %  dict.items()
+<span class="hljs-string">'''
+以上实例输出结果为：
+Value : [('Age', 7), ('Name', 'Zara')]</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">radiansdict.keys()  <span class="hljs-comment">#以列表返回一个字典所有的键</span>
+radiansdict.setdefault(key, default=<span class="hljs-keyword">None</span>)   <span class="hljs-comment">#和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default</span>
+radiansdict.update(dict2)   <span class="hljs-comment">#把字典dict2的键/值对更新到dict里</span>
+radiansdict.values()    <span class="hljs-comment">#以列表返回字典中的所有值</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

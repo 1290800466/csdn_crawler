@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-family:FangSong_GB2312; font-size:18px"><strong>mysql 数据库引擎主要用一下两种:</strong><br/>&#13;
+一种是 MyISAM,一种是 InnoDB <span style="font-family:FangSong_GB2312; font-size:18px">（其他也还有几种，但一般不用）</span><br/>&#13;
+MyISAM 发音为 "my-z[ei]m";<br/><br/><span style="white-space:pre"/>MyISAM引擎是一种非事务性(不支持事务)的引擎，提供高速存储和检索，以及全文搜索能力，适合数据仓库等查询频繁的应用。MyISAM中，一个table实际保存为三个文件，.frm存储表定义，.MYD存储数据,.MYI存储索引。MyISAM在所有MySQL配置里被支持，它是默认的存储引擎，除非你配置MySQL默认使用另外一个引擎。<br/>&#13;
+CREATE TABLE t (i INT) ENGINE = MYISAM;<br/>&#13;
+注释：老版本的MySQL使用TYPE而不是ENGINE（例如，TYPE = MYISAM）。MySQL 5.1为向下兼容而支持这个语法，但TYPE现在被轻视，而ENGINE是首先的用法。<br/>&#13;
+　　<br/><span style="white-space:pre"/>InnoDB则是一种支持事务的引擎。给MySQL提供了具有提交，回滚和崩溃恢复能力的事务安全（ACID兼容）存储引擎。所以的数据存储在一个或者多个数据文件中，支持类似于Oracle的锁机制。一般在OLTP应用中使用较广泛。如果没有指定InnoDB配置选项，MySQL将在MySQL数据目录下创建一个名为ibdata1的自动扩展数据文件，以及两个名为ib_logfile0和ib_logfile1的日志文件。<br/><span style="white-space:pre"/>InnoDB锁定在行级并且也在SELECT语句提供一个Oracle风格一致的非锁定读。这些特色增加了多用户部署和性能。没有在InnoDB中扩大锁定的需要，因为在InnoDB中行级锁定适合非常小的空间。InnoDB也支持FOREIGN KEY强制。在SQL查询中，你可以自由地将InnoDB类型的表与其它MySQL的表的类型混合起来，甚至在同一个查询中也可以混合。<br/><span style="white-space:pre"/>InnoDB是为处理巨大数据量时的最大性能设计。它的CPU效率可能是任何其它基于磁盘的关系数据库引擎所不能匹敌的。InnoDB存储引擎被完全与MySQL服务器整合，InnoDB存储引擎为在主内存中缓存数据和索引而维持它自己的缓冲池。<br/><span style="white-space:pre"/>InnoDB存储它的表＆索引在一个表空间中，表空间可以包含数个文件。InnoDB表可以是任何尺寸，即使在文件尺寸被限制为2GB的操作系统上。InnoDB也默认被包括在所有MySQL 5.1二进制分发版里。<br/><br/><strong><span style="color:#ff0000">MyISAM和Innodb的区别：</span></strong><br/><span style="white-space:pre"/>两种类型最主要的差别就是Innodb支持事务处理与外键和行级锁.而MyISAM不支持.所以MyISAM往往就容易被人认为只适合在小项目中使用。<br/><span style="white-space:pre"/>我作为使用MySQL的用户角度出发，Innodb和MyISAM都是比较喜欢的，但是从我目前运维的数据库平台要达到需求：99.9%的稳定性，方便的扩展性和高可用性来说的话，MyISAM绝对是我的首选。<br/>&#13;
+MyISAM的读性能是比Innodb强不少的。<br/><span style="white-space:pre"/>MyISAM的索引和数据是分开的，并且索引是有压缩的，内存使用率就对应提高了不少。能加载更多索引，而Innodb是索引和数据是紧密捆绑的，没有使用压缩从而会造成Innodb比MyISAM体积庞大不小。<br/><span style="white-space:pre"/>MyISAM类型的表强调的是性能，其执行数度比InnoDB类型更快，但是不提供事务支持，而InnoDB提供事务支持已经外部键等高级数据库功能。<br/>&#13;
+MySQL有三种级别的锁：<br/>&#13;
+1. 页级别 BDB<br/>&#13;
+2. 表级别 MyISAM<br/>&#13;
+3. 行级别 InnoDB</span><br/></div>  </body>
+            </html>

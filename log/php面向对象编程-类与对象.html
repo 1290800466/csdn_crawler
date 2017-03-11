@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px"><strong>1、类和对象的区别与联系：</strong><br/>&#13;
+     1.类是抽象的，概念的，代表一类事物，比如人类，猫类<br/>&#13;
+     2.对象是具体的，实际的，代表一个具体的事物<br/>&#13;
+     3.类是对象的模板，对象是类的一个个体实例<br/></span></p>&#13;
+<p><span style="font-size:14px"><strong>2、类与对象实例：</strong><br/></span></p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php 
+
+//创建一个Cat类
+class Cat
+{
+	public $name;
+	public $age;
+	public $color;
+}
+
+
+//创建一个对象 cat1
+//通过Cat类创建一个cat1对象
+$cat1 = new Cat();
+$cat1-&gt;name = "小白";
+$cat1-&gt;age = "3";
+$cat1-&gt;color = "白色";
+ 
+//创建一个对象 cat2
+//通过Cat类创建一个cat2对象
+$cat2 = new Cat();
+$cat2-&gt;name = "小花";
+$cat2-&gt;age = "23";
+$cat2-&gt;color = "花色";
+
+
+//如果我们找到一只猫，只要找到$cat1，那么该变量所有相关的属性都通通找到
+$catname = "小白";
+if($cat1-&gt;name = $catname)
+{
+	echo $cat1-&gt;name ." | ". $cat1-&gt;age. " | ". $cat1-&gt;color;
+}
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/><pre name="code" class="php">&lt;?php 
+//类的构成
+//class 类名{
+//	成员属性(变量);
+//	成员属性(变量);
+//	成员属性(变量);
+//		.
+//		.
+//		.
+//}
+//成员变量是类的一个组成部分，一般是基本数据类型（整数，小数，字符串，布尔型等），也可以是复合类型（类、数组）。比如我们前面定义的 public $age; 就是成员变量。
+//如何创建对象;
+//$对姓名 = new 类名();
+//$对姓名 = new 类名;
+//这两种形式均可，类名后括号可加可不加
+//对象-如何访问（使用）对象的属性
+//$对象名 -&gt; 属性名;
+//如果一个文件专门用于定义类，则其命名规范如下;
+//类名.class.php
+?&gt;</pre><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

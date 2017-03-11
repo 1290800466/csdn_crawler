@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>where 子句</strong>的作用是在对查询结果进行分组前，将不符合where条件的行去掉，即在分组之前过滤数据，where条件中不能包含聚组函数，使用where条件过滤出特定的行。</p>
+
+<p><strong>having 子句</strong>的作用是筛选满足条件的组，即在分组之后过滤数据，条件中经常包含聚组函数，使用having 条件过滤出特定的组，也可以使用多个分组标准进行分组。</p>
+
+<p><strong>注意：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-number">1</span>、HAVING子句必须位于<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>之后<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span>之前。
+<span class="hljs-number">2</span>、<span class="hljs-keyword">WHERE</span>语句在<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>语句之前；SQL会在分组之前计算<span class="hljs-keyword">WHERE</span>语句。   
+<span class="hljs-number">3</span>、HAVING语句在<span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span>语句之后；SQL会在分组之后计算HAVING语句。</code></pre>
+
+<p>示例 :</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> 类别, <span class="hljs-aggregate">sum</span>(数量) <span class="hljs-keyword">as</span> 数量之和 <span class="hljs-keyword">from</span> A <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> 类别 <span class="hljs-keyword">having</span> <span class="hljs-aggregate">sum</span>(数量) &gt; <span class="hljs-number">18</span></span></code></pre>
+
+<p>示例：Having和Where的联合使用方法</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> 类别, <span class="hljs-aggregate">SUM</span>(数量)<span class="hljs-keyword">from</span> A <span class="hljs-keyword">where</span> 数量 &gt; <span class="hljs-number">8</span> <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> 类别 <span class="hljs-keyword">having</span> <span class="hljs-aggregate">SUM</span>(数量) &gt; <span class="hljs-number">10</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

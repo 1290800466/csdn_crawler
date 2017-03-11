@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+JS和CSS让页面每次刷新随机产生一张背景图，当然我的回答是可以的，下面是具体的实现思路，感兴趣的朋友可以参考下</p>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+今天有个朋友在weibo上问我可不可以用JS和CSS让页面每次刷新随机产生一张背景图，当然我的回答是可以的。具体可以这样做： </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+1、用JS定义一个图片数组，里面存放你想要随机展示的图片 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ 代码如下:</div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">var imgArr=["http://www.google.com.hk/intl/zh-CN/images/logo_cn.png", </span></div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">"http://www.baidu.com/img/baidu_sylogo1.gif", </span></div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">"http://www.open-open.com/news/uploadImg/20120111/20120111081906_79.jpg", </span></div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">"http://www.open-open.com/news/uploadImg/20120111/20120111081906_76.jpg" </span></div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">]; </span></div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+这里我随便找来了4张图片，凑活着看看。 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+2、用JS产生一个随机数，当然这个随机数从0开始到imgArr.length-1结束 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ 代码如下:</div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">var index =parseInt(Math.random()*(imgArr.length-1)); </span></div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+这样我们就得到当前随机产生的图片 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ 代码如下:</div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">var currentImage=imgArr[index]; </span></div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+3、既然随机产生了一张背景图，那就用JS把这个图片作为背景图吧。 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ 代码如下:</div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">document.getElementById("BackgroundArea").style.backgroundImage="url("+currentImage+")"; </span></div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+ </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+由于这是一个demo，所以我在页面上定义了一个id为BackgroundArea的div，同时也是为这个div设置随机背景的。 </div>&#13;
+<div style="margin:0px; padding:0px; color:rgb(51,51,51); font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+代码如下:</div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">&lt;div id="BackgroundArea"&gt; </span></div>&#13;
+<div style="margin:0px; padding:0px; font-family:Verdana,Arial,Helvetica,sans-serif; font-size:14px; line-height:36px">&#13;
+<span style="color:#ff0000">&lt;/div&gt; </span></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

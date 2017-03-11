@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs ">Sphinx是开源的搜索引擎，它支持英文的全文检索。所以如果单独搭建Sphinx，你就已经可以使用全文索引了。但是往往我们要求的是中文索引，怎么做呢？国人提供了一个可供企业使用的，基于Sphinx的中文全文检索引擎。也就是说Coreseek实际上的内核还是Sphinx。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">sphinx可以通过设置为“一元切分模式”来支持搜索中文
+在实际使用中，搜索非中文的话，sphinx比coreseek要快；搜索短中文字符串的话，开启了“一元切分模式”的sphinx比coreseek要快；只有在搜索长中文字串时，coreseek的分词优势才能显现，比sphinx要快</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">    根据你的应用场景来选择用哪个，如果是索引英文、数字、字符较多的数据，就用源生sphinx；如果是索引中文非常多非常长的数据，还是用coreseek吧</code></pre>
+
+<p>安装注意 <br/>
+Coreseek发布了3.2.14版本和4.1版本等多个版本</p>
+
+<p>3.2.14版本是2010年发布的，它是基于Sphinx0.9.9搜索引擎的。4.1版本是2011年发布的，它是基于Sphinx2.0.2以后的</p>
+
+<p>本文章以安装  coreseek-4.1-beta 版本为例： <br/>
+安装包下载地址 ： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-label">http:</span>//dl<span class="hljs-preprocessor">.download</span><span class="hljs-preprocessor">.csdn</span><span class="hljs-preprocessor">.net</span>/down11/<span class="hljs-number">20160530</span>/de90462e2cf8350cbd4ad0f758105c9d<span class="hljs-preprocessor">.gz</span>?response-content-disposition=attachment%<span class="hljs-number">3</span>Bfilename%<span class="hljs-number">3</span>D%<span class="hljs-number">22</span>coreseek-<span class="hljs-number">4.1</span>-beta<span class="hljs-preprocessor">.tar</span><span class="hljs-preprocessor">.gz</span>%<span class="hljs-number">22</span>&amp;OSSAccessKeyId=<span class="hljs-number">9</span>q6nvzoJGowBj4q1&amp;Expires=<span class="hljs-number">1474535438</span>&amp;Signature=<span class="hljs-number">8</span>jae9H6dIfmd7zHRs72qcgi4Q1k%<span class="hljs-number">3</span>D
+</code></pre>
+
+<p><font color="red"><strong>第一步：安装升级autoconf</strong></font></p>
+
+<p>因为coreseek需要autoconf 2.64以上版本，因此需要升级autoconf，不然会报错 <br/>
+安装方法如下：</p>
+
+<pre class="prettyprint"><code class=" hljs lasso">yum <span class="hljs-attribute">-y</span> install glibc<span class="hljs-attribute">-common</span> libtool autoconf automake mysql<span class="hljs-attribute">-devel</span> expat<span class="hljs-attribute">-devel</span></code></pre>
+
+<p><font color="red"><strong>第二步：安装mmseg(coreseek所使用的词典)</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">tar -zxvf coreseek-<span class="hljs-number">4.1</span>-beta.tar.gz
+cd coreseek-<span class="hljs-number">4.1</span>-beta
+cd mmseg-<span class="hljs-number">4.1</span>-beta/
+./bootstrap    <span class="hljs-comment">#输出的warning信息可以忽略，如果出现error则需要解决</span>
+./configure <span class="hljs-comment">--prefix=/usr/local/mmseg3</span>
+make
+make install
+
+<span class="hljs-comment"># 检测是否安装完成</span>
+mmseg
+提示：-bash: mmseg: <span class="hljs-command"><span class="hljs-keyword">command</span> <span class="hljs-title">not</span> <span class="hljs-title">found</span></span>
+
+<span class="hljs-comment"># 问题解决方法</span>
+<span class="hljs-built_in">ln</span> -s /usr/<span class="hljs-built_in">local</span>/mmseg3/bin/mmseg /bin/mmseg
+
+<span class="hljs-comment"># 再测试下</span>
+mmseg
+
+<span class="hljs-comment"># 显示以下内容表示安装成功</span>
+Coreseek COS(tm) MM Segment <span class="hljs-number">1.0</span>
+Copyright By Coreseek.com All Right Reserved.
+Usage: mmseg &lt;option&gt; &lt;<span class="hljs-built_in">file</span>&gt;
+-u &lt;unidict&gt;           Unigram Dictionary
+-r           Combine <span class="hljs-operator">with</span> -u, used <span class="hljs-operator">a</span> plain <span class="hljs-keyword">text</span> build Unigram Dictionary, default Off
+-b &lt;Synonyms&gt;           Synonyms Dictionary
+-t &lt;thesaurus&gt;          Thesaurus Dictionary
+-h            print this help <span class="hljs-operator">and</span> exit</code></pre>
+
+<p><font color="red"><strong>第三步：安装csft-4.1-beta</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs haml">cd csft-4.1-beta/
+sh buildconf.sh    #输出的warning信息可以忽略，如果出现error则需要解决 
+./configure \
+-<span class="ruby">-prefix=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/sphinx \
+</span></span>-<span class="ruby">-without-unixodbc \
+</span>-<span class="ruby">-with-mmseg \
+</span>-<span class="ruby">-with-mmseg-includes=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/mmseg3/include</span><span class="hljs-regexp">/mmseg/</span> \
+</span>-<span class="ruby">-with-mmseg-libs=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/mmseg3/lib</span><span class="hljs-regexp">/ \
+</span></span>-<span class="ruby">-with-mysql=<span class="hljs-regexp">/usr/local</span><span class="hljs-regexp">/mysql/</span> \
+</span>
+make
+make install
+
+
+#./configure --prefix=/usr/local/sphinx/ --with-mysql=/usr/local/mysql/ --enable-id64 
+make 
+make install 
+# 注意1：采用这种方式安装不支持中文分词。
+# 注意2：--enable-id64 系统是64位，开启后Sphinx存储模块可以支持4-5G,不开启支持2G左右，不开启检索效率会高些，一般情况下建议不开启
+
+# 错误：
+collect2: ld 返回 1 
+make[2]: *** [indexer] 错误 1 
+
+# 修改configure文件中：
+LIBS="$LIBS -L/usr/local/lib"
+# 改为：
+LIBS="$LIBS -liconv -L/usr/local/lib"</code></pre>
+
+<p>测试mmseg分词和coreseek搜索</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">cd testpack 
+cat var/test/test.xml  <span class="hljs-comment">#此时应该正确显示中文 </span>
+/usr/<span class="hljs-built_in">local</span>/mmseg3/bin/mmseg -d /usr/<span class="hljs-built_in">local</span>/mmseg3/etc var/test/test.xml 
+/usr/<span class="hljs-built_in">local</span>/sphinx/bin/indexer -c etc/csft.conf <span class="hljs-comment">--all </span>
+/usr/<span class="hljs-built_in">local</span>/sphinx/bin/search -c etc/csft.conf 网络搜索 
+<span class="hljs-comment">#此时正确的应该返回 </span>
+<span class="hljs-keyword">words</span>: 
+<span class="hljs-number">1.</span> <span class="hljs-string">'网络'</span>: <span class="hljs-number">1</span> documents, <span class="hljs-number">1</span> hits 
+<span class="hljs-number">2.</span> <span class="hljs-string">'搜索'</span>: <span class="hljs-number">2</span> documents, <span class="hljs-number">5</span> hits </code></pre>
+
+<p><font color="red"><strong>第四步：配置mmseg中文分词</strong></font></p>
+
+<p>目前这里不用操作，安装时已经帮我配置好了</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">cd /usr/local/mmseg3/
+
+<span class="hljs-preprocessor"># 生成unigram.txt.uni</span>
+./bin/mmseg -u /usr/local/mmseg/etc/unigram<span class="hljs-preprocessor">.txt</span>
+vim etc/mmseg<span class="hljs-preprocessor">.ini</span>
+
+[mmseg]
+merge_number_and_ascii=<span class="hljs-number">0</span><span class="hljs-comment">;    ;合并英文和数字 abc123/x</span>
+number_and_ascii_joint=<span class="hljs-comment">;    ;定义可以连接英文和数字的字符</span>
+compress_space=<span class="hljs-number">1</span><span class="hljs-comment">;    ;暂不支持</span>
+seperate_number_ascii=<span class="hljs-number">0</span><span class="hljs-comment">;    ;将字母和数字打散</span>
+
+<span class="hljs-preprocessor"># 复制到sphinx/dict目录</span>
+<span class="hljs-keyword">cp</span> etc/mmseg<span class="hljs-preprocessor">.ini</span> /usr/local/sphinx/dict/mmseg<span class="hljs-preprocessor">.ini</span>
+
+<span class="hljs-preprocessor"># 复制到sphinx/dict目录</span>
+<span class="hljs-keyword">cp</span> etc/unigram<span class="hljs-preprocessor">.txt</span> /usr/local/sphinx/dict/uni<span class="hljs-preprocessor">.lib</span></code></pre>
+
+<p><font color="red"><strong>第五步：配置sphinx</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-comment"># 创建配置文件</span>
+<span class="hljs-keyword">mkdir</span> -p /usr/<span class="hljs-keyword">local</span>/sphinx/etc/conf.d/
+vim /usr/<span class="hljs-keyword">local</span>/sphinx/etc/conf.d/sphinx.conf
+</code></pre>
+
+<p>sphinx.conf 配置文件内容</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haskell"><span class="hljs-title">source</span> src_blog
+{
+    <span class="hljs-typedef"><span class="hljs-keyword">type</span> = mysql</span>
+    sql_host = <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+    sql_user = root
+    sql_pass = woshishui
+    sql_db = yphp_tutiantian
+    sql_query_pre= <span class="hljs-type">SET</span> <span class="hljs-type">NAMES</span> utf8
+    sql_query = <span class="hljs-type">SELECT</span> * <span class="hljs-type">FROM</span> tu_pic
+    sql_attr_uint= pr
+    sql_attr_uint = big_id
+    sql_attr_uint = small_id
+    sql_attr_uint= uid
+    sql_attr_uint= is_del
+    sql_ranged_throttle = <span class="hljs-number">0</span>
+}
+
+
+<span class="hljs-preprocessor"># 在这里要注意，rt_field是检索字段，rt_attr_uint是返回字段</span>
+<span class="hljs-title">index</span> sphinx_blog
+{
+    source = src_blog
+    path = /usr/local/sphinx/var/<span class="hljs-typedef"><span class="hljs-keyword">data</span>/sphinx_blog</span>
+    docinfo = extern
+    mlock = <span class="hljs-number">0</span>
+    stopwords =
+    min_prefix_len = <span class="hljs-number">0</span>
+    min_infix_len = <span class="hljs-number">0</span>
+    morphology = none
+    min_word_len = <span class="hljs-number">2</span>
+    charset_type = zh_cn.utf-<span class="hljs-number">8</span>
+    charset_dictpath = /usr/local/mmseg3/etc/
+    charset_table = <span class="hljs-type">U</span>+<span class="hljs-type">FF10</span>..<span class="hljs-type">U</span>+<span class="hljs-type">FF19</span>-&gt;<span class="hljs-number">0.</span><span class="hljs-number">.9</span>, <span class="hljs-number">0.</span><span class="hljs-number">.9</span>, <span class="hljs-type">U</span>+<span class="hljs-type">FF41</span>..<span class="hljs-type">U</span>+<span class="hljs-type">FF5A</span>-&gt;a..z, <span class="hljs-type">U</span>+<span class="hljs-type">FF21</span>..<span class="hljs-type">U</span>+<span class="hljs-type">FF3A</span>-&gt;a..z,<span class="hljs-type">A</span>..<span class="hljs-type">Z</span>-&gt;a..z, a..z, <span class="hljs-type">U</span>+<span class="hljs-number">0149</span>, <span class="hljs-type">U</span>+<span class="hljs-number">017</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0138</span>, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>DF, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>FF, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>C0..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>D6-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">00E0</span>..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>F6,<span class="hljs-type">U</span>+<span class="hljs-number">00E0</span>..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>F6, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>D8..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>DE-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">00</span>F8..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>FE, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>F8..<span class="hljs-type">U</span>+<span class="hljs-number">00</span>FE, <span class="hljs-type">U</span>+<span class="hljs-number">0100</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0101</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0101</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0102</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0103</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0103</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0104</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0105</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0105</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0106</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0107</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0107</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0108</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0109</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0109</span>, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">010</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">010</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">010</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">010</span>F,<span class="hljs-type">U</span>+<span class="hljs-number">0110</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0111</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0111</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0112</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0113</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0113</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0114</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0115</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0115</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0116</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0117</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0117</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0118</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0119</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0119</span>, <span class="hljs-type">U</span>+<span class="hljs-number">011</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">011</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">011</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">011</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">011</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">011</span>D,<span class="hljs-type">U</span>+<span class="hljs-number">011</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">011</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">011</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0130</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0131</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0131</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0132</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0133</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0133</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0134</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0135</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0135</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0136</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0137</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0137</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0139</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">013</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">013</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">013</span>B-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">013</span>C, <span class="hljs-type">U</span>+<span class="hljs-number">013</span>C,<span class="hljs-type">U</span>+<span class="hljs-number">013</span>D-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">013</span>E, <span class="hljs-type">U</span>+<span class="hljs-number">013</span>E, <span class="hljs-type">U</span>+<span class="hljs-number">013</span>F-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0140</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0140</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0141</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0142</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0142</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0143</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0144</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0144</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0145</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0146</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0146</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0147</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0148</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0148</span>, <span class="hljs-type">U</span>+<span class="hljs-number">014</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">014</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">014</span>B,<span class="hljs-type">U</span>+<span class="hljs-number">014</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">014</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">014</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">014</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">014</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">014</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0150</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0151</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0151</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0152</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0153</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0153</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0154</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0155</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0155</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0156</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0157</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0157</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0158</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0159</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0159</span>,<span class="hljs-type">U</span>+<span class="hljs-number">015</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">015</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">015</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">015</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">015</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">015</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">015</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">015</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">015</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0160</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0161</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0161</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0162</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0163</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0163</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0164</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0165</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0165</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0166</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0167</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0167</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0168</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0169</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0169</span>, <span class="hljs-type">U</span>+<span class="hljs-number">016</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">016</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">016</span>B, <span class="hljs-type">U</span>+<span class="hljs-number">016</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">016</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">016</span>D, <span class="hljs-type">U</span>+<span class="hljs-number">016</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">016</span>F,<span class="hljs-type">U</span>+<span class="hljs-number">016</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0170</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0171</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0171</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0172</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0173</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0173</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0174</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0175</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0175</span>,<span class="hljs-type">U</span>+<span class="hljs-number">0176</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0177</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0177</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0178</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">00</span>FF, <span class="hljs-type">U</span>+<span class="hljs-number">00</span>FF, <span class="hljs-type">U</span>+<span class="hljs-number">0179</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">017</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">017</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">017</span>B-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">017</span>C,<span class="hljs-type">U</span>+<span class="hljs-number">017</span>C, <span class="hljs-type">U</span>+<span class="hljs-number">017</span>D-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">017</span>E, <span class="hljs-type">U</span>+<span class="hljs-number">017</span>E, <span class="hljs-type">U</span>+<span class="hljs-number">0410.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">042</span>F-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0430.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">044</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0430.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">044</span>F,<span class="hljs-type">U</span>+<span class="hljs-number">05</span>D0..<span class="hljs-type">U</span>+<span class="hljs-number">05</span>EA, <span class="hljs-type">U</span>+<span class="hljs-number">0531.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0556</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">0561.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0586</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0561.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0587</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0621.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">063</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">01</span>B9,<span class="hljs-type">U</span>+<span class="hljs-number">01</span>BF, <span class="hljs-type">U</span>+<span class="hljs-number">0640.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">064</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">0660.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0669</span>, <span class="hljs-type">U</span>+<span class="hljs-number">066</span>E, <span class="hljs-type">U</span>+<span class="hljs-number">066</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0671.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">06</span>D3, <span class="hljs-type">U</span>+<span class="hljs-number">06</span>F0..<span class="hljs-type">U</span>+<span class="hljs-number">06</span>FF,<span class="hljs-type">U</span>+<span class="hljs-number">0904.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0939</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0958.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">095</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">0960.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">0963</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0966.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">096</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">097</span>B..<span class="hljs-type">U</span>+<span class="hljs-number">097</span>F,<span class="hljs-type">U</span>+<span class="hljs-number">0985.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">09</span>B9, <span class="hljs-type">U</span>+<span class="hljs-number">09</span>CE, <span class="hljs-type">U</span>+<span class="hljs-number">09</span>DC..<span class="hljs-type">U</span>+<span class="hljs-number">09E3</span>, <span class="hljs-type">U</span>+<span class="hljs-number">09E6</span>..<span class="hljs-type">U</span>+<span class="hljs-number">09</span>EF, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>A05..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>A39, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>A59..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>A5E,<span class="hljs-type">U</span>+<span class="hljs-number">0</span>A66..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>A6F, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>A85..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>AB9, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>AE0..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>AE3, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>AE6..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>AEF, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>B05..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>B39,<span class="hljs-type">U</span>+<span class="hljs-number">0</span>B5C..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>B61, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>B66..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>B6F, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>B71, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>B85..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>BB9, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>BE6..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>BF2, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>C05..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>C39,<span class="hljs-type">U</span>+<span class="hljs-number">0</span>C66..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>C6F, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>C85..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>CB9, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>CDE..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>CE3, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>CE6..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>CEF, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>D05..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>D39, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>D60,<span class="hljs-type">U</span>+<span class="hljs-number">0</span>D61, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>D66..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>D6F, <span class="hljs-type">U</span>+<span class="hljs-number">0</span>D85..<span class="hljs-type">U</span>+<span class="hljs-number">0</span>DC6, <span class="hljs-type">U</span>+<span class="hljs-number">1900.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">1938</span>, <span class="hljs-type">U</span>+<span class="hljs-number">1946.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">194</span>F, <span class="hljs-type">U</span>+<span class="hljs-type">A800</span>..<span class="hljs-type">U</span>+<span class="hljs-type">A805</span>,<span class="hljs-type">U</span>+<span class="hljs-type">A807</span>..<span class="hljs-type">U</span>+<span class="hljs-type">A822</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0386</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B1, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>AC-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B1, <span class="hljs-type">U</span>+<span class="hljs-number">0388</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B5, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>AD-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B5,<span class="hljs-type">U</span>+<span class="hljs-number">0389</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B7, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>AE-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B7, <span class="hljs-type">U</span>+<span class="hljs-number">038</span>A-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B9, <span class="hljs-type">U</span>+<span class="hljs-number">0390</span>-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B9, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>AA-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B9,<span class="hljs-type">U</span>+<span class="hljs-number">03</span>AF-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B9, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>CA-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B9, <span class="hljs-type">U</span>+<span class="hljs-number">038</span>C-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>BF, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>CC-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>BF, <span class="hljs-type">U</span>+<span class="hljs-number">038</span>E-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C5,<span class="hljs-type">U</span>+<span class="hljs-number">03</span>AB-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C5, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>B0-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C5, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>CB-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C5, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>CD-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C5, <span class="hljs-type">U</span>+<span class="hljs-number">038</span>F-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C9,<span class="hljs-type">U</span>+<span class="hljs-number">03</span>CE-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C9, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>C2-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C3, <span class="hljs-type">U</span>+<span class="hljs-number">0391.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">03</span>A1-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>B1..<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C1,<span class="hljs-type">U</span>+<span class="hljs-number">03</span>A3..<span class="hljs-type">U</span>+<span class="hljs-number">03</span>A9-&gt;<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C3..<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C9, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>B1..<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C1, <span class="hljs-type">U</span>+<span class="hljs-number">03</span>C3..<span class="hljs-type">U</span>+<span class="hljs-number">03</span>C9, <span class="hljs-type">U</span>+<span class="hljs-number">0E01</span>..<span class="hljs-type">U</span>+<span class="hljs-number">0E2</span>E,<span class="hljs-type">U</span>+<span class="hljs-number">0E30</span>..<span class="hljs-type">U</span>+<span class="hljs-number">0E3</span>A, <span class="hljs-type">U</span>+<span class="hljs-number">0E40</span>..<span class="hljs-type">U</span>+<span class="hljs-number">0E45</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0E47</span>, <span class="hljs-type">U</span>+<span class="hljs-number">0E50</span>..<span class="hljs-type">U</span>+<span class="hljs-number">0E59</span>, <span class="hljs-type">U</span>+<span class="hljs-type">A000</span>..<span class="hljs-type">U</span>+<span class="hljs-type">A48F</span>, <span class="hljs-type">U</span>+<span class="hljs-number">4E00</span>..<span class="hljs-type">U</span>+<span class="hljs-number">9</span>FBF,<span class="hljs-type">U</span>+<span class="hljs-number">3400.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">4</span>DBF, <span class="hljs-type">U</span>+<span class="hljs-number">20000.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">2</span>A6DF, <span class="hljs-type">U</span>+<span class="hljs-type">F900</span>..<span class="hljs-type">U</span>+<span class="hljs-type">FAFF</span>, <span class="hljs-type">U</span>+<span class="hljs-number">2</span>F800..<span class="hljs-type">U</span>+<span class="hljs-number">2</span>FA1F, <span class="hljs-type">U</span>+<span class="hljs-number">2E80</span>..<span class="hljs-type">U</span>+<span class="hljs-number">2</span>EFF,<span class="hljs-type">U</span>+<span class="hljs-number">2</span>F00..<span class="hljs-type">U</span>+<span class="hljs-number">2</span>FDF, <span class="hljs-type">U</span>+<span class="hljs-number">3100.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">312</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">31</span>A0..<span class="hljs-type">U</span>+<span class="hljs-number">31</span>BF, <span class="hljs-type">U</span>+<span class="hljs-number">3040.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">309</span>F, <span class="hljs-type">U</span>+<span class="hljs-number">30</span>A0..<span class="hljs-type">U</span>+<span class="hljs-number">30</span>FF,<span class="hljs-type">U</span>+<span class="hljs-number">31</span>F0..<span class="hljs-type">U</span>+<span class="hljs-number">31</span>FF, <span class="hljs-type">U</span>+<span class="hljs-type">AC00</span>..<span class="hljs-type">U</span>+<span class="hljs-type">D7AF</span>, <span class="hljs-type">U</span>+<span class="hljs-number">1100.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">11</span>FF, <span class="hljs-type">U</span>+<span class="hljs-number">3130.</span>.<span class="hljs-type">U</span>+<span class="hljs-number">318</span>F, <span class="hljs-type">U</span>+<span class="hljs-type">A000</span>..<span class="hljs-type">U</span>+<span class="hljs-type">A48F</span>,<span class="hljs-type">U</span>+<span class="hljs-type">A490</span>..<span class="hljs-type">U</span>+<span class="hljs-type">A4CF</span>
+    html_strip = <span class="hljs-number">0</span>
+}
+
+
+<span class="hljs-title">indexer</span>
+{
+    mem_limit = <span class="hljs-number">256</span>M
+}
+
+<span class="hljs-title">searchd</span>
+{
+    port = <span class="hljs-number">9312</span>
+    read_timeout = <span class="hljs-number">5</span>
+    max_children = <span class="hljs-number">10</span>
+    pid_file = /usr/local/sphinx/var/log/searchd.pid
+    log = /usr/local/sphinx/var/log/searchd.log
+    max_matches = <span class="hljs-number">1000</span>
+    seamless_rotate = <span class="hljs-number">1</span>
+}</code></pre>
+
+<p><strong>建立sphinx 索引</strong></p>
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># 结束所有索引</span>
+pkill -<span class="hljs-number">9</span> search
+
+<span class="hljs-preprocessor"># 创建索引</span>
+<span class="hljs-preprocessor"># /usr/local/sphinx/bin/indexer --c --config /usr/local/sphinx/etc/sphinx.conf --all</span>
+
+<span class="hljs-preprocessor"># 启动索引</span>
+<span class="hljs-preprocessor"># /usr/local/sphinx/bin/searchd --config /usr/local/sphinx/etc/sphinx.conf</span>
+
+
+<span class="hljs-preprocessor"># 错误解决</span>
+<span class="hljs-preprocessor"># 解决：复制Mysql客户端文件到所有用户可以放的目录去</span>
+cp /usr/local/mysql/lib/libmysqlclient.so<span class="hljs-number">.18</span> /usr/lib/
+
+<span class="hljs-preprocessor"># 64位系统需要在创建一个软连接</span>
+ln -s /usr/local/mysql/lib/libmysqlclient.so<span class="hljs-number">.18</span> /usr/lib64</code></pre>
+
+<p><font color="red"><strong>第六步：安装sphinxclient</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver"><span class="hljs-comment"># 进入sphinx 源码包的api目录</span>
+cd coreseek-<span class="hljs-number">4.1</span>/csft-<span class="hljs-number">4.1</span>/api/libsphinxclient
+./configure <span class="hljs-comment">--prefix=/usr/local/libsphinxclient</span>
+<span class="hljs-comment">#若报一下错误</span>
+config.status: error: cannot find input <span class="hljs-built_in">file</span>: Makefile.<span class="hljs-operator">in</span>   <span class="hljs-comment">#报错configure失败      </span>
+<span class="hljs-comment">#处理configure报错，运行下列指令再次编译：  </span>
+aclocal  
+libtoolize <span class="hljs-comment">--force  </span>
+automake <span class="hljs-comment">--add-missing  </span>
+autoconf  
+autoheader  
+make clean  
+<span class="hljs-comment">
+//重新configure编译  </span>
+./configure <span class="hljs-comment">--prefix=/usr/local/libsphinxclient</span>
+make
+make install</code></pre>
+
+<p><font color="red"><strong>第七步：安装php的Sphinx扩展 </strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-preprocessor"># PHP7以前的版本使用下面扩展</span>
+wget http://pecl<span class="hljs-preprocessor">.php</span><span class="hljs-preprocessor">.net</span>/get/sphinx-<span class="hljs-number">1.3</span><span class="hljs-number">.0</span><span class="hljs-preprocessor">.tgz</span>
+
+<span class="hljs-preprocessor"># PHP7 使用下面的扩展</span>
+wget http://git<span class="hljs-preprocessor">.php</span><span class="hljs-preprocessor">.net</span>/?p=pecl/search_engine/sphinx<span class="hljs-preprocessor">.git</span><span class="hljs-comment">;a=snapshot;h=9a3d08c67af0cad216aa0d38d39be71362667738;sf=tgz</span>
+
+tar -zxvf sphinx-<span class="hljs-number">1.3</span><span class="hljs-number">.0</span><span class="hljs-preprocessor">.tgz</span>
+cd sphinx-<span class="hljs-number">1.3</span><span class="hljs-number">.0</span>
+/usr/local/php/bin/phpize ./configure --with-php-config=/usr/local/php/bin/php-config --with-sphinx=/usr/local/libsphinxclient/
+make &amp;&amp; make install
+<span class="hljs-preprocessor"># 安装好后，在安装目录下etc目录下，有份测试数据和配置的样本</span></code></pre>
+
+<p><font color="red"><strong>第八步：配置PHP支持Sphinx</strong></font></p>
+
+<p>编辑php.ini文件</p>
+
+<pre class="prettyprint"><code class=" hljs vala">vim /usr/local/php/etc/php.ini
+
+<span class="hljs-preprocessor"># 修改以下内容</span>
+extension_dir = <span class="hljs-string">"/usr/local/php/lib/php/extensions/no-debug-non-zts-20100525/"</span>
+
+<span class="hljs-preprocessor"># 增加扩展到php</span>
+extension = sphinx.so
+
+<span class="hljs-preprocessor"># 重新启动php-fpm</span>
+/etc/init.d/php-fpm restart</code></pre>
+
+<p>查看Sphinx是否安装成功 <br/>
+新建PHP文件</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">vim index.php
+
+<span class="hljs-comment"># 写入一下内容：</span>
+<span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">echo</span> phpinfo();</code></pre>
+
+<p>浏览器输入地址访问 <br/>
+看到sphinx表示扩展安装成功 <br/><img src="http://img.blog.csdn.net/20160922184509832" alt="这里写图片描述" title=""/></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="vb">&lt;pre name="code" class="plain"&gt;&lt;pre name="code" class="vb"&gt;'Description描述性编程方法：
+'通过声明描述性对象并给对象属性赋值的方法，将对象属性与执行语句分离开；
+'Description描述性编程方法也具有后续强迫性；
+'首先创建Description实例，来代表一个测试对象的属性描述；
+Set objDialog=description.Create()
+	objDialog("text").value="Login"
+	
+	
+Set objName=description.Create()
+	objName("attached text").value="Agent Name:"	
+
+
+Set objPwd=description.Create()
+	objPwd("attached text").value="Password:"
+
+
+Set objButton=description.Create()
+	objButton("text").value="Ok"
+
+'将录制代码中的对象用Description实例的名字代替；
+With Dialog(objDialog)
+	.WinEdit(objName).Set "wml111"
+	.WinEdit(objPwd).SetSecure "5514daebeeea118b8a208fcb96ce79880347a908"
+	.WinButton(objButton).Click
+End With
+
+'注意最后要释放对象；
+Set objDialog=Nothing 
+Set objName=Nothing 
+Set objPwd=Nothing 
+Set objButton=Nothing 
+
+'直接描述性编程和Description描述性编程各自的优缺点：
+'（1）、直接描述性编程适用于普通脚本中，可以解决对象库编程无法完成的任务，减少代码量；但无法做到复用；
+'（2）、Description描述性编程适用于基本框架的脚本中，表面上多几句代码，但具有良好的复用性。
+</pre><br/><br/><pre/>&#13;
+<pre/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

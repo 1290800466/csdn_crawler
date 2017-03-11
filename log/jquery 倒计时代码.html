@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>jQuery代码如下：</strong></span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;!-- 调用jQuery库 --&gt;
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;  
+//定义方法  
+    function GetRTime(){  
+        //获取当前时间
+        var NowTime = new Date();  
+        //获取终止时间，在HTML中，通过id获取
+    	var EndTime = $("#begin_time").text();
+        //计算终止时间与当前时间的时间差
+        //注意js时间戳与PHP时间戳的不同
+        var nMS = EndTime-Math.round(new Date().getTime()/1000-28800); 
+    
+        //定义参数 获得天数  
+        var nD = Math.floor(nMS/(60 * 60 * 24));  
+        //定义参数 获得小时  
+        var nH = Math.floor(nMS/(60*60)) % 24;  
+        //定义参数 获得分钟  
+        var nM = Math.floor(nMS/(60)) % 60;  
+        //定义参数 获得秒钟  
+        var nS = Math.floor(nMS) % 60;  
+        //显示天数 
+        $("#dd").text(nD);  
+        //显示小时     
+        $("#hh").text(nH);  
+        //显示分钟
+        $("#mm").text(nM);  
+        //显示秒钟  
+        $("#ss").text(nS);   
+    }  
+      
+    $(document).ready(function () {  
+    	//定义参数 显示出GetRTime()方法 1000毫秒以后启动  ，每1秒循环执行
+        var timer_rt = window.setInterval("GetRTime()", 1000);   
+    });  
+    &lt;/script&gt; &lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+将以上获取的值显示到下面HTML代码中：</span>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;span class="num" id="dhms"&gt;
+        &lt;strong id="begin_time" style="display:none;"&gt;{$deal_info.begin_time}&lt;/strong&gt;
+                    距离开始：
+               &lt;strong id="dd"&gt;&lt;/strong&gt;天
+               &lt;strong id="hh"&gt;&lt;/strong&gt;小时
+               &lt;strong id="mm"&gt;&lt;/strong&gt;分
+               &lt;strong id="ss" style="color:red;"&gt;&lt;/strong&gt;秒
+    &lt;/span&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

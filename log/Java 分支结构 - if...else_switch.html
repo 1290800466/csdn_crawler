@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>if 语句</strong></p>
+
+<p>一个 if 语句包含一个布尔表达式和一条或多条语句。</p>
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-keyword">if</span>(布尔表达式)
+{
+   <span class="hljs-regexp">//</span>如果布尔表达式为<span class="hljs-keyword">true</span>将执行的语句
+}</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">10</span>;
+
+      <span class="hljs-keyword">if</span>( x &lt; <span class="hljs-number">20</span> ){
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"这是 if 语句"</span>);
+      }
+   }
+}</code></pre>
+
+<p><strong>if…else语句</strong></p>
+
+<p>if 语句后面可以跟 else 语句，当 if 语句的布尔表达式值为 false 时，else 语句块会被执行。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-keyword">if</span>(布尔表达式){
+   <span class="hljs-regexp">//</span>如果布尔表达式的值为<span class="hljs-keyword">true</span>
+}<span class="hljs-keyword">else</span>{
+   <span class="hljs-regexp">//</span>如果布尔表达式的值为<span class="hljs-keyword">false</span>
+}</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">30</span>;
+
+      <span class="hljs-keyword">if</span>( x &lt; <span class="hljs-number">20</span> ){
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"这是 if 语句"</span>);
+      }<span class="hljs-keyword">else</span>{
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"这是 else 语句"</span>);
+      }
+   }
+}</code></pre>
+
+<p><strong>if…else if…else 语句</strong></p>
+
+<p>if 语句至多有 1 个 else 语句，else 语句在所有的 elseif 语句之后。 <br/>
+if 语句可以有若干个 elseif 语句，它们必须在 else 语句之前。 <br/>
+一旦其中一个 else if 语句检测为 true，其他的 else if 以及 else 语句都将跳过执行。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-keyword">if</span>...<span class="hljs-keyword">else</span> 语法格式如下<span class="hljs-symbol">:</span>
+<span class="hljs-keyword">if</span>(布尔表达式 <span class="hljs-number">1</span>){
+   <span class="hljs-regexp">//</span>如果布尔表达式 <span class="hljs-number">1</span>的值为<span class="hljs-keyword">true</span>执行代码
+}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(布尔表达式 <span class="hljs-number">2</span>){
+   <span class="hljs-regexp">//</span>如果布尔表达式 <span class="hljs-number">2</span>的值为<span class="hljs-keyword">true</span>执行代码
+}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(布尔表达式 <span class="hljs-number">3</span>){
+   <span class="hljs-regexp">//</span>如果布尔表达式 <span class="hljs-number">3</span>的值为<span class="hljs-keyword">true</span>执行代码
+}<span class="hljs-keyword">else</span> {
+   <span class="hljs-regexp">//</span>如果以上布尔表达式都不为<span class="hljs-keyword">true</span>执行代码
+}</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">30</span>;
+
+      <span class="hljs-keyword">if</span>( x == <span class="hljs-number">10</span> ){
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"Value of X is 10"</span>);
+      }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( x == <span class="hljs-number">20</span> ){
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"Value of X is 20"</span>);
+      }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( x == <span class="hljs-number">30</span> ){
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"Value of X is 30"</span>);
+      }<span class="hljs-keyword">else</span>{
+         System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"这是 else 语句"</span>);
+      }
+   }
+}</code></pre>
+
+<p><strong>嵌套的 if…else 语句</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-keyword">if</span>(布尔表达式 <span class="hljs-number">1</span>){
+   <span class="hljs-regexp">//</span><span class="hljs-regexp">//</span>如果布尔表达式 <span class="hljs-number">1</span>的值为<span class="hljs-keyword">true</span>执行代码
+   <span class="hljs-keyword">if</span>(布尔表达式 <span class="hljs-number">2</span>){
+      <span class="hljs-regexp">//</span><span class="hljs-regexp">//</span>如果布尔表达式 <span class="hljs-number">2</span>的值为<span class="hljs-keyword">true</span>执行代码
+   }
+}</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-keyword">int</span> x = <span class="hljs-number">30</span>;
+      <span class="hljs-keyword">int</span> y = <span class="hljs-number">10</span>;
+
+      <span class="hljs-keyword">if</span>( x == <span class="hljs-number">30</span> ){
+         <span class="hljs-keyword">if</span>( y == <span class="hljs-number">10</span> ){
+             System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"X = 30 and Y = 10"</span>);
+          }
+       }
+    }
+}</code></pre>
+
+<p><strong>switch 语句</strong></p>
+
+<p>switch 语句判断一个变量与一系列值中某个值是否相等，每个值称为一个分支。</p>
+
+<p>语法</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">switch</span>(expression){
+    <span class="hljs-keyword">case</span> <span class="hljs-keyword">value</span> :
+       <span class="hljs-comment">//语句</span>
+       <span class="hljs-keyword">break</span>; <span class="hljs-comment">//可选</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-keyword">value</span> :
+       <span class="hljs-comment">//语句</span>
+       <span class="hljs-keyword">break</span>; <span class="hljs-comment">//可选</span>
+    <span class="hljs-comment">//你可以有任意数量的case语句</span>
+    <span class="hljs-keyword">default</span> : <span class="hljs-comment">//可选</span>
+       <span class="hljs-comment">//语句</span>
+}</code></pre>
+
+<p><strong>switch 语句有如下规则：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">switch</span> 语句中的变量类型只能为 <span class="hljs-keyword">byte</span>、<span class="hljs-keyword">short</span>、<span class="hljs-keyword">int</span> 或者 <span class="hljs-keyword">char</span>。
+
+<span class="hljs-keyword">switch</span> 语句可以拥有多个 <span class="hljs-keyword">case</span> 语句。每个 <span class="hljs-keyword">case</span> 后面跟一个要比较的值和冒号。
+
+<span class="hljs-keyword">case</span> 语句中的值的数据类型必须与变量的数据类型相同，而且只能是常量或者字面常量。
+
+当变量的值与 <span class="hljs-keyword">case</span> 语句的值相等时，那么 <span class="hljs-keyword">case</span> 语句之后的语句开始执行，直到 <span class="hljs-keyword">break</span> 语句出现才会跳出 <span class="hljs-keyword">switch</span> 语句。
+
+当遇到 <span class="hljs-keyword">break</span> 语句时，<span class="hljs-keyword">switch</span> 语句终止。程序跳转到 <span class="hljs-keyword">switch</span> 语句后面的语句执行。<span class="hljs-keyword">case</span> 语句不必须要包含 <span class="hljs-keyword">break</span> 语句。如果没有 <span class="hljs-keyword">break</span> 语句出现，程序会继续执行下一条 <span class="hljs-keyword">case</span> 语句，直到出现 <span class="hljs-keyword">break</span> 语句。
+
+<span class="hljs-keyword">switch</span> 语句可以包含一个 <span class="hljs-keyword">default</span> 分支，该分支必须是 <span class="hljs-keyword">switch</span> 语句的最后一个分支。<span class="hljs-keyword">default</span> 在没有 <span class="hljs-keyword">case</span> 语句的值和变量值相等的时候执行。<span class="hljs-keyword">default</span> 分支不需要 <span class="hljs-keyword">break</span> 语句。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]){
+      <span class="hljs-comment">//char grade = args[0].charAt(0);</span>
+      <span class="hljs-keyword">char</span> grade = <span class="hljs-string">'C'</span>;
+
+      <span class="hljs-keyword">switch</span>(grade)
+      {
+         <span class="hljs-keyword">case</span> <span class="hljs-string">'A'</span> :
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"优秀"</span>); 
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> <span class="hljs-string">'B'</span> :
+         <span class="hljs-keyword">case</span> <span class="hljs-string">'C'</span> :
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"良好"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">case</span> <span class="hljs-string">'D'</span> :
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"及格"</span>);
+         <span class="hljs-keyword">case</span> <span class="hljs-string">'F'</span> :
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"你需要再努力努力"</span>);
+            <span class="hljs-keyword">break</span>;
+         <span class="hljs-keyword">default</span> :
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"未知等级"</span>);
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"你的等级是 "</span> + grade);
+   }
+}</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

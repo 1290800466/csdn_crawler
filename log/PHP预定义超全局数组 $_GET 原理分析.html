@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="font-family:'Microsoft YaHei'; widows:auto; white-space:pre-wrap; line-height:1.71428571428571">&#13;
+<span style="font-size:18px; background-color:rgb(255,255,255)"><span style="font-family:宋体">PHP中预定义超全局变量</span><br/></span></p>&#13;
+<p><span style="background-color:rgb(255,255,255)"><span style="font-size:18px"><span style="font-family:宋体">① 什么是全局变量<br/></span></span><span style="font-size:18px"><span style="font-family:宋体"/></span></span></p><pre name="code" class="php">&lt;?php
+        $a=23;//全局变量,因为该变量在整个作用域（在这个php文件中），都是可见
+        function test(){
+                //如果希望使用到全局$a;
+                global $a;
+                $a=45;
+        }
+        test();
+        echo $a;
+?&gt;</pre><span style="font-size:18px"><span style="font-family:宋体">② 什么是超全局变量<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">超全局变量除了有全局变量的特点外，可以无须申明，直接使用.<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">快速入门<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">        //超全局变量<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">        $_SERVER['hsp']="韩顺平";<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">        echo "&lt;pre&gt;";<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">        echo print_r($_SERVER);<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">        echo "&lt;/pre&gt;"<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">提供超全局数组的原因是为了让程序员更方便快捷的写出PHP程序.<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">③ PHP供提供了九种<span style="font-family:宋体; line-height:30.8571434020996px; white-space:pre-wrap">超全局变量</span><br/></span></span><span style="font-size:18px"><span style="font-family:宋体">1. $_GET<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">2. $_POST<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">3. $_REQUEST<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">4. $_SERVER<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">5. $_ENV<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">6. $_FILE<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">7. $_COOKIE<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">8. $_SESSION<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">9. $GLOBALS<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">现在一个一个讲解<br/></span></span><span style="font-size:18px"><span style="font-family:宋体">1.$_GET</span></span><br/><p><span style="font-size:18px"><span style="font-family:宋体; background-color:rgb(255,255,255)"/></span></p>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">$_GET 实际使用.</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">        客户机(浏览器)通过超链接传送信息给服务器</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">案例1</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">test.php页面</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">&lt;?php
+        //urlencode编码
+        echo "&lt;a href='a.php?city=北京好&amp;name=xiaoming'&gt;传送数据&lt;/a&gt;";
+?&gt;</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">面试题: 请问如何处理超链接提交数据的中文乱码问题?</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">1. 对于高版本的ie 浏览器,无需处理</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">2. 对应 5.5 和 6.0 ie需要进行urlencode()编码处理</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">3. 尽量使用字母和数字.</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">a.php页面</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">&lt;?php
+
+        echo "&lt;pre&gt;";
+        echo print_r($_GET);
+        echo "&lt;/pre&gt;";
+
+        //如果希望指定取出某个数据，则可以通过下标名
+        echo $_GET['name'];
+
+?&gt;</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体"><strong><span style="color:#ff0000">ie5.5 和 ie 6的中文奇数乱码问题解决方案：</span></strong></span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">解决方法1.</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">给奇数中文加一个全角空格，然后到服务器接收是，去掉两头的空行 trim()</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">解决方法2:</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">使用urlencode 和 urldecode函数</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">在test.php页面</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">&lt;?php
+
+        //这句话是对中文url编码.        
+        $str=urlencode("北京好");
+
+        echo "&lt;a href='a.php?city=".$str."&amp;name=xiaoming'&gt;传送数据&lt;/a&gt;";
+?&gt;
+</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">//在a.php 页面中，正常接收。</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">&lt;?php
+        echo "&lt;pre&gt;";
+        echo print_r($_GET);
+        echo "&lt;/pre&gt;";
+
+        //如果希望指定取出某个数据，则可以通过下标名,如果php版本低，可能看到是中文，需要使用 urldecode() 来解密
+        echo "--".$_GET['city'];
+?&gt;
+</pre><br/></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">_GET也可以接收表单以get方式提交数据</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">&lt;form action=”a.php” method=”get”&gt;</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">//....</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">&lt;/from&gt;</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">特别说明如何提交表单数据建议使用POST,不要使用GET</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">使用细节:</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">   如何判断是否收到值</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">a.php</span><span style="line-height:1.71428571428571; widows:auto">   </span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">if(empty($_GET['city'])){
+               
+                echo "没有收到";
+        }else{
+                echo "有city";
+                echo $_GET['city'];
+        }</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">//这个方法可以，参看,建议使用empty</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><pre name="code" class="php">if(!isset($_GET['city'])){             
+                echo "没有收到hello";
+        }else{
+                echo "有city";
+                echo $_GET['city'];
+        }</pre></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">绝对不要启用register_globals   需要 register_globals = Off</span></div>&#13;
+<div style="white-space:pre-wrap; line-height:1.71428571428571"><span style="font-family:宋体">防止SQL注入</span></div>&#13;
+<p/>&#13;
+<div><span style="font-family:宋体; color:rgb(81,81,81); background-color:rgb(241,241,241)"><br/></span></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

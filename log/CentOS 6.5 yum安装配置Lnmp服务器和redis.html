@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">安装redis  详见：</span></p>&#13;
+<p><span style="font-size:18px"><a target="_blank" href="http://blog.csdn.net/u013372487/article/details/51121172">http://blog.csdn.net/u013372487/article/details/51121172</a><br/></span></p>&#13;
+<p><a target="_blank" href="http://blog.csdn.net/u013372487/article/details/51121650"><span style="font-size:18px">http://blog.csdn.net/u013372487/article/details/51121650</span></a><br/></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">准备篇：</span></p>&#13;
+<span style="font-size:18px">1、配置防火墙，开启80端口、3306端口<br/>&#13;
+vi /etc/sysconfig/iptables<br/>&#13;
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT（允许80端口通过防火墙）<br/>&#13;
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT（允许3306端口通过防火墙）<br/>&#13;
+特别提示：很多网友把这两条规则添加到防火墙配置的最后一行，导致防火墙启动失败，正确的应该是添加到默认的22端口这条规则的下面<br/>&#13;
+添加好之后防火墙规则如下所示：<br/>&#13;
+#########################################################<br/>&#13;
+# Firewall configuration written by system-config-firewall<br/>&#13;
+# Manual customization of this file is not recommended.<br/>&#13;
+*filter<br/>&#13;
+:INPUT ACCEPT [0:0]<br/>&#13;
+:FORWARD ACCEPT [0:0]<br/>&#13;
+:OUTPUT ACCEPT [0:0]<br/>&#13;
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT<br/>&#13;
+-A INPUT -p icmp -j ACCEPT<br/>&#13;
+-A INPUT -i lo -j ACCEPT<br/>&#13;
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT<br/>&#13;
+-A INPUT -mstate --state NEW -m tcp -p tcp --dport 80 -j ACCEPT<br/>&#13;
+-A INPUT -mstate --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT<br/>&#13;
+-A INPUT -j REJECT --reject-with icmp-host-prohibited<br/>&#13;
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited<br/>&#13;
+COMMIT<br/>&#13;
+#########################################################<br/>&#13;
+/etc/init.d/iptables restart  #最后重启防火墙使配置生效<br/>&#13;
+vi /etc/selinux/config<br/>&#13;
+#SELINUX=enforcing       #注释掉<br/>&#13;
+#SELINUXTYPE=targeted    #注释掉<br/>&#13;
+SELINUX=disabled         #增加<br/>&#13;
+shutdown -r now   #重启系统<br/>&#13;
+yum install wget    #安装下载工具wget<br/>&#13;
+wget http://www.atomicorp.com/installers/atomic  #下载atomic yum源<br/>&#13;
+sh ./atomic   #安装<br/>&#13;
+2、关闭SELINUX<br/>&#13;
+:wq  保存，关闭<br/>&#13;
+3、配置CentOS 6.2第三方yum源（CentOS默认的标准源里没有nginx软件包）<br/>&#13;
+yum check-update  #更新yum软件包<br/>&#13;
+#############################################################################<br/>&#13;
+安装篇：<br/>&#13;
+一、安装nginx<br/>&#13;
+yum install nginx      #安装nginx，根据提示，输入Y安装即可成功安装<br/>&#13;
+service nginx start    #启动<br/>&#13;
+chkconfig nginx on    #设为开机启动<br/>&#13;
+/etc/init.d/nginx  restart  #重启<br/>&#13;
+rm -rf /usr/share/nginx/html/*  #删除ngin默认测试页<br/>&#13;
+二、安装MySQL<br/>&#13;
+yum install mysql mysql-server   #询问是否要安装，输入Y即可自动安装,直到安装完成<br/></span>&#13;
+<p><span style="font-size:18px">为root账户设置密码</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">mysql_secure_installation</span><br/></span></p>&#13;
+<span style="font-size:18px">回车，根据提示输入Y<br/>&#13;
+输入2次密码，回车<br/>&#13;
+根据提示一路输入Y<br/>&#13;
+最后出现：Thanks for using MySQL!<br/>&#13;
+MySql密码设置完成，重新启动 MySQL：<br/>&#13;
+/etc/init.d/mysqld start   #启动MySQL<br/>&#13;
+chkconfig mysqld on   #设为开机启动<br/>&#13;
+cp /usr/share/mysql/my-medium.cnf   /etc/my.cnf  #拷贝配置文件（注意：如果/etc目录下面默认有一个my.cnf，直接覆盖即可）<br/>&#13;
+shutdown -r now  #重启系统<br/>&#13;
+/etc/init.d/mysqld stop   #停止<br/>&#13;
+/etc/init.d/mysqld start  #启动<br/>&#13;
+service mysqld restart    #重启<br/>&#13;
+三、安装PHP<br/>&#13;
+yum install php   #根据提示输入Y直到安装完成 <br/>&#13;
+安装PHP组件，使PHP支持 MySQL、PHP支持FastCGI模式<br/></span>&#13;
+<p><span style="font-size:18px">yum install php-mysql php-gd libjpeg* php-imap php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-mcrypt php-bcmath php-mhash libmcrypt libmcrypt-devel php-fpm          #根据提示输入Y回车</span></p>&#13;
+<p><span style="font-size:18px">安装 php-redis 驱动</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">yum install php-redis</span><br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">注意：可以用  yum install XX 安装其他要用的php扩展</span></span></p>&#13;
+<span style="font-size:18px">/etc/init.d/mysqld restart  #重启MySql<br/>&#13;
+/etc/init.d/nginx  restart  #重启nginx<br/>&#13;
+/etc/rc.d/init.d/php-fpm start  #启动php-fpm<br/>&#13;
+chkconfig php-fpm on  #设置开机启动<br/>&#13;
+#############################################################################<br/></span>&#13;
+<p><span style="font-size:18px">配置篇</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">一、配置nginx支持php</span><br/></span></p>&#13;
+<span style="font-size:18px">cp /etc/nginx/nginx.conf  /etc/nginx/nginx.confbak    #备份原有配置文件<br/>&#13;
+vi /etc/nginx/nginx.conf  #编辑<br/></span>&#13;
+<p><span style="font-size:18px">user  nginx  nginx;  #修改nginx运行账号为：nginx组的nginx用户</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">:wq!    #保存退出</span><br style="font-size:18px"/><span style="font-size:18px">cp /etc/nginx/conf.d/default.conf    /etc/nginx/conf.d/default.confbak   #备份原有配置文件</span><br/></span></p>&#13;
+<p><span style="font-size:18px">vi /etc/nginx/conf.d/default.conf   #编辑</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">index index.php index.html index.htm;   #增加index.php</span><br/></span></p>&#13;
+<span style="font-size:18px"> #<br/>&#13;
+ location ~ \.php$ {<br/>&#13;
+   root          html;<br/>&#13;
+   fastcgi_pass   127.0.0.1:9000;<br/>&#13;
+   fastcgi_index  index.php;<br/>&#13;
+   fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;<br/>&#13;
+   include       fastcgi_params;<br/>&#13;
+ }<br/>&#13;
+#取消FastCGI server部分location的注释,并要注意fastcgi_param行的参数,改为$document_root$fastcgi_script_name,或者使用绝对路径<br/>&#13;
+#在386行 列出PHP可以禁用的函数，如果某些程序需要用到这个函数，可以删除，取消禁用。<br/>&#13;
+expose_php = Off        #在432行 禁止显示php版本的信息<br/></span>&#13;
+<p><span style="font-size:18px">open_basedir = .:/tmp/  #在380行，设置表示允许访问当前目录(即PHP脚本文件所在之目录)和/tmp/目录,可以防止php木马跨站，如果改了之后安装程序有问题，可注销此行，或者直接写上程序目录路径/var/www/html/www.osyunwei.com/:/tmp/</span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px">二、配置php</span><br style="font-size:18px"/><span style="font-size:18px">vi /etc/php.ini   #编辑</span><br style="font-size:18px"/><span style="font-size:18px">date.timezone= PRC     #在946行 把前面的分号去掉，改为date.timezone = PRC</span><br style="font-size:18px"/><span style="font-size:18px">disable_functions=passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec</span><br style="font-size:18px"/><span style="font-size:18px">,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink</span><br style="font-size:18px"/><span style="font-size:18px">,symlink,popepassthru,stream_socket_server,escapeshellcmd,dll,popen</span><br style="font-size:18px"/><span style="font-size:18px">,disk_free_space,checkdnsrr,getservbyname,getservbyport,disk_total_space</span><br style="font-size:18px"/><span style="font-size:18px">,posix_ctermid,posix_get_last_error,posix_getcwd,posix_getegid,posix_geteuid,posix_getgid</span><br style="font-size:18px"/><span style="font-size:18px">,posix_getgrgid,posix_getgrnam,posix_getgroups,posix_getlogin,posix_getpgid,posix_getpgrp</span><br style="font-size:18px"/><span style="font-size:18px">,posix_getpid,posix_getppid,posix_getpwnam,posix_getpwuid,posix_getrlimit,posix_getsid</span><br style="font-size:18px"/><span style="font-size:18px">,posix_getuid,posix_isatty,posix_kill,posix_mkfifo,posix_setegid,posix_seteuid,posix_setgid</span><br style="font-size:18px"/><span style="font-size:18px">,posix_setpgid,posix_setsid,posix_setuid,posix_strerror,posix_times,posix_ttyname,posix_uname</span><br style="font-size:18px"/><span style="font-size:18px">magic_quotes_gpc = On   #在745行 打开magic_quotes_gpc来防止SQL注入</span><br style="font-size:18px"/><span style="font-size:18px">:wq! #保存退出</span><br style="font-size:18px"/><span style="font-size:18px">三、配置php-fpm</span><br style="font-size:18px"/><span style="font-size:18px">/etc/init.d/mysqld restart  #重启MySql</span><br style="font-size:18px"/><span style="font-size:18px">&lt;?php</span><br style="font-size:18px"/><span style="font-size:18px">?&gt;</span><br style="font-size:18px"/><span style="font-size:18px">:wq! #保存</span><br style="font-size:18px"/><span style="font-size:18px">chown nginx.nginx /usr/share/nginx/html/ -R  #设置目录所有者</span><br style="font-size:18px"/><span style="font-size:18px">chmod 700  /usr/share/nginx/html/ -R   #设置目录权限</span><br style="font-size:18px"/><span style="font-size:18px">在客户端浏览器输入服务器IP地址，可以看到相关的配置信息！</span><br/></span></p>&#13;
+<span style="font-size:18px">cp /etc/php-fpm.d/www.conf   /etc/php-fpm.d/www.confbak   #备份原有配置文件<br/>&#13;
+vi /etc/php-fpm.d/www.conf   #编辑<br/>&#13;
+user = nginx   #修改用户为nginx<br/>&#13;
+group = nginx   #修改组为nginx<br/>&#13;
+/etc/init.d/nginx  restart  #重启nginx<br/>&#13;
+/etc/rc.d/init.d/php-fpm  restart  #重启php-fpm<br/>&#13;
+#############################################################################<br/>&#13;
+测试篇<br/>&#13;
+cd /usr/share/nginx/html/   #进入nginx默认网站根目录<br/>&#13;
+vi  index.php   #新建index.php文件<br/>&#13;
+     phpinfo();<br/>&#13;
+#############################################################################<br/><br/>&#13;
+备注<br/>&#13;
+nginx默认站点目录是：/usr/share/nginx/html/<br/>&#13;
+权限设置：chown nginx.nginx/usr/share/nginx/html/ -R<br/>&#13;
+MySQL数据库目录是：/var/lib/mysql<br/>&#13;
+权限设置：chown mysql.mysql -R /var/lib/mysql</span>&#13;
+&#13;
+                      </div>  </body>
+            </html>

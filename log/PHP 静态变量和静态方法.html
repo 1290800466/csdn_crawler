@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><strong><span style="font-size:24px">PHP静态变量</span></strong><br/><span style="font-size:18px">静态变量（也叫类变量）</span><br/><br/><span style="font-size:18px">静态的变量的基本用法</span><br/><span style="font-size:18px">1.在类中定义静态变量形式：</span><br/><span style="font-size:18px">[访问修饰符] static $变量名;</span><br/><span style="font-size:18px">例;  //public static $nums=0;</span><br/><span style="font-size:18px">2.如何访问静态变量</span><br/><span style="font-size:18px">如果在类中访问  有两种方法    self::$静态变量名  ,  类名::$静态变量名</span><br/><span style="font-size:18px">如果在类外访问: 有一种方法    类名::$静态变量名</span><br/><br/><span style="font-size:18px">例程：</span><br/><span style="font-size:18px">提出一个问题:</span><br/><span style="font-size:18px">说,有一群小孩在玩堆雪人,不时有新的小孩加入,</span><br/><span style="font-size:18px">请问如何知道现在共有多少人在玩?请使用面向</span><br/><span style="font-size:18px">对象的思想，编写程序解决</span><br/></p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;?php
+class Child
+{
+	public $name;
+	//这里定义并初始化一个静态变量 $nums
+	public static $nums=0;
+	public static $i=1;
+	//构造函数
+	function __construct($name)
+	{                      
+		$this-&gt;name=$name;
+	} 
+	//静态方法
+	public  function join_game()
+	{
+		//self::$nums 使用静态变量
+		//self::$nums+=1;  或
+		Child::$nums+=1;
+		echo Child::$i.".".$this-&gt;name."加入堆雪人游戏！&lt;br&gt;";
+		Child::$i++;
+	}
+}
+//创建三个小孩
+$child1=new Child("李逵");
+$child1-&gt;join_game();
+$child2=new Child("张飞");
+$child2-&gt;join_game();
+$child3=new Child("唐僧");
+$child3-&gt;join_game();
+$child4=new Child("八戒");
+$child4-&gt;join_game();
+//看看有多少人参加了游戏
+echo "&lt;br/&gt; 共有--".child::$nums."--个人参加了游戏！";
+?&gt;
+</pre><br/><br/><p/>&#13;
+<strong><span style="font-size:24px">静态方法(又叫类方法)</span></strong><br/><span style="font-size:18px">其形式如下：</span><br/><span style="font-size:18px">[访问修饰符] static  function 方法名(){}</span><br/><span style="font-size:18px">例;  //public static function enter_school($ifree){}</span><br/><span style="font-size:18px">需求: 当我们操作静态变量的时候，我们可以考虑使用静态方法,比如统计所有学生交的学费</span><br/><p><span style="font-size:18px">在我们编程中，我们往往使用静态方法去操作静态变量.</span></p>&#13;
+<p><span style="font-size:18px">使用静态方法不需要创建对象，可以直接访问该静态方法</span></p>&#13;
+<span style="font-size:18px">2.如何访问静态方法：</span><br/><span style="font-size:18px">如果在类中访问  有两种方法    self::静态方法名  ,  类名::静态方法名</span><br/><span style="font-size:18px">如果在类外访问: 有两种方法    类名::静态方法名  ,  对象名-&gt;类方法名</span><br/><span style="font-size:18px">静态方法的特点</span><br/><span style="font-size:18px">1.静态方法只能操作静态变量</span><br/><span style="font-size:18px">2.静态方法不能操作非静态变量.</span><br/><span style="font-size:18px">这里请注意 : 普通的成员方法，既可以操作非静态变量，也可以操作静态变量 */</span><br/><p><span style="font-size:18px"/></p>&#13;
+<pre name="code" class="php">&lt;?php
+class student
+{
+	public $name;
+	//这里定义并初始化一个静态变量 $nums
+	public static $free=0;
+	//public static $i=1;
+	//构造函数
+	function __construct($name,$ifree)
+	{                      
+		$this-&gt;name=$name;
+		echo "&lt;br&gt;";
+		echo $this-&gt;name."入学了，要交学费:".$ifree."元&lt;br&gt;";
+	} 
+	//静态方法，新生入学，上交学费
+	public static function enter_school($ifree)
+	{
+		self::$free+=$ifree;	
+	}
+	//获取学费
+	public static function getfree()
+	{
+		return  self::$free;
+	}	
+}
+//静态方法不需要像普通成员方法一样要创建对象才可调用，可在不创建对象的情况下调用静态方法
+//student::enter_school(10000);
+//创建学生对象
+$student1=new student("小明",1000);
+//通过对象名调用静态方法
+$student1-&gt;enter_school(1000);
+//通过类名来调用静态方法
+//student::enter_school(1000);
+$student2=new student("小东",200);
+$student2-&gt;enter_school(2000);
+$student3=new student("小亮",3000);
+$student3-&gt;enter_school(3000);
+
+echo "共收取学费".$student3-&gt;getfree()."元!&lt;br&gt;";
+//echo "共收取学费".student::getfree()."元!&lt;br&gt;";
+?&gt;</pre><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

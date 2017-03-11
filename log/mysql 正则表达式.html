@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>已知MySQL可以通过 LIKE …% 来进行模糊匹配。 <br/>
+MySQL 同样也支持其他正则表达式的匹配， MySQL中使用 REGEXP 操作符来进行正则表达式匹配。</p>
+
+<p><img src="http://img.blog.csdn.net/20160928181313973" alt="这里写图片描述" title=""/></p>
+
+<p>实例：</p>
+
+<p>查找name字段中以’st’为开头的所有数据：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">mysql&gt; <span class="hljs-keyword">SELECT</span> name <span class="hljs-keyword">FROM</span> person_tbl <span class="hljs-keyword">WHERE</span> name REGEXP <span class="hljs-comment">'^st';</span></code></pre>
+
+<p>查找name字段中以’ok’为结尾的所有数据：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">mysql&gt; <span class="hljs-keyword">SELECT</span> name <span class="hljs-keyword">FROM</span> person_tbl <span class="hljs-keyword">WHERE</span> name REGEXP <span class="hljs-comment">'ok$';</span></code></pre>
+
+<p>查找name字段中包含’mar’字符串的所有数据：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">mysql&gt; <span class="hljs-keyword">SELECT</span> name <span class="hljs-keyword">FROM</span> person_tbl <span class="hljs-keyword">WHERE</span> name REGEXP <span class="hljs-comment">'mar';</span></code></pre>
+
+<p>查找name字段中以元音字符开头且以’ok’字符串结尾的所有数据：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">mysql&gt; <span class="hljs-keyword">SELECT</span> name <span class="hljs-keyword">FROM</span> person_tbl <span class="hljs-keyword">WHERE</span> name REGEXP <span class="hljs-comment">'^[aeiou]|ok$';</span></code></pre>
+
+<p>查找body字段是数字格式的数据</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">mysql&gt; <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> test_table <span class="hljs-keyword">where</span>  body REGEXP <span class="hljs-string">'^[0-9]+$'</span>;</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

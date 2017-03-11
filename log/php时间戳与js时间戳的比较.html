@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="color:rgb(51,51,51); font-family:Arial; line-height:26px"><span style="font-size:18px"><br/></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><strong><span style="color:#ff0000">1）单位问题：</span></strong><span style="color:#333333">php中取时间戳时，大多通过time()方法来获得，它获取到数值是以秒作为单位的，而javascript中从</span></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#333333">Date对象的getTime()方法中获得的数值是以毫秒为单位 ，所以，要比较它们获得的时间是否是同一天，必须要注意</span></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#333333">把</span></span><span style="color:rgb(51,51,51); font-size:18px">它们的单位转换成一样，1秒=1000毫秒，剩余的，你懂的了，呵呵。</span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><strong><span style="color:#ff0000"><br/></span></strong></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><strong><span style="color:#ff0000">2）时区问题：</span></strong><span style="color:#333333">第一点中说过，php中用time()方法来获得时间戳，通过为了显示的方便，我们在php代码中会设置好</span></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#333333">当</span></span><span style="color:rgb(51,51,51); font-size:18px">前服务器所在的时区，如中国大陆的服务器通常会设置成东八区，这样一样，time()方法获得的方法就不再是从</span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="color:rgb(51,51,51); font-size:18px">1970年1</span><span style="color:rgb(51,51,51); font-size:18px">月1日0时0分0秒起，而是从1970年1月1日8时0分0秒起的了，而js中通常没有作时区相关的设置，所以是</span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="color:rgb(51,51,51); font-size:18px">以1970年1月1</span><span style="color:rgb(51,51,51); font-size:18px">日0时0分0秒为计算的起点的，所以容易在这个地方造成不一致。</span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#333333">time() = Math.round(new Date().getTime()/1000-28800)<br/></span></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#333333"><br/></span></span></p>&#13;
+<p style="font-family:Arial; line-height:26px"><span style="font-size:12px; color:#990000">转自：<a target="_blank" href="http://blog.csdn.net/one_and_only4711/article/details/8791238">http://blog.csdn.net/one_and_only4711/article/details/8791238</a></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

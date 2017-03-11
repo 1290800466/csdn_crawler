@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre code_snippet_id="648728" snippet_file_name="blog_20150420_1_717097" name="code" class="php">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;?php
+
+/*
+ php语言中默认设置的是标准的格林威治时间（即采用的是零时区），与我们本地的时间相差8个小时。所以要获取本地当前时间必须要更改PHP语言中的时区设置，只需在date（）函数前加入代码：date_default_timezone_set('PRC');  //其中PRC为“中华人民共和国” 即可；也可以加一下几句，设置为指定时区
+date_default_timezone_set('Asia/Shanghai');//'Asia/Shanghai'   亚洲/上海  
+date_default_timezone_set('Asia/Chongqing');//其中Asia/Chongqing'为“亚洲/重庆”  
+date_default_timezone_set('Etc/GMT-8'); 
+*/
+
+
+date_default_timezone_set('PRC');  /* 其中PRC为“中华人民共和国“  */
+$t=date("h");
+$y=date("i");
+$u=date("sa");
+
+echo "当前时间：";
+echo "$t:$y:$u";
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo  "显示年-月-日，大写Y表示年四位数字2015,小写m表示月份的数字(带前导04)，小写j表示月份的日期，无前导0      2018-04-8";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date("Y-m-j");  
+
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo  "显示年-月-日，小写y表示年的两位数字15,小写n则表示不带前导的月份数字4   15-4-8";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date("y-n-j");   
+
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo  "显示年-月-日，大写M表示月份的3个英文缩写字符,    2015-Apr-8";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('Y-M-j');  
+
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo  "小写d表示日期带前导 08    2015-04-08" ;
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('Y-m-d');   
+
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo  "大写F表示月份的英文全写，大写S表示日期的后缀，比如“st”、“nd”、“rd”和“th”，具体看日期数字为何。   2015-April-8th";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('Y-F-jS');  
+
+echo "&lt;br&gt;&lt;br&gt;";   //换行
+echo "显示时-分-秒 ，小写g表示12小时制，无前导0（仅指小时无前导），使用12小时制时需要表明上下午，小写a表示小写的“am”和“pm”  3:08:25 pm"  ;
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('g:i:s a');    
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "显示时-分-秒 ，小写h则表示有前导0的12小时制,当使用12小时制时需要表明上下午，大写A表示大写的“AM”和“PM”  03:14:34 PM";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('h:i:s A');   
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "显示时-分-秒 ，大写G表示24小时制的小时数，但是不带前导的；使用大写的H表示带前导的24小时制小时数 15:17:23 "  ;
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('G:i:s'); 
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "显示时-分-秒 ，大写的H表示带前导的24小时制小时数 15:17:23";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('H:i:s');   
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "判断今年是否闰年：    闰年返回1，非闰年返回0    大写L表示判断今年是否闰年，布尔值，为真返回1，否则为0；";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('L');
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写l表示当天是星期几的英文全写(Wednesday)";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('l');
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "大写D表示星期几的3个字符缩写(Wed)";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('D');
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写w表示星期几，数字形式表示";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('w');
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "大写W表示一年中的星期数，数字形式表示   即本周是全年中的第几周";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('W');
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写t表示当前月份有多少天";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('t');
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写z表示今天是本年中第几天";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('z');
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "大写T表示查询服务器的时间区域设置";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('T');
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "大写I表示判断当前是否为夏令时，为真返回1，否则为0";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('I');
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "大写U表示从1970年1月1日到现在的总秒数，就是Unix时间纪元的UNIX时间戳。";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('U');
+
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写c表示ISO8601日期，日期格式为YYYY-MM-DD，用字母T来间隔日期和时间，时间格式为HH:MM:SS，时区使用格林威治标准时间(GMT)的偏差来表示。";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('c');
+
+
+echo "&lt;br&gt;&lt;br&gt;";
+echo "小写r表示RFC822日期   Tue, 06 Feb 2007 14:25:52 +0800";
+echo "&lt;br&gt;&lt;br&gt;";
+echo date('r');
+echo "&lt;br&gt;&lt;br&gt;";
+
+
+
+//以上date() 函数表示符可以组合使用
+echo date("y-m-d H:i:s");
+echo date("Y年m月d日 , H点i分s秒 ")."&lt;br/&gt;";
+
+?&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/></div>  </body>
+            </html>

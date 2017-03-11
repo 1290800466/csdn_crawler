@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px">PHP快速排序法代码实例：</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="688622" snippet_file_name="blog_20150609_1_9350183" name="code" class="php">&lt;?php
+//快速排序法封装函数
+function quick_Sort($array){
+	//先判断是否需要继续进行，若所要排序数组只有一个元素或没有元素则不需要排序
+    $len = count($array);
+    if($len &lt;= 1)
+	{
+        return $array;
+    }
+    //如果所给数组元素大于1个，需要排序
+	//选择数组第一个元素作为标尺
+	$key = $array[0];
+	//初始化两个数组
+    $left_array = array();//小于标尺的
+    $right_array = array();//大于标尺的
+     
+    //遍历所给数组除了标尺外的所有元素，按照大小关系放入两个数组内
+    for($i=1;$i&lt;$len;$i++){
+        if($array[$i]&lt;$key){	
+	//如果数组元素小于标尺则将该元素放入左数组
+            $left_array[] = $array[$i];
+        }else{
+			//如果数组元素大于标尺则将该元素放入右数组
+            $right_array[] = $array[$i];
+        }
+    }
+    //再分别对 左数组 和 右数组进行相同的排序处理方式
+	//递归调用这个函数,并记录结果 
+    $left_array = quick_Sort($left_array);
+    $right_array = quick_Sort($right_array);
+    //合并左数组 标尺 右数组
+	//array_merge() 函数把两个或多个数组合并为一个数组。
+	//如果键名有重复，后面的键名的值覆盖前面的键名的值。如果数组是数字索引的，则键名会以连续方式重新索引。
+	//语法   array_merge(array1,array2,array3...)
+    return array_merge($left_array,array($key),$right_array);
+}
+ 
+$sortarray = array(13,89,23,9,19,88,56,78,34,69,10,14);
+print_r(quick_Sort($sortarray));
+?&gt;</pre><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

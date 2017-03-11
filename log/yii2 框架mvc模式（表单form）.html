@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>使用表单</strong></p>
+
+<p>本章节介绍如何创建一个让用户提交数据的表单页。 该页将显示一个包含 name 输入框和 email 输入框的表单。 当提交这两部分信息后，页面将会显示用户所输入的信息。</p>
+
+<p>为了实现这个目标，除了创建一个操作和两个视图外， 还需要创建一个模型。</p>
+
+<p><strong>1、创建模型</strong></p>
+
+<p>模型类 EntryForm 代表从用户那请求的数据， 该类如下所示并存储在 models/EntryForm.php 文件中。</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">app</span>\<span class="hljs-title">models</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yii</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">base</span>\<span class="hljs-title">Model</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EntryForm</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>
+{</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-variable">$name</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-variable">$email</span>;
+
+    <span class="hljs-comment">/**
+    * 数据验证规则
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rules</span><span class="hljs-params">()</span>
+    {</span>
+        <span class="hljs-keyword">return</span> [
+            [[<span class="hljs-string">'name'</span>, <span class="hljs-string">'email'</span>], <span class="hljs-string">'required'</span>],
+            [<span class="hljs-string">'email'</span>, <span class="hljs-string">'email'</span>],
+        ];
+    }
+
+    <span class="hljs-comment">/**
+    *  显示字符表示的数据具体名称，作用
+    * 1、后面的是前面的注释，在rules验证的时候，如果报错，会把此处的后面的内容显示出来  
+    * 2、hint作用，即表单中用户插入数据时，提示用户该字段该填什么内容  
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">attributeLabels</span><span class="hljs-params">()</span>
+    {</span>
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-string">'email'</span> =&gt; <span class="hljs-string">'邮箱'</span>,
+            <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'姓名'</span>,
+        ];
+    }
+}</span></code></pre>
+
+<p>EntryForm 类包含 name 和 email 两个公共成员， 用来储存用户输入的数据。它还包含一个名为 rules() 的方法， 用来返回数据验证规则的集合</p>
+
+<p><strong>2、创建操作</strong></p>
+
+<p>下面你得在 site 控制器中创建一个 entry 操作用于新建的模型。 </p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">app</span>\<span class="hljs-title">controllers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Yii</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">filters</span>\<span class="hljs-title">AccessControl</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">web</span>\<span class="hljs-title">Controller</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">filters</span>\<span class="hljs-title">VerbFilter</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">app</span>\<span class="hljs-title">models</span>\<span class="hljs-title">LoginForm</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">app</span>\<span class="hljs-title">models</span>\<span class="hljs-title">ContactForm</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">app</span>\<span class="hljs-title">models</span>\<span class="hljs-title">EntryForm</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SiteController</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Controller</span>
+{</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">actionEntry</span><span class="hljs-params">()</span>
+    {</span>
+        <span class="hljs-variable">$model</span> = <span class="hljs-keyword">new</span> EntryForm;
+        var_dump(Yii::<span class="hljs-variable">$app</span>-&gt;request-&gt;post());
+        <span class="hljs-comment">//下面语句为给$model赋post值</span>
+        <span class="hljs-comment">//$model-&gt;load(Yii::$app-&gt;request-&gt;post()</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$model</span>-&gt;load(Yii::<span class="hljs-variable">$app</span>-&gt;request-&gt;post()) &amp;&amp; <span class="hljs-variable">$model</span>-&gt;validate()) {
+            <span class="hljs-comment">// 验证 $model 收到的数据</span>
+            <span class="hljs-comment">// 做些有意义的事 ...</span>
+
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$this</span>-&gt;render(<span class="hljs-string">'entry-confirm'</span>, [<span class="hljs-string">'model'</span> =&gt; <span class="hljs-variable">$model</span>]);
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-comment">// 无论是初始化显示还是数据验证错误</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$this</span>-&gt;render(<span class="hljs-string">'entry'</span>, [<span class="hljs-string">'model'</span> =&gt; <span class="hljs-variable">$model</span>]);
+        }
+    }
+
+}
+</code></pre>
+
+<p>该操作首先创建了一个 EntryForm 对象。然后尝试从 $_POST 搜集用户提交的数据， 由 Yii 的 yii\web\Request::post() 方法负责搜集。如果模型被成功填充数据（也就是说用户已经提交了 HTML 表单）， 操作将调用 yii\base\Model::validate() 去确保用户提交的是有效数据。</p>
+
+<p><strong>3、创建视图</strong></p>
+
+<p>最后创建两个视图文件 entry-confirm 和 entry。 他们会被刚才创建的 entry 操作渲染。</p>
+
+<p>entry-confirm 视图简单地显示提交的 name 和 email 数据。视图文件保存在 views/site/entry-confirm.php。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">helpers</span>\<span class="hljs-title">Html</span>;
+<span class="hljs-preprocessor">?&gt;</span></span>
+<span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>You have entered the following information:<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-title">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>: <span class="php"><span class="hljs-preprocessor">&lt;?</span>= Html::encode(<span class="hljs-variable">$model</span>-&gt;name) <span class="hljs-preprocessor">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>: <span class="php"><span class="hljs-preprocessor">&lt;?</span>= Html::encode(<span class="hljs-variable">$model</span>-&gt;email) <span class="hljs-preprocessor">?&gt;</span></span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span></code></pre>
+
+<p>entry 视图显示一个 HTML 表单。视图文件保存在 views/site/entry.php。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">helpers</span>\<span class="hljs-title">Html</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">yii</span>\<span class="hljs-title">widgets</span>\<span class="hljs-title">ActiveForm</span>;
+<span class="hljs-preprocessor">?&gt;</span></span>
+<span class="php"><span class="hljs-preprocessor">&lt;?php</span> <span class="hljs-variable">$form</span> = ActiveForm::begin(); <span class="hljs-preprocessor">?&gt;</span></span>
+
+    <span class="php"><span class="hljs-preprocessor">&lt;?</span>= <span class="hljs-variable">$form</span>-&gt;field(<span class="hljs-variable">$model</span>, <span class="hljs-string">'name'</span>) <span class="hljs-preprocessor">?&gt;</span></span>
+
+    <span class="php"><span class="hljs-preprocessor">&lt;?</span>= <span class="hljs-variable">$form</span>-&gt;field(<span class="hljs-variable">$model</span>, <span class="hljs-string">'email'</span>) <span class="hljs-preprocessor">?&gt;</span></span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"form-group"</span>&gt;</span>
+        <span class="php"><span class="hljs-preprocessor">&lt;?</span>= Html::submitButton(<span class="hljs-string">'Submit'</span>, [<span class="hljs-string">'class'</span> =&gt; <span class="hljs-string">'btn btn-primary'</span>]) <span class="hljs-preprocessor">?&gt;</span></span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+<span class="php"><span class="hljs-preprocessor">&lt;?php</span> ActiveForm::end(); <span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>视图使用了一个功能强大的小部件 yii\widgets\ActiveForm 去生成 HTML 表单。 其中的 begin() 和 end() 分别用来渲染表单的开始和关闭标签。 在这两个方法之间使用了 yii\widgets\ActiveForm::field() 方法去创建输入框。 第一个输入框用于 “name”，第二个输入框用于 “email”。 之后使用 yii\helpers\Html::submitButton() 方法生成提交按钮。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

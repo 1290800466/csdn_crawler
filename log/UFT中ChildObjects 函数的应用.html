@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="vb">'qtp 中ChildObjects 函数的应用：
+'ChildObjects 函数主要用于页面中同一类型对象的批量操作，减少代码量；
+'如在出售中的 宝贝中有很多宝贝要进行批量下架，可以用以下方法得到：
+'使用方法详解：
+
+
+'（1）、首先对要操作的对象建立一个Description对象：
+Set MyDescription = Description.Create()
+'（2）、设置Description对象的属性：
+MyDescription("html tag").Value = "INPUT"
+MyDescription("type").Value = "checkbox"
+MyDescription("name").Value="selectedIds"
+
+
+'调用ChildObjects方法实现选中所有复选框
+Dim Counter
+Set Checkboxes = Browser("test:=XXX").Page("text:=XXX").ChildObjects(MyDescription)
+Num = Checkboxes.Count
+'这里的Num-1 表示所有的复选框；
+For Counter=0 to Num-1
+'对该类型的数据赋值
+Checkboxes(Counter).Set "ON"
+Next</pre><br/></div>  </body>
+            </html>

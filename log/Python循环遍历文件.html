@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<pre code_snippet_id="648353" snippet_file_name="blog_20150420_2_2618861" name="code" class="python">&lt;pre name="code" class="python"&gt;'''
+for遍历文件
+open("aaa.py","r").readline()  遍历aaa.py的第一行，每个字符作为一行
+open("aaa.py","r").readlines()  遍历整个aaa.py文档，源文档一行作为遍历的一行
+open("aaa.py","r").read()  遍历整个aaa.py文档，每个字符作为一行
+r 表示已只读的形式打开
+'''
+
+for val in open("aaa.py","r").read():
+    print val
+
+for val in open("aaa.py","r").readline():
+    print val
+
+for val in open("aaa.py","r").readlines():
+    print val
+
+'''
+实现将一个文件读出，并写入到另一个文件中
+a+ 表示以追加的形式写入
+'''
+
+for a in open("aaa.py","r").readlines():
+    open("a.txt","a+").write(a)
+else:
+    print "END"</pre><br/>&#13;
+文件打开类型：<br/>&#13;
+r   读<br/>&#13;
+w  写<br/>&#13;
+a  连续追加写<br/>&#13;
+a+ 若打开目录没有该文件，则自动创建该文件<br/><p>b</p>&#13;
+<p>注意读写完毕后一定要关闭文件：</p>&#13;
+<pre/>&#13;
+<p>关闭文件函数：  file_name.close()</p>&#13;
+<br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、核心类库</strong></p>
+
+<p>核心类库位于 system/core/   自动加载</p>
+
+<p>控制器中使用方式： 直接使用</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$aa</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>config<span class="hljs-subst">-&gt;</span>base_url();
+<span class="hljs-variable">$bb</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>uri<span class="hljs-subst">-&gt;</span>uri_string();</code></pre>
+
+<p>其他位置使用：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$CI</span> <span class="hljs-subst">=</span> <span class="hljs-subst">&amp;</span>get_instance();
+<span class="hljs-variable">$aa</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$CI</span><span class="hljs-subst">-&gt;</span>config<span class="hljs-subst">-&gt;</span>base_url();
+<span class="hljs-variable">$aa</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$CI</span><span class="hljs-subst">-&gt;</span>uri<span class="hljs-subst">-&gt;</span>uri_string();</code></pre>
+
+<p><strong>2、系统类库</strong></p>
+
+<p>系统类库位于 system/libraries/ </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>library(<span class="hljs-string">'class_name'</span>);
+
+<span class="hljs-comment">//可以有第二个参数进行传值</span>
+
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>library(<span class="hljs-string">'form_validation'</span>);
+
+<span class="hljs-comment">//一旦类库被载入，你就可以根据该类库的用户指南中介绍的方法去使用它了。</span>
+
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>form_validation<span class="hljs-subst">-&gt;</span>error_array();
+
+<span class="hljs-comment">//多个类库可以通过一个数组来同时加载。</span>
+
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>library(<span class="hljs-built_in">array</span>(<span class="hljs-string">'email'</span>, <span class="hljs-string">'table'</span>));</code></pre>
+
+<p><strong>3、辅助函数</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>helper(<span class="hljs-string">'name'</span>);
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>helper(<span class="hljs-string">'url'</span>);
+
+<span class="hljs-comment">//引入指定辅助函数文件后，其中的方法即可直接使用</span></code></pre>
+
+<p><strong>4、模型</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>model(<span class="hljs-string">'model_name'</span>);
+
+<span class="hljs-comment">//引用位于子目录下模型</span>
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>model(<span class="hljs-string">'blog/queries'</span>);
+
+<span class="hljs-comment">//加载之后，你就可以通过一个和你的类同名的对象访问模型中的方法。</span>
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>model(<span class="hljs-string">'model_name'</span>);
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>model_name<span class="hljs-subst">-&gt;</span>method();
+
+<span class="hljs-comment">//如果你想将你的模型对象赋值给一个不同名字的对象，你可以使用 $this-&gt;load-&gt;model() 方法的第二个参数:</span>
+
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>load<span class="hljs-subst">-&gt;</span>model(<span class="hljs-string">'model_name'</span>, <span class="hljs-string">'foobar'</span>);
+
+<span class="hljs-variable">$this</span><span class="hljs-subst">-&gt;</span>foobar<span class="hljs-subst">-&gt;</span>method();</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

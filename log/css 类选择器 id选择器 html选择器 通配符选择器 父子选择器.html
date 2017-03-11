@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2><span style="font-size:14px">1、css使用的基本语法：</span></h2>&#13;
+<p><span style="font-size:14px">选择器 {</span></p>&#13;
+<p><span style="font-size:14px">属性1：属性值；</span></p>&#13;
+<p><span style="font-size:14px">属性2：属性值；</span></p>&#13;
+<p><span style="font-size:14px">属性3：属性值；</span></p>&#13;
+<p><span style="font-size:14px">         .</span></p>&#13;
+<p><span style="font-size:14px">         .</span></p>&#13;
+<p><span style="font-size:14px">         .</span></p>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<h2><span style="font-size:14px">2、Css使用的必要性：</span></h2>&#13;
+<p><span style="font-size:14px">（1）、统一网页不同个体的风格</span></p>&#13;
+<p><span style="font-size:14px">（2）、可以使用滤镜</span></p>&#13;
+<h2><span style="font-size:14px">3、Css中常用的4种选择器：</span></h2>&#13;
+<p><span style="font-size:14px">（1）、类选择器，又叫class选择器：</span></p>&#13;
+<p><span style="font-size:14px">         类选择器格式：</span></p>&#13;
+<p><span style="font-size:14px"><span style="color:red">. </span>类选择器{</span></p>&#13;
+<p><span style="font-size:14px">         属性名：属性值;</span></p>&#13;
+<p><span style="font-size:14px">         ……</span></p>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<p><span style="font-size:14px"> </span></p>&#13;
+<p><span style="font-size:14px">（2）、id选择器：</span></p>&#13;
+<p><span style="font-size:14px">         Id选择器格式：</span></p>&#13;
+<p><span style="font-size:14px">         #id选择器{</span></p>&#13;
+<p><span style="font-size:14px">         属性名：属性值;</span></p>&#13;
+<p><span style="font-size:14px">         ……</span></p>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<p><span style="font-size:14px">（3）、html元素选择器：</span></p>&#13;
+<p><span style="font-size:14px"> </span></p>&#13;
+<p><span style="font-size:14px">html元素选择器格式：</span></p>&#13;
+<p><span style="font-size:14px">Html元素名称{</span></p>&#13;
+<p><span style="font-size:14px">         属性名：属性值;</span></p>&#13;
+<p><span style="font-size:14px">         ……</span></p>&#13;
+<p><span style="font-size:14px"> </span></p>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<p><span style="font-size:14px">（4）、通配符选择器</span></p>&#13;
+<p><span style="font-size:14px">* {</span></p>&#13;
+<p><span style="font-size:14px">属性名：属性值;</span></p>&#13;
+<p><span style="font-size:14px">                   ……</span></p>&#13;
+<p><span style="font-size:14px">}</span></p>&#13;
+<p><span style="font-size:14px">（5）、父子选择器</span></p>&#13;
+<p><span style="font-size:14px"> </span></p><pre name="code" class="css">#id1  span {
+                  color:red;
+                  font-size:60px;
+                  font-style : italic ;
+}</pre>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:14px">Ø  Css文件可以使用在各种文件中，如 .php, .html, .jsp, .asp, .net；</span></p>&#13;
+<p><span style="font-size:14px">Ø  各种选择器优先级比较：Id选择器 &gt; class选择器 &gt; html选择器 &gt; 通配符选择器；</span></p>&#13;
+<p><span style="font-size:14px">Ø  父子选择器可以有多级，但实际开发中最好不要超过三层；</span></p>&#13;
+<p><span style="font-size:14px">Ø  父子选择器有严格的层级关系；</span></p>&#13;
+<p><span style="font-size:14px">Ø  父子选择器不局限于什么类型的选择器：</span></p>&#13;
+<p><span style="font-size:14px">如：</span></p>&#13;
+<p><span style="font-size:14px">#id1  span</span></p>&#13;
+<p><span style="font-size:14px">.s1  #id1 font</span></p>&#13;
+<p><span style="font-size:14px">Div   #id1  .s1</span></p>&#13;
+<p><span style="font-size:14px">这些形式均可以；</span></p>&#13;
+<p><span style="font-size:14px"> </span></p>&#13;
+<p><span style="font-size:14px">Ø  一个元素可以同时被id,class选择器修饰；</span></p>&#13;
+<p><span style="font-size:14px">&lt;span class="style1" id="id2"&gt;样式1一&lt;/span&gt;</span></p>&#13;
+<p><span style="font-size:14px">Ø  同一个元素不能同时被两个id选择器修饰，一个元素只能有1个id选择器，但可以有多个class选择器；   &lt;span class="style1  style2"&gt;样式1一&lt;/span&gt;</span></p>&#13;
+<p><span style="font-size:14px">Ø  当修饰同一个元素的多个类选择器发生冲突时，则以写在css文件中的后面的哪个类选择器为准；</span></p>&#13;
+<p><span style="font-size:14px">Ø  在css文件中，如果有多个class、id选择器，他们有相同的部分，我们可以把相同的css样式放在一起；</span></p>&#13;
+<h2><span style="font-size:14px">5、说明： </span></h2>&#13;
+<p><span style="font-size:14px">css文件本身也会被浏览器下载到本地，才能显示效果。</span></p>&#13;
+<p><span style="font-size:14px">实例：</span></p>&#13;
+<p><span style="font-size:14px"> </span></p><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;第二讲代码&lt;/title&gt;
+&lt;!--css 部分可以单写一个文件(外联css)，然后引入，也可以直接嵌入到该html文件中（内联css）--&gt;
+&lt;!--一个html文件可以引入多个css文件，多写几行即可--&gt;
+&lt;link rel="stylesheet" type="text/css" href="a1.css" &gt;
+&lt;link rel="stylesheet" type="text/css" href="a2.css" &gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--&lt;span&gt; 属性用来组合行内元素（中间部分可看做一个整体），以便通过样式来格式化它们--&gt;
+&lt;b&gt;1、使用css统一网页不同元素风格,类选择器&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;span class="style1" style ="font-family:华文新魏"&gt;样式一&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式二&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式三&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style2"&gt;样式四&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style2"&gt;样式五&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style2"&gt;样式六&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+
+&lt;b&gt;2、id选择器&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;span id="id1"&gt;样式七&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span id="id1"&gt;样式八&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span id="id1"&gt;样式九：不打算把课程包括数据初步设计课程不健康报报价&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;b&gt;3、html选择器控制超链接&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;a href="http://www.baidu.com" &gt;百度&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://www.sohu.com" target="_blank"&gt;搜狐&lt;/a&gt;&lt;br&gt;
+&lt;a href="http://www.taobao.com" target="_blank"&gt;淘宝&lt;/a&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;b&gt;4、对同一种html元素，分类显示问题&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;b class="cls1"&gt;11223344556677889900&lt;/b&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;b class="cls2"&gt;qqwweerrttyyuuiioopp&lt;/b&gt;
+&lt;br&gt;&lt;br&gt;
+
+&lt;b&gt;5、通配符选择器&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;!--如果希望所有的元素都符合某一样式，可以使用通配符选择器，但它的优先级是最低的。--&gt;
+&lt;!--见.css文件，以网页边距属性margin为例--&gt;
+
+
+&lt;b&gt;6、父子选择器&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;span id="id1"&gt;&lt;span&gt;标&lt;span&gt;题&lt;/span&gt;：&lt;/span&gt;不打算把课程&lt;font&gt;包括数&lt;/font&gt;据初步设计课程不健康报报价&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;b&gt;7、一个元素被多种选择器修饰&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;span class="style1" id="id2"&gt;样式1一&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式1二&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式1三&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+
+&lt;b&gt;8、一个元素被多个class选择器修饰&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;span class="style1 style3"&gt;样式1一&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式1二&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="style1"&gt;样式1三&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;b&gt;9、合并css文件选择器&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;!--在css文件中，如果有多个class、id选择器，他们有相同的部分，我们可以把相同的css样式放在一起；
+把各个类选择器的公共部分，单独抽取写为一份，这样可以减少css的冗余--&gt;
+
+&lt;span class="ad_1"&gt;恩格斯v输入个人&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="ad_2"&gt;v都是v二嘎v是v上造成至&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+&lt;span class="ad_3"&gt;说v发多少v分DVD大幅度v别的服不&lt;/span&gt;
+&lt;br/&gt;&lt;br/&gt;
+
+&lt;b&gt;2、滤镜技术,不好用，没能明白&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;div&gt;
+
+&lt;img src="b1.jpg" &gt;
+&lt;img src="b2.jpg" &gt;
+&lt;img src="b3.jpg" &gt;
+&lt;img src="b4.jpg"&gt;
+&lt;img src="b5.jpg"&gt;
+&lt;img src="b6.jpg"&gt;
+&lt;img src="b7.jpg"&gt;
+&lt;img src="b8.jpg"&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</pre>&#13;
+<p><span style="font-size:14px"><strong> a1.css</strong></span></p>&#13;
+<p><span style="font-size:14px"/></p><pre name="code" class="css">/*.style1  叫做  类选择器*/
+.style1 {
+	color:green;
+	font-size:30px;
+}
+.style2 {
+	color:red;
+	font-size:40px;
+}
+
+/*id选择器的使用*/
+#id1{
+	color:yellow;
+	font-size:50px;
+}
+
+
+/*html选择器，使网页字体默认显示为橙色 */
+body{
+	color:orange;
+}
+
+img{
+width:300px;
+filter :gray;
+}
+/*html选择器控制超链接*/
+a:link{   /*伪类link设置 a 对象在未被访问前的样式。*/
+	color:red;
+	text-decoration : none;/*去掉文字装饰效果，这里指下划线*/
+	font-size:24px;
+	
+}
+a:hover{    /*伪类hover设置对象在其鼠标悬停时的样式*/
+	color:blue;
+	text-decoration :underline;/*添加下划线*/
+	font-size:35px;
+}
+
+a:visited {  /*伪类visited设置 a 对象在其链接地址已被访问过时的样式*/
+	color:#c0ff00;
+	font-size:50px;
+	
+}
+
+a:active {  /*伪类active设置对象在被用户激活(在鼠标点击与释放之间发生的事件)时的样式。*/
+	color:#40ff00;
+	font-size:50px;
+	
+}
+
+/*同一种元素的分类显示*/
+b.cls1{
+	color:#c0ff00;
+	font-size:50px;
+}
+
+
+b.cls2{
+	color:#40ff00;
+	font-size:53px;
+}
+
+
+/*通配符选择器*/
+
+*{
+	/*margin-top:0px;  /* 消除外部上边距*/
+	/*margin-right:0px;
+	margin-bottom:0px;
+	margin-left:0px;*/
+	/*margin:0px;*/
+	/*margin: 10px 20px;*/
+	/*margin: 10px 20px 30px;*/
+	margin: 10px 20px 30px 40px;
+	/*margin取值含义：如果提供全部四个参数值，将按上－右－下－左的顺序作用于四边（以顺时针顺序）。
+	如果只提供一个，将用于全部的四边。
+	如果提供两个，第一个用于上－下，第二个用于左－右。
+	如果提供三个，第一个用于上，第二个用于左－右，第三个用于下。
+    */
+	
+}
+
+*{
+	/*padding-top:0px;  /* 消除元素内部上边距*/
+	/*padding-right:0px;
+	padding-bottom:0px;
+	padding-left:0px;*/
+	/*padding:0px;*/
+	/*padding: 10px 20px;*/
+	/*padding: 10px 20px 30px;*/
+	padding: 10px 20px 30px 40px;
+	/*padding取值含义：如果提供全部四个参数值，将按上－右－下－左的顺序作用于四边（以顺时针顺序）。
+	如果只提供一个，将用于全部的四边。
+	如果提供两个，第一个用于上－下，第二个用于左－右。
+	如果提供三个，第一个用于上，第二个用于左－右，第三个用于下。
+    */
+	
+}
+
+
+/*父子选择器（包含选择器）*/
+
+
+#id1  span {
+	color:red;
+	font-size:60px;
+	font-style : italic ;
+}
+
+#id1  span  span {     /*一定要注意层次关系*/
+	color:green;
+
+}
+
+
+#id1  font{
+
+	font-size:100px;
+
+}
+
+#id2 {
+	font-weight : bold;
+	font-style : italic ;
+}
+
+/*一个元素被多个class选择器修饰*/
+.style3 {
+	font-weight : bold;
+	text-decoration :line-through;
+	background : red;
+}
+
+
+
+/*合并css文件选择器*/
+/*在css文件中，如果有多个class、id选择器，他们有相同的部分，我们可以把相同的css样式放在一起；
+把各个类选择器的公共部分，单独抽取写为一份，这样可以减少css的冗余*/
+
+/*我们可以把某个css文件中的选择器公有的部分，独立出来写一份；
+例如以下三个选择器：
+*/
+/*广告一*/
+.ad_1{
+	width:20px;
+	height:30px;
+	background:red;
+	float:left;
+	margin:3px;	
+}
+/*广告二*/
+.ad_2{
+	width:30px;
+	height:40px;
+	background:red;
+	float:left;
+	margin:3px;	
+}
+/*广告三*/
+.ad_3{
+	width:40px;
+	height:50px;
+	background:red;
+	float:left;
+	margin:3px;	
+}
+
+/*由以上三个选择器可进行以下改写：*/
+
+/*广告一*/
+.ad_1{
+	width:200px;
+	height:30px;	
+}
+/*广告二*/
+.ad_2{
+	width:300px;
+	height:40px;
+}
+/*广告三*/
+.ad_3{
+	width:400px;
+	height:50px;
+}
+/*将以上三个选择器的重合部分写入以下选择器*/
+.ad_1,.ad_2,.ad_3{  /*注意用逗号隔开，否则就成了父子选择器了*/
+	background:red;
+	float:left;
+	margin:3px;	
+}
+
+/*注意，经过以上改造的选择器还和原来一样使用，新生成的选择器  不需要出现在html文件中，会自动识别重合属性*/
+</pre>&#13;
+<br/></div>  </body>
+            </html>

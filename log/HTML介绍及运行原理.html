@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2><strong>1、 Html是什么：</strong></h2>&#13;
+<p>Html 是超文本标记语言，主要用于做网页，可以在网页上显示文字、图像、视频、声音。</p>&#13;
+<p>&lt;inputtype=”text” name=”xxx”/&gt;</p>&#13;
+<p>HTML的结构包括头部（head）、主体（body）两部分，其中头部描述浏览器所需的信息，而主体部分则包含所要说明的具体内容。</p>&#13;
+<p> </p>&#13;
+<p>Ø  标记=元素</p>&#13;
+<p>Ø  Html只能做静态网页，不能做动态网页</p>&#13;
+<p>Ø  网页分为静态网页（Html）、动态网页（php/jsp/asp/asp.net）</p>&#13;
+<p>Ø  静态网页：随着html代码的生成，页面的内容和显示效果就基本上不会发生变化    了，除非你修改页面代码</p>&#13;
+<p>Ø  动态网页：页面代码虽然没有变，但是显示的内容却是可以随着时间、环境或者数据库操作的结果而发生改变的网页，可以交互的网页属于动态网页</p>&#13;
+<p> </p>&#13;
+<h2><strong>2、 Html的运行原理：</strong></h2>&#13;
+<p>Html有两种运行方式：</p>&#13;
+<p>（1）      本地运行：直接用浏览器打开</p>&#13;
+<p align="left"><span style="color:#333333">（2）    </span>远程访问：<span style="color:#333333">通过网站服务器浏览，</span>以http的协议方式去打开，有网络交互</p>&#13;
+<p align="left"><span style="color:#333333"> </span></p>&#13;
+<h2><strong>3、 Html文件的基本结构：</strong></h2>&#13;
+<p/><pre name="code" class="html">&lt;!--&lt;&gt;中就是标记--&gt;
+&lt;!--这是注释符号--&gt;
+&lt;!--html 表示这是一个html文件--&gt;
+&lt;html&gt;
+
+&lt;!--head 表示头--&gt;
+&lt;head&gt;
+&lt;!-- 解决html在浏览器中显示乱码问题,以下两句选其一 --&gt;
+&lt;!--
+meta属性用于说明页面使用何种字符集显示，在国内我们的编码一般是gbk码或gbk2312码，俗称国标码
+utf-8码具有最好的兼容性，一般用utf-8码
+注意，我们的网页本身的编码应当和content-type 指令的编码要一致，否则会乱码
+--&gt;
+&lt;!--meta http-equiv="Content-Type" content="text/html; charset=gb2312"--&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt; 
+&lt;!--title 表示这是标题--&gt;
+&lt;title&gt; 标题：HTML的基本结构示例 &lt;/title&gt;
+&lt;/head&gt;
+
+&lt;!--body 表示这是主体内容部分--&gt;
+
+&lt;!--
+文字颜色属性：
+text --- 非可链接文字的色彩
+link --- 可链接文字的色彩
+alink --- 正被点击的可链接文字的色彩
+vlink --- 已经点击(访问)过的可链接文字的色彩
+--&gt;
+&lt;body text="yellow" alink="red"&gt;
+&lt;!--这是内容--&gt;
+&lt;!--
+ body中内容基本结构：
+&lt;元素  属性1=“属性值”  属性2=“属性值”  … &gt; 内容 &lt;/元素&gt;
+或
+&lt;元素  属性=“属性值”  / &gt;
+--&gt;
+&lt;!--  &lt;h1&gt; - &lt;h6&gt; 标签可定义标题。&lt;h1&gt; 定义最大的标题。&lt;h6&gt; 定义最小的标题--&gt;
+ &lt;h2&gt;题西林壁&lt;/h2&gt;
+&lt;!--&lt;br&gt; 标签插入简单的换行符--&gt;
+横看成岭侧成峰，&lt;br&gt;
+&lt;!--&lt;b&gt; 标签定义粗体的文本（加粗）--&gt;
+ &lt;b &gt; 远近高低各不同。 &lt;/b&gt;&lt;br&gt;
+&lt;!--&lt;font&gt; 标签规定文本的字体外观、字体尺寸和字体颜色--&gt;
+ &lt;font color = "red"&gt; 不识庐山真面目， &lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;!--size 的值只能取1-7 ，1最小，7最大 --&gt;
+ &lt;font size = "4"&gt; 只缘身在此山中。 &lt;/font&gt;&lt;br&gt;
+&lt;!--若要求字体很大，可利用如下所示方法，所示为100像素，可任意调节，这属于css的内容--&gt;
+ &lt;font style="font-size:30px" &gt; 远近高低各不同 &lt;/font&gt;&lt;br&gt;
+&lt;!--&lt;p&gt; 标签定义段落,自动换行--&gt; 
+&lt;!--文字对齐方式的设计，只能在p，h3标记中使用--&gt;
+ &lt;p align="right"&gt; 远近高低各不同 &lt;/p&gt;
+&lt;!--文字对齐方式的设计center,单独使用--&gt;
+&lt;center&gt;远近高低各不同&lt;/center&gt;
+ &lt;!--返回原界面--&gt;
+ &lt;a &lt;a href="第二讲代码.html"&gt; 返回&lt;/a&gt;&lt;br&gt;
+ 
+&lt;!--指定字体显示文本,本系统字库中必须要有指定的字体库--&gt;
+&lt;font face="华文新魏"&gt;&lt;h1&gt;传播速度和范冰冰发动机&lt;h1&gt;&lt;/font&gt; 
+ 
+ 
+ 
+ &lt;!--文字的分区(Division)显示,可加边框,可任意移动位置--&gt;
+
+&lt;div align="center" style="width:400px;height:200px;border:1px solid red;color:black;position:absolute;left:200px"&gt; 
+发布色鬼，吧，根本，根本，不能把还是个别人还不赶紧
+
+ &lt;/div&gt;
+ &lt;br&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+&lt;!--HTML字体描述标记：
++ 物理字体(Physical Style)
+
+&lt;b&gt;今天天气真好！&lt;/b&gt; 粗体
+
+&lt;i&gt;今天天气真好！&lt;/i&gt; 斜体
+
+&lt;u&gt;今天天气真好！&lt;/u&gt; 加下划线
+
+&lt;tt&gt;今天天气真好！&lt;/tt&gt; 缩小
+
+&lt;sup&gt;今天天气真好！&lt;/sup&gt; 缩小上移
+
+&lt;sub&gt;今天天气真好！&lt;/sub&gt; 缩小下移
+
+&lt;s&gt;今天天气真好！&lt;/s&gt; 中划线
+
+&lt;strike&gt;今天天气真好！&lt;/strike&gt; 今天天气真好！
+
+
+--&gt;
+
+</pre>&#13;
+<p>Ø  HTML标记要用两个尖括号“&lt;&gt;”括起来</p>&#13;
+<p>Ø  HTML标记一般是双标记（成对出现），如&lt;b&gt;和&lt;/b&gt;前一个标记是起始标记，后一个标记为结束标记</p>&#13;
+<p>Ø  两个标记之间的文本是HTML元素的内容</p>&#13;
+<p>Ø  某些标记称为“单标记“，因为他只需要单独使用就能完整表达意思，如&lt;br/&gt;</p>&#13;
+<p>Ø  HTML标记和HTML元素可以看做是同一概念。</p>&#13;
+<p>Ø  如果严格起来说，标记和元素区别如下：</p>&#13;
+<p>&lt;title&gt;   为标记</p>&#13;
+<p>&lt;title&gt;<span style="color:red">标题</span> &lt;/title&gt;  为元素</p>&#13;
+<h2><strong>4、.html和.htm后缀文件的区别：</strong></h2>&#13;
+<p>         两者本质上没有区别；</p>&#13;
+<p>         如果一个网站有index.html和index.htm文件，默认情况下，优先访问index.html</p>&#13;
+<p>         Htm后缀是为了兼容以前的dos系统8.3的命名规范（文件名长度不得超过8个字符</p>&#13;
+<p>）</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

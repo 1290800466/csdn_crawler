@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><br/>&#13;
+继承：所谓继承就是 一个子类 通过 extends  父类  把父类的 (public / protected)属性和(public / protected)方法继承下来.<br/>&#13;
+父类：把各个类中共有的属性和方法抽取出来形成一个父类，然后让其他类来继承该父类。<br/>&#13;
+继承的基本语法是:<br/>&#13;
+class 类名  extends 父类名{<br/>&#13;
+        //在写自己需要的属性和方法.<br/>&#13;
+}<br/>&#13;
+代码实例：</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+///应用场景 开发一套学生管理系统(Pupil, Graduate , ...)
+        //父类
+        class Stu{
+                public $name;
+                protected $age;
+                protected $grade;
+        
+                public function showInfo(){
+                        
+                        echo $this-&gt;name;
+                }
+
+
+        }
+        //子类
+        class Pupil extends Stu{
+               
+                public function testing(){
+                        echo " 小学生考试..";
+                }
+
+
+        }
+
+
+        class Graduate extends Stu{
+               
+                public function testing(){
+                        echo "研究生考试..";
+                }
+        }
+
+
+        //创建学生
+        $stu1=new Pupil();
+        $stu1-&gt;name="小明";
+        $stu1-&gt;testing();
+        //继承父类Stu
+        $stu1-&gt;showInfo();
+        //创建一个研究生
+        $stu2=new Graduate();
+        $stu2-&gt;name="老明";
+        $stu2-&gt;testing();
+        //继承父类Stu
+        $stu2-&gt;showInfo();
+
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+讨论继承细节: <br/><br/>&#13;
+1.父类的 public  、protected 的属性和方法被继承. private 的属性和方法没有被继承，即私有属性和方法不能被继承.<br/>&#13;
+2.一个类只能继承一个父类（指直接继承）.如果你希望继承多个类的属性和方法，则使用多层继承<br/></span>&#13;
+<p><span style="font-size:18px">代码实例：</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre name="code" class="php">&lt;?php
+
+class A{
+    public $n1=90;
+}
+class B extends A{
+    public $n2="hello";
+}
+class C extends B{
+    
+}
+$c=new C();
+echo "&lt;br/&gt;";
+echo $c-&gt;n1."&lt;br/&gt;";
+echo $c-&gt;n2."&lt;br/&gt;";
+?&gt;&#13;
+</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<span style="font-size:18px">当创建子类对象的时候，默认情况下，不会自动调用父类的构造方法.</span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+class A1{
+    public $n1=90;
+    //构造方法
+    public function __construct(){
+        echo "A1 __construct";
+    }
+}
+class B1 extends A1{    
+    function __construct(){
+        echo "B1 __construct&lt;br/&gt;";
+    }
+}
+//创建b对象实例，只调用子类构造方法，不会调用父类构造方法
+$b=new B1();
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+如果我们希望去调用父类的 构造方法，或者其它的方法(public /  protected) ,可以这样处理 (了解)<br/>&#13;
+     类名::方法名()     或           parent::方法名()<br/>&#13;
+代码实例：</span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+
+class A2{
+    public $n1=90;
+    //构造方法
+    public function __construct(){   
+       echo "A2 __construct&lt;br/&gt;";
+    }
+    public function test(){
+        echo "test()";
+    }
+}
+class B2 extends A2{
+    function __construct(){
+        echo "B2 __construct&lt;br&gt;";
+        //显式的调用父类的方法一
+        A2::__construct();
+        //显式的调用父类的方法二
+        parent::__construct();
+        //此方法也可调用普通函数
+        parent::test();
+        
+    }
+}
+//创建b对象实例
+$b=new B2(); 
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+当一个子类的方法和父类的方法完全一样(public/protected), 我们称为 方法的覆盖 (方法重写)      </span>&#13;
+<br/></div>  </body>
+            </html>

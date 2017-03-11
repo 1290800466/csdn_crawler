@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>一、ThinkPHP的介绍：</strong> <br/>
+基于MVC模式（3者分离） <br/>
+M - Model 模型                             工作：负责数据的操作 <br/>
+V - View  视图（模板）              工作：负责前台页面显示 <br/>
+C - Controller 控制器（模块）   工作：描述功能</p>
+
+<p><strong>二、ThinkPHP的获取：</strong> <br/><a href="http://www.thinkphp.cn">http://www.thinkphp.cn</a></p>
+
+<p><strong>三、ThinkPHP核心文件介绍 ：</strong>     </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">├─ThinkPHP 框架系统目录（可以部署在非web目录下面）
+│  ├─Common       核心公共函数目录
+│  ├─Conf         核心配置目录 
+│  ├─Lang         核心语言包目录
+│  ├─Library      框架类库目录
+│  │  ├─Think     核心Think类库包目录
+│  │  ├─Behavior  行为类库目录
+│  │  ├─Org       Org类库包目录
+│  │  ├─Vendor    第三方类库目录
+│  │  ├─ <span class="hljs-keyword">...</span>      更多类库目录
+│  ├─Mode         框架应用模式目录
+│  ├─Tpl          系统模板目录
+│  ├─LICENSE.txt  框架授权协议文件
+│  ├─logo.png     框架LOGO文件
+│  ├─README.txt   框架README文件
+│  └─ThinkPHP.php 框架入口文件</code></pre>
+
+<p><strong>四、ThinkPHP环境搭建步骤：</strong> <br/>
+1、安装xampp包 <br/>
+2、在htdocs下建立文件夹thinkphp <br/>
+3、将ThinkPHP核心包拷贝到htdocs下的文件夹thinkphp中 <br/>
+4、在htdocs下的文件夹thinkphp中建立文件 index.php ； <br/>
+（thinkphp搭建工程中创建文件默认第一个字母用大写；） <br/>
+5、在 index.php(入口文件)中输入如下代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-comment">/*
+入口文件主要完成：
+
+定义框架路径、项目路径（可选）
+定义调试模式和应用模式（可选）
+定义系统相关常量（可选）
+载入框架入口文件（必须）
+*/</span>
+<span class="hljs-subst">&lt;?</span>php   
+<span class="hljs-comment">//第一步：确定应用名称（前台应用一般用Application），后台一般用Admin</span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_NAME"</span>,<span class="hljs-string">"Application"</span>);
+<span class="hljs-comment">//第二步：确定应用路径</span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_PATH"</span>,<span class="hljs-string">"./Application/"</span>);
+<span class="hljs-comment">//引入ThinkPHP核心文件</span>
+<span class="hljs-keyword">require</span>  <span class="hljs-string">"./ThinkPHP/ThinkPHP.php"</span>
+<span class="hljs-preprocessor">?&gt;</span><span class="hljs-markup"/></code></pre>
+
+<p>6、此时在浏览器中打开网址：<a href="http://localhost/thinkphp/">http://localhost/thinkphp/</a> <br/>
+     会提示：欢迎使用 ThinkPHP！ <br/>
+7、此时在thinkphp目录下出现了一个Home目录,前台应用要放在此文件夹下 <br/>
+8、创建后台应用：在htdocs下的文件夹thinkphp中建立文件 admin.php  <br/>
+9、在 admin.php中输入如下代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-subst">&lt;?</span>php   
+<span class="hljs-comment">//第一步：确定应用名称,后台一般用Admin</span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_NAME"</span>,<span class="hljs-string">"Admin"</span>);
+<span class="hljs-comment">//第二步：确定应用路径</span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_PATH"</span>,<span class="hljs-string">"./Admin/"</span>);
+<span class="hljs-comment">//引入ThinkPHP核心文件</span>
+<span class="hljs-keyword">require</span>  <span class="hljs-string">"./ThinkPHP/ThinkPHP.php"</span>
+<span class="hljs-preprocessor">?&gt;</span><span class="hljs-markup"/></code></pre>
+
+<p>10、此时在浏览器中打开网址：<a href="http://localhost/thinkphp/admin.php">http://localhost/thinkphp/admin.php</a> <br/>
+       会提示：欢迎使用 ThinkPHP！ <br/>
+11、此时在thinkphp目录下出现了一个Admin目录,后台应用要放在此文件夹下 <br/>
+       到此时即环境搭建完毕！</p>
+
+<p><strong>五、项目目录作用说明，以Application为例：</strong>   </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">Application
+├─Common         应用公共模块
+│  ├─Common      应用公共函数目录
+│  └─Conf        应用公共配置文件目录
+├─Home           默认生成的Home模块
+│  ├─Conf        模块配置文件目录
+│  ├─Common      模块函数公共目录
+│  ├─Controller  模块控制器目录
+│  ├─Model       模块模型目录
+│  └─View        模块视图文件目录
+├─Runtime        运行时目录
+│  ├─<span class="hljs-keyword">Cache</span>       模版缓存目录
+│  ├─<span class="hljs-built_in">Data</span>        数据目录
+│  ├─Logs        日志目录
+│  └─Temp        缓存目录</code></pre>
+
+<p><strong>六、注意：</strong> <br/>
+       若前台文件Home 和 后台文件Admin 有公用的部分，如图片、js文件、CSS文件等，可在 <br/>
+       htdocs下的文件夹thinkphp中建立文件夹Public，用来存储公用文件。 <br/>
+       若上传的文件有共有的部分，可在htdocs下的文件夹thinkphp中建立文件夹Uploads，用来存储上传的公用文件。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

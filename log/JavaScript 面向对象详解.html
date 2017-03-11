@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div style="text-align:center"><span style="color:rgb(255,0,0); font-family:Arial; line-height:26px"><span style="font-size:24px">面向对象：</span></span></div>&#13;
+<span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>js面向对象特征介绍：</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">javascript是一种面向（基于）对象的动态脚本语言，是一种基于对象（Object）和事件驱动（EventDriven）并具有安全性能的脚本语言。他具有面向对象语言所特有的各种特性，比如封装、继承及多态等。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">封装：</span><span style="font-family:Arial; line-height:26px">比较简单，javascript只有私有和公有这两个封装方式</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">继承：</span><span style="font-family:Arial; line-height:26px">不是通过关键字extends，而是通过对象冒充的方式来达到继承的效果</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">多态：</span><span style="font-family:Arial; line-height:26px">javascript是天生的多态，它本身就无态，无态就是多态的一种体现，无招胜有招。</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">①javascript是一种基于对象（object-based）的语言，你遇到的所有东西几乎都是对象。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">特别说明：</span><span style="font-family:Arial; line-height:26px">基于对象也好，面向对象也好实际上都是一对象的概念来编写程序，从本质上并无区别。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">②因为javascript中没有class（类），所以有人把类也称为原型对象，因为这两个概念从在编程中发挥的作用看都是一个意思，为了统一叫法，我们这里就统一叫类。</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">澄清概念</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">js中 基于对象 == js 面向对象</span><br style="font-family:Arial; line-height:26px"/></span>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">js 中没有类class，但是它取了一个新的名字叫 原型对象，因此 类==原型对象</span></span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000"><span style="font-family:Arial; line-height:26px"><strong>js面向对象实例：</strong></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></p>&#13;
+<pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			//解决方法，把猫的属性集中起来，创建一种新的数据类型（原型对象/类）
+			//用面向对象的方法来解决问题
+			//没有class，怎么定义原型对象或者类呢，用function
+
+			//这里就是定义一个Cat类。是一个类还是函数，主要看你怎么去用它
+			function Cat(){
+			}
+			//如果你这样用，很神奇，主要看你怎样用
+			// Cat();//就是函数
+			// var cat1=new Cat();//这就是类
+			//这时Cat1就是一个对象（实例）
+			//属性怎么给，javascript比较松散，可以动态的添加属性
+
+			var cat1=new Cat();
+
+			cat1.name="小白";
+			cat1.age=3;
+			cat1.color="白色";
+			//从上面的代码我们可以看出
+			//1.js中的对象的属性可以动态的添加
+			//2.属性没有限制
+			window.alert(cat1.name); //打印输出小白
+			//没有定义的会报undefined
+			window.alert(cat1.hobby);
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:rgb(255,0,0); font-family:Arial; line-height:26px"><strong>对象—特别说明：</strong></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">在js中一切都是对象</span><br/></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></p>&#13;
+<pre name="code" class="html">function Person(){
+}
+var a=new Person();
+window.alert(a.constructor);//a对象实例的构造函数
+window.alert(typeof a);//a的类型是什么
+var b="1234";
+window.alert(b.constructor);//b对象实例的构造函数
+window.alert(typeof b);//b的类型是什么
+
+包括Person都是对象
+window.alert(Person.constructor);//Person的构造函数
+//再次说明了js中一切都是对象
+
+
+思考：如何判断一个对象实例是不是Person类型？
+if(a instanceof Person){ 
+	//如果啊这个实例就是Person这种类型，就会返回一个真，否则返回假
+	window.alert("a是person");
+}
+
+
+或者
+if(a.constructor==Person){
+	//a对象实例的构造函数就是Person
+	window.alert("a是Person");
+}</pre><br/><span style="font-family:Arial; line-height:26px"><strong><span style="color:#ff0000">创建对象实例：</span></strong></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var 对象名=new 类名/原型对象名();</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><strong><span style="color:#ff0000">访问（使用）对象实例的成员变量：</span></strong></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">（1）对象实例名.属性名;</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">（2）对象实例名["属性名"];</span><br/><p/>&#13;
+<p><span style="font-size:18px; color:#ff0000"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><strong>删除对象：</strong></span></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px">主动删除：</span><span style="font-family:Arial; line-height:26px">delete a.age;直接把age属性删掉。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">delete直接删除掉某个对象的属性</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">delete 对象名.属性  //这样就会立即释放 对象的这个属性空间，在访问就不存在了</span><br/></span></span></p>&#13;
+<p><br/></p>&#13;
+<br/></div>  </body>
+            </html>

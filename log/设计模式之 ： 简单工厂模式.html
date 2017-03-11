@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>简单工厂模式示意图：</strong> <br/><img src="http://img.blog.csdn.net/20161021154112215" alt="这里写图片描述" title=""/></p>
+
+<p><strong>简单工厂模式优点：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">代码具有一定的拓展性
+遵循了单一职责原则
+属于面向接口编程
+简单工厂模式提供了一个对外的类 Client和实际工作的类，外界只需要传递特定的参数就可以调用不同的实际功能类，而不需要直接面对实际类与函数，拓展性大大增强。</code></pre>
+
+<p><strong>代码实例：</strong> <br/>
+简单工厂模式的初步实现</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"> <span class="hljs-preprocessor">&lt;?php</span>
+     <span class="hljs-comment">/**
+      * 抽象基类
+      * 操作类
+      * 因为包含有抽象方法，所以类必须声明为抽象类（抽象类和接口类均可）
+      */</span>
+     <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Operation</span>{</span>
+         <span class="hljs-comment">//抽象方法不能包含函数体</span>
+         <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-variable">$num1</span>,<span class="hljs-variable">$num2</span>)</span>;</span><span class="hljs-comment">//强烈要求子类必须实现该功能函数</span>
+     }
+     <span class="hljs-comment">//子类，可以写在不同文件中，switch后引入文件创建类</span>
+     <span class="hljs-comment">/**
+      * 加法类
+      */</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperationAdd</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Operation</span> {</span>
+         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-variable">$num1</span>,<span class="hljs-variable">$num2</span>)</span>{</span>
+             <span class="hljs-keyword">return</span> <span class="hljs-variable">$num1</span>+<span class="hljs-variable">$num2</span>;
+         }
+     }
+     <span class="hljs-comment">/**
+      * 减法类
+      */</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperationSub</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Operation</span> {</span>
+         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-variable">$num1</span>,<span class="hljs-variable">$num2</span>)</span>{</span>
+             <span class="hljs-keyword">return</span> <span class="hljs-variable">$num1</span>-<span class="hljs-variable">$num2</span>;
+         }
+     }
+     <span class="hljs-comment">/**
+      * 乘法类
+      */</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperationMul</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Operation</span> {</span>
+         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-variable">$num1</span>,<span class="hljs-variable">$num2</span>)</span>{</span>
+             <span class="hljs-keyword">return</span> <span class="hljs-variable">$num1</span>*<span class="hljs-variable">$num2</span>;
+         }
+     }
+     <span class="hljs-comment">/**
+      * 除法类
+      */</span>
+     <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OperationDiv</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Operation</span> {</span>
+         <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getValue</span><span class="hljs-params">(<span class="hljs-variable">$num1</span>,<span class="hljs-variable">$num2</span>)</span>{</span>
+             <span class="hljs-keyword">try</span> {
+                 <span class="hljs-keyword">if</span> (<span class="hljs-variable">$num2</span>==<span class="hljs-number">0</span>){
+                     <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">Exception</span>(<span class="hljs-string">"除数不能为0"</span>);
+                 }<span class="hljs-keyword">else</span> {
+                     <span class="hljs-keyword">return</span> <span class="hljs-variable">$num1</span>/<span class="hljs-variable">$num2</span>;
+                 }
+             }<span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>){
+                 <span class="hljs-keyword">echo</span> <span class="hljs-string">"错误信息："</span>.<span class="hljs-variable">$e</span>-&gt;getMessage();
+             }
+         }
+     }
+ <span class="hljs-preprocessor">?&gt;</span>
+
+
+<span class="hljs-comment">//工厂类</span>
+<span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-comment">/**
+     * 工程类，主要用来创建对象
+     * 功能：根据输入的运算符号，工厂就能实例化出合适的对象
+     *
+     */</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Factory</span>{</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createObj</span><span class="hljs-params">(<span class="hljs-variable">$operate</span>)</span>{</span>
+            <span class="hljs-keyword">switch</span> (<span class="hljs-variable">$operate</span>){
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'+'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OperationAdd();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'-'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OperationSub();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'*'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OperationSub();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'/'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> OperationDiv();
+                    <span class="hljs-keyword">break</span>;
+            }
+        }
+    }
+    <span class="hljs-comment">//使用</span>
+    <span class="hljs-variable">$test</span>=Factory::createObj(<span class="hljs-string">'/'</span>);
+    <span class="hljs-variable">$result</span>=<span class="hljs-variable">$test</span>-&gt;getValue(<span class="hljs-number">23</span>,<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$result</span>;
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><strong>简单工厂模式不足：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs mel">虽然它遵循了单一职责原则，但它违反了另一条同样很重要的原则：开放封闭原则。
+
+如果新增一个算法，那么我们还要修改 Factory类，增加一个<span class="hljs-keyword">switch</span> (<span class="hljs-variable">$type</span>) {<span class="hljs-keyword">case</span>’<span class="hljs-keyword">condition</span>’: }判断，这无疑是十分灾难的，因为写好的代码我们最好不要再去碰它，因为很可能造成未知的原因，你说是不？</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

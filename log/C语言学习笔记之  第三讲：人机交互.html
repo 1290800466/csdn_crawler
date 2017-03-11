@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><strong>1、 人机交互的进化：</strong></p>&#13;
+<p>命令行方式 à 图形界面方式 à 自然交互界面</p>&#13;
+<p><strong>2、 CMD-DOS指令：</strong></p>&#13;
+<p>dir:列出当前目录的文件及文件夹</p>&#13;
+<p>md:创建目录</p>&#13;
+<p>rd:删除目录</p>&#13;
+<p>cd:进入指定目录</p>&#13;
+<p>cd..:退回到上一级目录</p>&#13;
+<p>cd/:退回到根目录</p>&#13;
+<p>del:删除文件</p>&#13;
+<p>exit:退出dos命令行</p>&#13;
+<p>echo 信息：在屏幕上显示出信息</p>&#13;
+<p>ipconfig：获取电脑IP</p>&#13;
+<p>tasklist:查看系统进程</p>&#13;
+<p>pause：暂停</p>&#13;
+<p>notepad：打开记事本</p>&#13;
+<p>calc：打开计算器</p>&#13;
+<p><strong>3、 入口点：</strong></p>&#13;
+<p>提示应用程序从哪里开始。</p>&#13;
+<p>每一个C程序，都需要定义一个入口点。</p>&#13;
+<p>任何C程序，都是以main作为入口点，从main开始执行，从main结束。</p>&#13;
+<p><strong>voidmain()</strong></p>&#13;
+<p><strong>{</strong></p>&#13;
+<p><strong> </strong></p>&#13;
+<p><strong>}</strong></p>&#13;
+<p>每个C程序都要有main函数，且只能有一个</p>&#13;
+<p><strong>4、 main函数注意事项：</strong></p>&#13;
+<p>void 是函数的返回值类型，也就是函数的输出类型。void是返回值为空类型。</p>&#13;
+<p>main 就是函数名称，（）里面的东西就是函数的输入，为空就是输入为空。</p>&#13;
+<p>{  }就是函数体，也就是函数实现的内容，就是把输入加工为输出。输入输出都可以为空。</p>&#13;
+<p>括号和大括号都是必须有的。</p>&#13;
+<p><strong>5、 C语言注意事项：</strong></p>&#13;
+<p>（1）、C语言是严格区分大小写字母的，大小写字母代表意义不同。</p>&#13;
+<p>（2）、C语言代码是从上往下运行的，并没有专门的标志表示文件从哪里开始，也没有表示文件从哪里结束。从第一个字符开始，文件就开始了，到最后一个字符结束，文件就结束了。</p>&#13;
+<p>（3）、#include预处理命令（#号就是预处理指令的标示），这里的include 称为<span style="background:yellow">文件包含命令</span>，其意义是把引号""或尖括号&lt;&gt;内指定的文件包含到本程序来，成为本程序的一部分包含任意文件类型。</p>&#13;
+<p>#include&lt;&gt;   包含的是系统的文件</p>&#13;
+<p>#include“” 包含的是你自己编写的文件</p>&#13;
+<p>已知hello.h的内容为：</p>&#13;
+<p>printf(“hkugerek”);</p>&#13;
+<p>在程序中可以这样调用：</p>&#13;
+<p>#include&lt;stdio.h&gt;</p>&#13;
+<p>voidmain()</p>&#13;
+<p>{</p>&#13;
+<p>#include“hello.h” //相当于printf(“hkugerek”);</p>&#13;
+<p>}</p>&#13;
+<p><strong>6、 C语言头文件：</strong></p>&#13;
+<p>头文件的好处：头文件可以通用，节省了代码量。（存放函数操作等的定义）</p>&#13;
+<p>stdio.h意义：<a target="_blank" href="http://baike.baidu.com/subview/60376/5122159.htm">源代码</a>中如用到<a target="_blank" href="http://baike.baidu.com/view/7151757.htm">标准输入输出</a><a target="_blank" href="http://baike.baidu.com/view/15061.htm">函数</a>时，就要包含这个<a target="_blank" href="http://baike.baidu.com/view/668911.htm">头文件</a></p>&#13;
+<p>math.h意义：声明了常用的一些数学运算</p>&#13;
+<p><strong>7、getchar()函数意义：</strong></p>&#13;
+<p><strong><span style="background:yellow">getchar();</span> </strong> 如下程序：</p>&#13;
+<p>#include &lt;stdio.h&gt;</p>&#13;
+<p>void main()</p>&#13;
+<p>{</p>&#13;
+<p>char c;</p>&#13;
+<p>c = getchar();  //等待从终端（或系统隐含指定的输入设备）输入<span style="background:yellow">一个</span>字符</p>&#13;
+<p>putchar(c);   //输出<span style="background:yellow">一个</span>字符</p>&#13;
+<p> </p>&#13;
+<p>putchar('\n');</p>&#13;
+<p>}</p>&#13;
+<p>如下程序所示，getchar()还有如下作用：</p>&#13;
+<p>#include&lt;stdio.h&gt;</p>&#13;
+<p>void main()</p>&#13;
+<p>{</p>&#13;
+<p>      printf(“helloworld!\n”); //打印字符串</p>&#13;
+<p><span style="background:yellow">getchar(); //</span><span style="background:yellow">等待输入，起到等待的作用，若无此函数，编译器打印一闪而过</span></p>&#13;
+<p>}</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

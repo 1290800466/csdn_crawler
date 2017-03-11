@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+/*
+ *session的细节讨论:
+① session数据默认存放时间是 1440秒, 这个时间可以通过 php.ini文件来修改
+  session.gc_maxlifetime = 1440
+     时间可以自定 ,修改后，也要重新启动apache,
+    这个时间是指定在1440秒内，没有使用session文件，该session才会被当做垃圾，从而被回收.
+② session 文件存放的路径是可以修改 php.ini 文件
+  session.save_path = "c:/mysession"
+     修改后，需要重新启动apache
+③ 在使用session的时候，应当保证 对session进行初始化,
+     方法1： 在需要使用session页面都写入 session_start(); 
+     方法2： 在php.ini 文件中，配置session.auto_start=1 (不推荐，会影响效率)
+*/
+session_start();
+//session_id() 返回当前会话session ID
+echo "sessionid=".session_id();
+?&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20150722211914850?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="700" height="300" alt=""/></span></p>&#13;
+<p><span style="font-size:18px">即靠sessionID在不同页面之间传递（传递方式为cookie传递）</span></p>&#13;
+<p><span style="font-size:24px; color:#ff0000"><strong><span style="font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">浏览器关闭后session自动销毁问题注意</span>:</strong></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">Garbage Collection process对过期session销毁，但是，并非一过期就销毁，换句话说，它是以一定的几率进行的。如果一过期就销毁，当访问量大的时候，销毁session势必会占用相当的资源</span><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">你可以看看php配置文件中</span><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">session.gc_probability = 1</span><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">session.gc_divisor = 1000</span><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">这两个参数的意思千分之一的几率启动GC</span><br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">是以一定几率进行GC,默认情况下每次请求以1/100的几率进行SESSION GC,换句话说,请求100次就有可能命中一次session gc.也就是说session虽然过期了,但不一定会立即被删除.session数据存于文件是一般这么设置的,你想想,一旦你的用户量上来了,你设置100/100的几率删除session,那么每发一次请求,就处理一次session gc,这个势必增加了一些不必要的i/o损耗.</span><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><br style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)"/><span style="color:rgb(51,51,51); font-family:Helvetica,Tahoma,Arial,sans-serif; line-height:24px; background-color:rgb(245,245,245)">而且会话是否结束,不应该仅凭关闭浏览器视为会话的结束,拿session use cookie来说,这要看cookie的失效设置是否设置了关闭浏览器,cookie即过期.即php.ini的session.cookie_lifetime是否设置为0.否则的话,cookie在有效期内,即使是关闭浏览器再重新打开,请求头内一样保留之前的session id,这时候发送请求给服务器,只要相应的session文件被删除,会话仍然会继续.</span></span></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

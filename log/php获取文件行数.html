@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><span style="background-color:rgb(255,255,255)"><span style="color:#ff0000"><strong>php获取文件行数：</strong></span></span><br/><br/><strong>方法一：</strong><br/>&#13;
+用while循环逐行统计，效率太慢<br/><br/></span><pre code_snippet_id="1626740" snippet_file_name="blog_20160328_1_5297108" name="code" class="php">&lt;?php
+$file_path = 'xxx.txt'; //文件路径
+$line = 0 ; //初始化行数
+//打开文件
+$fp = fopen($file_path , 'r') or die("open file failure!");
+if($fp){
+//获取文件的一行内容，注意：需要php5才支持该函数；
+while(stream_get_line($fp,8192,"\n")){
+   $line++;
+}
+fclose($fp);//关闭文件
+}
+//输出行数；
+echo $line;
+?&gt;
+</pre><br/><br/><strong>方法二：</strong><br/>&#13;
+使用file方法一次性读取，但不适用于大文件<br/><br/><pre code_snippet_id="1626740" snippet_file_name="blog_20160328_2_423085" name="code" class="php">&lt;?php
+    $line = count(file('filename'));
+    echo $line;
+?&gt;</pre><br/><strong>方法三：</strong><br/><p><span style="font-size:18px">多行统计，每次读取N个字节，然后再统计行数，效率较高</span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre code_snippet_id="1626740" snippet_file_name="blog_20160328_3_6628074" name="code" class="php">&lt;?php
+function count_line($file){
+  $fp=fopen($file, "r");
+  $i=0;
+  while(!feof($fp)) {
+    //每次读取2M
+    if($data=fread($fp,1024*1024*2)){
+      //计算读取到的行数
+      $num=substr_count($data,"\n");
+      $i+=$num;
+    }
+  }
+  fclose($fp);
+  return $i;
+}
+
+?&gt;</pre><br/><p/>&#13;
+<span style="font-size:18px; color:#ff0000">上面三种方法中，方法三较好！</span>&#13;
+&#13;
+                      </div>  </body>
+            </html>

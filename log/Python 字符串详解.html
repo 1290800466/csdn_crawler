@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Python访问字符串中的值:</strong> <br/>
+Python访问子字符串，可以使用方括号来截取字符串，如下实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment">#coding:UFT-8</span>
+
+var1 = <span class="hljs-string">'Hello World!'</span>
+var2 = <span class="hljs-string">"Python Runoob"</span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"var1[0]: "</span>, var1[<span class="hljs-number">0</span>]
+<span class="hljs-keyword">print</span> <span class="hljs-string">"var2[1:5]: "</span>, var2[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>]</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs css">以上实例执行结果：
+<span class="hljs-tag">var1</span><span class="hljs-attr_selector">[0]</span>:  <span class="hljs-tag">H</span>
+<span class="hljs-tag">var2</span><span class="hljs-attr_selector">[1:5]</span>:  <span class="hljs-tag">ytho</span></code></pre>
+
+<p><strong>Python字符串更新 :</strong> <br/>
+你可以对已存在的字符串进行修改，并赋值给另一个变量，如下实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+var1 = <span class="hljs-string">'Hello World!'</span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"更新字符串 :- "</span>, var1[:<span class="hljs-number">6</span>] + <span class="hljs-string">'Runoob!'</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby">以上实例执行结果
+更新字符串 <span class="hljs-symbol">:-</span>  <span class="hljs-constant">Hello</span> <span class="hljs-constant">Runoob</span>!</code></pre>
+
+<p><strong>Python转义字符：</strong> <br/>
+在需要在字符中使用特殊字符时，python用反斜杠()转义字符。如下表：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs tex"> 转义字符        描述
+<span class="hljs-command">\(</span>在行尾时) 续行符
+<span class="hljs-command">\\</span>          反斜杠符号
+<span class="hljs-command">\'</span>          单引号
+<span class="hljs-command">\"</span>          双引号
+<span class="hljs-command">\a</span>          响铃
+<span class="hljs-command">\b</span>          退格(Backspace)
+<span class="hljs-command">\e</span>          转义
+\000        空
+<span class="hljs-command">\n</span>          换行
+<span class="hljs-command">\v</span>          纵向制表符
+<span class="hljs-command">\t</span>          横向制表符
+<span class="hljs-command">\r</span>          回车
+<span class="hljs-command">\f</span>          换页
+<span class="hljs-command">\oyy</span>        八进制数，yy代表的字符，例如：<span class="hljs-command">\o</span>12代表换行
+<span class="hljs-command">\xyy</span>        十六进制数，yy代表的字符，例如：<span class="hljs-command">\x</span>0a代表换行
+<span class="hljs-command">\other</span>      其它的字符以普通格式输出</code></pre>
+
+<p><strong>Python字符串运算符：</strong> <br/>
+下表实例变量a值为字符串”Hello”，b变量值为”Python”：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python">操作符         描述             实例
++      字符串连接    a + b 输出结果： HelloPython
+*      重复输出字符串  a*<span class="hljs-number">2</span> 输出结果：HelloHello
+[]     通过索引获取字符串中字符 a[<span class="hljs-number">1</span>] 输出结果 e
+[ : ]  截取字符串中的一部分   a[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>] 输出结果 ell
+<span class="hljs-keyword">in</span>     成员运算符 - 如果字符串中包含给定的字符返回 <span class="hljs-keyword">True</span> H <span class="hljs-keyword">in</span> a 输出结果 <span class="hljs-number">1</span>
+<span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> 成员运算符 - 如果字符串中不包含给定的字符返回 <span class="hljs-keyword">True</span>    M <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> a 输出结果 <span class="hljs-number">1</span>
+r/R    原始字符串 - 原始字符串：所有的字符串都是直接按照字面的意思来使用，没有转义特殊或不能打印的字符。
+       原始字符串除在字符串的第一个引号前加上字母<span class="hljs-string">"r"</span>（可以大小写）以外，与普通字符串有着几乎完全相同的语法。
+       <span class="hljs-keyword">print</span> <span class="hljs-string">r'\n'</span> 输出 \n 和 <span class="hljs-keyword">print</span> R<span class="hljs-string">'\n'</span> 输出 \n
+%      格式字符串    请看下一章节</code></pre>
+
+<p><strong>实例如下：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+a = <span class="hljs-string">"Hello"</span>
+b = <span class="hljs-string">"Python"</span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"a + b 输出结果："</span>, a + b 
+<span class="hljs-keyword">print</span> <span class="hljs-string">"a * 2 输出结果："</span>, a * <span class="hljs-number">2</span> 
+<span class="hljs-keyword">print</span> <span class="hljs-string">"a[1] 输出结果："</span>, a[<span class="hljs-number">1</span>] 
+<span class="hljs-keyword">print</span> <span class="hljs-string">"a[1:4] 输出结果："</span>, a[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>] 
+
+<span class="hljs-keyword">if</span>( <span class="hljs-string">"H"</span> <span class="hljs-keyword">in</span> a) :
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"H 在变量 a 中"</span> 
+<span class="hljs-keyword">else</span> :
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"H 不在变量 a 中"</span> 
+
+<span class="hljs-keyword">if</span>( <span class="hljs-string">"M"</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> a) :
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"M 不在变量 a 中"</span> 
+<span class="hljs-keyword">else</span> :
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"M 在变量 a 中"</span>
+<span class="hljs-comment">#字符串前加上r或R，编译器将不再将\看做特殊字符，当做原始字符编译</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">r'\n'</span>
+<span class="hljs-keyword">print</span> R<span class="hljs-string">'\n'</span></code></pre>
+
+<p><strong>解释：</strong> <br/>
+python的字串列表有2种取值顺序: <br/>
+从左到右索引默认0开始的，最大范围是字符串长度少1 <br/>
+从右到左索引默认-1开始的，最大范围是字符串开头 <br/>
+如果你的实要取得一段子串的话，可以用到变量[头下标:尾下标]，就可以截取相应的字符串，其中下标是从0开始算起，可以是正数或负数，下标可以为空表示取到头或尾。 <br/>
+比如: <br/>
+s = ‘ilovepython’ <br/>
+s[1:5]的结果是love。 <br/>
+当使用以冒号分隔的字符串，python返回一个新的对象，结果包含了以这对偏移标识的连续的内容，左边的开始是包含了下边界。 <br/>
+上面的结果包含了s[1]的值l，而取到的最大范围不包括上边界，就是s[5]的值p。 <br/>
+如下实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+str = <span class="hljs-string">'Hello World!'</span>
+
+<span class="hljs-keyword">print</span> str <span class="hljs-comment"># 输出完整字符串</span>
+<span class="hljs-keyword">print</span> str[<span class="hljs-number">0</span>] <span class="hljs-comment"># 输出字符串中的第一个字符</span>
+<span class="hljs-keyword">print</span> str[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>] <span class="hljs-comment"># 输出字符串中第三个至第五个之间的字符串，操作：  str[star:end:sep]</span>
+<span class="hljs-keyword">print</span> str[<span class="hljs-number">2</span>:] <span class="hljs-comment"># 输出从第三个字符开始的字符串</span>
+<span class="hljs-keyword">print</span> str * <span class="hljs-number">2</span> <span class="hljs-comment"># 输出字符串两次</span>
+<span class="hljs-keyword">print</span> str + <span class="hljs-string">"TEST"</span> <span class="hljs-comment"># 输出连接的字符串</span></code></pre>
+
+<p>以上实例输出结果： <br/>
+Hello World! <br/>
+H <br/>
+llo <br/>
+llo World! <br/>
+Hello World!Hello World! <br/>
+Hello World!TEST</p>
+
+<p><strong>Python字符串格式化：</strong> <br/>
+Python 支持格式化字符串的输出 。尽管这样可能会用到非常复杂的表达式，但最基本的用法是将一个值插入到一个有字符串格式符 %s 的字符串中。 <br/>
+在 Python 中，字符串格式化使用与 C 中 sprintf 函数一样的语法。 <br/><strong>如下实例：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-comment">#!/usr/bin/python</span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"My name is <span class="hljs-variable">%s</span> and weight is <span class="hljs-variable">%d</span> kg!"</span> % (<span class="hljs-string">'Zara'</span>, <span class="hljs-number">21</span>)  <span class="hljs-comment"># 注意双引号后还要加一个%</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript">以上实例输出结果：
+My <span class="hljs-property">name</span> <span class="hljs-keyword">is</span> Zara <span class="hljs-keyword">and</span> weight <span class="hljs-keyword">is</span> <span class="hljs-number">21</span> kg!</code></pre>
+
+<p><strong>python字符串格式化符号:</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">     符 号         描述
+<span class="hljs-tag">      %<span class="hljs-title">c</span></span>     格式化字符及其ASCII码
+<span class="hljs-tag">      %<span class="hljs-title">s</span></span>     格式化字符串
+<span class="hljs-tag">      %<span class="hljs-title">d</span></span>     格式化整数
+<span class="hljs-tag">      %<span class="hljs-title">u</span></span>     格式化无符号整型
+<span class="hljs-tag">      %<span class="hljs-title">o</span></span>     格式化无符号八进制数
+<span class="hljs-tag">      %<span class="hljs-title">x</span></span>     格式化无符号十六进制数
+<span class="hljs-tag">      %<span class="hljs-title">X</span></span>     格式化无符号十六进制数（大写）
+<span class="hljs-tag">      %<span class="hljs-title">f</span></span>     格式化浮点数字，可指定小数点后的精度
+<span class="hljs-tag">      %<span class="hljs-title">e</span></span>     用科学计数法格式化浮点数
+<span class="hljs-tag">      %<span class="hljs-title">E</span></span>     作用同%e，用科学计数法格式化浮点数
+<span class="hljs-tag">      %<span class="hljs-title">g</span></span>     %f和%e的简写
+<span class="hljs-tag">      %<span class="hljs-title">G</span></span>     %f 和 %E 的简写
+<span class="hljs-tag">      %<span class="hljs-title">p</span></span>     用十六进制数格式化变量的地址</code></pre>
+
+<p><strong>格式化操作符辅助指令:</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruleslanguage">符号          功能
+*       定义宽度或者小数点精度
+-       用做左对齐
++       在正数前面显示加号( + )
+&lt;sp&gt;    在正数前面显示空格
+<span class="hljs-array">#       </span>在八进制数前面显示零(<span class="hljs-string">'0'</span>)，在十六进制前面显示<span class="hljs-string">'0x'</span>或者<span class="hljs-string">'0X'</span>(取决于用的是<span class="hljs-string">'x'</span>还是<span class="hljs-string">'X'</span>)
+<span class="hljs-number">0</span>       显示的数字前面填充<span class="hljs-string">'0'</span>而不是默认的空格
+%       <span class="hljs-string">'%%'</span>输出一个单一的<span class="hljs-string">'%'</span>
+(var)   映射变量(字典参数)
+m.n.    m 是显示的最小总宽度,n 是小数点后的位数(如果可用的话)</code></pre>
+
+<p><strong>Python三引号：</strong> <br/>
+如果需要写一个非常长的字符串，需要跨多行，则可以使用三个引号代替普通引号 <br/>
+python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">asd = <span class="hljs-string">'''fvdfskvfkljnbkbd
+         dfbsdbfdbfdbf
+         fdbdbfdbfdb
+         dfbdfbfdbfs'''</span>
+<span class="hljs-keyword">print</span> asd</code></pre>
+
+<p>三引号让程序员从引号和特殊字符串的泥潭里面解脱出来，自始至终保持一小块字符串的格式是所谓的WYSIWYG（所见即所得）格式的。 <br/>
+一个典型的用例是，当你需要一块HTML或者SQL时，这时用字符串组合，特殊字符串转义将会非常的繁琐。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"> errHTML = <span class="hljs-string">'''
+&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;
+Friends CGI Demo&lt;/TITLE&gt;&lt;/HEAD&gt;
+&lt;BODY&gt;&lt;H3&gt;ERROR&lt;/H3&gt;
+&lt;B&gt;%s&lt;/B&gt;&lt;P&gt;
+&lt;FORM&gt;&lt;INPUT TYPE=button VALUE=Back
+ONCLICK="window.history.back()"&gt;&lt;/FORM&gt;
+&lt;/BODY&gt;&lt;/HTML&gt;
+'''</span>
+cursor.execute(<span class="hljs-string">'''
+CREATE TABLE users (  
+login VARCHAR(8), 
+uid INTEGER,
+prid INTEGER)
+'''</span>)</code></pre>
+
+<p><strong>Unicode 字符串：</strong> <br/>
+Python 中定义一个 Unicode 字符串和定义一个普通字符串一样简单：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-prompt">&gt;&gt;&gt; </span><span class="hljs-string">u'Hello World !'</span>
+<span class="hljs-string">u'Hello World !'</span></code></pre>
+
+<p>引号前小写的”u”表示这里创建的是一个 Unicode 字符串。如果你想加入一个特殊字符，可以使用 Python 的 Unicode-Escape 编码。如下例所示：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-prompt">&gt;&gt;&gt; </span><span class="hljs-string">u'Hello\u0020World !'</span>
+<span class="hljs-string">u'Hello World !'</span></code></pre>
+
+<p>被替换的 \u0020 标识表示在给定位置插入编码值为 0x0020 的 Unicode 字符（空格符）。</p>
+
+<p><strong>python的字符串内建函数：</strong></p>
+
+<p>来源：<a href="http://www.runoob.com/python/python-strings.html">http://www.runoob.com/python/python-strings.html</a></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment">#coding:UFT-8</span>
+
+string = <span class="hljs-string">'2121ddqweq'</span>
+
+<span class="hljs-comment"># 把字符串的第一个字符大写</span>
+string.capitalize()  
+
+<span class="hljs-comment">#返回一个原字符串居中,并使用空格填充至长度 width 的新字符串</span>
+string.center(width)    
+
+<span class="hljs-comment">#返回 str 在 string 里面出现的次数，如果 beg 或者 end 指定则返回指定范围内 str 出现的次数  </span>
+string.count(str, beg=<span class="hljs-number">0</span>, end=len(string))  
+
+<span class="hljs-comment">#以 encoding 指定的编码格式解码 string，如果出错默认报一个 ValueError 的 异 常 ，</span>
+<span class="hljs-comment">#除 非 errors 指 定 的 是 'ignore' 或 者'replace'   </span>
+string.decode(encoding=<span class="hljs-string">'UTF-8'</span>, errors=<span class="hljs-string">'strict'</span>)
+
+<span class="hljs-comment">#以 encoding 指定的编码格式编码 string，如果出错默认报一个ValueError 的异常，</span>
+<span class="hljs-comment">#除非 errors 指定的是'ignore'或者'replace'  </span>
+string.encode(encoding=<span class="hljs-string">'UTF-8'</span>, errors=<span class="hljs-string">'strict'</span>)
+
+<span class="hljs-comment">#检查字符串是否以 obj 结束，如果beg 或者 end 指定则检查指定的范围内是否以 obj 结束，如果是，</span>
+<span class="hljs-comment">#返回 True,否则返回 False.    </span>
+string.endswith(obj, beg=<span class="hljs-number">0</span>, end=len(string))
+
+<span class="hljs-comment">#把字符串 string 中的 tab 符号转为空格，tab 符号默认的空格数是 8。</span>
+string.expandtabs(tabsize=<span class="hljs-number">8</span>)
+
+<span class="hljs-comment">#检测 str 是否包含在 string 中，如果 beg 和 end 指定范围，则检查是否包含在指定范围内，</span>
+<span class="hljs-comment">#如果是返回开始的索引值，否则返回-1</span>
+string.find(str, beg=<span class="hljs-number">0</span>, end=len(string))
+
+<span class="hljs-comment">#跟find()方法一样，检测 str 是否包含在 string 中,只不过如果str不在 string中会报一个异常.</span>
+string.index(str, beg=<span class="hljs-number">0</span>, end=len(string))
+
+<span class="hljs-comment">#如果 string 至少有一个字符并且所有字符都是字母或数字则返回 True,否则返回 False</span>
+string.isalnum()
+
+<span class="hljs-comment">#如果 string 至少有一个字符并且所有字符都是字母则返回 True,否则返回 False</span>
+string.isalpha()
+
+<span class="hljs-comment">#如果 string 只包含十进制数字则返回 True 否则返回 False.</span>
+string.isdecimal()
+
+<span class="hljs-comment">#如果 string 只包含数字则返回 True 否则返回 False.</span>
+string.isdigit()
+
+<span class="hljs-comment">#如果 string 中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是小写，</span>
+<span class="hljs-comment">#则返回 True，否则返回 False</span>
+string.islower()
+
+<span class="hljs-comment">#如果 string 中只包含数字字符，则返回 True，否则返回 False</span>
+string.isnumeric()
+
+<span class="hljs-comment">#如果 string 中只包含空格，则返回 True，否则返回 False.</span>
+string.isspace()
+
+<span class="hljs-comment">#如果 string 是标题化的(见 title())则返回 True，否则返回 False</span>
+string.istitle()
+
+<span class="hljs-comment">#如果 string 中包含至少一个区分大小写的字符，并且所有这些(区分大小写的)字符都是大写，</span>
+<span class="hljs-comment">#则返回 True，否则返回 False</span>
+string.isupper()
+
+<span class="hljs-comment">#以 string 作为分隔符，将 seq（元素序列）中所有的元素合并为一个新的字符串</span>
+string.join(seq)
+
+<span class="hljs-comment">#返回一个原字符串左对齐,并使用空格填充至长度 width 的新字符串</span>
+string.ljust(width)
+
+<span class="hljs-comment">#转换 string 中所有大写字符为小写.</span>
+string.lower()
+
+<span class="hljs-comment">#截掉 string 左边的空格</span>
+string.lstrip()
+
+<span class="hljs-comment">#maketrans() 方法用于创建字符映射的转换表，对于接受两个参数的最简单的调用方式，第一个参数是字符串，</span>
+<span class="hljs-comment">#表示需要转换的字符，第二个参数也是字符串表示转换的目标。</span>
+string.maketrans(intab, outtab])
+
+<span class="hljs-comment">#返回字符串 str 中最大的字母。</span>
+max(str)
+
+<span class="hljs-comment">#返回字符串 str 中最小的字母。</span>
+min(str)
+
+<span class="hljs-comment">#有点像 find()和 split()的结合体,从 str 出现的第一个位置起,把 字 符 串 string 分 成</span>
+<span class="hljs-comment"># 一 个 3 元 素 的 元 组 (string_pre_str,str,string_post_str),如果 string 中</span>
+<span class="hljs-comment">#不包含str 则 string_pre_str == string.</span>
+string.partition(str)
+
+<span class="hljs-comment">#把 string 中的 str1 替换成 str2,如果 num 指定，则替换不超过 num 次.</span>
+string.replace(str1, str2,  num=string.count(str1))
+
+<span class="hljs-comment">#类似于 find()函数，不过是从右边开始查找.</span>
+string.rfind(str, beg=<span class="hljs-number">0</span>,end=len(string) )
+
+<span class="hljs-comment">#类似于 index()，不过是从右边开始.</span>
+string.rindex( str, beg=<span class="hljs-number">0</span>,end=len(string))
+
+<span class="hljs-comment">#返回一个原字符串右对齐,并使用空格填充至长度 width 的新字符串</span>
+string.rjust(width)
+
+<span class="hljs-comment">#类似于 partition()函数,不过是从右边开始查找.</span>
+string.rpartition(str)
+
+<span class="hljs-comment">#删除 string 字符串末尾的空格.</span>
+string.rstrip()
+
+<span class="hljs-comment">#以 str 为分隔符切片 string为字符串列表，如果 num有指定值，则仅分隔 num 个子字符串</span>
+string.split(str=<span class="hljs-string">""</span>, num=string.count(str))
+
+<span class="hljs-comment">#按照行分隔，返回一个包含各行作为元素的列表，如果 num 指定则仅切片 num 个行.</span>
+string.splitlines(num=string.count(<span class="hljs-string">'\n'</span>))
+
+<span class="hljs-comment">#检查字符串是否是以 obj 开头，是则返回 True，否则返回 False。如果beg 和 end 指定值，</span>
+<span class="hljs-comment">#则在指定范围内检查.</span>
+string.startswith(obj, beg=<span class="hljs-number">0</span>,end=len(string))
+
+<span class="hljs-comment">#在 string 上执行 lstrip()和 rstrip()</span>
+string.strip([obj])
+
+<span class="hljs-comment">#翻转 string 中的大小写</span>
+string.swapcase()
+
+<span class="hljs-comment">#返回"标题化"的 string,就是说所有单词都是以大写开始，其余字母均为小写(见 istitle())</span>
+string.title()
+
+<span class="hljs-comment">#根据 str 给出的表(包含 256 个字符)转换 string 的字符,要过滤掉的字符放到 del 参数中</span>
+string.translate(str, <span class="hljs-keyword">del</span>=<span class="hljs-string">""</span>)
+
+<span class="hljs-comment">#转换 string 中的小写字母为大写</span>
+string.upper()
+
+<span class="hljs-comment">#返回长度为 width 的字符串，原字符串 string 右对齐，前面填充0</span>
+string.zfill(width)
+
+<span class="hljs-comment">#检查字符串是否只包含十进制字符。这种方法只存在于unicode对象。</span>
+string.isdecimal()
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

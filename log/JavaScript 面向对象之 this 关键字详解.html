@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<div style="text-align:center"><strong style="color:rgb(255,0,0); font-family:Arial; line-height:26px; font-size:18px">js面向（基于）对象编程——类（原型对象）与对象</strong></div>&#13;
+<span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><strong><span style="color:#ff0000">this—问题提出</span></strong></span><br/></span></span>&#13;
+<p/>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px">在实际编程中，我们可能有这样的需求，当我们创建一个对象后，就希望该对象自动的拥有某些属性（比如：当我们创建一个Person对象后，就希望该对象自动拥有name和阿哥属性，这又怎么办？）</span></span></p>&#13;
+<span style="font-size:18px"><span style="font-family:Arial; line-height:26px">解决之道：使用this</span><br style="font-family:Arial; line-height:26px"/></span>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">js虚拟机会给每一个对象分配this，代表当前对象。</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">实例代码：</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></p><pre name="code" class="html">function Person(){
+	this.name="abc"
+	this.age=90;
+}
+
+
+var p1=new Person();
+var p2=new Person();
+pa.name="顺平";
+window.alert(p1.name+" "+p2.name); //输出  abc abc</pre>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px"><strong><span style="color:#ff0000">补充：在定义类（原型对象）中，var和this的区别：</span></strong></span><br/></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; font-size:14px; line-height:26px"/></span></span></p><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function Person(){
+				var name="abc"; //如果这样去使用 name这个属性是私有的
+				this.name2="abc2"; //this.name2 表示name2这个属性是公开的
+
+				//下面show()就是Person的一个公开方法
+				//如果你一定要访问私有属性，则需要定义一个公开方法（特权方法）
+				this.show=function(){
+					window.alert(name); //name属性是私有的
+				}
+				//下面&lt;span style="font-family: Arial;"&gt;show2()&lt;/span&gt;是私有方法，只能在Person类中使用
+				//如果想在外部使用show2，可以在this.show中调用
+				//javascript中大部分方法都是公开的
+				function show2(){
+				}
+			}
+			var p1=new Person();
+			//这样调用name属性，会报undefined
+			window.alert(p1.name);
+
+			//输出 abc2
+			//name2属性是公开的
+			window.alert(p1.name2);
+
+			//如果要访问私有属性name，就要在类中定义一个公开的方法，比如定义一个show方法
+			p1.show();
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;body&gt;
+&lt;/html&gt;</pre><br/><span style="font-family:Arial; font-size:14px; line-height:26px"><span style="color:#ff0000"><strong>为了进一步理解this，再看一个案例:</strong></span></span><br/><p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"/></span></span></p><pre name="code" class="html" style="font-size: 14px;">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			function test1(){
+				alert(this.v);
+			}
+			var v=90;
+			window.test1();// 输出什么 等价于== test1();
+			// alert("ok"); &lt;==&gt; window.alert("ok");
+			//哪个对象实例调用this所在的函数，那么this就代表哪个对象实例
+			//window.test1(); this就是window，进去了以后，调test1，如果test1里面有this，那个这个this就是调用者window，这个this有没有v呢，在外面定义了一个v=90。window对象是全局对象。
+			window.alert(v); //输出v
+			window.alert(window.v) //同样输出的v，和上面的一样的。window对象是全局对象，在上面的test1函数中alert(this.v);，不就是等同于alert(window.v);吗，这样就容易理解了
+			//什么叫当前对象是this呢
+			function Person(){
+				this.abc=function(){
+					window.alert(this.v); //这里的this就是p，谁调用this，this就是谁
+				}
+			}
+			var p=new Person();
+			p.v="hello"; //动态的
+			p.abc(); //p调用abc，p就是里面的this，而this确实有v这个属性，则hello就被输出了
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><span style="font-family:Arial; line-height:26px">★★★★</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">应该这么去想：</span><span style="font-family:Arial; line-height:26px">test1这个函数，从面向对象的角度看，它应该是属于某个对象的，它就是属于window的。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">alert("ok");</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window.alert("ok");这两个是一个意思，alert这个函数默认就是window对象。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">我们过去调用函数是这样写</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">test1(); 这个就是前面没有写window而已，它和下面的是一样的。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window.test1();</span>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">javascript中的 HTML DOM window对象</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window对象是javascript层级中的顶级对象。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window对象代表一个浏览器窗口或一个框架</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window对象会在&lt;body&gt;或&lt;frameset&gt;每次出现时被自动创建</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><span style="white-space:pre"/>window对象表示一个浏览器窗口或一个框架。在客户端javascript中，window对象是全局对象，所有的表达式都在当前的环境中计算。也就是说，要引用当前窗口根本不需要特殊的语法，可以把那个窗口的属性作为全局变量来使用。例如，可以只写document，而不必写window.document。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">同样，可以把当前窗口对象的方法当做函数来使用，如可只写alert()，而不必写window.alert()。</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">★★★★★记住一句话：</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>哪个对象实例调用this所在的函数，那么this就代表哪个对象实例。</strong></span></span><br/></span></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>this——注意事项</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">this不能在类定义的外部使用，只能在类定义的方法中使用。在类定义的外部，调用者就变成window了</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">window.alert(this.v); //在类定义的外部这样使用，此时的this指的是window了，就变成另外一个对象了，它并不会把p.v的hello输出，因为在类的外部这个this已经指的是window了</span><br style="font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>类——如何定义类</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">讲了this后，我们类（对象原型）的定义就全面了一步，如图：</span><br style="font-family:Arial; line-height:26px"/><img src="http://img.my.csdn.net/uploads/201212/09/1354983915_1293.jpg" alt="" width="631" height="166" style="border:none; max-width:100%; font-family:Arial; line-height:26px"/><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">特别说明：</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">this.属性名   公开属性，可以通过 对象名.属性名 来直接访问。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var 属性名   私有属性，只能通过对象的内部函数来访问。</span><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

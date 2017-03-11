@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">1、下载mysql安装包；</span></p>&#13;
+<p><span style="font-size:18px">2、安装mysql；</span></p>&#13;
+<p><span style="font-size:18px">3、在PHP安装目录下修改php.ini文件</span></p>&#13;
+<p><span style="font-size:18px">      在php.ini文件中，找到这两句<br/></span></p>&#13;
+<p><span style="font-size:18px">      ;extension=php_mysql.dll<br/>&#13;
+      ;extension=php_mysqli.dll</span></p>&#13;
+<p><span style="font-size:18px">      改为：</span></p>&#13;
+<p><span style="font-size:18px">      extension=php_mysql.dll<br/>&#13;
+      extension=php_mysqli.dll</span></p>&#13;
+<p><span style="font-size:18px">4、测试：</span></p>&#13;
+<p><span style="font-size:18px">       &lt;?php<br/><br/>&#13;
+          $conn = mysql_connect("localhost","root","111111");<br/><br/>&#13;
+          if($conn){<br/>&#13;
+              echo "连接数据库成功！";<br/>&#13;
+          }<br/>&#13;
+          else{<br/>&#13;
+    <br/>&#13;
+              echo "连接数据库失败！";<br/>&#13;
+          }<br/><br/>&#13;
+          ?&gt;</span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

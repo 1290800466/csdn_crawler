@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; color:rgb(51,51,51)">用于添加新内容的四个 jQuery 方法：</span></p>&#13;
+<p/>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+append() - 在被选元素的结尾插入内容</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+prepend() - 在被选元素的开头插入内容</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+after() - 在被选元素之后插入内容</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+before() - 在被选元素之前插入内容</li></ul><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery append() 方法</h2>&#13;
+<p/>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+jQuery append() 方法在被选元素的结尾插入内容。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+</p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_1_9580688" name="code" class="javascript">$("p").append("Some appended text.");
+</pre><br/><h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery <span class="color_h1" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">appendTo()</span> 方法</h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px"/><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_2_6232618" name="code" class="javascript">//在每个 &lt;p&gt; 元素的结尾插入 &lt;span&gt; 元素：
+$("button").click(function(){
+$("&lt;span&gt;Hello World!&lt;/span&gt;").appendTo("p");
+});
+</pre><br/></h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px">appendTo() 方法在被选元素的结尾插入 HTML 元素。</span></h1>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="border:0px; margin:0px; padding:0px">提示：</span>如需在被选元素的开头插入 HTML 元素，请使用 <a target="_blank" href="http://www.runoob.com/jquery/html-prependto.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">prependTo()</a> 方法。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+<span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:1.8em; line-height:1.8em"><strong>jQuery prepend() 方法</strong></span>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+jQuery prepend() 方法在被选元素的开头插入内容。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+</p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_3_9471221" name="code" class="javascript">$("p").prepend("Some prepended text.");</pre>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery <span class="color_h1" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">prependTo()</span> 方法</h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px"/><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_4_3440956" name="code" class="javascript">//在每个 &lt;p&gt; 元素的开头插入 &lt;span&gt; 元素：
+$("button").click(function(){
+$("&lt;span&gt;Hello World!&lt;/span&gt;").prependTo("p");
+});
+</pre><br/></h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px">prependTo() 方法在被选元素的开头插入 HTML 元素。</span></h1>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+通过 append() 和 prepend() 方法添加若干新元素</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+append() 和 prepend() 方法能够通过参数接收无限数量的新元素。可以通过 jQuery 来生成文本/HTML（就像上面的例子那样），或者通过 JavaScript 代码和 DOM 元素。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+在下面的例子中，我们创建若干个新元素。这些元素可以通过 text/HTML、jQuery 或者 JavaScript/DOM 来创建。然后我们通过 append() 方法把这些新元素追加到文本中（对 prepend() 同样有效）：</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+</p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_5_5774487" name="code" class="javascript">function appendText()
+{
+var txt1="&lt;p&gt;Text.&lt;/p&gt;";               // Create element with HTML  
+var txt2=$("&lt;p&gt;&lt;/p&gt;").text("Text.");   // Create with jQuery
+var txt3=document.createElement("p");  // Create with DOM
+txt3.innerHTML="Text.";
+$("p").append(txt1,txt2,txt3);         // Append the new elements 
+}
+</pre><br/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery after() 和 before() 方法</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+jQuery after() 方法在被选元素之后插入内容。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+jQuery before() 方法在被选元素之前插入内容。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/></p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_6_5632783" name="code" class="javascript">&lt;span style="font-size:18px;"&gt;$("img").after("Some text after");
+
+$("img").before("Some text before");&lt;/span&gt;&lt;span style="font-size: 2.1em;"&gt;
+&lt;/span&gt;</pre><br/><br/><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:2.1em">jQuery </span><span class="color_h1" style="font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:2.1em; border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">insertBefore()</span><span style="font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:2.1em"> 方法</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="line-height:2em"><br/></span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="line-height:2em"/></p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_7_7966314" name="code" class="javascript">//在每个 &lt;p&gt; 元素前插入一个 &lt;span&gt; 元素：
+$("button").click(function(){
+$("&lt;span&gt;Hello world!&lt;/span&gt;").insertBefore("p");
+});
+</pre><br/><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="line-height:2em">insertBefore() 方法在被选元素前插入 HTML 元素。</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="border:0px; margin:0px; padding:0px">提示：</span>如需在被选元素后插入 HTML 元素，请使用 <a target="_blank" href="http://www.runoob.com/jquery/html-insertafter.html" style="border:0px; margin:0px; padding:0px; color:rgb(121,153,97)">insertAfter()</a> 方法。</p>&#13;
+<div><br/></div>&#13;
+<div><br/></div>&#13;
+<div>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery <span class="color_h1" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">insertAfter()</span> 方法</h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px"/><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_8_299847" name="code" class="javascript">//在每个 &lt;p&gt; 元素后插入一个 &lt;span&gt; 元素：
+$("button").click(function(){
+$("&lt;span&gt;Hello world!&lt;/span&gt;").insertAfter("p");
+});
+</pre><br/></h1>&#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-size:2.1em; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px">insertAfter() 方法在被选元素后插入 HTML 元素。</span></h1>&#13;
+<br/></div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+通过 after() 和 before() 方法添加若干新元素</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+after() 和 before() 方法能够通过参数接收无限数量的新元素。可以通过 text/HTML、jQuery 或者 JavaScript/DOM 来创建新元素。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+在下面的例子中，我们创建若干新元素。这些元素可以通过 text/HTML、jQuery 或者 JavaScript/DOM 来创建。然后我们通过 after() 方法把这些新元素插到文本中（对 before() 同样有效）：</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+</p><pre code_snippet_id="1838574" snippet_file_name="blog_20160818_9_1553583" name="code" class="javascript">//实例
+function afterText()
+{
+var txt1="&lt;b&gt;I &lt;/b&gt;";                    // Create element with HTML  
+var txt2=$("&lt;i&gt;&lt;/i&gt;").text("love ");     // Create with jQuery
+var txt3=document.createElement("big");  // Create with DOM
+txt3.innerHTML="jQuery!";
+$("img").after(txt1,txt2,txt3);          // Insert new elements after img
+}
+</pre><br/><br/><p/>&#13;
+<p/>&#13;
+<p><img src="http://img.blog.csdn.net/20160112214514252?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></p>&#13;
+<p>Index   指定元素的索引</p>&#13;
+<p>Html   获取的原本元素中内容 </p>&#13;
+<img src="http://img.blog.csdn.net/20160112214918865?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></div>  </body>
+            </html>

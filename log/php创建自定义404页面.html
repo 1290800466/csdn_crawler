@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Apache服务器：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">修改 ：apache\conf\extra\httpd-multilang-errordoc<span class="hljs-preprocessor">.conf</span>  文件
+
+如下所示，修改<span class="hljs-number">404</span> 对应文件即可
+ErrorDocument <span class="hljs-number">400</span> /error/HTTP_BAD_REQUEST<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">401</span> /error/HTTP_UNAUTHORIZED<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">403</span> /error/HTTP_FORBIDDEN<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">404</span> /error/<span class="hljs-number">404.</span>html
+ErrorDocument <span class="hljs-number">405</span> /error/HTTP_METHOD_NOT_ALLOWED<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">408</span> /error/HTTP_REQUEST_TIME_OUT<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">410</span> /error/HTTP_GONE<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">411</span> /error/HTTP_LENGTH_REQUIRED<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">412</span> /error/HTTP_PRECONDITION_FAILED<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">413</span> /error/HTTP_REQUEST_ENTITY_TOO_LARGE<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">414</span> /error/HTTP_REQUEST_URI_TOO_LARGE<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">415</span> /error/HTTP_UNSUPPORTED_MEDIA_TYPE<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">500</span> /error/HTTP_INTERNAL_SERVER_ERROR<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">501</span> /error/HTTP_NOT_IMPLEMENTED<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">502</span> /error/HTTP_BAD_GATEWAY<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">503</span> /error/HTTP_SERVICE_UNAVAILABLE<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+ErrorDocument <span class="hljs-number">506</span> /error/HTTP_VARIANT_ALSO_VARIES<span class="hljs-preprocessor">.html</span><span class="hljs-preprocessor">.var</span>
+
+<span class="hljs-number">404</span>文件在如下路径下：
+apache\error\<span class="hljs-number">404.</span>html
+其他错误文件修改方式同上。
+
+修改完成后，重启Apache服务器即可！！！
+</code></pre>
+
+<p><strong>nginx服务器：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-number">1</span>、创建自己的<span class="hljs-number">404.</span>html页面放在网站根目录下。
+
+即：网站代码根目录/error/<span class="hljs-number">404.</span>html
+
+（测试时，不知道为什么必须创建error文件夹，直接把<span class="hljs-number">404</span>页面放到根目录下失败）
+
+<span class="hljs-number">2</span>、修改nginx<span class="hljs-preprocessor">.conf</span>文件在http定义区域加入：
+
+fastcgi_intercept_errors  on<span class="hljs-comment">;</span>
+
+<span class="hljs-number">3</span>、更改nginx<span class="hljs-preprocessor">.conf</span>或虚拟主机的域名<span class="hljs-preprocessor">.conf</span>在server区域加入（bitnami<span class="hljs-preprocessor">.conf</span>）：
+
+error_page  <span class="hljs-number">404</span>  =  /<span class="hljs-number">404.</span>html<span class="hljs-comment">;</span>
+
+<span class="hljs-number">4</span>、重启nginx
+
+<span class="hljs-number">5</span>、此时访问不存在url即跳转到自定义<span class="hljs-number">404</span>页面</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

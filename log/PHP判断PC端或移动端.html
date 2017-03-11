@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">移动端判断函数：</span></p>&#13;
+<p><span style="font-size:18px">function.php</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+function isMobile()
+{ 
+    // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
+    if (isset ($_SERVER['HTTP_X_WAP_PROFILE']))
+    {
+        return true;
+    } 
+    // 如果via信息含有wap则一定是移动设备,部分服务商会屏蔽该信息
+    if (isset ($_SERVER['HTTP_VIA']))
+    { 
+        // 找不到为flase,否则为true
+        return stristr($_SERVER['HTTP_VIA'], "wap") ? true : false;
+    } 
+    // 脑残法，判断手机发送的客户端标志,兼容性有待提高
+    if (isset ($_SERVER['HTTP_USER_AGENT']))
+    {
+        $clientkeywords = array ('nokia',
+            'sony',
+            'ericsson',
+            'mot',
+            'samsung',
+            'htc',
+            'sgh',
+            'lg',
+            'sharp',
+            'sie-',
+            'philips',
+            'panasonic',
+            'alcatel',
+            'lenovo',
+            'iphone',
+            'ipod',
+            'blackberry',
+            'meizu',
+            'android',
+            'netfront',
+            'symbian',
+            'ucweb',
+            'windowsce',
+            'palm',
+            'operamini',
+            'operamobi',
+            'openwave',
+            'nexusone',
+            'cldc',
+            'midp',
+            'wap',
+            'mobile'
+            ); 
+        // 从HTTP_USER_AGENT中查找手机浏览器的关键字
+        if (preg_match("/(" . implode('|', $clientkeywords) . ")/i", strtolower($_SERVER['HTTP_USER_AGENT'])))
+        {
+            return true;
+        } 
+    } 
+    // 协议法，因为有可能不准确，放到最后判断
+    if (isset ($_SERVER['HTTP_ACCEPT']))
+    { 
+        // 如果只支持wml并且不支持html那一定是移动设备
+        // 如果支持wml和html但是wml在html之前则是移动设备
+        if ((strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') !== false) &amp;&amp; (strpos($_SERVER['HTTP_ACCEPT'], 'text/html') === false || (strpos($_SERVER['HTTP_ACCEPT'], 'vnd.wap.wml') &lt; strpos($_SERVER['HTTP_ACCEPT'], 'text/html'))))
+        {
+            return true;
+        } 
+    } 
+    return false;
+} 
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+判断函数使用：</span>&#13;
+<p><span style="font-size:18px">index.php</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+require_once 'function.php';
+if (isMobile()){
+    //跳转到手机端
+    header("Location: mobile.php"); 
+}else{
+    //跳转到PC端
+    header("Location: pc.php"); 
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+pc.php</span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+require_once 'function.php';
+if (isMobile()){
+    //跳转到手机端
+    header("Location: mobile.php"); 
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+mobile.php</span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+require_once 'function.php';
+if (!isMobile()){
+    //跳转到PC端
+    header("Location: pc.php"); 
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/></span>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

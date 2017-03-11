@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、php内的sql代码性能存在问题</strong></p>
+
+<p>这个存在于两方面，一个是sql本身优化不够，另外一个方面是随着数据量的增加，某些性能问题会逐渐暴露。</p>
+
+<p><strong>2、apache处理模式造成的内存消耗</strong></p>
+
+<p>由于apache是以进程的形式，同步阻塞式的处理http请求，so，当网页本身加载元素过多的话，会造成大量的http进程并发，消耗服务器大量的内存，导致访问缓慢或者异常。解决办法很是简单，主要有以下几个方面:</p>
+
+<p>a、动态页面转成静态页面。 <br/>
+b、转成lnamp的模式，图片等静态资源由nginx进行处理，减少http进程数量</p>
+
+<p><strong>3、CDN服务的使用</strong></p>
+
+<p>这个并不是性能问题，而是为了解决用户访问的页面加载速度问题，以及不同网络之间的延迟问题。具体使用效果是非常不错的，会大大的改善各地用户的访问速度，土豪公司可以自建CDN，中小公司选择第三方服务也是不错的选择。</p>
+
+<p><strong>4、缓存的使用</strong></p>
+
+<p>这个有两个方面的缓存，其中主要的缓存是数据也就是动态方面的缓存。使用的软件主要有redis以及memcache（两个软件都是针对php与mysql之间的请求进行缓存，减少与mysql的直接交互，提高访问速度。</p>
+
+<p><strong>5、apache的负载均衡，mysql的读写分离</strong></p>
+
+<p>即便增加了CDN、缓存，优化了apache的页面，但是高并发的问题依然会随着用户量的增加而慢慢出现，那么这个时候就要发大招了，扩！容！硬！件！。永远都好使的大招，用完即生效。我们现在主要使用的是nginx+apache的负载均衡方式。而mysql的读写分离也so easy，使用主从复制即可。对于及时性要就不是太高的网页访问，问题不大。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

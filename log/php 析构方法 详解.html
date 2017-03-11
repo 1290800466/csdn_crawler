@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>析构方法说明:</strong><br/>&#13;
+1.      析构方法会自动调用<br/>&#13;
+2.      析构方法主要用于销毁资源(比如释放数据库的链接，图片资源...销毁某个对象..)<span style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif"><span style="line-height:19.5px; background-color:rgb(245,245,245)">;</span></span></span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif"><span style="line-height:19.5px"><span style="white-space:pre"><span style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:18px; line-height:19.5px; background-color:rgb(245,245,245)">析构函数会在到对象的所有的引用都被删除或者当对象被显示销毁时执行.</span></span>   </span></span></span></p>&#13;
+<span style="font-size:18px">3.      析构方法调用顺序是，先创建的对象后被销毁<br/>&#13;
+4.      析构方法什么时候被调用<br/><span style="white-space:pre"/>(1)    当程序（进程结束）退出时<br/><span style="white-space:pre"/>(2)    当一个对象称为垃圾对象的时候，该对象的析构方法也会被调用,<br/><span style="white-space:pre"/>(3)    所谓垃圾对象，就是指，没有任何变量再引用它.<br/><span style="white-space:pre"/>(4)    一旦一个对象成为垃圾对象，析构方法就会立即调用<br/><br/><strong>析构方法小结:</strong><br/>&#13;
+①php5加入的的析构方法function __destruct()<br/>&#13;
+②析构方法没有返回值也不接受参数<br/>&#13;
+③主要作用是释放资源的操作，并不是销毁对象本身。<br/>&#13;
+④在销毁对象前,系统自动的调用该类的析构方法   <br/>&#13;
+⑤一个类最多只有一个析构方法。</span><br/><p><span style="font-size:18px"><strong>析构方法实例1：</strong></span></p>&#13;
+<p><span style="font-size:18px"/></p><pre name="code" class="php">&lt;?php
+class Person
+{
+	public $name;
+	public $age;
+	public $conn;
+              
+	//构造方法
+	public function __construct($name,$age)
+	{
+		$this-&gt;name=$name;
+		$this-&gt;age=$age;
+		//假设此处有一个打开一个$conn链接数据库资源的函数体
+	}
+	//写一个析构方法 __ 是两个下划线
+	function __destruct()
+	{
+		echo $this-&gt;name."      销毁资源   关闭数据库 . . &lt;br/&gt;";
+	}
+}
+$p1=new Person("1.贾宝玉",16);
+$p1=null; //$p1掷空是对其对应地址下标掷空，如$p1[0x678]，即掷空了中括号中的数据，地址对应的数并没有改变。
+//$p1掷空马上就要被销毁，所以p1p2p3的销毁顺序为：$p1-&gt;$p3-&gt;$p2
+$p2=new Person("2.林黛玉",14);
+
+$p3=new Person("3.王熙凤",15);
+?&gt;
+</pre><span style="font-size:18px"><strong>析构方法实例2：</strong></span><br/><pre name="code" class="php">&lt;?php
+    //创建一个人类
+    class Person
+    {
+        //下面是人的成员属性
+        public $name; //人的名子
+        public $sex; //人的性别
+        public $age; //人的年龄
+
+        //定义一个构造方法参数为姓名$name、性别$sex和年龄$age
+        public function __construct($name,$sex,$age)
+        {   
+		    //通过构造方法传进来的$name给成员属性$this-&gt;name赋初使值 
+            $this-&gt;name=$name;
+            //通过构造方法传进来的$sex给成员属性$this-&gt;sex赋初使值 
+            $this-&gt;sex=$sex;
+            //通过构造方法传进来的$age给成员属性$this-&gt;age赋初使值 
+            $this-&gt;age=$age;
+        }
+
+        //这个人的说话方法
+        function say()
+        {
+            echo "我的名子叫：".$this-&gt;name." 性别：".$this-&gt;sex." 我的年龄是：".$this-&gt;age."&lt;br/&gt;";
+        } 
+
+        //这是一个析构函数，在对象销毁前调用
+        function __destruct()
+        {
+            echo "再见".$this-&gt;name."&lt;br/&gt;";
+        }
+    }
+
+    //通过构造方法创建3个对象$p1、p2、$p3,分别传入三个不同的实参为姓名、性别和年龄
+    $p1=new Person("张三","男", 20);
+    $p2=new Person("李四","女", 30);
+    $p3=new Person("王五","男", 40);
+
+    //下面访问$p1对象中的说话方法
+    $p1-&gt;say();
+    //下面访问$p2对象中的说话方法
+    $p2-&gt;say();
+    //下面访问$p3对象中的说话方法
+    $p3-&gt;say();
+?&gt;</pre>输出结果如下：&#13;
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20150627174937830?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="300" height="150" alt=""/><br/><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

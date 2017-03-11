@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>定义函数规则：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-number">1</span>、函数代码块以 <span class="hljs-function"><span class="hljs-keyword">def</span> </span>关键词开头，后接函数标识符名称和圆括号()。
+<span class="hljs-number">2</span>、任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。
+<span class="hljs-number">3</span>、函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。
+<span class="hljs-number">4</span>、函数内容以冒号起始，并且缩进。
+<span class="hljs-number">5</span>、<span class="hljs-keyword">return</span> [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的<span class="hljs-keyword">return</span>相当于返回 <span class="hljs-constant">None</span>。</code></pre>
+
+<p><strong>自定义函数语法结构：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function_name</span><span class="hljs-params">(parameters)</span>:</span>   <span class="hljs-comment">#此处必须有冒号，参数可有可无，可有多个</span>
+<span class="hljs-comment">#注意每条语句之前都要点击Tab键，必须缩进，Python靠tab键识别函数语句；</span>
+    statement2
+    statement3</code></pre>
+
+<p><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-comment">#例1：以下无返回的自定义函数text_1</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">text_1</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"hdklfbrhelgf"</span>
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"jieshu"</span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用程序"</span>
+text_1()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用结束"</span>  
+
+<span class="hljs-comment">#例2：带单个返回值的自定义函数text_2</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">text_2</span><span class="hljs-params">(n1,n2)</span>:</span>
+    n3=n1+n2
+    <span class="hljs-keyword">return</span> n3
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用程序"</span>
+sum=text_2( <span class="hljs-number">12</span>,<span class="hljs-number">13</span>)
+<span class="hljs-keyword">print</span> sum
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用结束"</span>  
+
+<span class="hljs-comment">#结果：</span>
+<span class="hljs-comment">#&gt;&gt;&gt;</span>
+<span class="hljs-comment">#调用程序</span>
+<span class="hljs-comment">#25</span>
+<span class="hljs-comment">#调用结束</span>
+<span class="hljs-comment">#&gt;&gt;&gt; </span>
+
+<span class="hljs-comment">#例3：带多个返回值的自定义函数text_3</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">text_3</span><span class="hljs-params">(n1,n2)</span>:</span>
+    n3=n1+n2
+    n4=n1*n2
+    n5=n1**n2
+    <span class="hljs-keyword">return</span> n3,n4,n5 
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用程序"</span>
+
+s,c,v=text_3( <span class="hljs-number">2</span>,<span class="hljs-number">3</span>)
+<span class="hljs-comment">#print c,s,v</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"s="</span> ,s
+<span class="hljs-keyword">print</span> <span class="hljs-string">"c="</span> ,c
+<span class="hljs-keyword">print</span> <span class="hljs-string">"v="</span> , v
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用结束"</span>  
+
+<span class="hljs-comment">#结果：</span>
+<span class="hljs-comment">#调用程序</span>
+<span class="hljs-comment">#s= 5</span>
+<span class="hljs-comment">#c= 6</span>
+<span class="hljs-comment">#v= 8</span>
+<span class="hljs-comment">#调用结束</span>
+
+<span class="hljs-comment">#例4：参数预设定值的自定义函数text_4，对于这种函数，只需要给出没有设定默认值的形参的实参即可，已确定的不需要给出实参；</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span>  <span class="hljs-title">text_4</span><span class="hljs-params">(n1,n2,n3=<span class="hljs-number">3</span>)</span>:</span>    <span class="hljs-comment">#形参具有默认值，注意：有预定值得形参，必须写在括号的右边，而不能在左边，否则会报错；</span>
+   n4=n1+n2+n3
+   n5=n1*n2*n3
+   n6=n1**n2*n3
+   <span class="hljs-keyword">return</span> n4,n5,n6
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"调用程序"</span>
+n4,n5,n6=text_4(<span class="hljs-number">2</span>,<span class="hljs-number">3</span>)  <span class="hljs-comment">#只需给出两个实参，若给出3个实参，则会自动替换默认实参；</span>
+<span class="hljs-keyword">print</span> n4,n5,n6
+<span class="hljs-keyword">print</span> <span class="hljs-string">"结束程序"</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

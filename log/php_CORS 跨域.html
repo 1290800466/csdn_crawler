@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">通过设置Access-Control-Allow-Origin来实现跨域。</span></p>&#13;
+<p><span style="font-size:18px">例如：客户端的域名是client.runoob.com，而请求的域名是server.runoob.com。<br/>&#13;
+如果直接使用ajax访问，会有以下错误：<br/>&#13;
+XMLHttpRequest cannot load http://server.runoob.com/server.php. No 'Access-Control-Allow-Origin' header is present on the requested resource.Origin 'http://client.runoob.com' is therefore not allowed access.</span></p>&#13;
+<p><span style="font-size:18px"><br/><span style="color:#ff0000">1、允许单个域名访问</span><br/>&#13;
+指定某域名（http://client.runoob.com）跨域访问，则只需在http://server.runoob.com/server.php文件头部添加如下代码：<br/>&#13;
+header('Access-Control-Allow-Origin:http://client.runoob.com');<br/><span style="color:#ff0000">2、允许多个域名访问</span><br/>&#13;
+指定多个域名（http://client1.runoob.com、http://client2.runoob.com等）跨域访问，则只需在http://server.runoob.com/server.php文件头部添加如下代码：</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre code_snippet_id="1629316" snippet_file_name="blog_20160330_1_7982981" name="code" class="php">$origin = isset($_SERVER['HTTP_ORIGIN'])? $_SERVER['HTTP_ORIGIN'] : ''; 
+
+$allow_origin = array( 
+	'http://client1.runoob.com', 
+	'http://client2.runoob.com' 
+); 
+
+if(in_array($origin, $allow_origin)){ 
+	header('Access-Control-Allow-Origin:'.$origin); 
+} </pre><br/><span style="color:#ff0000">3、允许所有域名访问</span><br/>&#13;
+允许所有域名访问则只需在http://server.runoob.com/server.php文件头部添加如下代码：<br/>&#13;
+header('Access-Control-Allow-Origin:*'); <br/><p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">CORS跨域支持post和get方式，而jsonp跨域只支持get方式<br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

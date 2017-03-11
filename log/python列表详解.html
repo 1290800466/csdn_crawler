@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Python 列表(Lists)：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs ">    序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，
+第二个索引是1，依此类推。
+Python有6个序列的内置类型，但最常见的是列表和元组。
+列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。
+列表的数据项不需要具有相同的类型
+列表可以嵌套；</code></pre>
+
+<p>创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">list1 = [<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">1997</span>, <span class="hljs-number">2000</span>];
+list2 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> ];
+list3 = [<span class="hljs-string">"a"</span>, <span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>];</code></pre>
+
+<p>与字符串的索引一样，列表索引从0开始。列表可以进行截取、组合等。</p>
+
+<p><strong>访问列表中的值 :</strong> <br/>
+使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+list1 = [<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">1997</span>, <span class="hljs-number">2000</span>];
+list2 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span> ];
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"list1[0]: "</span>, list1[<span class="hljs-number">0</span>]
+<span class="hljs-keyword">print</span> <span class="hljs-string">"list2[1:5]: "</span>, list2[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>]
+以上实例输出结果：
+list1[<span class="hljs-number">0</span>]:  physics
+list2[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>]:  [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]</code></pre>
+
+<p><strong>更新列表：</strong> <br/>
+你可以对列表的数据项进行修改或更新，你也可以使用append()方法来添加列表项，如下所示：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+list = [<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">1997</span>, <span class="hljs-number">2000</span>];
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Value available at index 2 : "</span>
+<span class="hljs-keyword">print</span> list[<span class="hljs-number">2</span>];
+list[<span class="hljs-number">2</span>] = <span class="hljs-number">2001</span>;
+<span class="hljs-keyword">print</span> <span class="hljs-string">"New value available at index 2 : "</span>
+<span class="hljs-keyword">print</span> list[<span class="hljs-number">2</span>];
+
+以上实例输出结果：
+Value available at index <span class="hljs-number">2</span> :
+<span class="hljs-number">1997</span>
+New value available at index <span class="hljs-number">2</span> :
+<span class="hljs-number">2001</span></code></pre>
+
+<p><strong>删除列表元素：</strong> <br/>
+可以使用 del 语句来删除列表的的元素，如下实例：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+list1 = [<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">1997</span>, <span class="hljs-number">2000</span>];
+
+<span class="hljs-keyword">print</span> list1;
+<span class="hljs-keyword">del</span> list1[<span class="hljs-number">2</span>];
+<span class="hljs-keyword">print</span> <span class="hljs-string">"After deleting value at index 2 : "</span>
+<span class="hljs-keyword">print</span> list1;
+以上实例输出结果：
+[<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">1997</span>, <span class="hljs-number">2000</span>]
+After deleting value at index <span class="hljs-number">2</span> :
+[<span class="hljs-string">'physics'</span>, <span class="hljs-string">'chemistry'</span>, <span class="hljs-number">2000</span>]</code></pre>
+
+<p>注意：我们会在接下来的章节讨论remove()方法的使用</p>
+
+<p><strong>Python列表脚本操作符 :</strong> <br/>
+列表对 + 和 * 的操作符与字符串相似。+ 号用于组合列表，* 号用于重复列表。 <br/>
+如下所示：</p>
+
+<pre class="prettyprint"><code class="language-python hljs ">len([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>])    <span class="hljs-comment">#返回列表长度</span>
+[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>] + [<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]   <span class="hljs-comment">#组合列表</span>
+[<span class="hljs-string">'Hi!'</span>] * <span class="hljs-number">4</span>   <span class="hljs-comment">#重复列表，结果为['Hi!', 'Hi!', 'Hi!', 'Hi!']</span>
+<span class="hljs-number">3</span> <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]   <span class="hljs-comment">#判断元素是否存在于列表中，返回True或False</span>
+<span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]: <span class="hljs-keyword">print</span> x,     <span class="hljs-comment">#迭代,输出1 2 3    </span></code></pre>
+
+<p><strong>Python列表截取（切片）：</strong> <br/>
+Python的列表截取与字符串操作类型，如下所示：</p>
+
+<pre class="prettyprint"><code class="language-python hljs ">L = [<span class="hljs-string">'spam'</span>, <span class="hljs-string">'Spam'</span>, <span class="hljs-string">'SPAM!'</span>]
+操作：  L[star:end:sep]
+Python 表达式  结果  描述
+L[<span class="hljs-number">2</span>]    <span class="hljs-string">'SPAM!'</span> 读取列表中第三个元素
+L[-<span class="hljs-number">2</span>]   <span class="hljs-string">'Spam'</span>  读取列表中倒数第二个元素
+L[<span class="hljs-number">1</span>:]   [<span class="hljs-string">'Spam'</span>, <span class="hljs-string">'SPAM!'</span>]   从第二个元素开始截取列表</code></pre>
+
+<p><strong>Python列表函数&amp;方法 :</strong> <br/>
+Python包含以下函数:</p>
+
+<pre class="prettyprint"><code class="language-python hljs ">
+cmp(list1, list2)   <span class="hljs-comment">#比较两个列表的元素，list1大于list2返回1，list1小于list2返回-1，否则返回0</span>
+len(list)   <span class="hljs-comment">#列表元素个数</span>
+max(list)   <span class="hljs-comment">#返回列表元素最大值</span>
+min(list)   <span class="hljs-comment">#返回列表元素最小值</span>
+list(seq)   <span class="hljs-comment">#将元组转换为列表</span></code></pre>
+
+<p>cmp()方法详解：</p>
+
+<pre class="prettyprint"><code class=" hljs php">返回值：
+如果比较的元素是同类型的,则比较其值,返回结果。
+如果两个元素不是同一种类型,则检查它们是否是数字。
+如果是数字,执行必要的数字强制类型转换,然后比较。
+如果有一方的元素是数字,则另一方的元素<span class="hljs-string">"大"</span>(数字是<span class="hljs-string">"最小的"</span>)
+否则,通过类型名字的字母顺序进行比较。
+如果有一个列表首先到达末尾,则另一个长一点的列表<span class="hljs-string">"大"</span>。
+如果我们用尽了两个列表的元素而且所 有元素都是相等的,那么结果就是个平局,就是说返回一个 <span class="hljs-number">0</span>。
+实例：
+以下实例展示了 cmp()函数的使用方法：
+<span class="hljs-comment">#!/usr/bin/python</span>
+
+list1, list2 = [<span class="hljs-number">123</span>, <span class="hljs-string">'xyz'</span>], [<span class="hljs-number">456</span>, <span class="hljs-string">'abc'</span>]
+
+<span class="hljs-keyword">print</span> cmp(list1, list2);
+<span class="hljs-keyword">print</span> cmp(list2, list1);
+list3 = list2 + [<span class="hljs-number">786</span>];
+<span class="hljs-keyword">print</span> cmp(list2, list3)
+以上实例输出结果如下：
+-<span class="hljs-number">1</span>
+<span class="hljs-number">1</span>
+-<span class="hljs-number">1</span></code></pre>
+
+<p><strong>Python包含以下方法:</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript"><span class="hljs-type">list</span>.append(obj)    <span class="hljs-comment">#在列表末尾添加新的对象</span>
+<span class="hljs-type">list</span>.<span class="hljs-command">count</span>(obj)     <span class="hljs-comment">#统计某个元素在列表中出现的次数</span>
+<span class="hljs-type">list</span>.extend(seq)    <span class="hljs-comment">#在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）</span>
+<span class="hljs-type">list</span>.index(obj)     <span class="hljs-comment">#从列表中找出某个值第一个匹配项的索引位置</span>
+<span class="hljs-type">list</span>.insert(index, obj)     <span class="hljs-comment">#将指定对象插入列表的指定位置的前面。</span>
+<span class="hljs-type">list</span>.pop(obj=<span class="hljs-type">list</span>[-<span class="hljs-number">1</span>])      <span class="hljs-comment">#移除列表中的一个元素（默认最后一个元素），并且返回该元素的值</span>
+<span class="hljs-type">list</span>.remove(obj)    <span class="hljs-comment">#移除列表中某个值的第一个匹配项</span>
+<span class="hljs-type">list</span>.<span class="hljs-property">reverse</span>()      <span class="hljs-comment">#反向列表中元素</span>
+<span class="hljs-type">list</span>.sort([func])   <span class="hljs-comment">#对原列表进行排序,默认升序,func 可选参数,如果指定了该参数会使用该参数的方法进行排序。</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

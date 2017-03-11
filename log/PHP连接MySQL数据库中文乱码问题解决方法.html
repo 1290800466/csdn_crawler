@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px">　<br/>&#13;
+要解决PHP数据库乱码问题可以做以下设置：<br/><br/>&#13;
+1、数据库里的设置：<br/></span>&#13;
+<p><span style="font-size:18px">      (1).在MYSQL中新建数据库的时候数据库  选择UTF-8编码既字符集  设定为 utf-8_unicode_ci(Unicode (多语言),       不区分大小写)，库里面 表table的 整理 设置为 utf-8_general_ci；表里面的每个字段的 整理 都设置为</span></p>&#13;
+<p><span style="font-size:18px">            utf-8_general_ci</span></p>&#13;
+<span style="font-size:18px">      (2).创建数据库时，规定字符类型为uft8<br/>&#13;
+           如：</span><pre code_snippet_id="1628139" snippet_file_name="blog_20160329_1_2966544" name="code" class="sql">create database db_name character set utf8;</pre><span style="font-size:18px">           或修改已创建数据库成utf8类型：<br/></span><pre code_snippet_id="1628139" snippet_file_name="blog_20160329_2_1505848" name="code" class="sql">alter database db_name character set utf8;</pre><span style="font-size:18px">      (3).创建表时，规定字符类型为utf8<br/>&#13;
+          如：<br/></span><pre code_snippet_id="1628139" snippet_file_name="blog_20160329_3_4679194" name="code" class="sql">CREATE TABLE tb_name(
+ id int(10) NOT NULL auto_increment,
+ username char(34) NOT NULL ,
+ password int(56) NOT NULL,
+ PRIMARY KEY (id)
+ ) DEFAULT CHARSET=utf8;</pre><span style="font-size:18px">          或修改已创建表为utf8格式：<br/></span><pre code_snippet_id="1628139" snippet_file_name="blog_20160329_4_917204" name="code" class="sql">alter table tb_name character set utf8;</pre><span style="font-size:18px">          或修改表中某个字段为utf8格式<br/></span><pre code_snippet_id="1628139" snippet_file_name="blog_20160329_5_8027264" name="code" class="sql">alter table tb_name modify type_name varchar(50) CHARACTER SET utf8;</pre><br/>&#13;
+2、php连接时的设置,在PHP的MySQL连接函数中，加上语句： mysql_query("set names 'utf8'");<br/><span style="white-space:pre"/>&#13;
+<p><span style="font-size:18px">      //注意此处为utf8，不要写成utf-8</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">3、网页页面申明编码：在HTML代码&lt;head&gt;xxx&lt;/head&gt;里面，可以用</span></p>&#13;
+<p><span style="font-size:18px">      &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"/&gt;申明页面编码</span></p>&#13;
+<span style="font-size:18px"><br/>&#13;
+4、浏览器设置为utf-8格式。<br/><br/></span>&#13;
+<p><span style="font-size:18px">5、编辑器字符编码，代码文档要保存为utf-8格式。</span></p>&#13;
+<p><span style="font-size:18px">6、若插入数据乱码，可以对插入数据进行转码。先把字符串转为utf-8再插入数据库中。</span></p>&#13;
+<br/></div>  </body>
+            </html>

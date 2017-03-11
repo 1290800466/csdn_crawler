@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1. 各参数均需检测合法性</strong></p>
+
+<p><strong>2. 接口返回格式</strong></p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'state'</span> =&gt; <span class="hljs-variable">$state</span>,  <span class="hljs-comment">//0错误，1正确或http状态码</span>
+    <span class="hljs-string">'msg'</span> =&gt; <span class="hljs-variable">$msg</span>,
+);</code></pre>
+
+<p><strong>3. if else 写法</strong></p>
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == <span class="hljs-variable">$a</span>) {
+    <span class="hljs-built_in">echo</span> <span class="hljs-number">1</span>;
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-built_in">echo</span> <span class="hljs-number">2</span>;
+}</code></pre>
+
+<p>注意各处空格，括号中变量放置右边，常量放置左边 <br/>
+if后加空格，else/else if  前后加空格，elseif 分开写作else if</p>
+
+<p><strong>4. 方法定义：</strong> <br/>
+名字足够准确，空格+大括号</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span><span class="hljs-params">()</span> {</span>
+    <span class="hljs-comment">//方法中大括号前加空格</span>
+    <span class="hljs-comment">//方法名与小括号之间不能有空格</span>
+}</code></pre>
+
+<p><strong>5.类定义</strong> <br/>
+名字足够准确，空格+大括号</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> {</span>
+   <span class="hljs-comment">//类中大括号前加空格</span>
+
+}</code></pre>
+
+<p><strong>6. 等号左右两端加空格</strong></p>
+
+<p><strong>7. =&gt; 左右两端加空格</strong></p>
+
+<p><strong>8. 逗号后边跟空格或换行</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$a</span> = <span class="hljs-keyword">array</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);</code></pre>
+
+<p><strong>9. 不嵌入变量的情况下，使用单引号 $a = ‘test’</strong></p>
+
+<p><strong>10. 连接符 . 左右两边都加空格</strong></p>
+
+<p><strong>11. 在 “switch” 语句中应该总是包括 “default” 控制。</strong></p>
+
+<p><strong>12. 当使用 array 类型符声明关联数组的时候，我们鼓励把它分成多个行，只是我们必须同时保证每行的键与值的对齐，以保持美观。</strong></p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$sampleArray</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'firstKey'</span>  =&gt; <span class="hljs-string">'firstValue'</span>,
+    <span class="hljs-string">'secondKey'</span> =&gt; <span class="hljs-string">'secondValue'</span>
+);</code></pre>
+
+<p><strong>13. 当类成员方法被声明为 private 时，必须分别以双下划线 “<em>_”为开头；被声明为 protected 时，必须分别以单下划线 “</em>” 为开头；一般情况下的方法不含下划线。</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> {</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__example</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-comment">// ...</span>
+    }
+    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_example</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-comment">// ...</span>
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-comment">// ...</span>
+    }
+}</code></pre>
+
+<p><strong>14. 被声明为 private的类成员属性必须由双下划线 “<em>_” 作为开头；被声明为 protected 的类成员属性必须由下划线 “</em>” 作为开头；而声明为 public 的成员属性则在任何时候都不允许含有下划线。</strong></p>
+
+<p><strong>15. 对于对象成员的访问，虽然可以直接访问，但建议使用 “get” 和 “set” 方法。</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> {</span>
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$_testObj</span>;
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getTestObj</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$this</span>-&gt;_testObj;
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setTestObj</span><span class="hljs-params">(<span class="hljs-variable">$testObj</span>)</span> {</span>
+        <span class="hljs-variable">$this</span>-&gt;testObj = <span class="hljs-variable">$_testObj</span>;
+    }
+}</code></pre>
+
+<p><strong>16. 类文件都是以“.class.php“为后缀，且类文件名只允许字母，使用驼峰法命名，并且首字母大写</strong> <br/>
+例如： </p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">DbMysql<span class="hljs-preprocessor">.class</span><span class="hljs-preprocessor">.php</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

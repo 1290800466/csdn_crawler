@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="margin:0px; padding:0px; border:0px; outline:0px; vertical-align:baseline; font-family:Arial,Tahoma,Verdana; line-height:18px; background-color:rgb(255,255,255)"><span style="font-size:18px; color:#ff6666">1，利用pathinfo： <span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(249,249,249)">pathinfo()&#13;
+ 函数以数组的形式返回文件路径的信息。</span></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="margin:0px; padding:0px; border:0px; outline:0px; vertical-align:baseline; font-family:Arial,Tahoma,Verdana; line-height:18px; background-color:rgb(255,255,255)"/></span></p>&#13;
+<pre code_snippet_id="1612578" snippet_file_name="blog_20160316_1_2153356" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$test = pathinfo("http://localhost/index.php");
+print_r($test);
+?&gt;
+结果如下
+Array
+(
+    [dirname] =&gt; http://localhost //url的路径
+    [basename] =&gt; index.php  //完整文件名
+    [extension] =&gt; php  //文件名后缀
+    [filename] =&gt; index //文件名
+)&lt;/span&gt;</pre><span style="font-size:18px"><br/><span style="color:#ff6666">2、利用parse_url： <span style="font-family:微软雅黑,Arial,sans-serif; line-height:26px">parse_url -解析URL并返回其组成部分</span></span></span>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="margin:0px; padding:0px; border:0px; outline:0px; vertical-align:baseline; font-family:Arial,Tahoma,Verdana; line-height:18px; background-color:rgb(255,255,255)"/></span></p>&#13;
+<pre code_snippet_id="1612578" snippet_file_name="blog_20160316_2_5468406" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;span style="font-size:18px;"&gt;&lt;?php
+$test = parse_url("http://localhost/index.php?name=tank&amp;sex=1#top");
+print_r($test);
+?&gt;
+结果如下
+Array
+(
+    [scheme] =&gt; http //使用什么协议
+    [host] =&gt; localhost //主机名
+    [path] =&gt; /index.php //路径
+    [query] =&gt; name=tank&amp;sex=1 // 所传的参数
+    [fragment] =&gt; top //后面根的锚点
+)&lt;/span&gt;&lt;/span&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="margin:0px; padding:0px; border:0px; outline:0px; vertical-align:baseline; font-family:Arial,Tahoma,Verdana; line-height:18px; background-color:rgb(255,255,255)"/></span></p>&#13;
+<pre code_snippet_id="1612578" snippet_file_name="blog_20160316_3_8674772" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$url1 = 'http://username:password@hostname/path/fsd?arg=value#anchor';
+print_r(parse_url($url1));
+?&gt;
+输出结果为：
+Array
+(
+    [scheme] =&gt; http
+    [host] =&gt; hostname
+    [user] =&gt; username
+    [pass] =&gt; password
+    [path] =&gt; /path/fsd
+    [query] =&gt; arg=value
+    [fragment] =&gt; anchor
+)
+&lt;/span&gt;</pre><span style="font-size:18px"><br/><span style="color:#ff0000">3、利用basename： <span style="font-family:Verdana,Arial,宋体; line-height:18px; background-color:rgb(249,249,249)">basename() 函数返回路径中的文件名部分</span></span></span>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><span style="margin:0px; padding:0px; border:0px; outline:0px; vertical-align:baseline; font-family:Arial,Tahoma,Verdana; line-height:18px; background-color:rgb(255,255,255)"/></span></p>&#13;
+<pre code_snippet_id="1612578" snippet_file_name="blog_20160316_4_5992577" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$test = basename("http://localhost/index.php?name=tank&amp;sex=1#top");
+echo $test;
+?&gt;
+结果如下
+index.php?name=tank&amp;sex=1#top&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px; color:#ff0000">4、url编码：</span></p>&#13;
+<p><span style="font-size:18px">urlencode<br/></span></p>&#13;
+<p><span style="font-size:18px">urlencode — 编码 URL 字符串<br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000">5、url解码：</span></p>&#13;
+<p><span style="font-size:18px">urldecode</span></p>&#13;
+<p><span style="font-size:18px">urldecode — 解码已编码的 URL 字符串<br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:#ff6666">6、<span style="font-size:18px">parse_str()   把查询字符串解析到变量中</span></span></span></p>&#13;
+<p><span style="font-size:18px"><span style="font-size:18px"><span style="white-space:pre"/>parse_str(string,array)</span><br style="font-size:18px"/><span style="font-size:18px"><span style="white-space:pre"/>参数</span><span style="font-size:18px; white-space:pre">&#13;
+</span><span style="font-size:18px">描述</span><br style="font-size:18px"/><span style="font-size:18px"><span style="white-space:pre"/>string</span><span style="font-size:18px; white-space:pre">&#13;
+</span><span style="font-size:18px">必需。规定要解析的字符串。</span><br style="font-size:18px"/><span style="font-size:18px"><span style="white-space:pre"/>array</span><span style="font-size:18px; white-space:pre">&#13;
+</span><span style="font-size:18px">可选。规定存储变量的数组的名称。该参数指示变量将被存储到数组中。</span><br/><span style="white-space:pre"/>注释：如果未设置 array 参数，则由该函数设置的变量将覆盖已存在的同名变量。<br/><span style="white-space:pre"/>注释：php.ini 文件中的 magic_quotes_gpc 设置影响该函数的输出。如果已启用，那么在 parse_str() 解析之前，变量会被 addslashes() 转换。<br/>&#13;
+语法</span></p>&#13;
+<p/>&#13;
+<p><span style="color:rgb(255,102,102); font-size:18px">parse_str()</span><span style="font-size:18px">方法</span><span style="font-size:18px">可用于解析</span><span style="font-size:18px">parse_url函数生成的 query部分，两个方法相互配合使用！</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre code_snippet_id="1612578" snippet_file_name="blog_20160321_5_3496688" name="code" class="php">&lt;?php
+parse_str("name=Bill&amp;age=60");
+echo $name."&lt;br&gt;";
+echo $age;
+?&gt;</pre>输出：&#13;
+<p><span style="font-size:18px">Bill</span></p>&#13;
+<p><span style="font-size:18px">60</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre code_snippet_id="1612578" snippet_file_name="blog_20160321_6_606750" name="code" class="php">&lt;?php
+parse_str("name=Bill&amp;age=60",$myArray);
+print_r($myArray);
+?&gt;</pre><br/>&#13;
+输出：<span style="font-family:Simsun; font-size:14px">Array ( [name] =&gt; Bill [age] =&gt; 60 )</span><br/><br/><p><span style="font-size:18px"><br/><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>Date 类：</strong></font></p>
+
+<p>java.util 包提供了 Date 类来封装当前的日期和时间。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">第一个构造函数使用当前日期和时间来初始化对象。
+<span class="hljs-built_in">Date</span>( )
+
+第二个构造函数接收一个参数，该参数是从<span class="hljs-number">1970</span>年<span class="hljs-number">1</span>月<span class="hljs-number">1</span>日起的毫秒数。
+<span class="hljs-built_in">Date</span>(<span class="hljs-built_in">long</span> millisec)</code></pre>
+
+<p><strong>Date对象方法：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-number">1</span>   <span class="hljs-built_in">boolean</span> after(<span class="hljs-built_in">Date</span> <span class="hljs-built_in">date</span>)
+若当调用此方法的<span class="hljs-built_in">Date</span>对象在指定日期之后返回<span class="hljs-literal">true</span>,否则返回<span class="hljs-literal">false</span>。
+<span class="hljs-number">2</span>   <span class="hljs-built_in">boolean</span> before(<span class="hljs-built_in">Date</span> <span class="hljs-built_in">date</span>)
+若当调用此方法的<span class="hljs-built_in">Date</span>对象在指定日期之前返回<span class="hljs-literal">true</span>,否则返回<span class="hljs-literal">false</span>。
+<span class="hljs-number">3</span>   <span class="hljs-built_in">Object</span> clone( )
+返回此对象的副本。
+<span class="hljs-number">4</span>   int compareTo(<span class="hljs-built_in">Date</span> <span class="hljs-built_in">date</span>)
+比较当调用此方法的<span class="hljs-built_in">Date</span>对象和指定日期。两者相等时候返回<span class="hljs-number">0</span>。调用对象在指定日期之前则返回负数。调用对象在指定日期之后则返回正数。
+<span class="hljs-number">5</span>   int compareTo(<span class="hljs-built_in">Object</span> obj)
+若obj是<span class="hljs-built_in">Date</span>类型则操作等同于compareTo(<span class="hljs-built_in">Date</span>) 。否则它抛出ClassCastException。
+<span class="hljs-number">6</span>   <span class="hljs-built_in">boolean</span> <span class="hljs-keyword">equals</span>(<span class="hljs-built_in">Object</span> <span class="hljs-built_in">date</span>)
+当调用此方法的<span class="hljs-built_in">Date</span>对象和指定日期相等时候返回<span class="hljs-literal">true</span>,否则返回<span class="hljs-literal">false</span>。
+<span class="hljs-number">7</span>   <span class="hljs-built_in">long</span> getTime( )
+返回自 <span class="hljs-number">1970</span> 年 <span class="hljs-number">1</span> 月 <span class="hljs-number">1</span> 日 <span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> GMT 以来此 <span class="hljs-built_in">Date</span> 对象表示的毫秒数。
+<span class="hljs-number">8</span>   int hashCode( )
+ 返回此对象的哈希码值。
+<span class="hljs-number">9</span>   void setTime(<span class="hljs-built_in">long</span> time)
+用自<span class="hljs-number">1970</span>年<span class="hljs-number">1</span>月<span class="hljs-number">1</span>日<span class="hljs-number">00</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> GMT以后time毫秒数设置时间和日期。
+<span class="hljs-number">10</span>  <span class="hljs-built_in">String</span> toString( )
+转换<span class="hljs-built_in">Date</span>对象为<span class="hljs-built_in">String</span>表示形式，并返回该字符串。</code></pre>
+
+<p><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-java hljs "><span class="hljs-keyword">import</span> java.util.Date;
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateDemo</span> {</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+       <span class="hljs-comment">// 初始化 Date 对象,当前时间</span>
+       Date date = <span class="hljs-keyword">new</span> Date();
+
+       <span class="hljs-comment">// 初始化 Date 对象,指定时间</span>
+       <span class="hljs-comment">// long time = 1480488021652L;</span>
+       <span class="hljs-comment">// Date date = new Date(time);</span>
+
+       <span class="hljs-comment">// 获取当前日期时间</span>
+       <span class="hljs-comment">// 使用 toString() 函数显示日期时间</span>
+       System.out.println(date.toString());
+
+       <span class="hljs-comment">//获取时间毫秒时间戳</span>
+       System.out.println(date.getTime());
+   }
+}</code></pre>
+
+<p><strong>使用 SimpleDateFormat 格式化日期</strong> <br/>
+SimpleDateFormat 是一个以语言环境敏感的方式来格式化和分析日期的类。SimpleDateFormat 允许你选择任何用户自定义日期时间格式来运行。例如： <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">import java.util.*;
+import java.text.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> DateDemo {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+
+      Date dNow = <span class="hljs-keyword">new</span> Date( );
+      SimpleDateFormat ft = 
+      <span class="hljs-keyword">new</span> SimpleDateFormat (<span class="hljs-string">"E yyyy.MM.dd 'at' hh:mm:ss a zzz"</span>);
+
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Current Date: "</span> + ft.format(dNow));
+   }
+}</code></pre>
+
+<p>以上实例编译运行结果如下:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs css"><span class="hljs-tag">Current</span> <span class="hljs-tag">Date</span>: <span class="hljs-tag">Sun</span> 2004<span class="hljs-class">.07</span><span class="hljs-class">.18</span> <span class="hljs-tag">at</span> 04<span class="hljs-pseudo">:14</span><span class="hljs-pseudo">:09</span> <span class="hljs-tag">PM</span> <span class="hljs-tag">PDT</span></code></pre>
+
+<p><strong>DateFormat 格式化编码：</strong></p>
+
+<table class="reference"><tbody><tr><th>
+                <strong>字母</strong></th>
+            <th>
+                <strong>描述</strong></th>
+            <th>
+                <strong>示例</strong></th>
+        </tr><tr><td>
+                G</td>
+            <td>
+                纪元标记</td>
+            <td>
+                AD</td>
+        </tr><tr><td>
+                y</td>
+            <td>
+                四位年份</td>
+            <td>
+                2001</td>
+        </tr><tr><td>
+                M</td>
+            <td>
+                月份</td>
+            <td>
+                July or 07</td>
+        </tr><tr><td>
+                d</td>
+            <td>
+                一个月的日期</td>
+            <td>
+                10</td>
+        </tr><tr><td>
+                h</td>
+            <td>
+                 A.M./P.M. (1~12)格式小时</td>
+            <td>
+                12</td>
+        </tr><tr><td>
+                H</td>
+            <td>
+                一天中的小时 (0~23)</td>
+            <td>
+                22</td>
+        </tr><tr><td>
+                m</td>
+            <td>
+                分钟数</td>
+            <td>
+                30</td>
+        </tr><tr><td>
+                s</td>
+            <td>
+                秒数</td>
+            <td>
+                55</td>
+        </tr><tr><td>
+                S</td>
+            <td>
+                毫秒数</td>
+            <td>
+                234</td>
+        </tr><tr><td>
+                E</td>
+            <td>
+                星期几</td>
+            <td>
+                Tuesday</td>
+        </tr><tr><td>
+                D</td>
+            <td>
+                一年中的日子</td>
+            <td>
+                360</td>
+        </tr><tr><td>
+                F</td>
+            <td>
+                一个月中第几周的周几</td>
+            <td>
+                2 (second Wed. in July)</td>
+        </tr><tr><td>
+                w</td>
+            <td>
+                一年中第几周</td>
+            <td>
+                40</td>
+        </tr><tr><td>
+                W</td>
+            <td>
+                一个月中第几周</td>
+            <td>
+                1</td>
+        </tr><tr><td>
+                a</td>
+            <td>
+                A.M./P.M. 标记</td>
+            <td>
+                PM</td>
+        </tr><tr><td>
+                k</td>
+            <td>
+                一天中的小时(1~24)</td>
+            <td>
+                24</td>
+        </tr><tr><td>
+                K</td>
+            <td>
+                 A.M./P.M. (0~11)格式小时</td>
+            <td>
+                10</td>
+        </tr><tr><td>
+                z</td>
+            <td>
+                时区</td>
+            <td>
+                Eastern Standard Time</td>
+        </tr><tr><td>
+                ‘</td>
+            <td>
+                文字定界符</td>
+            <td>
+                Delimiter</td>
+        </tr><tr><td>
+                “</td>
+            <td>
+                单引号</td>
+            <td>
+                `</td>
+        </tr></tbody></table><p><strong>使用printf格式化日期</strong></p>
+
+<p>printf方法可以很轻松地格式化时间和日期。使用两个字母格式，它以t开头并且以下面表格中的一个字母结尾。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs">import java.util.Date;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> DateDemo {
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+     <span class="hljs-comment">// 初始化 Date 对象</span>
+     Date date = <span class="hljs-keyword">new</span> Date();
+
+     <span class="hljs-comment">// 使用toString()显示日期和时间</span>
+     <span class="hljs-comment">//Current Date/Time : Sat Dec 15 16:37:57 MST 2012</span>
+     String str = String.format(<span class="hljs-string">"Current Date/Time : %tc"</span>, date );
+     System.<span class="hljs-keyword">out</span>.printf(str);
+
+     <span class="hljs-comment">/*
+     如果你需要重复提供日期，那么利用这种方式来格式化它的每一部分就有点复杂了。因此，
+     可以利用一个格式化字符串指出要被格式化的参数的索引。索引必须紧跟在%后面，而且必须以$结束
+    */</span>
+     <span class="hljs-comment">//Due date: February 09, 2004</span>
+     System.<span class="hljs-keyword">out</span>.printf(<span class="hljs-string">"%1$s %2$tB %2$td, %2$tY"</span>, <span class="hljs-string">"Due date:"</span>, date);
+
+
+     <span class="hljs-comment">/*
+     可以使用 &lt; 标志。它表明先前被格式化的参数要被再次使用
+     */</span>
+     <span class="hljs-comment">// 显示格式化时间</span>
+     <span class="hljs-comment">//Due date: February 09, 2004</span>
+     System.<span class="hljs-keyword">out</span>.printf(<span class="hljs-string">"%s %tB %&lt;te, %&lt;tY"</span>, <span class="hljs-string">"Due date:"</span>, date);
+
+
+
+  }
+}</code></pre>
+
+<p><strong>日期和时间转换字符</strong></p>
+
+<table class="reference"><tbody><tr><td>
+                <strong>字符</strong></td>
+            <td>
+                <strong>描述</strong></td>
+            <td>
+                <strong>例子</strong></td>
+        </tr><tr><td>
+                c</td>
+            <td>
+                完整的日期和时间</td>
+            <td>
+                Mon May 04 09:51:52 CDT 2009</td>
+        </tr><tr><td>
+                F</td>
+            <td>
+                ISO 8601 格式日期</td>
+            <td>
+                2004-02-09</td>
+        </tr><tr><td>
+                D</td>
+            <td>
+                U.S. 格式日期 (月/日/年)</td>
+            <td>
+                02/09/2004</td>
+        </tr><tr><td>
+                T</td>
+            <td>
+                24小时时间</td>
+            <td>
+                18:05:19</td>
+        </tr><tr><td>
+                r</td>
+            <td>
+                12小时时间</td>
+            <td>
+                06:05:19 pm</td>
+        </tr><tr><td>
+                R</td>
+            <td>
+                24小时时间，不包含秒</td>
+            <td>
+                18:05</td>
+        </tr><tr><td>
+                Y</td>
+            <td>
+                4位年份(包含前导0)</td>
+            <td>
+                2004</td>
+        </tr><tr><td>
+                y</td>
+            <td>
+                年份后2位(包含前导0)</td>
+            <td>
+                04</td>
+        </tr><tr><td>
+                C</td>
+            <td>
+                年份前2位(包含前导0)</td>
+            <td>
+                20</td>
+        </tr><tr><td>
+                B</td>
+            <td>
+                月份全称</td>
+            <td>
+                February</td>
+        </tr><tr><td>
+                b</td>
+            <td>
+                月份简称</td>
+            <td>
+                Feb</td>
+        </tr><tr><td>
+                m</td>
+            <td>
+                2位月份(包含前导0)</td>
+            <td>
+                02</td>
+        </tr><tr><td>
+                d</td>
+            <td>
+                2位日子(包含前导0)</td>
+            <td>
+                03</td>
+        </tr><tr><td>
+                e</td>
+            <td>
+                2位日子(不包含前导0)</td>
+            <td>
+                9</td>
+        </tr><tr><td>
+                A</td>
+            <td>
+                星期全称</td>
+            <td>
+                Monday</td>
+        </tr><tr><td>
+                a</td>
+            <td>
+                星期简称</td>
+            <td>
+                Mon</td>
+        </tr><tr><td>
+                j</td>
+            <td>
+                3位年份(包含前导0)</td>
+            <td>
+                069</td>
+        </tr><tr><td>
+                H</td>
+            <td>
+                2位小时(包含前导0), 00 到 23</td>
+            <td>
+                18</td>
+        </tr><tr><td>
+                k</td>
+            <td>
+                2位小时(不包含前导0),  0 到 23</td>
+            <td>
+                18</td>
+        </tr><tr><td>
+                I</td>
+            <td>
+                2位小时(包含前导0), 01 到 12</td>
+            <td>
+                06</td>
+        </tr><tr><td>
+                l</td>
+            <td>
+                2位小时(不包含前导0),  1 到 12</td>
+            <td>
+                6</td>
+        </tr><tr><td>
+                M</td>
+            <td>
+                2位分钟(包含前导0)</td>
+            <td>
+                05</td>
+        </tr><tr><td>
+                S</td>
+            <td>
+                2位秒数(包含前导0)</td>
+            <td>
+                19</td>
+        </tr><tr><td>
+                L</td>
+            <td>
+                3位毫秒(包含前导0)</td>
+            <td>
+                047</td>
+        </tr><tr><td>
+                N</td>
+            <td>
+                9位纳秒(包含前导0)</td>
+            <td>
+                047000000</td>
+        </tr><tr><td>
+                P</td>
+            <td>
+                大写上下午标志</td>
+            <td>
+                PM</td>
+        </tr><tr><td>
+                p</td>
+            <td>
+                小写上下午标志</td>
+            <td>
+                pm</td>
+        </tr><tr><td>
+                z</td>
+            <td>
+                从GMT的RFC 822数字偏移</td>
+            <td>
+                -0800</td>
+        </tr><tr><td>
+                Z</td>
+            <td>
+                时区</td>
+            <td>
+                PST</td>
+        </tr><tr><td>
+                s</td>
+            <td>
+                自 1970-01-01 00:00:00 GMT的秒数</td>
+            <td>
+                1078884319</td>
+        </tr><tr><td>
+                Q</td>
+            <td>
+                自 1970-01-01 00:00:00 GMT的毫妙</td>
+            <td>
+                1078884319047</td>
+        </tr></tbody></table><p><strong>解析字符串为时间</strong> <br/>
+SimpleDateFormat 类有一些附加的方法，特别是parse()，它试图<strong>按照给定的SimpleDateFormat 对象的格式化存储</strong>来解析字符串。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs">import java.util.*;
+import java.text.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> DateDemo {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+      SimpleDateFormat ft = <span class="hljs-keyword">new</span> SimpleDateFormat (<span class="hljs-string">"yyyy-MM-dd"</span>); 
+
+      String input = args.length == <span class="hljs-number">0</span> ? <span class="hljs-string">"1818-11-11"</span> : args[<span class="hljs-number">0</span>]; 
+
+      System.<span class="hljs-keyword">out</span>.print(input + <span class="hljs-string">" Parses as "</span>); 
+
+      Date t; 
+
+      <span class="hljs-keyword">try</span> { 
+          t = ft.parse(input); 
+          System.<span class="hljs-keyword">out</span>.println(t); 
+      } <span class="hljs-keyword">catch</span> (ParseException e) { 
+          System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Unparseable using "</span> + ft); 
+      }
+   }
+}</code></pre>
+
+<p>以上实例编译运行结果如下:</p>
+
+<pre class="prettyprint"><code class=" hljs css">$ <span class="hljs-tag">java</span> <span class="hljs-tag">DateDemo</span>
+1818<span class="hljs-tag">-11-11</span> <span class="hljs-tag">Parses</span> <span class="hljs-tag">as</span> <span class="hljs-tag">Wed</span> <span class="hljs-tag">Nov</span> 11 00<span class="hljs-pseudo">:00</span><span class="hljs-pseudo">:00</span> <span class="hljs-tag">GMT</span> 1818
+$ <span class="hljs-tag">java</span> <span class="hljs-tag">DateDemo</span> 2007<span class="hljs-tag">-12-01</span>
+2007<span class="hljs-tag">-12-01</span> <span class="hljs-tag">Parses</span> <span class="hljs-tag">as</span> <span class="hljs-tag">Sat</span> <span class="hljs-tag">Dec</span> 01 00<span class="hljs-pseudo">:00</span><span class="hljs-pseudo">:00</span> <span class="hljs-tag">GMT</span> 2007</code></pre>
+
+<p><strong>Java 休眠(sleep)</strong> <br/>
+你可以让程序休眠一毫秒的时间或者到您的计算机的寿命长的任意段时间。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs">import java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> SleepDemo {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+      <span class="hljs-keyword">try</span> { 
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">new</span> Date( ) + <span class="hljs-string">"\n"</span>); 
+         Thread.sleep(<span class="hljs-number">1000</span>*<span class="hljs-number">3</span>);   <span class="hljs-comment">// 休眠3秒</span>
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">new</span> Date( ) + <span class="hljs-string">"\n"</span>); 
+      } <span class="hljs-keyword">catch</span> (Exception e) { 
+          System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Got an exception!"</span>); 
+      }
+   }
+}</code></pre>
+
+<p><strong>测量时间</strong></p>
+
+<p>下面的一个例子表明如何测量时间间隔（以毫秒为单位）：</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs">import java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> DiffDemo {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+      <span class="hljs-keyword">try</span> {
+         <span class="hljs-keyword">long</span> start = System.currentTimeMillis( );
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">new</span> Date( ) + <span class="hljs-string">"\n"</span>);
+         Thread.sleep(<span class="hljs-number">5</span>*<span class="hljs-number">60</span>*<span class="hljs-number">10</span>);
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-keyword">new</span> Date( ) + <span class="hljs-string">"\n"</span>);
+         <span class="hljs-keyword">long</span> end = System.currentTimeMillis( );
+         <span class="hljs-keyword">long</span> diff = end - start;
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Difference is : "</span> + diff);
+      } <span class="hljs-keyword">catch</span> (Exception e) {
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Got an exception!"</span>);
+      }
+   }
+}</code></pre>
+
+<p>以上实例编译运行结果如下:</p>
+
+<pre class="prettyprint"><code class=" hljs css"><span class="hljs-tag">Fri</span> <span class="hljs-tag">Jan</span> 08 09<span class="hljs-pseudo">:48</span><span class="hljs-pseudo">:47</span> <span class="hljs-tag">CST</span> 2016
+
+<span class="hljs-tag">Fri</span> <span class="hljs-tag">Jan</span> 08 09<span class="hljs-pseudo">:48</span><span class="hljs-pseudo">:50</span> <span class="hljs-tag">CST</span> 2016
+
+<span class="hljs-tag">Difference</span> <span class="hljs-tag">is</span> : 3019</code></pre>
+
+<p><font color="red"><strong>Calendar类</strong></font></p>
+
+<p>Calendar类的功能要比Date类强大很多，而且在实现方式上也比Date类要复杂一些。</p>
+
+<p>创建一个代表系统当前日期的Calendar对象</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">Calendar c </span>=<span class="hljs-string"> Calendar.getInstance();//默认是当前日期</span></code></pre>
+
+<p>创建一个指定日期的Calendar对象 <br/>
+使用Calendar类代表特定的时间，需要首先创建一个Calendar的对象，然后再设定该对象中的年月日参数来完成。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">//创建一个代表2009年6月12日的Calendar对象</span>
+Calendar c1 = Calendar.getInstance();
+c1.<span class="hljs-keyword">set</span>(<span class="hljs-number">2009</span>, <span class="hljs-number">6</span> - <span class="hljs-number">1</span>, <span class="hljs-number">12</span>);</code></pre>
+
+<p>Calendar类对象字段类型 <br/>
+Calendar类中用一下这些常量表示不同的意义，jdk内的很多类其实都是采用的这种思想</p>
+
+<table class="reference"><tbody><tr><th>常量</th><th>描述</th></tr><tr><td>Calendar.YEAR</td><td>年份</td></tr><tr><td>Calendar.MONTH</td><td>月份</td></tr><tr><td>Calendar.DATE</td><td>日期</td></tr><tr><td>Calendar.DAY_OF_MONTH</td><td>日期，和上面的字段意义完全相同</td></tr><tr><td>Calendar.HOUR</td><td>12小时制的小时</td></tr><tr><td>Calendar.HOUR_OF_DAY</td><td>24小时制的小时</td></tr><tr><td>Calendar.MINUTE</td><td>分钟</td></tr><tr><td>Calendar.SECOND</td><td>秒</td></tr><tr><td>Calendar.DAY_OF_WEEK</td><td>星期几</td>
+ </tr></tbody></table><p><strong>Calendar类对象信息的设置</strong></p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">Set</span>设置
+如：
+Calendar c1 = Calendar.getInstance();</span>
+调用：
+public final void <span class="hljs-operator"><span class="hljs-keyword">set</span>(<span class="hljs-keyword">int</span> <span class="hljs-keyword">year</span>,<span class="hljs-keyword">int</span> <span class="hljs-keyword">month</span>,<span class="hljs-keyword">int</span> <span class="hljs-keyword">date</span>)
+c1.<span class="hljs-keyword">set</span>(<span class="hljs-number">2009</span>, <span class="hljs-number">6</span> - <span class="hljs-number">1</span>, <span class="hljs-number">12</span>);</span>//把Calendar对象c1的年月日分别设这为：2009、6、12
+利用字段类型设置
+如果只设定某个字段，例如日期的值，则可以使用如下<span class="hljs-operator"><span class="hljs-keyword">set</span>方法：
+<span class="hljs-keyword">public</span> void <span class="hljs-keyword">set</span>(<span class="hljs-keyword">int</span> field,<span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span>)
+把 c1对象代表的日期设置为<span class="hljs-number">10</span>号，其它所有的数值会被重新计算
+c1.<span class="hljs-keyword">set</span>(Calendar.<span class="hljs-keyword">DATE</span>,<span class="hljs-number">10</span>);</span>
+把c1对象代表的年份设置为2008年，其他的所有数值会被重新计算
+c1.<span class="hljs-operator"><span class="hljs-keyword">set</span>(Calendar.<span class="hljs-keyword">YEAR</span>,<span class="hljs-number">2008</span>);</span>
+其他字段属性<span class="hljs-operator"><span class="hljs-keyword">set</span>的意义以此类推
+<span class="hljs-keyword">Add</span>设置
+Calendar c1 = Calendar.getInstance();</span>
+把c1对象的日期加上10，也就是c1也就表示为10天后的日期，其它所有的数值会被重新计算
+c1.add(Calendar.DATE, 10);
+把c1对象的日期减去10，也就是c1也就表示为10天前的日期，其它所有的数值会被重新计算
+c1.add(Calendar.DATE, -10);
+其他字段属性的add的意义以此类推
+</code></pre>
+
+<p><strong>Calendar类对象信息的获得</strong></p>
+
+<pre class="prettyprint"><code class=" hljs cs">Calendar c1 = Calendar.getInstance();
+<span class="hljs-comment">// 获得年份</span>
+<span class="hljs-keyword">int</span> year = c1.<span class="hljs-keyword">get</span>(Calendar.YEAR);
+<span class="hljs-comment">// 获得月份</span>
+<span class="hljs-keyword">int</span> month = c1.<span class="hljs-keyword">get</span>(Calendar.MONTH) + <span class="hljs-number">1</span>;
+<span class="hljs-comment">// 获得日期</span>
+<span class="hljs-keyword">int</span> date = c1.<span class="hljs-keyword">get</span>(Calendar.DATE);
+<span class="hljs-comment">// 获得小时</span>
+<span class="hljs-keyword">int</span> hour = c1.<span class="hljs-keyword">get</span>(Calendar.HOUR_OF_DAY);
+<span class="hljs-comment">// 获得分钟</span>
+<span class="hljs-keyword">int</span> minute = c1.<span class="hljs-keyword">get</span>(Calendar.MINUTE);
+<span class="hljs-comment">// 获得秒</span>
+<span class="hljs-keyword">int</span> second = c1.<span class="hljs-keyword">get</span>(Calendar.SECOND);
+<span class="hljs-comment">// 获得星期几（注意（这个与Date类是不同的）：1代表星期日、2代表星期1、3代表星期二，以此类推）</span>
+<span class="hljs-keyword">int</span> day = c1.<span class="hljs-keyword">get</span>(Calendar.DAY_OF_WEEK);</code></pre>
+
+<p><font color="red"><strong>GregorianCalendar类</strong></font></p>
+
+<p>Calendar类实现了公历日历，GregorianCalendar是Calendar类的一个具体实现。</p>
+
+<p>Calendar 的getInstance（）方法返回一个默认用当前的语言环境和时区初始化的GregorianCalendar对象。GregorianCalendar定义了两个字段：AD和BC。这些代表公历定义的两个时代。</p>
+
+<p>下面列出GregorianCalendar对象的几个构造方法：</p>
+
+<table class="reference"><tbody><tr><td>
+                <strong>序号</strong></td>
+            <td>
+                <strong>构造函数和说明</strong></td>
+        </tr><tr><td>
+                1</td>
+            <td>
+                <strong>GregorianCalendar() </strong><br/>
+                在具有默认语言环境的默认时区内使用当前时间构造一个默认的 GregorianCalendar。</td>
+        </tr><tr><td>
+                2</td>
+            <td>
+                <strong>GregorianCalendar(int year, int month, int date) </strong><br/>
+                在具有默认语言环境的默认时区内构造一个带有给定日期设置的 GregorianCalendar</td>
+        </tr><tr><td>
+                3</td>
+            <td>
+                <strong>GregorianCalendar(int year, int month, int date, int hour, int minute) </strong><br/>
+                为具有默认语言环境的默认时区构造一个具有给定日期和时间设置的 GregorianCalendar。</td>
+        </tr><tr><td>
+                4</td>
+            <td>
+                <strong>GregorianCalendar(int year, int month, int date, int hour, int minute, int second) </strong><br/>
+                  为具有默认语言环境的默认时区构造一个具有给定日期和时间设置的 GregorianCalendar。</td>
+        </tr><tr><td>
+                5</td>
+            <td>
+                <strong>GregorianCalendar(Locale aLocale) </strong><br/>
+                在具有给定语言环境的默认时区内构造一个基于当前时间的 GregorianCalendar。</td>
+        </tr><tr><td>
+                6</td>
+            <td>
+                <strong>GregorianCalendar(TimeZone zone) </strong><br/>
+                在具有默认语言环境的给定时区内构造一个基于当前时间的 GregorianCalendar。</td>
+        </tr><tr><td>
+                7</td>
+            <td>
+                <strong>GregorianCalendar(TimeZone zone, Locale aLocale) </strong><br/>
+                 在具有给定语言环境的给定时区内构造一个基于当前时间的 GregorianCalendar。</td>
+        </tr></tbody></table><p>这里是GregorianCalendar 类提供的一些有用的方法列表：</p>
+
+<table class="reference"><tbody><tr><td>
+                <strong>序号</strong></td>
+            <td>
+                <strong>方法和说明</strong></td>
+        </tr><tr><td>
+                1</td>
+            <td>
+                <strong>void add(int field, int amount) </strong><br/>
+                根据日历规则，将指定的（有符号的）时间量添加到给定的日历字段中。</td>
+        </tr><tr><td>
+                2</td>
+            <td>
+                <strong>protected void computeFields() </strong><br/>
+                转换UTC毫秒值为时间域值</td>
+        </tr><tr><td>
+                3</td>
+            <td>
+                <strong>protected void computeTime() </strong><br/>
+                覆盖Calendar ，转换时间域值为UTC毫秒值</td>
+        </tr><tr><td>
+                4</td>
+            <td>
+                <strong>boolean equals(Object obj) </strong><br/>
+                比较此 GregorianCalendar 与指定的 Object。</td>
+        </tr><tr><td>
+                5</td>
+            <td>
+                <strong>int get(int field) </strong><br/>
+                获取指定字段的时间值</td>
+        </tr><tr><td>
+                6</td>
+            <td>
+                <strong>int getActualMaximum(int field) </strong><br/>
+                返回当前日期，给定字段的最大值</td>
+        </tr><tr><td>
+                7</td>
+            <td>
+                <strong>int getActualMinimum(int field) </strong><br/>
+                返回当前日期，给定字段的最小值</td>
+        </tr><tr><td>
+                8</td>
+            <td>
+                <strong>int getGreatestMinimum(int field) </strong><br/>
+                 返回此 GregorianCalendar 实例给定日历字段的最高的最小值。</td>
+        </tr><tr><td>
+                9</td>
+            <td>
+                <strong>Date getGregorianChange() </strong><br/>
+                获得格里高利历的更改日期。</td>
+        </tr><tr><td>
+                10</td>
+            <td>
+                <strong>int getLeastMaximum(int field) </strong><br/>
+                返回此 GregorianCalendar 实例给定日历字段的最低的最大值</td>
+        </tr><tr><td>
+                11</td>
+            <td>
+                <strong>int getMaximum(int field) </strong><br/>
+                返回此 GregorianCalendar 实例的给定日历字段的最大值。</td>
+        </tr><tr><td>
+                12</td>
+            <td>
+                <strong>Date getTime()</strong><br/>
+                获取日历当前时间。</td>
+        </tr><tr><td>
+                13</td>
+            <td>
+                <strong>long getTimeInMillis() </strong><br/>
+                获取用长整型表示的日历的当前时间</td>
+        </tr><tr><td>
+                14</td>
+            <td>
+                <strong>TimeZone getTimeZone() </strong><br/>
+                获取时区。</td>
+        </tr><tr><td>
+                15</td>
+            <td>
+                <strong>int getMinimum(int field) </strong><br/>
+                返回给定字段的最小值。</td>
+        </tr><tr><td>
+                16</td>
+            <td>
+                <strong>int hashCode() </strong><br/>
+                重写hashCode.</td>
+        </tr><tr><td>
+                17</td>
+            <td>
+                <strong>boolean isLeapYear(int year)</strong><br/>
+                确定给定的年份是否为闰年。</td>
+        </tr><tr><td>
+                18</td>
+            <td>
+                <strong>void roll(int field, boolean up) </strong><br/>
+                在给定的时间字段上添加或减去（上/下）单个时间单元，不更改更大的字段。</td>
+        </tr><tr><td>
+                19</td>
+            <td>
+                <strong>void set(int field, int value) </strong><br/>
+                用给定的值设置时间字段。</td>
+        </tr><tr><td>
+                20</td>
+            <td>
+                <strong>void set(int year, int month, int date) </strong><br/>
+                设置年、月、日的值。</td>
+        </tr><tr><td>
+                21</td>
+            <td>
+                <strong>void set(int year, int month, int date, int hour, int minute) </strong><br/>
+                设置年、月、日、小时、分钟的值。</td>
+        </tr><tr><td>
+                22</td>
+            <td>
+                <strong>void set(int year, int month, int date, int hour, int minute, int second) </strong><br/>
+                设置年、月、日、小时、分钟、秒的值。</td>
+        </tr><tr><td>
+                23</td>
+            <td>
+                <strong>void setGregorianChange(Date date) </strong><br/>
+                设置 GregorianCalendar 的更改日期。</td>
+        </tr><tr><td>
+                24</td>
+            <td>
+                <strong>void setTime(Date date) </strong><br/>
+                用给定的日期设置Calendar的当前时间。</td>
+        </tr><tr><td>
+                25</td>
+            <td>
+                <strong>void setTimeInMillis(long millis) </strong><br/>
+                用给定的long型毫秒数设置Calendar的当前时间。</td>
+        </tr><tr><td>
+                26</td>
+            <td>
+                <strong>void setTimeZone(TimeZone value) </strong><br/>
+                用给定时区值设置当前时区。</td>
+        </tr><tr><td>
+                27</td>
+            <td>
+                <strong>String toString() </strong><br/>
+                返回代表日历的字符串。</td>
+        </tr></tbody></table><pre class="prettyprint"><code class=" hljs cs">import java.util.*;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> GregorianCalendarDemo {
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String args[]) {
+      String months[] = {
+      <span class="hljs-string">"Jan"</span>, <span class="hljs-string">"Feb"</span>, <span class="hljs-string">"Mar"</span>, <span class="hljs-string">"Apr"</span>,
+      <span class="hljs-string">"May"</span>, <span class="hljs-string">"Jun"</span>, <span class="hljs-string">"Jul"</span>, <span class="hljs-string">"Aug"</span>,
+      <span class="hljs-string">"Sep"</span>, <span class="hljs-string">"Oct"</span>, <span class="hljs-string">"Nov"</span>, <span class="hljs-string">"Dec"</span>};
+
+      <span class="hljs-keyword">int</span> year;
+      <span class="hljs-comment">// 初始化 Gregorian 日历</span>
+      <span class="hljs-comment">// 使用当前时间和日期</span>
+      <span class="hljs-comment">// 默认为本地时间和时区</span>
+      GregorianCalendar gcalendar = <span class="hljs-keyword">new</span> GregorianCalendar();
+      <span class="hljs-comment">// 显示当前时间和日期的信息</span>
+      System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"Date: "</span>);
+      System.<span class="hljs-keyword">out</span>.print(months[gcalendar.<span class="hljs-keyword">get</span>(Calendar.MONTH)]);
+      System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">" "</span> + gcalendar.<span class="hljs-keyword">get</span>(Calendar.DATE) + <span class="hljs-string">" "</span>);
+      System.<span class="hljs-keyword">out</span>.println(year = gcalendar.<span class="hljs-keyword">get</span>(Calendar.YEAR));
+      System.<span class="hljs-keyword">out</span>.print(<span class="hljs-string">"Time: "</span>);
+      System.<span class="hljs-keyword">out</span>.print(gcalendar.<span class="hljs-keyword">get</span>(Calendar.HOUR) + <span class="hljs-string">":"</span>);
+      System.<span class="hljs-keyword">out</span>.print(gcalendar.<span class="hljs-keyword">get</span>(Calendar.MINUTE) + <span class="hljs-string">":"</span>);
+      System.<span class="hljs-keyword">out</span>.println(gcalendar.<span class="hljs-keyword">get</span>(Calendar.SECOND));
+
+      <span class="hljs-comment">// 测试当前年份是否为闰年</span>
+      <span class="hljs-keyword">if</span>(gcalendar.isLeapYear(year)) {
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"当前年份是闰年"</span>);
+      }
+      <span class="hljs-keyword">else</span> {
+         System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"当前年份不是闰年"</span>);
+      }
+   }
+}
+</code></pre>
+
+<p>以上实例编译运行结果如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs css"><span class="hljs-tag">Date</span>: <span class="hljs-tag">Apr</span> 22 2009
+<span class="hljs-tag">Time</span>: 11<span class="hljs-pseudo">:25</span><span class="hljs-pseudo">:27</span>
+当前年份不是闰年</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

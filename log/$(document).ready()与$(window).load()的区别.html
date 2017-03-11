@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>1.执行时间不同：</p>
+
+<p>从字面的意思上理解，<code>$(document).ready()</code>就是文档准备好了。也就是浏览器已经解析完整个html文档，dom树已经建立起来了，这时就可以通过class属性或者id属性等等对dom进行操作等。而<code>$(window).load()</code>就是整个页面已经加载完毕。与前者的区别是dom树虽然已经建立起来了，但页面不一定加载完毕，如一些大的图片等，加载完成就需要一定的时间；但是页面加载完毕后，dom肯定也就建立起来了；但是有些文字或者图片链接等需要在文档加载完毕前，dom树建立后就进行的，这时就要用到<code>$(document).ready()</code>了。</p>
+
+<p>2.可以被执行的次数不同：</p>
+
+<p><code>$(document).ready()</code>可以在JavaScript代码中出现多次，并且里面的函数或者代码都可以得到执行；而<code>$(window).load()</code>只能在JavaScript代码中出现一次，如果有多个<code>$(window).load()</code>，那么只有最后一个<code>$(window).load()</code>里面的函数或者代码才会执行，之前的<code>$(window).load()</code>都将被覆盖;</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    $(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(<span class="hljs-string">"test1"</span>);<span class="hljs-comment">//这段代码会被执行</span>
+    });
+    $(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(<span class="hljs-string">"test2"</span>);<span class="hljs-comment">//这段代码会被执行</span>
+    });
+    $(window).load(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(<span class="hljs-string">"test1"</span>);<span class="hljs-comment">//这段代码不会被执行</span>
+    });
+    $(window).load(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(<span class="hljs-string">"test2"</span>);<span class="hljs-comment">//这段代码将被执行</span>
+    });
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p>3.执行的效率不同： <br/>
+如要在dom的元素节点中添加onclick属性节点，这时用<code>$(document).ready()</code>就要比用<code>$(window).load()</code>的效率高；但是在某些时候还必须得用<code>$(window).load()</code>才行，如之前写的app下载，如果要关闭这个下载框，则必须要在整个下载框加载完毕后，才能点击关闭图标，对app下载框执行隐藏。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    $(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        $(<span class="hljs-string">".the_body a"</span>).attr(<span class="hljs-string">"onclick"</span>,<span class="hljs-string">"alert('test')"</span>);
+    });
+    $(window).load(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        $(<span class="hljs-string">".close_btn"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            $(<span class="hljs-string">"#app_down"</span>).hide();
+        });
+    });
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p>文章转自：<a href="http://www.wufangbo.com/document-ready-window-load/">http://www.wufangbo.com/document-ready-window-load/</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

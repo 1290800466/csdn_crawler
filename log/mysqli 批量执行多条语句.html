@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<p>可以一次性的执行多个操作或取回多个结果集。</p>&#13;
+<p>实例：</p>&#13;
+<pre code_snippet_id="1654576" snippet_file_name="blog_20160420_1_3281108" name="code" class="php">&lt;?php
+$mysqli = new mysqli("localhost", "root", "111111", "test");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+/* multi_query执行一个或多个针对数据库的查询。多个查询用分号进行分隔。 */
+$query  = "SELECT * from test where id = 1;";
+$query .= "SELECT name FROM test";
+
+/* 批量执行查询 ，如果第一个查询失败则返回 FALSE。*/
+if ($mysqli-&gt;multi_query($query)) {
+    do {
+        /* 获取第一个结果集 */
+        if ($result = $mysqli-&gt;store_result()) {
+            while ($row = $result-&gt;fetch_row()) {
+                printf("%s\n", $row[0]);
+            }
+            $result-&gt;free();
+        }
+        /* 检查一个多查询是否有更多的结果 */
+        if ($mysqli-&gt;more_results()) {
+            printf("-----------------\n");
+        }
+        //准备下一个结果集
+    } while ($mysqli-&gt;next_result());
+}
+
+/* close connection */
+$mysqli-&gt;close();
+?&gt;</pre><br/></div>  </body>
+            </html>

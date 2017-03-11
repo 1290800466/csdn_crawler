@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<p><span style="font-size:18px"><span style="font-family:SimSun"><span style="white-space:pre"/>当用户禁用cookie后，服务器每次 session_start() 都会 创建一个全新的seesion文件,后果就是无法让多个页面php，去共享同一份session文件.解决该问题要从cookie sessoin 和http协议入手解决解决方案如下：<br/></span><span style="font-family:SimSun"><strong><span style="color:#ff0000">方案一：在每个超链接上添加一个PHPSESSID=sesssionId;<br/></span></strong></span><span style="font-family:SimSun">同时在每个页面加入:<br/></span><span style="font-family:SimSun">if(isset($_GET['PHPSESSID'])){<br/></span><span style="font-family:SimSun">    //设置sesssion_id<br/></span><span style="font-family:SimSun">    session_id($_GET['PHPSESSID']);<br/></span><span style="font-family:SimSun">}<br/></span><span style="font-family:SimSun">session_start();<br/></span><span style="font-family:SimSun">//下面的方案二、三也需要添加上面if语句<br/></span><span style="font-family:SimSun">$id=session_id();<br/></span><span style="font-family:SimSun">echo "&lt;a href='ShopProcess.php?bookid=sn003&amp;bookname=西游记&amp;PHPSESSID=$id'&gt;西游记&lt;/a&gt;&lt;br/&gt;";<br/></span><span style="font-family:SimSun"><strong><span style="color:#ff0000">方案二：使用常量SID<br/></span></strong></span><span style="font-family:SimSun">常量SID相当于 “PHPSESSID=xxxxxxxxxxxxxxxxxxxxxxxxxxx”<br/></span><span style="font-family:SimSun">使用方法如下:<br/></span><span style="font-family:SimSun">在超链接 action  header(“Location: xx”) 可以直接拼接 SID常量即可<br/></span><span style="font-family:SimSun">echo "&lt;a href='ShopProcess.php?bookid=sn003&amp;bookname=西游记&amp;".SID."'&gt;西游记&lt;/a&gt;&lt;br/&gt;";<br/></span><span style="font-family:SimSun"><strong style="color:rgb(255,0,0)">方案三：可以配置 php.ini 文件,启用session.use_trans_sid 指定是否启用透明 SID 支持<br/></strong></span><span style="font-family:SimSun">即可以这样设置<br/></span><span style="font-family:SimSun">ssssion. use_trans_sid = 1 ，这样重启apache即可生效.<br/></span><span style="font-family:SimSun">设为1后，在href、action、header会自动加 SID ，但是js的跳转不会加</span></span></p>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+<blockquote style="margin:0 0 0 40px; border:none; padding:0px"/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

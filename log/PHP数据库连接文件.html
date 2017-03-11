@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>对于PHP程序而言，要经常访问某数据库时，可以将与该数据库的连接过程写成一个PHP文件，每次需要连接数据库时直接调用该文件即可。、</span></p>&#13;
+<p><span style="font-size:18px">例：</span></p>&#13;
+<p><span style="font-size:18px">conn.php:</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+	//连接数据库服务器
+	//此处加@是为了不显示错误信息
+     $conn=@mysql_connect("localhost","root","111111") or die("数据库服务器连接错误".mysql_error()); 
+	//选择要访问的数据库
+     mysql_select_db("design",$conn) or die("数据库访问错误".mysql_error());
+	 //设置数据库操作编码格式
+     mysql_query("set names utf8");  
+?&gt;
+&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+在别的文件中，每次连接数据库时时，只需要在文件中调用 conn.php 文件即可。</span>&#13;
+<p><span style="font-size:18px">例：</span></p>&#13;
+<p><span style="font-size:18px">admin_add.php</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+	include("conn.php");
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+ </span>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>swoole下载地址  ：  <a href="http://www.swoole.com/">http://www.swoole.com/</a></p>
+
+<p>安装教程：</p>
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-comment">//解压</span>
+tar <span class="hljs-attribute">-zxvf</span> swoole<span class="hljs-attribute">-src</span><span class="hljs-subst">-</span><span class="hljs-number">1.9</span><span class="hljs-number">.0</span><span class="hljs-attribute">-stable</span><span class="hljs-built_in">.</span>tar<span class="hljs-built_in">.</span>gz
+
+cd swoole<span class="hljs-attribute">-src</span><span class="hljs-subst">-</span><span class="hljs-number">1.9</span><span class="hljs-number">.0</span><span class="hljs-attribute">-stable</span>
+
+/usr/<span class="hljs-built_in">local</span>/php/bin/phpize  <span class="hljs-built_in">.</span>/configure <span class="hljs-subst">--</span><span class="hljs-keyword">with</span><span class="hljs-attribute">-php</span><span class="hljs-attribute">-config</span><span class="hljs-subst">=</span>/usr/<span class="hljs-built_in">local</span>/php/bin/php<span class="hljs-attribute">-config</span>
+
+<span class="hljs-built_in">.</span>/configure <span class="hljs-subst">--</span>enable<span class="hljs-attribute">-async</span><span class="hljs-attribute">-mysql</span>  <span class="hljs-subst">--</span><span class="hljs-keyword">with</span><span class="hljs-attribute">-php</span><span class="hljs-attribute">-config</span><span class="hljs-subst">=</span>/usr/<span class="hljs-built_in">local</span>/php/bin/php<span class="hljs-attribute">-config</span>
+
+make
+
+make install</code></pre>
+
+<p>编辑php.ini文件：</p>
+
+<pre class="prettyprint"><code class=" hljs lasso">vim /usr/<span class="hljs-built_in">local</span>/php/etc/php<span class="hljs-built_in">.</span>ini
+
+extension<span class="hljs-subst">=</span>swoole<span class="hljs-built_in">.</span>so
+
+<span class="hljs-comment">//查看扩展是否存在</span>
+php <span class="hljs-attribute">-m</span> <span class="hljs-subst">|</span> grep swoole</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

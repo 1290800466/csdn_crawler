@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;?php 
+header("Content-type: text/html; charset=utf-8");
+//PHP数字金额转大小格式
+function a($a){
+    $da_num=array('零','一','二','三','四','五','六','七','八','九');
+    return $da_num[$a];
+}
+function daxie($num){
+    $ren=null;
+    $len_num = strlen($num);
+    if(!is_numeric($num) || $num &lt; 0){
+        echo "输入错误！";
+    }else{
+        for($i=0;$i&lt;$len_num;$i++){
+            //substr() 函数返回字符串的一部分。
+            $ren.= a(substr($num,$i,1));
+        }
+        echo $ren;
+    }
+
+}
+daxie('0123456789');
+echo "&lt;br&gt;";
+?&gt;</pre><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

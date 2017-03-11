@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>Laravel 的所有配置文件都存放在 config 目录下</p>
+
+<p><strong>1、访问配置值</strong> <br/>
+获取配置值 ： 可以使用全局辅助函数 config 在应用的任意位置访问配置值，该配置值可以文件名+“.”+配置项的方式进行访问，当配置项没有被配置的时候返回默认值</p>
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-variable">$value</span> = config(<span class="hljs-string">'app.timezone'</span>);</code></pre>
+
+<p>设置配置值 ： 如果要在运行时设置配置值，传递数组参数到 config 方法即可：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">config([<span class="hljs-string">'app.timezone'</span> =&gt; <span class="hljs-string">'America/Chicago'</span>]);</code></pre>
+
+<p><strong>2、环境配置</strong> <br/>
+新安装的 Laravel 中，根目录下有一个.env.example 文件，如果 Laravel 是通过 Composer 安装的，那么该文件已经被重命名为 .env，否则的话你要自己手动重命名该文件。</p>
+
+<p>获取环境变量配置值 :  <br/>
+在应用每次接受请求时，.env 中列出的所有配置及其值都会被载入到 PHP 超全局变量 $_ENV 中，然后你就可以在应用中通过辅助函数 env 来获取这些配置值。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-variable">$debug</span>  =  env(<span class="hljs-string">'APP_DEBUG'</span>, <span class="hljs-literal">false</span>);</code></pre>
+
+<p>传递到 env 函数的第二个参数是默认值，如果环境变量没有被配置将会是个该默认值。</p>
+
+<p><strong>注意：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">不要把 <span class="hljs-preprocessor">.env</span> 文件提交到源码控制（svn 或 git 等）中，因为每个使用你的应用的开发者/服务器可能要求不同的环境配置。
+如果你是在一个团队中进行开发，你需要将 <span class="hljs-preprocessor">.env</span><span class="hljs-preprocessor">.example</span> 文件随你的应用一起提交到源码控制中：将一些配置值以占位符的方式放置在 <span class="hljs-preprocessor">.env</span><span class="hljs-preprocessor">.example</span> 文件中，这样其他开发者就会很清楚运行你的应用需要配置哪些环境变量。
+</code></pre>
+
+<p>判断当前应用环境：</p>
+
+<p>当前应用环境由 .env 文件中的 APP_ENV 变量决定，你可以通过 App 门面 的 environment 方法来访问其值：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs rsl">$<span class="hljs-built_in">environment</span> = App::<span class="hljs-built_in">environment</span>();</code></pre>
+
+<p>你也可以向 environment 方法中传递参数来判断当前环境是否匹配给定值，如果需要的话你甚至可以传递多个值。如果当前环境与给定值匹配，该方法返回 true：</p>
+
+<pre class="prettyprint"><code class=" hljs rsl"><span class="hljs-keyword">if</span> (App::<span class="hljs-built_in">environment</span>(<span class="hljs-string">'local'</span>)) {
+    <span class="hljs-comment">// The environment is local</span>
+}
+
+<span class="hljs-keyword">if</span> (App::<span class="hljs-built_in">environment</span>(<span class="hljs-string">'local'</span>, <span class="hljs-string">'staging'</span>)) {
+    <span class="hljs-comment">// The environment is either local OR staging...</span>
+}
+应用实例也可以通过辅助函数 app 来访问：
+
+$<span class="hljs-built_in">environment</span> = app()-&gt;<span class="hljs-built_in">environment</span>();</code></pre>
+
+<p><strong>3、配置缓存</strong> <br/>
+为了给应用加速，你可以使用 Artisan 命令 config:cache 将所有配置文件的配置缓存到单个文件里，这将会将所有配置选项合并到单个文件从而可以被框架快速加载。 <br/>
+应用一旦上线，就要运行一次 php artisan config:cache，但是在本地开发时，没必要经常运行该命令，因为配置值经常需要改变。</p>
+
+<p><strong>4、维护模式</strong> <br/>
+当你的应用处于维护模式时，所有对应用的请求都会返回同一个自定义视图。这一机制在对应用进行升级或者维护时，使得“关闭”站点变得轻而易举。对维护模式的判断代码位于应用默认的中间件栈中，如果应用处于维护模式，则状态码为 503 的  MaintenanceModeException 将会被抛出。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">要开启维护模式，只需执行 Artisan 命令 down 即可：
+php artisan down
+
+要关闭维护模式，对应的 Artisan 命令是 up：
+php artisan up</code></pre>
+
+<p>维护模式响应模板 <br/>
+默认的维护模式响应视图模板是 resources/views/errors/503.blade.php <br/>
+维护模式 &amp; 队列 <br/>
+当你的站点处于维护模式中时，所有的队列任务都不会执行；当应用退出维护模式这些任务才会被继续正常处理。 <br/>
+维护模式的替代方案 <br/>
+由于维护模式命令的执行需要几秒时间，你可以考虑使用 Envoyer 实现 0 秒下线作为替代方案。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

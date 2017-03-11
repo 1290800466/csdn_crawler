@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>思路：  </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">while</span> 循环，若当前没有数据要操作可以休眠；
+crontab 脚本每隔固定时间段执行该脚本，执行时先检测是否已在执行，若无 执行，有则 跳过。
+nohup  后台执行
+<span class="hljs-keyword">flock</span> -xn  加锁</code></pre>
+
+<p>实例： <br/><strong>要执行代码：index.php </strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+set_time_limit(<span class="hljs-number">0</span>);
+<span class="hljs-comment">//死循环</span>
+<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>) {
+    <span class="hljs-variable">$message</span> = <span class="hljs-string">'1111111'</span> . <span class="hljs-string">"\n"</span>;
+    error_log(<span class="hljs-variable">$message</span>);
+    sleep(<span class="hljs-number">5</span>);
+}
+</span></code></pre>
+
+<pre class="prettyprint"><code class="language-shell hljs markdown"><span class="hljs-header">#/tmp/lock/test1.lock 为当前进程要锁定的文件，不同的进程配置不同的锁文件，该文件会自动创建</span>
+<span class="hljs-bullet">* </span><span class="hljs-bullet">* *</span> <span class="hljs-bullet">* *</span> flock -xn /tmp/lock/test1.lock -c nohup php index.php &gt;&gt; /php/test.log 2&gt;&amp;1 &amp;</code></pre>
+
+<p>在写好的php脚本。为防止守护进程内存溢出，建议定期检测内存占用。 <br/>
+将以下代码放到业务脚本中：</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-keyword">if</span>(memory_get_usage()&gt;<span class="hljs-number">100</span>*<span class="hljs-number">1024</span>*<span class="hljs-number">1024</span>){
+    <span class="hljs-keyword">exit</span>(<span class="hljs-string">'内存溢出'</span>);<span class="hljs-comment">//大于100M内存退出程序，防止内存泄漏被系统杀死导致任务终端</span>
+}</code></pre>
+
+<p><strong>注意：</strong> <br/>
+nohup 任务查看与关闭方法： <br/>
+关闭：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs 1c"><span class="hljs-comment">//方法一：</span>
+ps -e <span class="hljs-string">| grep commend</span>
+kill -<span class="hljs-number">9</span> pid
+<span class="hljs-comment">//方法二：</span>
+fg %n   <span class="hljs-comment">//n为jobs命令查看的进程号</span></code></pre>
+
+<p>查看：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-comment">//查看后台进程</span>
+jobs    </code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div class="classsynopsisinfo classsynopsisinfo_comment" style="margin-left:1.5rem; margin-top:1.5rem; color:rgb(255,136,0); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<p/>&#13;
+<div><span style="background-color:rgb(240,240,240)"/><pre code_snippet_id="1654523" snippet_file_name="blog_20160420_1_7723605" name="code" class="php">$mysqli = new mysqli($servername, $username, $password, $dbname);</pre><pre code_snippet_id="1654523" snippet_file_name="blog_20160420_2_4408555" name="code" class="php">$result = $mysqli-&gt;query("SELECT name FROM log_bot_plt LIMIT 10");</pre><br/>&#13;
+以下属性方法使用时，只需：</div>&#13;
+<p/>&#13;
+<p style="color:rgb(255,136,0); font-size:14px; line-height:24px">$row = $result-&gt;<var class="varname" style="color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px"><var class="varname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.current-field.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">current_field</a>;</var></var><span style="color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px"> </span></p>&#13;
+<p style="color:rgb(255,136,0); font-size:14px; line-height:24px"><span style="color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px"><span style="color:rgb(255,136,0); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">$row&#13;
+ = $result-&gt;</span><var class="varname" style="font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px; color:rgb(77,77,77)"><var class="varname" style="border-bottom-width:1px; border-bottom-style:solid; color:rgb(51,102,153)"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.current-field.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)"/><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-assoc.php" class="methodname" style="font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px; border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_assoc</a>();</var></var><span style="font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px; color:rgb(77,77,77)"> </span></span></p>&#13;
+</div>&#13;
+<div class="classsynopsisinfo classsynopsisinfo_comment" style="margin-left:1.5rem; margin-top:1.5rem; color:rgb(255,136,0); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+常用属性方法汇总</div>&#13;
+<div class="classsynopsisinfo classsynopsisinfo_comment" style="margin-left:1.5rem; margin-top:1.5rem; color:rgb(255,136,0); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+/* 属性 */</div>&#13;
+<div class="fieldsynopsis" style="margin-left:1.5rem; color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <var class="varname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.current-field.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">$<var class="varname">current_field</var></a></var> ;&#13;
+     <span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">返回字段指针的位置</span></div>&#13;
+<div class="fieldsynopsis" style="margin-left:1.5rem; color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <var class="varname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.field-count.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">$<var class="varname">field_count</var></a></var>;&#13;
+     <span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">返回结果集中字段（列）的数量</span></div>&#13;
+<div class="fieldsynopsis" style="margin-left:1.5rem; color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">array</span> <var class="varname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.lengths.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">$<var class="varname">lengths</var></a></var>;&#13;
+      <span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">返回结果集中一行数据的每个字段长度</span></div>&#13;
+<div class="fieldsynopsis" style="margin-left:1.5rem; color:rgb(77,77,77); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <var class="varname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.num-rows.php" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">$<var class="varname">num_rows</var></a></var>;&#13;
+      <span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">返回结果集中行的数量</span></div>&#13;
+<div class="classsynopsisinfo classsynopsisinfo_comment" style="margin-left:1.5rem; margin-top:1.5rem; color:rgb(255,136,0); font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+/* 方法 */</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <span class="methodname"><span style="color:rgb(51,102,153)">mysqli_field_tell</span></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)"><a target="_blank" href="http://php.net/manual/zh/class.mysqli-result.php" class="type mysqli_result" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">mysqli_result</a></span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$result</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">调整结果指针到结果集中的一个任意行。</span></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">//$offset<span style="white-space:pre">&#13;
+</span>必需。规定字段偏移。范围必须在 0 和 行总数 - 1 之间。</span></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">bool</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.data-seek.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">data_seek</a></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">int</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$offset</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//从结果集中取得所有行作为关联数组，或数字数组，或二者兼有。<br/>&#13;
+//$resulttype参数  可选。规定应该产生哪种类型的数组。可以是以下值中的一个：<br/>&#13;
+//MYSQLI_ASSOC<br/>&#13;
+//MYSQLI_NUM (默认)<br/>&#13;
+//MYSQLI_BOTH<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">mixed</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-all.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_all</a></span> ([ <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">int</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$resulttype</code><span class="initializer" style="color:rgb(153,51,102)"> =&#13;
+ MYSQLI_NUM</span></span> ] )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//从结果集中取得一行作为关联数组，或数字数组，或二者兼有。<br/>&#13;
+//注释：该函数返回的字段名是区分大小写的。<br/>&#13;
+//返回与读取行匹配的字符串数组。如果结果集中没有更多的行则返回 NULL。<br/>&#13;
+//$resulttype参数  可选。规定应该产生哪种类型的数组。可以是以下值中的一个：<br/>&#13;
+//MYSQLI_ASSOC<br/>&#13;
+//MYSQLI_NUM <br/>&#13;
+//MYSQLI_BOTH(默认)<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">mixed</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-array.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_array</a></span> ([ <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">int</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$resulttype</code><span class="initializer" style="color:rgb(153,51,102)"> =&#13;
+ MYSQLI_BOTH</span></span> ] )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//从结果集中取得一行作为关联数组。<br/>&#13;
+//注释：该函数返回的字段名是区分大小写的。<br/>&#13;
+//如果结果集中没有更多的行则返回 NULL。<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">array</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-assoc.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_assoc</a></span> ( <span class="methodparam">void</span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">object</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-field-direct.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_field_direct</a></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">int</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$fieldnr</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">从结果集中取得下一字段（列），并作为对象返回。</span></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">//返回值：<span style="white-space:pre">&#13;
+</span>返回包含字段定义信息的对象。如果没有可用信息则返回 FALSE。该对象有下列属性：<br/>&#13;
+//name - 列名<br/>&#13;
+//orgname - 原始的列名（如果指定了别名）<br/>&#13;
+//table - 表名<br/>&#13;
+//orgtable - 原始的表名（如果指定了别名）<br/>&#13;
+//def - 保留作为默认值，当前总是为 ""<br/>&#13;
+//db - 数据库（在 PHP 5.3.6 中新增的）<br/>&#13;
+//catalog - 目录名称，总是为 "def"（自 PHP 5.3.6 起）<br/>&#13;
+//max_length - 字段的最大宽度<br/>&#13;
+//length - 在表定义中规定的字段宽度<br/>&#13;
+//charsetnr - 字段的字符集号<br/>&#13;
+//flags - 字段的位标志<br/>&#13;
+//type - 用于字段的数据类型<br/>&#13;
+//decimals - 整数字段，小数点后的位数</span></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">object</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-field.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_field</a></span> ( <span class="methodparam">void</span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">array</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-fields.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_fields</a></span> ( <span class="methodparam">void</span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">object</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-object.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_object</a></span> ([ <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">string</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$class_name</code><span class="initializer" style="color:rgb(153,51,102)"> =&#13;
+ "stdClass"</span></span> [, <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">array</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$params</code></span> ]]&#13;
+ )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+//从结果集中取得一行，并作为枚举数组返回。<br/>&#13;
+//如果在结果集中没有更多的行则返回 NULL。<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">mixed</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.fetch-row.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">fetch_row</a></span> ( <span class="methodparam">void</span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <span class="methodname"><span style="color:rgb(51,102,153)">mysqli_num_fields</span></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)"><a target="_blank" href="http://php.net/manual/zh/class.mysqli-result.php" class="type mysqli_result" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">mysqli_result</a></span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$result</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">bool</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.field-seek.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">field_seek</a></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)">int</span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$fieldnr</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">void</span> <span class="methodname"><a target="_blank" href="http://php.net/manual/zh/mysqli-result.free.php" class="methodname" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">free</a></span> ( <span class="methodparam">void</span> )&#13;
+     <span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">释放结果内存。</span></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">array</span> <span class="methodname"><span style="color:rgb(51,102,153)">mysqli_fetch_lengths</span></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)"><a target="_blank" href="http://php.net/manual/zh/class.mysqli-result.php" class="type mysqli_result" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">mysqli_result</a></span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$result</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<span class="type" style="color:rgb(102,153,51)">int</span> <span class="methodname"><span style="color:rgb(51,102,153)">mysqli_num_rows</span></span> ( <span class="methodparam"><span class="type" style="color:rgb(102,153,51)"><a target="_blank" href="http://php.net/manual/zh/class.mysqli-result.php" class="type mysqli_result" style="border-bottom-width:1px; border-bottom-style:solid; text-decoration:none; color:rgb(51,102,153)">mysqli_result</a></span> <code class="parameter" style="font-size:0.875rem; line-height:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; word-wrap:break-word; color:rgb(51,102,153)">$result</code></span> )</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+实例：</div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<pre code_snippet_id="1654523" snippet_file_name="blog_20160420_3_5662291" name="code" class="php">&lt;?php
+$mysqli = new mysqli("localhost", "my_user", "my_password", "world");
+
+/* check connection */
+if ($mysqli-&gt;connect_errno) {
+    printf("Connect failed: %s\n", $mysqli-&gt;connect_error);
+    exit();
+}
+
+$query = "SELECT Name, CountryCode FROM City ORDER by ID LIMIT 3";
+$result = $mysqli-&gt;query($query);
+
+/* numeric array */
+$row = $result-&gt;fetch_array(MYSQLI_NUM);
+printf ("%s (%s)\n", $row[0], $row[1]);
+
+/* associative array */
+$row = $result-&gt;fetch_array(MYSQLI_ASSOC);
+printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
+
+/* associative and numeric array */
+$row = $result-&gt;fetch_array(MYSQLI_BOTH);
+printf ("%s (%s)\n", $row[0], $row["CountryCode"]);
+
+/* free result set */
+$result-&gt;free();
+
+/* close connection */
+$mysqli-&gt;close();
+?&gt;</pre><br/><br/></div>&#13;
+<div class="methodsynopsis dc-description" style="color:rgb(115,115,115); margin-left:1.5rem; font-family:'Fira Mono','Source Code Pro',monospace; font-size:14px; line-height:24px">&#13;
+<br/></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

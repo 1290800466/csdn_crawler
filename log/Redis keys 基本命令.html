@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+Redis keys 命令</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+下表给出了与 Redis 键相关的基本命令：</p>&#13;
+<p>&#13;
+</p><table class="reference  " style="border:0px; margin:4px 0px; padding:0px; border-collapse:collapse; width:729px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><th style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; width:29px; background-color:rgb(85,85,85)">&#13;
+序号</th>&#13;
+<th style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; background-color:rgb(85,85,85)">&#13;
+命令及描述</th>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+1</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-del.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">DEL key</a><br/>&#13;
+该命令用于在 key 存在时删除 key。<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">不存在的 key 会被忽略。可用于删除多个key ， 各key之间用空格间隔 <span style="color:#64854c"><span style="border-style:initial; border-color:initial">del&#13;
+ key</span></span>1 key2</span></td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+2</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-dump.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">DUMP key</a> <br/>&#13;
+序列化给定 key ，并返回被序列化的值。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+3</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-exists.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">exists key</a> <br/>&#13;
+检查给定 key 是否存在。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+4</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-expire.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">EXPIRE key</a> seconds<br/>&#13;
+为给定 key 设置过期时间 , 以秒为单位。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+5</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-expireat.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">EXPIREAT key timestamp</a> <br/>&#13;
+EXPIREAT 的作用和 EXPIRE 类似，都用于为 key 设置过期时间。 不同在于 EXPIREAT 命令接受的时间参数是 UNIX 时间戳(unix timestamp)。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+6</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-pexpire.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">PEXPIRE key milliseconds</a> <br/>&#13;
+设置 key 的过期时间 ， 以毫秒计。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+7</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-pexpireat.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">PEXPIREAT key milliseconds-timestamp</a> <br/>&#13;
+设置 key 过期时间的时间戳(unix timestamp) 以毫秒计</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+8</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<pre><a target="_blank" href="http://www.runoob.com/redis/keys-keys.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">KEYS pattern</a> 
+返回所有符合给定模式( pattern)的 key的列表 。 如查找<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px">以 w3c 为开头的 key：</span></pre>&#13;
+<pre><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:24px"/><pre class="prettyprint prettyprinted" style="border-width:1px 1px 1px 4px; border-style:solid; border-color:rgb(221,221,221); margin:15px auto; padding:10px 15px; line-height:20px; font-family:'courier new'; white-space:pre-wrap; word-break:break-all; word-wrap:break-word; color:rgb(51,51,51)"><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">redis </span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">127.0</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">.</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">0.1</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">:</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">6379</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">&gt;</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)"> KEYS w3c</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">*</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">
+</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">1</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">)</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)"> </span><span class="str" style="border:0px; margin:0px; padding:0px; color:rgb(0,136,0)">"w3c3"</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">
+</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">2</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">)</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)"> </span><span class="str" style="border:0px; margin:0px; padding:0px; color:rgb(0,136,0)">"w3c1"</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">
+</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">3</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">)</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)"> </span><span class="str" style="border:0px; margin:0px; padding:0px; color:rgb(0,136,0)">"w3c2"</span></pre><pre class="prettyprint prettyprinted" style="border-width:1px 1px 1px 4px; border-style:solid; border-color:rgb(221,221,221); margin:15px auto; padding:10px 15px; line-height:20px; font-family:'courier new'; white-space:pre-wrap; word-break:break-all; word-wrap:break-word"><span style="color:#008800">返回所有键值    keys *</span></pre></pre>&#13;
+</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+9</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-move.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">MOVE key db</a> <br/>&#13;
+将当前数据库的 key 移动到给定的数据库 db 当中。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+10</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-persist.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">PERSIST key</a> <br/>&#13;
+移除 key 的过期时间，key 将持久保持。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+11</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-pttl.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">PTTL key</a> <br/>&#13;
+以毫秒为单位返回 key 的剩余的过期时间。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+12</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-ttl.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">TTL  key</a> <br/>&#13;
+以秒为单位，返回给定 key 的剩余生存时间(TTL, time to live)。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+13</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-randomkey.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">RANDOMKEY</a> <br/>&#13;
+从当前数据库中随机返回一个 key 。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+14</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-rename.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">RENAME  key  newkey</a> <br/>&#13;
+修改 key 的名称 , 改名成功时提示 OK ，失败时候返回一个错误。<br/>&#13;
+当 OLD_KEY_NAME 和 NEW_KEY_NAME 相同，或者 OLD_KEY_NAME 不存在时，返回一个错误。 当 NEW_KEY_NAME 已经存在时， RENAME 命令将覆盖旧值。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+15<span style="white-space:pre"> </span>            </td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-renamenx.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">RENAMENX key newkey</a> <br/>&#13;
+仅当 newkey 不存在时，将 key 改名为 newkey 。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+16</td>&#13;
+<td style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-type.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)">TYPE key</a> <br/><p>返回 key 所储存的值的类型。</p>&#13;
+</td>&#13;
+</tr></tbody></table><table class="reference   " style="font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; border:0px; margin:4px 0px; padding:0px; border-collapse:collapse; width:729px; color:rgb(51,51,51); font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px"><td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+17      </td>&#13;
+<td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-renamenx.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)"/>DBSIZE<br/>&#13;
+返回当前数据库的 key 的数量。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+18</td>&#13;
+<td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-type.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)"/>SELECT index<br/><p>用于切换到指定的数据库，数据库索引号 index 用数字值指定，以 0 作为起始索引值 ， 默认有16个数据库  标号0-15<br/>&#13;
+打开时默认进入标号为 0 的数据库</p>&#13;
+<p/>&#13;
+<pre class="prettyprint prettyprinted" style="margin:15px auto; color:rgb(51,51,51); border-width:1px 1px 1px 4px; border-style:solid; border-color:rgb(221,221,221); padding:10px 15px; line-height:20px; font-family:'courier new'; white-space:pre-wrap; word-break:break-all; word-wrap:break-word"><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">redis </span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">127.0</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">.</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">0.1</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">:</span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">6379</span><span class="pun" style="border:0px; margin:0px; padding:0px; color:rgb(102,102,0)">&gt;</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)"> SELECT </span><span class="lit" style="border:0px; margin:0px; padding:0px; color:rgb(0,102,102)">1</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">                </span><span class="com" style="border:0px; margin:0px; padding:0px; color:rgb(136,0,0)"># 使用 1 号数据库</span><span class="pln" style="border:0px; margin:0px; padding:0px; color:rgb(0,0,0)">
+OK</span></pre>&#13;
+<p/>&#13;
+</td>&#13;
+</tr></tbody></table><p><span style="font-family:Open Sans,Helvetica Neue,Helvetica,Arial,STHeiti,Microsoft Yahei,sans-serif; color:#333333"/>&#13;
+</p><table class="reference   " style="border:0px; margin:4px 0px; padding:0px; border-collapse:collapse; width:729px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px"><td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+19  </td>&#13;
+<td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+Flushdb <br/>&#13;
+用于清空当前数据库中的所有 key。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+20</td>&#13;
+<td style="font-size:1em; border-style:solid; border-color:rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<a target="_blank" href="http://www.runoob.com/redis/keys-type.html" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76)"/>Flushall<br/>&#13;
+用于清空整个 Redis 服务器的数据(删除所有数据库的所有 key )。&#13;
+<p/>&#13;
+</td>&#13;
+</tr></tbody></table><br/><br/></div>  </body>
+            </html>

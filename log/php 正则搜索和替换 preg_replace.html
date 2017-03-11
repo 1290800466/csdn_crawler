@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>preg_replace — 执行一个正则表达式的搜索和替换</p>
+
+<p>方法说明：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">preg_replace ( <span class="hljs-variable">$pattern</span> , <span class="hljs-variable">$replacement</span> , <span class="hljs-variable">$subject</span> , <span class="hljs-variable">$limit</span> , <span class="hljs-variable">$count</span>)</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">搜索subject中匹配pattern的部分， 以replacement进行替换。
+<span class="hljs-variable">$limit</span> , <span class="hljs-variable">$count</span> 参数可有可无
+limit ： 每个模式在每个subject上进行替换的最大次数。默认是 -<span class="hljs-number">1</span>(无限)。
+count ： 如果指定，将会被填充为完成的替换次数。</code></pre>
+
+<p><strong>返回值 ：</strong></p>
+
+<p>如果subject是一个数组， preg_replace()返回一个数组， 其他情况下返回一个字符串。</p>
+
+<p>如果匹配被查找到，替换后的subject被返回，其他情况下 返回没有改变的 subject。如果发生错误，返回 NULL 。</p>
+
+<p>实例1：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$PIWIK_API</span> = <span class="hljs-string">'filter_offset={offset}&amp;period={period}&amp;date={date}'</span>;
+
+<span class="hljs-variable">$patterns</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'/{offset}/'</span>,
+    <span class="hljs-string">'/{period}/'</span>,
+    <span class="hljs-string">'/{date}/'</span>
+);
+
+<span class="hljs-variable">$replacements</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-number">33</span>,
+    <span class="hljs-string">'day'</span>,
+    <span class="hljs-string">'216-11-11'</span>
+);
+<span class="hljs-variable">$url</span> = preg_replace(<span class="hljs-variable">$patterns</span>, <span class="hljs-variable">$replacements</span>, <span class="hljs-variable">$PIWIK_API</span>);
+
+<span class="hljs-comment">//结果： $url = "filter_offset=33&amp;period=day&amp;date=216-11-11"</span></code></pre>
+
+<p>实例2：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$PIWIK_API</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'filter_offset'</span> =&gt; <span class="hljs-string">'{offset}'</span>,
+    <span class="hljs-string">'period'</span> =&gt; <span class="hljs-string">'{period}'</span>,
+    <span class="hljs-string">'date'</span> =&gt; <span class="hljs-string">'{date}'</span>
+);
+
+<span class="hljs-variable">$patterns</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'/{offset}/'</span>,
+    <span class="hljs-string">'/{period}/'</span>,
+    <span class="hljs-string">'/{date}/'</span>
+);
+
+<span class="hljs-variable">$replacements</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-number">33</span>,
+    <span class="hljs-string">'day'</span>,
+    <span class="hljs-string">'216-11-11'</span>
+);
+<span class="hljs-variable">$url</span> = preg_replace(<span class="hljs-variable">$patterns</span>, <span class="hljs-variable">$replacements</span>, <span class="hljs-variable">$PIWIK_API</span>);
+
+<span class="hljs-comment">//结果： </span>
+<span class="hljs-comment">/*
+$url = array(3) {
+  ["filter_offset"]=&gt;
+  string(2) "33"
+  ["period"]=&gt;
+  string(3) "day"
+  ["date"]=&gt;
+  string(9) "216-11-11"
+}
+*/</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

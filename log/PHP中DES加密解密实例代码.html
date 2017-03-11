@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p>DES加解密类文件：</p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1985597" snippet_file_name="blog_20161115_1_2648" name="code" class="php">&lt;?php
+
+class DES
+
+{
+
+ var $key;
+
+ var $iv; //偏移量
+
+ 
+
+ function DES( $key, $iv=0 ) {
+
+ //key长度8例如:1234abcd
+
+  $this-&gt;key = $key;
+
+  if( $iv == 0 ) {
+
+   $this-&gt;iv = $key;
+
+  } else {
+
+   $this-&gt;iv = $iv; //mcrypt_create_iv ( mcrypt_get_block_size (MCRYPT_DES, MCRYPT_MODE_CBC), MCRYPT_DEV_RANDOM );
+
+  }
+
+ }
+
+ 
+
+ function encrypt($str) {
+
+ //加密，返回大写十六进制字符串
+
+  $size = mcrypt_get_block_size ( MCRYPT_DES, MCRYPT_MODE_CBC );
+
+  $str = $this-&gt;pkcs5Pad ( $str, $size );
+
+  return strtoupper( bin2hex( mcrypt_cbc(MCRYPT_DES, $this-&gt;key, $str, MCRYPT_ENCRYPT, $this-&gt;iv ) ) );
+
+ }
+
+ 
+
+ function decrypt($str) {
+
+ //解密
+
+  $strBin = $this-&gt;hex2bin( strtolower( $str ) );
+
+  $str = mcrypt_cbc( MCRYPT_DES, $this-&gt;key, $strBin, MCRYPT_DECRYPT, $this-&gt;iv );
+
+  $str = $this-&gt;pkcs5Unpad( $str );
+
+  return $str;
+
+ }
+
+ 
+
+ function hex2bin($hexData) {
+
+  $binData = "";
+
+  for($i = 0; $i &lt; strlen ( $hexData ); $i += 2) {
+
+   $binData .= chr ( hexdec ( substr ( $hexData, $i, 2 ) ) );
+
+  }
+
+  return $binData;
+
+ }
+
+ 
+
+ function pkcs5Pad($text, $blocksize) {
+
+  $pad = $blocksize - (strlen ( $text ) % $blocksize);
+
+  return $text . str_repeat ( chr ( $pad ), $pad );
+
+ }
+
+ 
+
+ function pkcs5Unpad($text) {
+
+  $pad = ord ( $text {strlen ( $text ) - 1} );
+
+  if ($pad &gt; strlen ( $text ))
+
+   return false;
+
+  if (strspn ( $text, chr ( $pad ), strlen ( $text ) - $pad ) != $pad)
+
+   return false;
+
+  return substr ( $text, 0, - 1 * $pad );
+
+ }
+
+}
+
+?&gt;</pre><br/>&#13;
+测试代码：&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1985597" snippet_file_name="blog_20161115_2_8857595" name="code" class="php">$str = '12345678';
+
+$key = '1234abcd';
+
+$crypt = new DES($key);
+
+$mstr = $crypt-&gt;encrypt($str); //加密
+
+$str = $crypt-&gt;decrypt($mstr); //解密
+
+echo  $str.' &lt;=&gt; '.$mstr;</pre><br/><br/><p/>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

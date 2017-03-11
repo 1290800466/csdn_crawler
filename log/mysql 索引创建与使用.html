@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>mysql索引作用：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs ">    在索引列上，除了有序查找之外，数据库利用各种各样的快速定位技术，能够大大提高查询效率。特别是当数据量非常大，查询涉及多个表时，使用索引往往能使查询速度加快成千上万倍。</code></pre>
+
+<p><strong>mysql索引创建规则：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-number">1</span>、表的主键、外键必须有索引；
+<span class="hljs-number">2</span>、数据量超过<span class="hljs-number">300</span>的表应该有索引；
+<span class="hljs-number">3</span>、经常与其他表进行连接的表，在连接字段上应该建立索引
+<span class="hljs-number">4</span>、经常出现在<span class="hljs-keyword">Where</span>子句中的字段，特别是大表的字段，应该建立索引；
+<span class="hljs-number">5</span>、索引的字段必须是经常作为查询条件的字段;
+<span class="hljs-number">6</span>、索引应该建在小字段上，对于大的文本字段甚至超长字段，不要建索引；
+<span class="hljs-number">7</span>、复合索引的建立需要进行仔细分析；尽量考虑用单字段索引代替：
+    A、正确选择复合索引中的主列字段，一般是选择性较好的字段；
+    B、复合索引的几个字段是否经常同时以<span class="hljs-keyword">AND</span>方式出现在<span class="hljs-keyword">Where</span>子句中？单字段查询是否极少甚至没有？如果是，则可以
+       建立复合索引；否则考虑单字段索引；
+    C、如果复合索引中包含的字段经常单独出现在<span class="hljs-keyword">Where</span>子句中，则分解为多个单字段索引；
+    D、如果复合索引所包含的字段超过<span class="hljs-number">3</span>个，那么仔细考虑其必要性，考虑减少复合的字段；
+    E、如果既有单字段索引，又有这几个字段上的复合索引，一般可以删除复合索引；
+    F、如果索引多个字段，第一个字段要是经常作为查询条件的。如果只有第二个字段作为查询条件，这个索引不会起到作用;
+<span class="hljs-number">8</span>、频繁进行数据操作的表，不要建立太多的索引；
+<span class="hljs-number">9</span>、删除无用的索引，避免对执行计划造成负面影响；
+<span class="hljs-number">10</span>、不要过度索引。不要以为 索引 “ 越多越好 ” ，什么东西都用索引是错的。每个额外的 索引都要占用额外的磁盘空间，并降低写操作的性能。如果想给已索引的表增加索引，应该考虑所要增加的索引是否是现有多列索引的最左索引。如果是，则就不要费力去增加这个索引了，因为已经有了。
+<span class="hljs-number">11</span>、考虑在列上进行的比较类型。索引可用于 “ &lt; ” 、 “ &lt; = ” 、 “ = ” 、 “ &gt; = ” 、 “ &gt;” 和 BETWEEN 运算。在模式具有一个直接量前缀时，索引也用于 <span class="hljs-keyword">LIKE</span> 运算。
+<span class="hljs-number">12</span>、对于值唯一不重复的列要添加唯一索引，可以更快速的通过该索引来确定某条记录。唯一索引是最有效的。</code></pre>
+
+<p>索引对于插入、删除、更新操作也会增加处理上的开销。另外，过多的复合索引，在有单字段索引的情况下， <br/>
+一般都是没有存在价值的；相反，还会降低数据增加删除时的性能，特别是对频繁更新的表来说，负面影响更大。</p>
+
+<p><strong>创建索引：</strong> <br/>
+1、执行CREATE   TABLE语句时可以创建索引： <br/>
+实例：</p>
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`log_day_url_body`</span> (
+  <span class="hljs-string">`id`</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> AUTO_INCREMENT,
+  <span class="hljs-string">`body`</span> <span class="hljs-keyword">varchar</span>(<span class="hljs-number">255</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  <span class="hljs-string">`p_id`</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">11</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'0'</span>,
+  <span class="hljs-string">`plt_id`</span> <span class="hljs-keyword">int</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">'1'</span>,
+  <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> (<span class="hljs-string">`id`</span>),
+  <span class="hljs-keyword">KEY</span> <span class="hljs-string">`body`</span> (<span class="hljs-string">`body`</span>),
+  <span class="hljs-keyword">KEY</span> <span class="hljs-string">`categories`</span> (<span class="hljs-string">`body`</span>,<span class="hljs-string">`plt_id`</span>,<span class="hljs-string">`p_id`</span>),
+  <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">KEY</span> <span class="hljs-string">`url`</span> (<span class="hljs-string">`id`</span>,<span class="hljs-string">`plt_id`</span>,<span class="hljs-string">`p_id`</span>),
+  <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">KEY</span> <span class="hljs-string">`url_3`</span> (<span class="hljs-string">`id`</span>)
+) ENGINE=InnoDB <span class="hljs-keyword">DEFAULT</span> CHARSET=utf8 COMMENT=<span class="hljs-string">'注释语句'</span></span></code></pre>
+
+<p>2、单独用CREATE   INDEX来为表增加索引： <br/>
+CREATE  INDEX可对表增加普通索引或UNIQUE索引。</p>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> INDEX index_name <span class="hljs-keyword">ON</span> table_name (column_list)
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">UNIQUE</span> INDEX index_name <span class="hljs-keyword">ON</span> table_name (column_list)</span></code></pre>
+
+<p>table_name、index_name和column_list具有与ALTER TABLE语句中相同的含义，索引名不可选。另外，不能用CREATE INDEX语句创建PRIMARY KEY索引。</p>
+
+<p>3、单独用ALTER   TABLE来为表增加索引： <br/>
+ALTER TABLE用来创建普通索引、UNIQUE索引或PRIMARY KEY索引。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ADD</span> INDEX index_name (column_list)
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">UNIQUE</span> (column_list)
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span> (column_list)
+<span class="hljs-string">'添加FULLTEXT(全文索引)'</span>
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`table_name`</span> <span class="hljs-keyword">ADD</span> FULLTEXT ( <span class="hljs-string">`column`</span>)
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-string">`table_name`</span> <span class="hljs-keyword">ADD</span> INDEX index_name ( <span class="hljs-string">`column1`</span>, <span class="hljs-string">`column2`</span>, <span class="hljs-string">`column3`</span> )
+</span></code></pre>
+
+<p>column_list指出对哪些列进行索引，多列时各列之间用逗号分隔。索引名index_name可选，缺省时，MySQL将根据第一个索引列赋一个名称。另外，ALTER TABLE允许在单个语句中更改多个表，因此可以在同时创建多个索引。</p>
+
+<p><strong>索引类型：</strong> <br/>
+在创建索引时，可以规定索引能否包含重复值。如果不包含，则索引应该创建为PRIMARY KEY或UNIQUE索引。 <br/>
+对于单列惟一性索引，这保证单列不包含重复的值。对于多列惟一性索引，保证多个值的组合不重复。 <br/>
+PRIMARY KEY索引和UNIQUE索引非常类似。事实上，PRIMARY KEY索引仅是一个具有名称PRIMARY的UNIQUE索引。 <br/>
+这表示一个表只能包含一个PRIMARY KEY，因为一个表中不可能具有两个同名的索引。</p>
+
+<p><strong>删除索引：</strong> <br/>
+可利用ALTER TABLE或DROP INDEX语句来删除索引。DROP INDEX可以在ALTER TABLE内部作为一条语句处理，语法如下。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">DROP</span> INDEX index_name <span class="hljs-keyword">ON</span> talbe_name
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">DROP</span> INDEX index_name
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> table_name <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">PRIMARY</span> <span class="hljs-keyword">KEY</span></span></code></pre>
+
+<p>其中，前两条语句是等价的，删除掉table_name中的索引index_name。 <br/>
+第3条语句只在删除PRIMARY KEY索引时使用，因为一个表只可能有一个PRIMARY KEY索引，因此不需要指定索引名。 <br/>
+如果没有创建PRIMARY KEY索引，但表具有一个或多个UNIQUE索引，则MySQL将删除第一个UNIQUE索引。 <br/>
+如果从表中删除了某列，则索引会受到影响。对于多列组合的索引，如果删除其中的某列，则该列也会从索引中删除。 <br/>
+如果删除组成索引的所有列，则整个索引将被删除。</p>
+
+<p><strong>查看索引：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">show</span> index <span class="hljs-keyword">from</span> tblname;</span>
+'或'
+<span class="hljs-operator"><span class="hljs-keyword">show</span> keys <span class="hljs-keyword">from</span> tblname;</span></code></pre>
+
+<p>查询结果列：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs objectivec">· Table
+表的名称。
+· Non_unique
+如果索引不能包括重复词，则为<span class="hljs-number">0</span>。如果可以，则为<span class="hljs-number">1</span>。
+· Key_name
+索引的名称。
+· Seq_in_index
+索引中的列序列号，从<span class="hljs-number">1</span>开始。
+· Column_name
+列名称。
+· Collation
+列以什么方式存储在索引中。在MySQL中，有值‘A’（升序）或<span class="hljs-literal">NULL</span>（无分类）。
+· Cardinality
+索引中唯一值的数目的估计值。通过运行ANALYZE TABLE或myisamchk -a可以更新。基数根据被存储为整数的统计数据来计数，所以即使对于小型表，该值也没有必要是精确的。基数越大，当进行联合时，MySQL使用该索引的机会就越大。
+· Sub_part
+如果列只是被部分地编入索引，则为被编入索引的字符的数目。如果整列被编入索引，则为<span class="hljs-literal">NULL</span>。
+· Packed
+指示关键字如何被压缩。如果没有被压缩，则为<span class="hljs-literal">NULL</span>。
+· Null
+如果列含有<span class="hljs-literal">NULL</span>，则含有<span class="hljs-literal">YES</span>。如果没有，则该列含有<span class="hljs-literal">NO</span>。
+· Index_type
+用过的索引方法（BTREE, FULLTEXT, HASH, RTREE）。
+· Comment
+一些关于过引的常用语句</code></pre>
+
+<p><strong>索引使用注意事项：</strong></p>
+
+<p>1、不要对索引字段进行运算，而要想办法做变换，比如</p>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> ID <span class="hljs-keyword">FROM</span> T <span class="hljs-keyword">WHERE</span> NUM/<span class="hljs-number">2</span>=<span class="hljs-number">100</span>
+<span class="hljs-string">'应改为:'</span>
+<span class="hljs-keyword">SELECT</span> ID <span class="hljs-keyword">FROM</span> T <span class="hljs-keyword">WHERE</span> NUM = <span class="hljs-number">100</span>*<span class="hljs-number">2</span>
+<span class="hljs-keyword">SELECT</span> ID <span class="hljs-keyword">FROM</span> T <span class="hljs-keyword">WHERE</span> NUM/<span class="hljs-number">2</span> = NUM1
+<span class="hljs-string">'如果NUM有索引应改为:'</span>
+<span class="hljs-keyword">SELECT</span> ID <span class="hljs-keyword">FROM</span> T <span class="hljs-keyword">WHERE</span> NUM = NUM1*<span class="hljs-number">2</span>
+如果NUM1有索引则不应该改。</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> 年,月,金额 <span class="hljs-keyword">FROM</span> 结余表 <span class="hljs-keyword">WHERE</span> <span class="hljs-number">100</span>*年+月=<span class="hljs-number">2010</span>*<span class="hljs-number">100</span>+<span class="hljs-number">10</span>
+
+<span class="hljs-string">'改为：'</span>
+
+<span class="hljs-keyword">SELECT</span> 年,月,金额 <span class="hljs-keyword">FROM</span> 结余表 <span class="hljs-keyword">WHERE</span> 年=<span class="hljs-number">2010</span> <span class="hljs-keyword">AND</span>月=<span class="hljs-number">10</span></span></code></pre>
+
+<p>2、不要对索引字段进行格式转换</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs oxygene">
+<span class="hljs-string">'日期字段的例子'</span>
+
+<span class="hljs-keyword">WHERE</span> CONVERT(VARCHAR(<span class="hljs-number">10</span>), 日期字段, <span class="hljs-number">120</span>) = <span class="hljs-string">'2010-07-15'</span>
+
+<span class="hljs-string">'应该改为'</span>
+
+<span class="hljs-keyword">WHERE</span>日期字段〉=<span class="hljs-string">'2010-07-15'</span> <span class="hljs-keyword">AND</span> 日期字段
+
+<span class="hljs-string">'ISNULL转换的例子：'</span>
+
+<span class="hljs-keyword">WHERE</span> ISNULL(字段,<span class="hljs-string">'12'</span>)&lt;&gt;<span class="hljs-string">'12'</span>应改为:<span class="hljs-keyword">WHERE</span>字段&lt;&gt;<span class="hljs-string">'12'</span>
+<span class="hljs-keyword">WHERE</span> ISNULL(字段,<span class="hljs-string">''</span>)=<span class="hljs-string">''</span>不应修改
+<span class="hljs-keyword">WHERE</span> ISNULL(字段,<span class="hljs-string">'F'</span>) =<span class="hljs-string">'T'</span>应改为: <span class="hljs-keyword">WHERE</span>字段=<span class="hljs-string">'T'</span>
+<span class="hljs-keyword">WHERE</span> ISNULL(字段,<span class="hljs-string">'F'</span>)&lt;&gt;<span class="hljs-string">'T'</span>不应修改</code></pre>
+
+<p>3、不要对索引字段使用函数</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-keyword">WHERE</span> LEFT(NAME, <span class="hljs-number">3</span>)=’ABC’ 或者<span class="hljs-keyword">WHERE</span> SUBSTRING(NAME,<span class="hljs-number">1</span>, <span class="hljs-number">3</span>)=’ABC’
+应改为: <span class="hljs-keyword">WHERE</span> NAME <span class="hljs-keyword">LIKE</span> ‘ABC%’
+
+日期查询的例子：
+
+<span class="hljs-keyword">WHERE</span> DATEDIFF(DAY, 日期,’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′)=<span class="hljs-number">0</span>
+应改为:<span class="hljs-keyword">WHERE</span> 日期&gt;=’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′ <span class="hljs-keyword">AND</span> 日期
+
+<span class="hljs-keyword">WHERE</span> DATEDIFF(DAY, 日期,’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′)&gt;<span class="hljs-number">0</span>
+应改为:<span class="hljs-keyword">WHERE</span> 日期
+
+<span class="hljs-keyword">WHERE</span> DATEDIFF(DAY, 日期,’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′)&gt;=<span class="hljs-number">0</span>
+应改为:<span class="hljs-keyword">WHERE</span> 日期
+
+<span class="hljs-keyword">WHERE</span> DATEDIFF(DAY, 日期,’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′)　　
+应改为:<span class="hljs-keyword">WHERE</span> 日期&gt;=’<span class="hljs-number">2010</span>-<span class="hljs-number">07</span>-<span class="hljs-number">01</span>′
+
+<span class="hljs-keyword">WHERE</span> DATEDIFF(DAY, 日期,’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′)
+应改为:<span class="hljs-keyword">WHERE</span> 日期&gt;=’<span class="hljs-number">2010</span>-<span class="hljs-number">06</span>-<span class="hljs-number">30</span>′</code></pre>
+
+<p>4、不要对索引字段进行多字段连接</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">比如：
+
+<span class="hljs-keyword">WHERE</span> FAME+ ‘. ‘+LNAME=’HAIWEI.YANG’
+应改为:
+<span class="hljs-keyword">WHERE</span> FNAME=’HAIWEI’ <span class="hljs-keyword">AND</span> LNAME=’YANG’</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

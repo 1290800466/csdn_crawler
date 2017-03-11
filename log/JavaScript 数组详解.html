@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-family:Arial; line-height:26px"><span style="font-size:18px; color:#ff0000"><strong>一维数组：</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-size:18px; font-family:Arial; line-height:26px"><span style="white-space:pre"/>js中的数组是用于表示一组数据的集合，它由一个方括号[]包围，数组中的每个元素逗号分隔，数组元素可以是任意类型的数据。</span><br style="font-family:Arial; line-height:26px"/><span style="font-size:18px; font-family:Arial; line-height:26px">①创建数组</span><br style="font-family:Arial; line-height:26px"/><span style="font-size:18px; font-family:Arial; line-height:26px">例子：</span><br style="font-family:Arial; line-height:26px"/><p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px">var a=["shunping".123,"1.1",4.5,true]</span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>数组的细节：</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">基本用法：</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var 数组名=[元素值,元数值,...]</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">元素的值可以是任意类型</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var arr=[4,56,"hello world",true];</span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px">数组可存放任意类型的数据</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">数组大小不必事先指定，可以动态增长</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">数组名可以理解为指向数组首地址的引用</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">arr=[45,90,0];</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">document.writeln(arr); //则输出 45 90 0</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">④数组元素从0开始编号的</span><br/></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px">普通数据类型在函数调用的时候传值，相当于拷贝了一份，而不是传的地址</span></span><br/></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px">js数组是可以动态的增长的，这个和java的数组不一样，有点类似于java中ArrayList</span><br/></span></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px">数组使用代码实例：</span></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"/></span></span></span></p><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			var myarr=[456,90,900];
+			document.writeln("函数调用前&lt;br/&gt;");
+			for(var i=0;i&lt;myarr.length;i++){
+				document.writeln(myarr[i]);
+			}
+			document.writeln("&lt;br/&gt;=========&lt;br/&gt;");
+
+			function abc(arr){
+				arr[0]=35;
+			}
+			//调用函数
+			abc(myarr);
+			document.writeln("函数调用后&lt;br/&gt;");
+			for(var i=0;i&lt;myarr.length;i++){
+				document.writeln(myarr[i]);
+			}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>js数组的几个重要应用：</strong></span></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">(1)使用数组名.length可以得到数组大小</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">(2)拆分字符串 字符串.split(拆分数组)可以得到一个数组</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">(3)其他...</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">字符串拆分数组</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var str="hello world abc 顺平";</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var arr=str.split(" ");//以空格为间隔</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var arr1=str.split("");//一个字符一个字符的打散了</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var arr2=str.aplit(" ",2);//取其中的前两个，取hello world</span>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="color:#ff0000"><strong>遍历一维数组：</strong></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">for(var i=0;i&lt;arr.length;i++){</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px; white-space:pre"/><span style="font-family:Arial; line-height:26px">document.write(arr[i]+" ");</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">}</span><br/></span></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"><strong><span style="color:#ff0000">二维数组：</span></strong></span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">多维数组我们只介绍二维数组，一维数组的元素还可以是一个数组，就构成了二维数组。</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">①实例</span><br style="font-family:Arial; line-height:26px"/><span style="font-family:Arial; line-height:26px">var arr=[["shunping",123,4.5],["a","b","c"]]</span><br/></span></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px; color:#ff0000"><span style="font-family:Arial; line-height:26px"><strong>遍历二维数组：</strong></span></span></span></span></span></p>&#13;
+<p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></span></span></span></p><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			var arr=[["shunping",123,4.5],["a","b","c"]];
+
+			//遍历
+			for(var i=0;i&lt;arr.length;i++){
+				//输出一行（二维数组一个元素[数组]）
+				for(var j=0;j&lt;arr[i].length;j++){
+					document.writeln(arr[i][j]+" ");
+				}
+				document.writeln("&lt;br/&gt;");
+			}
+			//如果需要直接访问"c"
+			window.alert(arr[1][2]);
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><span style="font-family:Arial; line-height:26px"><span style="color:#ff0000"><strong>二维数组<span style="font-family:Arial; line-height:26px">矩阵转置：</span></strong></span></span><br/><p><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-family:Arial; line-height:26px"><span style="font-size:18px"><span style="font-family:Arial; line-height:26px"/></span></span></span></span></p><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+	&lt;meta charset="UTF-8"&gt;
+		&lt;script language="javascript"&gt;
+			var arr=[[2,4,6,8],[8,9,0,-1],[9,6,2,1]];
+			//定义一个新的数组
+			var arr2=[];
+
+			//初始化，定下有多少行，先不考虑特殊情况（都是规规矩矩的矩阵，每一行的数据个数都是一致的）
+			for(var i=0;i&lt;arr[0].length;i++){
+				arr2[i]=[];
+			}
+			//动态的添加数据
+			//遍历旧数组
+			document.writeln("原数组为："+"&lt;br/&gt;");
+			for(var i=0;i&lt;arr.length;i++){
+				for(var j=0;j&lt;arr[i].length;j++){
+					document.writeln(arr[i][j]+" ");
+					//行列互换，arr2已经开辟空间了
+					arr2[j][i]=arr[i][j];
+				}
+				document.writeln("&lt;br/&gt;");
+			}	
+
+			//成功！遍历 arr2数组就是一个转置数组
+			document.writeln("转置后数组为："+"&lt;br/&gt;");
+			for(var i=0;i&lt;arr2.length;i++){
+				for(var j=0;j&lt;arr2[i].length;j++){
+					document.writeln(arr2[i][j]+" ");
+				}
+				document.writeln("&lt;br/&gt;");
+			}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/></div>  </body>
+            </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;?php
+function Networkcheck($url){
+   $agent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0";
+   //curl_init-初始化一个curl会话
+   $ch=curl_init();
+   //curl_setopt — 为一个curl设置会话参数
+   curl_setopt ($ch, CURLOPT_URL,$url );
+   curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+   curl_setopt ($ch,CURLOPT_VERBOSE,false);
+   curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+   curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, FALSE);
+   curl_setopt($ch,CURLOPT_SSLVERSION,3);
+   curl_setopt($ch,CURLOPT_SSL_VERIFYHOST, FALSE);
+   //curl_exec —执行一个curl会话
+   $page=curl_exec($ch);
+   //curl_getinfo — 获取一个curl连接资源句柄的信息
+   $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+   //curl_close()函数的作用是关闭一个curl会话，唯一的参数是curl_init()函数返回的句柄。
+   curl_close($ch);
+   if($httpcode&gt;=200 &amp;&amp; $httpcode&lt;300) 
+       return true;
+   else 
+       return false;
+}
+//函数参数为要检查的网站的网址路径
+if(Networkcheck("http://www.baidu.com"))
+    echo "Website OK";
+else
+    echo "Website DOWN";
+?&gt;</pre><br/></div>  </body>
+            </html>

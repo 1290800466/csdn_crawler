@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>URL提交方式：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss">主动推送：最为快速的提交方式，建议您将站点当天新产出链接立即通过此方式推送给百度，以保证新链接可以及时被百度
+        收录。或每产生一个<span class="hljs-function">url(如新添一篇文章)</span>就推送一次。
+
+sitemap：您可以定期将网站链接放到Sitemap中，然后将Sitemap提交给百度。百度会周期性的抓取检查您提交
+        的Sitemap，对其中的链接进行处理，但收录速度慢于主动推送。（也可以写脚本主动将xml文件推送到百度）
+
+手工提交：如果您不想通过程序提交，那么可以采用此种方式，手动将链接提交给百度。（在百度站长平台中手动提交）
+
+自动提交：将自动提交js脚本嵌入到网站页面中，每打开一个页面就将该页提交到百度</code></pre>
+
+<p><strong>如何使用主动推送功能：</strong></p>
+
+<p>1、需要网站制作数据推送接口，进入主动推送工具后，会看到接口调用地址的token，token是由16个英文数字组合的字符 <br/>
+串。百度站长平台网址：<a href="http://zhanzhang.baidu.com/dashboard/index">http://zhanzhang.baidu.com/dashboard/index</a> <br/>
+接口调用地址：  <br/><a href="http://data.zz.baidu.com/urls?site=www.360hudong.com&amp;token=RoKT4gj0XIDdn5AQ&amp;type=original">http://data.zz.baidu.com/urls?site=www.360hudong.com&amp;token=RoKT4gj0XIDdn5AQ&amp;type=original</a> <br/><img src="http://img.blog.csdn.net/20160711164037189" alt="这里写图片描述" title=""/></p>
+
+<p>2、下面提供一些推送示例 <br/>
+1）curl推送示例 <br/>
+将要提交的url数据写入一个本地文件，比如urls.txt，每个url占一行，然后调用curl命令：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">curl <span class="hljs-attribute">-H</span> <span class="hljs-string">'Content-Type:text/plain'</span> <span class="hljs-subst">--</span><span class="hljs-built_in">data</span><span class="hljs-attribute">-binary</span> @urls<span class="hljs-built_in">.</span>txt <span class="hljs-string">"http://data.zz.baidu.com/urls?site=www.example.com&amp;token=edk7yc4rEZP9pDQD"</span></code></pre>
+
+<p>3）php推送示例</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-variable">$urls</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'http://www.example.com/1.html'</span>,
+    <span class="hljs-string">'http://www.example.com/2.html'</span>,
+);
+<span class="hljs-variable">$api</span> = <span class="hljs-string">'http://data.zz.baidu.com/urls?site=www.58.com&amp;token=edk7ychrEZP9pDQD'</span>;
+<span class="hljs-variable">$ch</span> = curl_init();
+<span class="hljs-variable">$options</span> =  <span class="hljs-keyword">array</span>(
+    CURLOPT_URL =&gt; <span class="hljs-variable">$api</span>,
+    CURLOPT_POST =&gt; <span class="hljs-keyword">true</span>,
+    CURLOPT_RETURNTRANSFER =&gt; <span class="hljs-keyword">true</span>,
+    CURLOPT_POSTFIELDS =&gt; implode(<span class="hljs-string">"\n"</span>, <span class="hljs-variable">$urls</span>),
+    CURLOPT_HTTPHEADER =&gt; <span class="hljs-keyword">array</span>(<span class="hljs-string">'Content-Type: text/plain'</span>),
+);
+curl_setopt_array(<span class="hljs-variable">$ch</span>, <span class="hljs-variable">$options</span>);
+<span class="hljs-variable">$result</span> = curl_exec(<span class="hljs-variable">$ch</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$result</span>;</code></pre>
+
+<p>4） 推送反馈： <br/><img src="http://img.blog.csdn.net/20160711164733556" alt="这里写图片描述" title=""/><br/><img src="http://img.blog.csdn.net/20160711164719568" alt="这里写图片描述" title=""/></p>
+
+<p><strong>主动推送注意事项：</strong></p>
+
+<p>1， 和原来的sitemap提交接口有什么区别？ <br/>
+        答：状态反馈更及时了，原来提交后需要登录到站长平台查看提交是否成功。目前只要根据提交后返回的数据就可以判断了。</p>
+
+<p>2， 已经存在的提交sitemap数据的程序代码需要做什么修改？ <br/>
+        答：主要修改两点。第一点，提交的接口需要修改；第二点，需要处理下接口返回的信息，失败后需要根据错误进行相应处理，报错的链接是无法提交成功的</p>
+
+<p>3，为什么提交成功后看不到数据变化？ <br/>
+        答：我们反馈的是新提交链接的数量，如果您提交的链接在之前提交过（即重复提交）是不会被统计到的</p>
+
+<p>4，在什么时机使用主动推送提交功能效果最明显？ <br/>
+        答：页面链接产生或发布时立即提交，这样效果是最好的 </p>
+
+<p>5，每次提交一条数据和多条数据有什么区别？ <br/>
+        答：没有区别 </p>
+
+<p>6，重复提交已经发布的链接会有什么问题？ <br/>
+        答：会有两个影响。第一，将浪费您提交的配额，每个站点每天可提交的数量是有限制的，如果您都提交了旧链接，当有新链接时可能因为配额耗尽无法提交。第二，如果您经常重复提交旧链接，我们会下调您的配额，您可能会失去主动推送功能的权限</p>
+
+<p>7，主动推送可以推多少条链接？ <br/>
+        答：主动推送可提交的链接数量上限是根据您提交的新产生有价值链接数量而决定的，百度会根据您提交数量的情况不定期对上限额进行调整，提交的新产生有价值链接数量越多，可提交链接的上限越高。</p>
+
+<p><strong>Sitemap 推送说明：</strong> <br/>
+Sitemap（即站点地图）就是您网站上各网页的列表。您还可以使用Sitemap提供有关您网站的其他信息，如上次更新日期、Sitemap文件的更新频率等，供百度Spider参考。</p>
+
+<p><strong>百度Sitemap协议支持三种格式：</strong> <br/>
+文本格式、xml格式、Sitemap索引格式 <br/>
+一般用xml格式</p>
+
+<p><strong>xml格式Sitemap：</strong> <br/>
+单个xml数据格式如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-comment">&lt;!-- XML文件需以utf-8编码--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">urlset</span>&gt;</span>
+<span class="hljs-comment">&lt;!--必填标签--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--必填标签,这是具体某一个链接的定义入口，每一条数据都要用&lt;url&gt;和&lt;/url&gt;包含在里面，这是必须的 --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://www.yoursite.com/yoursite.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--必填,URL链接地址,长度不得超过256字节--&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--可以不提交该标签,用来指定该链接的最后更新时间--&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--可以不提交该标签,用这个标签告诉此链接可能会出现的更新频率 --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--可以不提交该标签,用来指定此链接相对于其他链接的优先权比值，此值定于0.0-1.0之间--&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://www.yoursite.com/yoursite2.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2010-05-01<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">urlset</span>&gt;</span></code></pre>
+
+<p>若有多条url，按照上述格式重复之间的片断，列明所有url地址，打包到一个xml文件，向站长平台进行提交。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>Weekly<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+注释：这里写的就是这个网址的内容大概的更新频率是怎样的。它的值可以是：Always（总是）、Hourly（每小时）、Daily（每天）、Weekly（每个星期）、Monthly（每个月）、Yearly（每年）。</code></pre>
+
+<p><strong>Sitemap索引格式：</strong> <br/>
+如需提交大量sitemap文件，则可将其列在sitemap索引文件中，然后将该索引文件提交。您无需分别提交每个文件。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="hljs-comment">&lt;!-- XML文件需以utf-8编码--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">sitemapindex</span>&gt;</span>
+<span class="hljs-comment">&lt;!--必填，以 &lt;sitemapindex&gt; 开始标记作为开始，以 &lt;/sitemapindex&gt; 结束标记作为结束--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">sitemap</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--必填，以&lt;sitemap&gt;标签提交一个子sitemap文件--&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://example.com/ext/xmlsitemap/add/201201/index_20120106.xml<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span>
+
+        <span class="hljs-comment">&lt;!--必填，识别sitemap的位置--&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-comment">&lt;!--选填，识别相对sitemap文件的修改时间--&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">sitemap</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--必填，标签闭合--&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">sitemap</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://m.cheyun.com/wap_jishu_zhengche_3.xml<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2016-07-10<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">sitemap</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">sitemapindex</span>&gt;</span>
+<span class="hljs-comment">&lt;!--必填，标签闭合--&gt;</span></code></pre>
+
+<p><strong>创建Sitemap的注意事项：</strong> <br/>
+第一，一个Sitemap文件包含的网址不得超过 5 万个，且文件大小不得超过 10 MB。如果您的Sitemap超过了这些限值，请将其拆分为几个小的Sitemap。这些限制条件有助于确保您的网络服务器不会因提供大文件而超载。</p>
+
+<p>第二，一个站点支持提交的sitemap文件个数必须小于5万个，多于5万个后会不再处理，并显示“链接数超”的提示。    </p>
+
+<p>第三，如果验证了网站的主域，那么Sitemap文件中可包含该网站主域下的所有网址。</p>
+
+<p>第四，强烈建议将 Sitemap 放在 HTML 服务器的根目录中，即 <a href="http://example.com/sitemap.xml">http://example.com/sitemap.xml</a>。Sitemap 列出的所有网址必须和 Sitemap 位于同一个主机上。</p>
+
+<p>第五，对本协议中的 lastmod 时间戳以及所有其他日期和时间，请使用 W3C Datetime 编码。例如，2004-09-22T14:12:14+00:00。此编码允许您省略 ISO8601 格式的时间部分，例如，2004-09-22 也是有效的。然而，如果您的网站频繁更改，则建议您使用ISO8601格式的时间部分，以便抓取工具可获取关于您网站的更全面的信息。</p>
+
+<p>第六，在网址中包含会话 ID 号可能会导致网站抓取不完整以及重复抓取，要将其删除。</p>
+
+<p><strong>Sitemap 推送说明：</strong> <br/>
+第一步，将需提交的网页列表制作成一个Sitemap文件，文件格式请阅读百度Sitemap协议都支持哪些格式。 <br/>
+第二步，将Sitemap文件放置在网站目录下。比如您的网站为example.com，您已制作了一个sitemap_example.xml的Sitemap文件，将sitemap_example.xml上传至网站根目录即example.com/sitemap_example.xml <br/>
+第三步，登录百度站长平台，确保提交Sitemap数据的网站已验证归属。 <br/>
+第四步，进入Sitemap工具，点击“添加新数据”，文件类型选择“URL列表”，填写抓取周期和Sitemap文件地址 <br/>
+最后，提交完之后，可在Sitemap列表里看到提交的Sitemap文件，如果Sitemap文件里面有新的网站链接，可以选择文件后，点击更新所选，即对更新的网站链接进行了提交。</p>
+
+<p><strong>主动推送Sitemap ：</strong> <br/>
+php实例：</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+    set_time_limit(<span class="hljs-number">0</span>);
+
+    <span class="hljs-comment">//获取所有  xml 文件</span>
+    <span class="hljs-variable">$dir</span> = <span class="hljs-string">'./sitemap'</span>;
+    <span class="hljs-variable">$files</span> = <span class="hljs-keyword">array</span>();
+    <span class="hljs-keyword">if</span> ( <span class="hljs-variable">$handle</span> = opendir(<span class="hljs-variable">$dir</span>) ) {
+        <span class="hljs-keyword">while</span> ( (<span class="hljs-variable">$file</span> = readdir(<span class="hljs-variable">$handle</span>)) !== <span class="hljs-keyword">false</span> ) {
+            <span class="hljs-keyword">if</span> ( <span class="hljs-variable">$file</span> != <span class="hljs-string">".."</span> &amp;&amp; <span class="hljs-variable">$file</span> != <span class="hljs-string">"."</span> ) {
+                <span class="hljs-variable">$files</span>[] = <span class="hljs-variable">$dir</span> . <span class="hljs-string">'/'</span> . <span class="hljs-variable">$file</span>;
+            }
+        }
+        closedir(<span class="hljs-variable">$handle</span>);
+    }
+    <span class="hljs-variable">$error</span> = <span class="hljs-string">''</span>;
+    <span class="hljs-variable">$curl</span>= curl_init();
+    <span class="hljs-comment">//遍历读取所有xml文件</span>
+    <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$files</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$fileName</span>) {
+        <span class="hljs-variable">$data</span> = file_get_contents(<span class="hljs-variable">$fileName</span>);
+        <span class="hljs-variable">$pingurl</span>=<span class="hljs-string">"http://ping.baidu.com/sitemap?site=www.360hudong.com&amp;resource_name=sitemap&amp;access_token=RoKT4gj0XIDdn5AQ"</span>;<span class="hljs-comment">//你的接口地址</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_URL,<span class="hljs-variable">$pingurl</span>);<span class="hljs-comment">// 要访问的地址</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_SSL_VERIFYPEER, <span class="hljs-number">0</span>);<span class="hljs-comment">// 对认证证书来源的检查</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_SSL_VERIFYHOST, <span class="hljs-number">2</span>);<span class="hljs-comment">// 从证书中检查SSL加密算法是否存在</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_USERAGENT,<span class="hljs-string">"curl/7.12.1"</span>);<span class="hljs-comment">// 模拟用户使用的浏览器</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_COOKIE,<span class="hljs-string">''</span>);
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_REFERER,<span class="hljs-string">""</span>);
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_POST, <span class="hljs-number">1</span>);<span class="hljs-comment">// 发送一个常规的Post请求</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_POSTFIELDS,<span class="hljs-variable">$data</span>);<span class="hljs-comment">// Post提交的数据包</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_HTTPHEADER, <span class="hljs-keyword">array</span>(<span class="hljs-string">'Expect:'</span>)); <span class="hljs-comment">//xml文件可超过1024字节</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_TIMEOUT, <span class="hljs-number">30</span>);<span class="hljs-comment">// 设置超时限制防止死循环</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_HEADER, <span class="hljs-number">0</span>);<span class="hljs-comment">// 显示返回的Header区域内容</span>
+        curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);<span class="hljs-comment">// 获取的信息以文件流的形式返回</span>
+        <span class="hljs-variable">$tmpInfo</span>= curl_exec(<span class="hljs-variable">$curl</span>);<span class="hljs-comment">// 执行操作</span>
+        <span class="hljs-keyword">if</span>(curl_errno(<span class="hljs-variable">$curl</span>)) {
+            <span class="hljs-variable">$error</span> .= curl_error(<span class="hljs-variable">$curl</span>) . <span class="hljs-string">"\n"</span>;
+        }
+        <span class="hljs-variable">$xml</span> = simplexml_load_string(<span class="hljs-variable">$tmpInfo</span>);
+        <span class="hljs-variable">$errno</span> = <span class="hljs-variable">$xml</span>-&gt;params-&gt;param-&gt;value-&gt;int;
+        <span class="hljs-keyword">if</span>(<span class="hljs-number">200</span> &lt; <span class="hljs-variable">$errno</span>) {
+            <span class="hljs-variable">$error</span> .= <span class="hljs-variable">$fileName</span> . <span class="hljs-string">'文件推送错误，错误码： '</span> . <span class="hljs-variable">$errno</span> . <span class="hljs-string">"\n"</span>;
+        }
+    }
+    curl_close(<span class="hljs-variable">$curl</span>);
+    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$error</span>)) {
+
+        <span class="hljs-variable">$err</span> = <span class="hljs-string">"
+                    错误代码                                    错误码说明：    \n
+          200    无使用方式错误，需要进一步观察返回的内容是否正确     \n
+          400    必选参数未提供      \n
+          405    不支持的请求方式，我们只支持POST方式提交数据     \n
+          411    HTTP头中缺少Content-Length字段     \n
+          413    推送的数据过大，超过了10MB的限制       \n
+          422    HTTP头中Content-Length声明的长度和实际发送的数据长度不一致       \n
+          500    站长平台服务器内部错误      \n
+        "</span>;
+        <span class="hljs-variable">$error</span> .= <span class="hljs-variable">$err</span>;
+        error_log(<span class="hljs-variable">$error</span>, <span class="hljs-number">3</span>, <span class="hljs-string">'error.log'</span>);
+    }
+</span></code></pre>
+
+<p><strong>Sitemap推送反馈：</strong></p>
+
+<p>数据推送后，服务器会返回xml反馈推送是否成功，反馈示例：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span> 
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">methodResponse</span>&gt;</span> 
+
+        <span class="hljs-tag">&lt;<span class="hljs-title">params</span>&gt;</span> 
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">param</span>&gt;</span> 
+
+                <span class="hljs-tag">&lt;<span class="hljs-title">value</span>&gt;</span> 
+
+                    <span class="hljs-tag">&lt;<span class="hljs-title">int</span>&gt;</span>200<span class="hljs-tag">&lt;/<span class="hljs-title">int</span>&gt;</span> 
+
+                <span class="hljs-tag">&lt;/<span class="hljs-title">value</span>&gt;</span> 
+
+            <span class="hljs-tag">&lt;<span class="hljs-title">param</span>&gt;</span> 
+
+        <span class="hljs-tag">&lt;/<span class="hljs-title">params</span>&gt;</span>         
+
+    <span class="hljs-tag">&lt;/<span class="hljs-title">methodResponse</span>&gt;</span> </code></pre>
+
+<p><strong>移动Sitemap协议：</strong> <br/>
+百度移动Sitemap协议是在标准Sitemap协议基础上制定的，增加了标签，它有四种取值：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs rust">&lt;mobile:mobile/&gt; ：移动网页
+&lt;mobile:mobile <span class="hljs-keyword">type</span>=<span class="hljs-string">"mobile"</span>/&gt; ：移动网页      
+&lt;mobile:mobile <span class="hljs-keyword">type</span>=<span class="hljs-string">"pc,mobile"</span>/&gt;：自适应网页
+&lt;mobile:mobile <span class="hljs-keyword">type</span>=<span class="hljs-string">"htmladapt"</span>/&gt;：代码适配</code></pre>
+
+<p>无该上述标签表示为PC网页</p>
+
+<p>下方样例相当于向百度移动搜索提交了一个移动网页：<a href="http://m.example.com/index.html">http://m.example.com/index.html</a>，向PC搜索提交了一个传统网页：<a href="http://www.example.com/index.html">http://www.example.com/index.html</a>，同时向移动搜索和PC搜索提交了一个自适配网页<a href="http://www.example.com/autoadapt.html">http://www.example.com/autoadapt.html</a>：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">urlset</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://www.sitemaps.org/schemas/sitemap/0.9"</span>
+<span class="hljs-attribute">xmlns:mobile</span>=<span class="hljs-value">"http://www.baidu.com/schemas/sitemap-mobile/1/"</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://m.example.com/index.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">mobile:mobile</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"mobile"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://www.example.com/index.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://www.example.com/autoadapt.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">mobile:mobile</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"pc,mobile"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">loc</span>&gt;</span>http://www.example.com/htmladapt.html<span class="hljs-tag">&lt;/<span class="hljs-title">loc</span>&gt;</span> 
+        <span class="hljs-tag">&lt;<span class="hljs-title">mobile:mobile</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"htmladapt"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">lastmod</span>&gt;</span>2009-12-14<span class="hljs-tag">&lt;/<span class="hljs-title">lastmod</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">changefreq</span>&gt;</span>daily<span class="hljs-tag">&lt;/<span class="hljs-title">changefreq</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">priority</span>&gt;</span>0.8<span class="hljs-tag">&lt;/<span class="hljs-title">priority</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span> 
+<span class="hljs-tag">&lt;/<span class="hljs-title">urlset</span>&gt;</span></code></pre>
+
+<p><strong>注意：</strong> <br/>
+Sitemap数据提交后，一般在1小时内百度会开始处理。 <br/>
+Sitemap中提交的url因为转码问题建议最好不要包含中文。</p>
+
+<p><strong>js自动推送说明：</strong></p>
+
+<p>站长需要在每个页面的HTML代码中包含以下自动推送JS代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+
+    <span class="hljs-keyword">var</span> bp = document.createElement(<span class="hljs-string">'script'</span>);
+
+    <span class="hljs-keyword">var</span> curProtocol = window.location.protocol.split(<span class="hljs-string">':'</span>)[<span class="hljs-number">0</span>];
+
+    <span class="hljs-keyword">if</span> (curProtocol === <span class="hljs-string">'https'</span>){
+
+          bp.src = <span class="hljs-string">'https://zz.bdstatic.com/linksubmit/push.js'</span>;
+
+     } <span class="hljs-keyword">else</span>{
+
+          bp.src = <span class="hljs-string">'http://push.zhanzhang.baidu.com/push.js'</span>;
+
+     }
+
+    <span class="hljs-keyword">var</span> s = document.getElementsByTagName(<span class="hljs-string">"script"</span>)[<span class="hljs-number">0</span>];
+
+    s.parentNode.insertBefore(bp, s);
+
+})();
+
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span></code></pre>
+
+<p>如果站长使用PHP语言开发的网站，可以按以下步骤操作：</p>
+
+<p>1、创建名为“baidu_js_push.php”的文件，文件内容是上述自动推送JS代码；</p>
+
+<p>2、在每个PHP模板页文件中的  标记后面添加一行代码：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span> <span class="hljs-keyword">include_once</span>(<span class="hljs-string">"baidu_js_push.php"</span>) <span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px"><strong>asd.html:</strong></span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8" /&gt;
+&lt;title&gt;upload_file&lt;/title&gt;
+&lt;script type="text/javascript"
+async=""src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+"&gt;&lt;/script&gt;
+&lt;link
+href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstra
+p-combined.min.css" rel="stylesheet" /&gt;
+&lt;script type="text/javascript"&gt;
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="row-fluid"&gt;
+&lt;div class="span6 well"&gt;
+&lt;h3&gt;upload_file&lt;/h3&gt;
+&lt;input type="file" name="file" /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;script
+src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.
+min.js"&gt;&lt;/script&gt;
+&lt;/html&gt;</pre><br/><strong>python:</strong>&#13;
+<p><strong/></p><pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import os,time
+driver = webdriver.Firefox()
+#脚本要与asd.html 同一目录
+file_path = os.path.abspath('asd.html')
+print file_path
+driver.get(file_path)
+#定位上传按钮，添加本地文件
+driver.find_element_by_xpath("html/body/div[1]/div/input").send_keys('C:\MySQL\MySQL Server 5.1\my.ini')
+time.sleep(2)
+driver.quit()</pre><br/><br/></div>  </body>
+            </html>

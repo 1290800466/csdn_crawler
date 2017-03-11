@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 class="infotitle" style="padding:0px; margin:0px; text-align:center; font-family:宋体; line-height:24px">&#13;
+<div style="text-align:left"><span style="font-size:18px">$_POST：</span></div>&#13;
+<div style="font-weight:normal; text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="font-size:18px">描述 : 通过Http POST 方式提交的数据，会被封装到$_POST超全局数组中.</span></div>&#13;
+<div style="font-weight:normal; text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="font-size:18px">举例: 接收表单信息:</span></div>&#13;
+<div style="font-weight:normal; color:rgb(35,110,178); text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="font-size:18px"><img alt="114.jpg" class="zoom" id="aimg_14692" src="http://bbs.itcast.cn/data/attachment/forum/201305/06/154842riz33a333333rt55.jpg" title="114.jpg" width="430" style="font-family:tahoma,geneva,sans-serif; color:rgb(81,81,81); padding:0px; margin:0px; border:0px"/></span></div>&#13;
+<div style="font-weight:normal; color:rgb(35,110,178); text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="color:rgb(0,0,0); font-family:tahoma,geneva,sans-serif"><span style="font-size:18px">代码:</span></span></div>&#13;
+<div style="font-weight:normal; color:rgb(35,110,178); text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="font-size:18px"><span style="color:rgb(0,0,0); font-family:tahoma,geneva,sans-serif"/></span><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"/&gt;
+&lt;/head&gt;
+&lt;h1&gt;用户注册&lt;/h1&gt;
+&lt;form action="register2.php" method="post"&gt;
+用户名:&lt;input type="text" name="username"/&gt;&lt;br/&gt;
+密码&lt;input type="password" name="passwd"/&gt;&lt;br/&gt;
+性别:&lt;input type="radio" name="sex"  value="female" /&gt;女 &lt;input type="radio" name="sex"  value="male" /&gt;男&lt;br/&gt;
+你喜欢什么:
+&lt;input type="checkbox" name="hobby[]" value="唱歌"&gt;唱歌
+&lt;input type="checkbox" name="hobby[]" value="跳舞"&gt;跳舞
+&lt;input type="checkbox" name="hobby[]" value="游泳"&gt;游泳
+&lt;input type="checkbox" name="hobby[]" value="骑马"&gt;骑马
+&lt;br/&gt;
+你的所在地是:
+&lt;select name="city"&gt;
+&lt;option value="beijing"&gt;北京&lt;/option&gt;
+&lt;option value="tianjing"&gt;天津&lt;/option&gt;
+&lt;option value="nanjing"&gt;南京&lt;/option&gt;
+&lt;/select&gt;
+&lt;br/&gt;
+个人介绍 :
+&lt;textarea rows="10" name="intro" cols="30"&gt;
+&lt;/textarea&gt;&lt;br/&gt;
+你选择图片&lt;input type="file" name="myphoto"/&gt;&lt;br/&gt;
+&lt;input type="submit" value="提交"/&gt;
+&lt;/form&gt;
+&lt;/html&gt;</pre><br/><span style="color:rgb(0,0,0); font-family:tahoma,geneva,sans-serif">register1.php页面</span></div>&#13;
+<div style="font-weight:normal; color:rgb(35,110,178); text-align:left; background-color:rgb(255,255,255)">&#13;
+<span style="color:rgb(0,0,0); font-family:tahoma,geneva,sans-serif"><span style="font-size:18px"><br/></span></span></div>&#13;
+<div style="text-align:left"><span style="font-family:tahoma,geneva,sans-serif"><span style="font-size:18px"/></span><pre name="code" class="php" style="font-weight: normal; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);">&lt;?php
+       //看看如何接收
+       echo "&lt;pre&gt;";
+       echo print_r($_POST);
+       echo "&lt;/pre&gt;";
+       //关心爱好
+       $name=$_POST['username'];
+       $pwd=$_POST['passwd'];
+       //如何接收checkbox提交的数据
+       $hobbies=$_POST['hobby'];
+       echo "个人信息如下&lt;br/&gt;";
+       echo "$name--$pwd";
+       //print_r($hobbies);
+       echo "该人的爱好";
+       foreach($hobbies as $key=&gt;$val){
+              echo "&lt;br/&gt;$key=$val";
+       }
+       echo "&lt;br/&gt;你的所在地是";
+       $city=$_POST['city'];
+       echo $city;
+       echo "&lt;br/&gt;个人介绍如下";
+       $intro=$_POST['intro'];
+       echo "&lt;br/&gt;$intro";
+      
+       echo "&lt;a href='#'&gt;查看调查情况&lt;/a&gt;"
+?&gt;</pre>&#13;
+<p style="font-weight:normal; text-align:left; padding:0px; margin:0px"><span style="font-size:18px"><span style="font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">post和get的区别：<br/></span><span style="font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">① 安全性  post&gt;get<br/></span><span style="font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">② 数据传输大小 [浏览器] post&gt;get<br/></span><span style="font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">③<span style="font-family:tahoma,geneva,sans-serif; line-height:24px; background-color:rgb(241,241,241)">保存到收藏夹 get比较方便.</span></span></span></p>&#13;
+<p style="text-align:left; padding:0px; margin:0px"><span style="font-weight:normal; font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)"><span style="font-family:tahoma,geneva,sans-serif; line-height:24px; background-color:rgb(241,241,241)"><br/></span></span><span style="font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)"><span style="font-size:18px">$_REQUST：</span></span></p>&#13;
+<p style="text-align:left; padding:0px; margin:0px"><span style="font-size:18px"><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">定义:&#13;
+ $_REQUST 中可以包括 $_GET/$POST/$_COOKIE 数组,的信息.<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">快速入门:<br/></span></span></span></span><span style="font-weight:normal; color:rgb(0,0,0); font-family:tahoma,geneva,sans-serif"><span style="font-size:18px">这里就很好理解，看一个案例 ：</span><br/></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)"><br/></span></span></p>&#13;
+<pre name="code" class="php">&lt;?php
+       echo "&lt;pre&gt;";
+       echo print_r($_REQUEST);
+       echo "&lt;/pre&gt;";
+       //如何取出某个值
+       //$_REQUEST既可以接收get  请求数据，也可以接收post请求、cookie..
+       //所以这个变量，比较不可以信，不建议使用. $_GET $_POST
+       echo $_REQUEST['aa'];
+       //如果不确定get/post
+       if($_SERVER['http_method']=="post"){
+              $echo $_POST['名字'];
+       }else if($_SERVER['http_method']=="get"){
+              //用 _GET接收.
+       }
+?&gt;</pre><br/><span style="font-size:18px"><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">注意事项:<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">1. 不要经常使用$_REQUEST,<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">2. 如果不确定_GET/POST<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">你接收数据时候，可以这样<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">if($_SERVER[' REQUEST_METHOD’]=="POST"){<br/></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">              $echo&#13;
+ $_POST['名字'];<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif; background-color:rgb(255,255,255)">}else if($_SERVER[’ REQUEST_METHOD’]=="GET"){<br/></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">              //用&#13;
+ _GET接收.<br/></span></span></span><span style="font-weight:normal; padding:0px; margin:0px"><span style="padding:0px; margin:0px; font-family:tahoma,geneva,sans-serif"><span style="color:rgb(0,0,0); padding:0px; margin:0px; background-color:rgb(255,255,255)">}</span></span></span></span>&#13;
+<p/>&#13;
+</div>&#13;
+</h1>&#13;
+&#13;
+                      </div>  </body>
+            </html>

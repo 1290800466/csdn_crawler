@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div style="margin:0px 0px 0px 15px; padding:20px 0px; border-width:1px 0px; border-top-style:solid; border-bottom-style:solid; border-top-color:rgb(170,170,170); border-bottom-color:rgb(170,170,170); width:710px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+<h2 style="margin:0px; padding:0px; border:0px; font-family:微软雅黑; font-size:14px">&#13;
+PHP 用户定义函数</h2>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+函数是可以在程序中重复使用的语句块。</p>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+页面加载时函数不会立即执行。</p>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+函数只有在被调用时才会执行。</p>&#13;
+</div>&#13;
+<div style="margin:0px 0px 0px 15px; padding:20px 0px; border-width:1px 0px; border-top-style:solid; border-bottom-style:solid; border-top-color:rgb(170,170,170); border-bottom-color:rgb(170,170,170); width:710px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">&#13;
+<h2 style="margin:0px; padding:0px; border:0px; font-family:微软雅黑; font-size:14px">&#13;
+在 PHP 创建用户定义函数</h2>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+用户定义的函数声明以关单 "function" 开头：</p>&#13;
+<h3 style="margin:20px 0px 0px; padding:0px; border:0px; font-size:12px">语法</h3>&#13;
+<pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">function 函数名称() {
+  //被执行的代码;
+}
+</pre>&#13;
+<p class="note" style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+<span style="margin:0px; padding:0px; border:0px; font-weight:bold">注释：</span>函数名能够以字母或下划线开头（而非数字）。</p>&#13;
+<p class="note" style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+<span style="margin:0px; padding:0px; border:0px; font-weight:bold">注释：</span>函数名对大小写不敏感。</p>&#13;
+<p class="tip" style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+<span style="margin:0px; padding:0px; border:0px; color:rgb(255,153,85)"><strong>提示：</strong></span>函数名应该能够反映函数所执行的任务。</p>&#13;
+<p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px">&#13;
+在下面的例子中，我们创建名为 "writeMsg()" 的函数。打开的花括号（{）指示函数代码的开始，而关闭的花括号（}）指示函数的结束。此函数输出 "Hello world!"。如需调用该函数，只要使用函数名即可：</p>&#13;
+<h3 style="margin:20px 0px 0px; padding:0px; border:0px; font-size:12px">实例</h3>&#13;
+<pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">&lt;?php
+function writeMsg() {
+  echo "Hello world!";
+}
+
+writeMsg(); <span class="code_comment" style="margin:0px; padding:0px; border:0px; color:rgb(153,153,153)">// 调用函数</span>
+?&gt;</pre>&#13;
+<pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)"><h1 style="margin:0px; padding:0px; border:0px; font-family:微软雅黑; font-size:14px; background-color:rgb(249,249,249)">PHP 函数参数</h1><p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">可以通过参数向函数传递信息。参数类似变量。</p><p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">参数被定义在函数名之后，括号内部。您可以添加<span style="font-size:18px">任意多参数</span>，只要用逗号隔开即可。</p><p style="margin-top:12px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; border:0px; line-height:18px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">下面的例子中的函数有一个参数（$fname）。当调用 familyName() 函数时，我们同时要传递一个名字（例如 Bill），这样会输出不同的名字，但是姓氏相同：</p><h3 style="margin:20px 0px 0px; padding:0px; border:0px; font-size:12px; font-family:Verdana,Arial,宋体; background-color:rgb(249,249,249)">实例</h3><pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">&lt;?php
+function familyName($fname) {
+  echo "$fname Zhang.&lt;br&gt;";
+}
+
+familyName("Li");
+familyName("Hong");
+familyName("Tao");
+familyName("Xiao Mei");
+familyName("Jian");
+?&gt;</pre><h2 style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">函数调用的深入理解（函数的递归）：</h2><pre style="margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)"><img src="http://img.blog.csdn.net/20150503161931755?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="350" alt=""/></pre></pre>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

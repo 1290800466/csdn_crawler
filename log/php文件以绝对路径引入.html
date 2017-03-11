@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span> 
+<span class="hljs-keyword">require</span> dirname(<span class="hljs-keyword">__FILE__</span>) . <span class="hljs-string">'\test.php'</span>;
+<span class="hljs-variable">$sitemapPath</span> = dirname(dirname(dirname(dirname(<span class="hljs-keyword">__FILE__</span>)))) . <span class="hljs-string">'/www.cheyun.com/sitemap'</span>;
+
+
+<span class="hljs-keyword">echo</span> <span class="hljs-keyword">__FILE__</span>;    <span class="hljs-comment">// 取得当前文件的绝对地址</span>
+<span class="hljs-keyword">echo</span> dirname(<span class="hljs-keyword">__FILE__</span>);   <span class="hljs-comment">// 取得当前文件所在的绝对目录</span>
+<span class="hljs-keyword">echo</span> dirname(dirname(<span class="hljs-keyword">__FILE__</span>));  <span class="hljs-comment">//取得当前文件的上一层目录名</span>
+<span class="hljs-keyword">echo</span> dirname(dirname(dirname(<span class="hljs-keyword">__FILE__</span>)));  <span class="hljs-comment">//取得当前文件的上一层目录的上层目录名</span>
+
+以上代码输出：
+E:\webserver\test\index.php
+E:\webserver\test
+E:\webserver
+E:\
+
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p>建议：</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">//直接这样定义，不要中间常量，这样可以通过点击文件路径直接跳转到目的文件</span>
+<span class="hljs-keyword">require_once</span> dirname(<span class="hljs-keyword">__FILE__</span>) . <span class="hljs-string">'/config.php'</span>;
+<span class="hljs-keyword">require_once</span> dirname(<span class="hljs-keyword">__FILE__</span>) . <span class="hljs-string">'/function.php'</span>;
+<span class="hljs-keyword">require_once</span> dirname(<span class="hljs-keyword">__FILE__</span>) . <span class="hljs-string">'/db.class.php'</span>;</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

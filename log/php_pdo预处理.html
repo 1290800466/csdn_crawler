@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>预处理语句可以带来两大好处：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs coffeescript">    查询仅需解析（或预处理）一次，但可以用相同或不同的参数执行多次。当查询准备好后，数据库将分析、编译和优化
+执行该查询的计划。对于复杂的查询，此过程要花费较长的时间，如果需要以不同参数多次重复相同的查询，那么该过程将大
+大降低应用程序的速度。通过使用预处理语句，可以避免重复分析<span class="hljs-regexp">/编译/</span>优化周期。简言之，预处理语句占用更少的资源，因
+而运行得更快。
+    提供给预处理语句的参数不需要用引号括起来，驱动程序会自动处理。如果应用程序只使用预处理语句，可以确保不会
+发生SQL 注入。（然而，如果查询的其他部分是由未转义的输入来构建的，则仍存在 SQL 注入的风险）。</code></pre>
+
+<p><strong>预处理实例：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs bash">&lt;?php
+
+//？号式的预处理语句  一共有<span class="hljs-number">3</span>种绑定方式
+//<span class="hljs-number">1</span>.连接数据库  
+try{
+    <span class="hljs-variable">$pdo</span> = new PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+}catch(PDOException <span class="hljs-variable">$e</span>){
+    die(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+
+//<span class="hljs-number">2</span>.预处理的SQL语句
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into stu(id,name,sex,age) values(?,?,?,?)"</span>;
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
+
+//<span class="hljs-number">3</span>.对?号的参数绑定
+//（第一种绑定方式）
+
+/* <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-number">1</span>,null);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-number">2</span>,<span class="hljs-string">'test55'</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-number">3</span>,<span class="hljs-string">'w'</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-number">4</span>,<span class="hljs-number">22</span>); */
+
+//第二种绑定方式
+/* <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-number">1</span>,<span class="hljs-variable">$id</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-number">2</span>,<span class="hljs-variable">$name</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-number">3</span>,<span class="hljs-variable">$sex</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-number">4</span>,<span class="hljs-variable">$age</span>);
+<span class="hljs-variable">$id</span>=null;
+<span class="hljs-variable">$name</span>=<span class="hljs-string">"test66"</span>;
+<span class="hljs-variable">$sex</span>=<span class="hljs-string">"m"</span>;
+<span class="hljs-variable">$age</span>=<span class="hljs-number">33</span>; */
+
+//第三种绑定方式
+//<span class="hljs-variable">$stmt</span>-&gt;execute(array(null,<span class="hljs-string">'test77'</span>,<span class="hljs-string">'22'</span>,<span class="hljs-number">55</span>)); 
+//<span class="hljs-number">4</span>.执行
+
+<span class="hljs-variable">$stmt</span>-&gt;execute(array(null,<span class="hljs-string">'test77'</span>,<span class="hljs-string">'22'</span>,<span class="hljs-number">55</span>)); 
+
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$stmt</span>-&gt;rowCount();
+</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">&lt;?php
+
+//别名式号式的预处理语句  一共有<span class="hljs-number">3</span>种绑定方式
+//<span class="hljs-number">1</span>.连接数据库  
+try{
+    <span class="hljs-variable">$pdo</span> = new PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+}catch(PDOException <span class="hljs-variable">$e</span>){
+    die(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+
+//<span class="hljs-number">2</span>.预处理的SQL语句
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into stu(id,name,sex,age) values(:id,:name,:sex,:age)"</span>;
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
+
+//<span class="hljs-number">3</span>.对?号的参数绑定
+//（第一种绑定方式）
+/* <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-string">"id"</span>,null);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-string">"name"</span>,<span class="hljs-string">'ceshi1'</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-string">"sex"</span>,<span class="hljs-string">'w'</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Value(<span class="hljs-string">"age"</span>,<span class="hljs-number">22</span>);  */
+
+//第二种绑定方式
+/* <span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-string">"id"</span>,<span class="hljs-variable">$id</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-string">"name"</span>,<span class="hljs-variable">$name</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-string">"sex"</span>,<span class="hljs-variable">$sex</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Param(<span class="hljs-string">"age"</span>,<span class="hljs-variable">$age</span>);
+<span class="hljs-variable">$id</span>=null;
+<span class="hljs-variable">$name</span>=<span class="hljs-string">"ceshi2"</span>;
+<span class="hljs-variable">$sex</span>=<span class="hljs-string">"m"</span>;
+<span class="hljs-variable">$age</span>=<span class="hljs-number">33</span>; */ 
+
+//第三种绑定方式
+//<span class="hljs-variable">$stmt</span>-&gt;execute(array(null,<span class="hljs-string">'test77'</span>,<span class="hljs-string">'22'</span>,<span class="hljs-number">55</span>)); 
+//<span class="hljs-number">4</span>.执行
+
+<span class="hljs-variable">$stmt</span>-&gt;execute(array(<span class="hljs-string">"id"</span>=&gt;null,<span class="hljs-string">"name"</span>=&gt;<span class="hljs-string">"ceshi3"</span>,<span class="hljs-string">"sex"</span>=&gt;<span class="hljs-string">"w"</span>,<span class="hljs-string">"age"</span>=&gt;<span class="hljs-number">66</span>)); 
+
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$stmt</span>-&gt;rowCount();
+</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">&lt;?php
+
+//采用预处理SQL执行查询，并采用绑定结果方式输出
+//<span class="hljs-number">1</span>.连接数据库  
+try{
+    <span class="hljs-variable">$pdo</span> = new PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+}catch(PDOException <span class="hljs-variable">$e</span>){
+    die(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+
+//<span class="hljs-number">2</span>.预处理的SQL语句
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"select id,name,sex,age from stu"</span>;
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
+//<span class="hljs-number">3</span>.执行
+<span class="hljs-variable">$stmt</span>-&gt;execute();
+
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Column(<span class="hljs-number">1</span>,<span class="hljs-variable">$id</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Column(<span class="hljs-number">2</span>,<span class="hljs-variable">$name</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Column(<span class="hljs-string">"sex"</span>,<span class="hljs-variable">$sex</span>);
+<span class="hljs-variable">$stmt</span>-&gt;<span class="hljs-built_in">bind</span>Column(<span class="hljs-string">"age"</span>,<span class="hljs-variable">$age</span>);
+
+<span class="hljs-keyword">while</span>(<span class="hljs-variable">$row</span>=<span class="hljs-variable">$stmt</span>-&gt;fetch(PDO::FETCH_COLUMN)){
+    <span class="hljs-built_in">echo</span> <span class="hljs-string">"{<span class="hljs-variable">$id</span>}:{<span class="hljs-variable">$name</span>}:{<span class="hljs-variable">$sex</span>}:{<span class="hljs-variable">$age</span>}&lt;br&gt;"</span>;
+}
+/* foreach(<span class="hljs-variable">$stmt</span> as <span class="hljs-variable">$row</span>){
+    <span class="hljs-built_in">echo</span> <span class="hljs-variable">$row</span>[<span class="hljs-string">'id'</span>].<span class="hljs-string">"--------"</span>.<span class="hljs-variable">$row</span>[<span class="hljs-string">'name'</span>].<span class="hljs-string">"&lt;br&gt;"</span>;
+}
+ */
+
+</code></pre>
+
+<p><strong>最佳方式：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">//1.连接数据库  </span>
+<span class="hljs-keyword">try</span>{
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+}<span class="hljs-keyword">catch</span>(PDOException <span class="hljs-variable">$e</span>){
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+
+<span class="hljs-comment">//2.预处理的SQL语句</span>
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">'select catid,catname,catdir from cy_category where parentid = :parentid'</span>;
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
+<span class="hljs-variable">$params</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'parentid'</span> =&gt; <span class="hljs-variable">$subcatid</span>
+);
+<span class="hljs-variable">$stmt</span>-&gt;execute(<span class="hljs-variable">$params</span>); 
+<span class="hljs-comment">//$row = $stm-&gt;fetchAll(PDO::FETCH_ASSOC);</span>
+<span class="hljs-keyword">while</span>(<span class="hljs-variable">$row</span>=<span class="hljs-variable">$stmt</span>-&gt;fetch(PDO::FETCH_ASSOC)){
+    var_dump(<span class="hljs-variable">$row</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br&gt;"</span>;
+}</code></pre>
+
+<p><strong>预处理批量操作实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//用预处理语句进行重复插入</span>
+<span class="hljs-comment">//下面例子通过用 name 和 value 替代相应的命名占位符来执行一个插入查询</span>
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$dbh</span>-&gt;prepare(<span class="hljs-string">"INSERT INTO REGISTRY (name, value) VALUES (:name, :value)"</span>);
+<span class="hljs-variable">$stmt</span>-&gt;bindParam(<span class="hljs-string">':name'</span>, <span class="hljs-variable">$name</span>);
+<span class="hljs-variable">$stmt</span>-&gt;bindParam(<span class="hljs-string">':value'</span>, <span class="hljs-variable">$value</span>);
+
+<span class="hljs-comment">// 插入一行</span>
+<span class="hljs-variable">$name</span> = <span class="hljs-string">'one'</span>;
+<span class="hljs-variable">$value</span> = <span class="hljs-number">1</span>;
+<span class="hljs-variable">$stmt</span>-&gt;execute();
+
+<span class="hljs-comment">//  用不同的值插入另一行</span>
+<span class="hljs-variable">$name</span> = <span class="hljs-string">'two'</span>;
+<span class="hljs-variable">$value</span> = <span class="hljs-number">2</span>;
+<span class="hljs-variable">$stmt</span>-&gt;execute();
+
+<span class="hljs-comment">//用预处理语句进行重复插入</span>
+<span class="hljs-comment">//下面例子通过用 name 和 value 取代 ? 占位符的位置来执行一条插入查询。</span>
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$dbh</span>-&gt;prepare(<span class="hljs-string">"INSERT INTO REGISTRY (name, value) VALUES (?, ?)"</span>);
+<span class="hljs-variable">$stmt</span>-&gt;bindParam(<span class="hljs-number">1</span>, <span class="hljs-variable">$name</span>);
+<span class="hljs-variable">$stmt</span>-&gt;bindParam(<span class="hljs-number">2</span>, <span class="hljs-variable">$value</span>);
+
+<span class="hljs-comment">// 插入一行</span>
+<span class="hljs-variable">$name</span> = <span class="hljs-string">'one'</span>;
+<span class="hljs-variable">$value</span> = <span class="hljs-number">1</span>;
+<span class="hljs-variable">$stmt</span>-&gt;execute();
+
+<span class="hljs-comment">// 用不同的值插入另一行</span>
+<span class="hljs-variable">$name</span> = <span class="hljs-string">'two'</span>;
+<span class="hljs-variable">$value</span> = <span class="hljs-number">2</span>;
+<span class="hljs-variable">$stmt</span>-&gt;execute();
+
+<span class="hljs-comment">//使用预处理语句获取数据</span>
+<span class="hljs-comment">//下面例子获取数据基于键值已提供的形式。用户的输入被自动用引号括起来，因此不会有 SQL 注入攻击的危险。</span>
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$dbh</span>-&gt;prepare(<span class="hljs-string">"SELECT * FROM REGISTRY where name = ?"</span>);
+<span class="hljs-keyword">if</span> (<span class="hljs-variable">$stmt</span>-&gt;execute(<span class="hljs-keyword">array</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">'name'</span>]))) {
+  <span class="hljs-keyword">while</span> (<span class="hljs-variable">$row</span> = <span class="hljs-variable">$stmt</span>-&gt;fetch()) {
+    print_r(<span class="hljs-variable">$row</span>);
+  }
+}
+<span class="hljs-preprocessor">?&gt;</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

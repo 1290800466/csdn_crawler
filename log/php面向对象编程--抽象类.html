@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px">抽象类<br/></span>&#13;
+<p><span style="font-size:18px">1、在实际开发中，我们可能有这样一种类,是其它类的父类，但是它本身并不需要实例化,主要用途是用于让子类来继承，这样可以达到代码复用. 同时利于项目设计者，设计类.</span></p>&#13;
+<p><span style="font-size:18px">代码实例：</span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre name="code" class="php">&lt;?php 
+//在实现方法覆盖的时候，访问修饰符可以不一样
+//但是必须满足: 子类的访问范围&gt;=父类的访问范围
+abstract class Animal{
+    public $name;
+    protected $age;
+    //这个方法没有方法体,这个方法主要是为了让子类去实现.
+    //注意也不能有大括号
+    abstract public function cry();
+}
+class Cat extends Animal{
+    public  function cry(){
+        echo "猫猫叫唤..&lt;br&gt;";
+    }
+}
+//创建一个子类实例
+$cat1=new Cat();
+$cat1-&gt;cry();
+?&gt;</pre><br/>&#13;
+ 使用抽象类的注意事项:&#13;
+<p/>&#13;
+<span style="font-size:18px">1.基本用法：<br/>&#13;
+      abstract class 类名{<br/>&#13;
+            //方法<br/>&#13;
+            //属性<br/>&#13;
+     }<br/>&#13;
+2.如果一个类使用abstract 来修饰，则该类就是抽象类, 如果一个方法被abstract修饰，则该方法就是抽象方法【抽象方法不能有方法体,连那个大括号也不能有.】<br/>&#13;
+3.抽象类可以没有抽象方法.同时还可以有实现了的方法.<br/><br/></span><pre name="code" class="php">&lt;?php
+abstract class Animal1{
+    public $name="abc";
+    protected $age;
+    //这个方法没有方法体,这个方法主要是为了让子类去实现.
+    abstract public function cry();         
+    public function getName(){
+        return $this-&gt;name;
+    }
+}
+class Cat1 extends Animal1{
+    public  function cry(){
+        echo "猫猫叫唤..&lt;br&gt;";
+    }
+}
+//创建一个子类实例
+$cat2=new Cat1();
+$cat2-&gt;cry();
+echo $cat2-&gt;getName(); 
+echo "&lt;br&gt;"; 
+?&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">如果一个类中，只要有抽象方法，则该类必须声明为abstract</span></p>&#13;
+<pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+
+// abstract class A{
+              
+//               abstract function test();
+//        }
+//        echo "ok";
+//5.如果A类继承了一个抽象类 B，则要求A类实现从B类继承的所有抽象方法，除非A类也声明为抽象类。
+//案例:
+//这是一个抽象类
+        abstract class A{
+              
+              abstract function test();
+              //abstract function test1();
+       }
+       //B类要么自己抽象，或者实现从A类继承的抽象方法.
+       class B extends A{
+      
+              function test(){
+                     echo "我实现A:test()";
+              }
+       }
+       echo "hello!    ";
+       $a1=new B;
+       $a1-&gt;test();
+       
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

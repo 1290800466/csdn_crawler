@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div class="page-header" style="padding-bottom:9px; margin:40px 0px 20px; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(238,238,238); color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:14px; line-height:20px">&#13;
+<h1 style="margin:20px 0px 10px; font-size:36px; font-family:inherit; font-weight:500; line-height:1.1; color:inherit">&#13;
+thinkphp3.2 验证码生成和点击刷新验证码示例</h1>&#13;
+</div>&#13;
+<div id="article_content" style="color:rgb(51,51,51); font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; font-size:14px; line-height:20px">&#13;
+<div id="article_content" style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px"><span style="font-weight:700">一、实例化生成验证码的类(该方法放到IndexController里面便于访问)</span></p>&#13;
+<div style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px">/** </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px"> *  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px"> * 验证码生成 </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px"> */  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">public function verify_c(){  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify = new \Think\Verify();  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;fontSize = 18;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;length   = 4;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;useNoise = false;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;codeSet = '0123456789';  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;imageW = 130;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;imageH = 50;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    //$Verify-&gt;expire = 600;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $Verify-&gt;entry();  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">}  </p>&#13;
+</div>&#13;
+<span style="font-weight:700">二、前台需要生成验证码的图片src属性指向</span>&#13;
+<div style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px">&lt;p class="top15 captcha" id="captcha-container"&gt;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">  &lt;input name="verify" width="50%" height="50" class="captcha-text" placeholder="验证码" type="text"&gt;                  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">  &lt;img width="30%" class="left15" height="50" alt="验证码" src="{:U('Home/Index/verify_c',array())}" title="点击刷新"&gt;  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">&lt;/p&gt; <span style="font-weight:700"> </span></p>&#13;
+</div>&#13;
+<span style="font-weight:700">三、写完上面的后，页面初始化的验证码就可以出现了，下面要写的就是点击验证码图片后，刷新出新的验证码图片(通过jquery修改图片的src属性来完成，请求的处理函数一样，只是在请求后加一个随机数，区别上一张图片的请求)</span>&#13;
+<div style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px">// 验证码生成  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">var captcha_img = $('#captcha-container').find('img')  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">var verifyimg = captcha_img.attr("src");  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">captcha_img.attr('title', '点击刷新');  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">captcha_img.click(function(){  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    if( verifyimg.indexOf('?')&gt;0){  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">        $(this).attr("src", verifyimg+'&amp;random='+Math.random());  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    }else{  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">        $(this).attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    }  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">});  </p>&#13;
+</div>&#13;
+<span style="font-weight:700">四、校验验证码输入是否正确</span>&#13;
+<p style="margin-top:0px; margin-bottom:10px">a.在common目录下的function.php里加入全局函数</p>&#13;
+<div style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px">/** </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px"> * 验证码检查 </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px"> */  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">function check_verify($code, $id = ""){  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $verify = new \Think\Verify();  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    return $verify-&gt;check($code, $id);  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">}  </p>&#13;
+</div>&#13;
+b.在表单提交的controller对应的处理方法里添加检查代码&#13;
+<div style="">&#13;
+<p style="margin-top:0px; margin-bottom:10px">// 检查验证码  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">$verify = I('param.verify','');  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">if(!check_verify($verify)){  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">    $this-&gt;error("亲，验证码输错了哦！",$this-&gt;site_url,9);  </p>&#13;
+<p style="margin-top:0px; margin-bottom:10px">}  </p>&#13;
+</div>&#13;
+到此tp3.2验证码的使用就可以了。&#13;
+<p style="margin-top:0px; margin-bottom:10px">补充：我在写的时候将四的b步骤放到一个ajax里验证，返回一次检验结果。然后再依据返回结果确定是否要提交表单，但是在验证码通过第一次的校验后，第二次的就不可以了，目前还没想明白原因。</p>&#13;
+<div><br/></div>&#13;
+</div>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<span lang="EN-US" style="padding:0px; margin:0px; font-family:'Trebuchet MS',sans-serif; font-size:11pt">Nginx</span><span style="padding:0px; margin:0px; font-size:11pt">的主配置文件是：</span><span lang="EN-US" style="padding:0px; margin:0px; font-family:'Trebuchet MS',sans-serif; font-size:11pt">nginx.conf</span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<span lang="EN-US" style="padding:0px; margin:0px; font-family:'Trebuchet MS',sans-serif; font-size:11pt">nginx.conf </span><span style="padding:0px; margin:0px; font-size:11pt">主要组成如下：</span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<a target="_blank" href="http://img1.51cto.com/attachment/201110/181951443.jpg" style="padding:0px; margin:0px; color:rgb(1,95,145); text-decoration:none"><img border="0" alt="" src="http://img1.51cto.com/attachment/201110/181951443.jpg" width="191" height="413" style="padding:0px; margin:0px; vertical-align:top; border:none"/></a></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+server可以有多个，即多个虚拟主机：</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+如下所示为 nginx.conf 的配置方法：</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+</p><pre code_snippet_id="1589408" snippet_file_name="blog_20160226_1_3215815" name="code" class="plain">
+worker_processes  auto;
+
+error_log  "E:/www/nginx/logs/error.log";
+
+pid        "E:/www/nginx/logs/nginx.pid";
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    client_body_temp_path  "E:/www/nginx/tmp/client_body" 1 2;
+    proxy_temp_path "E:/www/nginx/tmp/proxy" 1 2;
+    fastcgi_temp_path "E:/www/nginx/tmp/fastcgi" 1 2;
+    scgi_temp_path "E:/www/nginx/tmp/scgi" 1 2;
+    uwsgi_temp_path "E:/www/nginx/tmp/uwsgi" 1 2;
+
+    access_log  "E:/www/nginx/logs/access.log";
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    gzip on;
+    gzip_http_version 1.1;
+    gzip_comp_level 2;
+    gzip_proxied any;
+    gzip_vary on;
+    gzip_types text/plain
+               text/xml
+               text/css
+               text/javascript
+               application/json
+               application/javascript
+               application/x-javascript
+               application/ecmascript
+               application/xml
+               application/rss+xml
+               application/atom+xml
+               application/rdf+xml
+               application/xml+rss
+               application/xhtml+xml
+               application/x-font-ttf
+               application/x-font-opentype
+               application/vnd.ms-fontobject
+               image/svg+xml
+               image/x-icon
+               application/atom_xml;
+
+    gzip_buffers 16 8k;
+
+    add_header X-Frame-Options SAMEORIGIN;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+    #多个虚拟主机 server
+    server {
+    listen       80;  #端口
+    #应用名称
+    server_name  pubstage.cheyun.com test.pubstage.cheyun.com;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    location / {
+        #服务器代码路径
+        root   E:/www/nginx/html/pubstage.cheyun.com;
+        #默认访问文件
+        index  index.php index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ \.php$ {
+        root           E:/www/nginx/html/pubstage.cheyun.com;
+        fastcgi_read_timeout 300;
+        
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $request_filename;
+        include        fastcgi_params;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+#第二个虚拟主机：
+server {
+    #根据端口的不同创建不同的虚拟主机
+    listen       8080;
+    server_name  phpmyadmin;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    location / {
+        root   E:/www/nginx/html/phpmyadmin;
+        index  index.php index.html index.htm;
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   html;
+    }
+
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    location ~ \.php$ {
+        root           E:/www/nginx/html/phpmyadmin;
+        fastcgi_read_timeout 300;
+        
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME $request_filename;
+        include        fastcgi_params;
+    }
+
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+
+}
+</pre>第二步修改Windows系统的hosts文件：<br/>&#13;
+C:\Windows\System32\drivers\etc\hosts<br/><p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+</p><pre code_snippet_id="1589408" snippet_file_name="blog_20160226_2_7773410" name="code" class="plain">127.0.0.1     localhost
+127.0.0.1     pubstage.cheyun.com
+127.0.0.1     phpmyadmin</pre><br/>&#13;
+此时配置完成&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+访问路径  http://pubstage.cheyun.com   即为访问 E:/www/nginx/html/pubstage.cheyun.com  中的代码</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+访问  <span style="color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">http://phpmyadmin:8080  即为访问  </span>E:/www/nginx/html/phpmyadmin  中的代码</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; clear:both; height:auto; overflow:hidden; color:rgb(85,85,85); font-family:宋体,'Arial Narrow',arial,serif; font-size:14px; line-height:28px">&#13;
+<br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

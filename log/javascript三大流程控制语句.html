@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1><span style="font-size:18px; color:#ff0000">（1）顺序控制</span></h1>&#13;
+<p><strong><span style="font-size:18px; color:#ff0000">（2）分支控制</span></strong></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>让程序有选择的执行，分支控制有三种<br/><span style="white-space:pre"/>①单分支②双分支③多分支</span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="white-space:pre"/>①单分支</strong><br/><span style="white-space:pre"/>if(条件表达式){<br/><span style="white-space:pre"/>语句;<br/><span style="white-space:pre"/>}<br/><strong><span style="white-space:pre"/>②双分支</strong><br/><span style="white-space:pre"/>if(条件表达式){<br/><span style="white-space:pre"/>语句;<br/><span style="white-space:pre"/>}else{<br/><span style="white-space:pre"/>语句;<br/><span style="white-space:pre"/>}</span></p>&#13;
+<p><span style="font-size:18px"><br/><strong><span style="white-space:pre"/>③多分支</strong><br/><span style="white-space:pre"/>if(条件表达式1){<br/><span style="white-space:pre"/>//执行<br/><span style="white-space:pre"/>}else if(条件表达式2){<br/><span style="white-space:pre"/>//执行<br/><span style="white-space:pre"/>}else if…{ </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>//可以有多个else if<br/><span style="white-space:pre"/>}<br/><span style="white-space:pre"/>else{ </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>//可以没有<br/><span style="white-space:pre"/>}<br/><br/><br/><strong>举例：</strong><br/>&#13;
+如果男，男厕所，女，女厕所，否则不上</span></p>&#13;
+<p style="background:#F8F8F8"/><pre name="code" class="javascript">var sex=window.prompt("请输入性别");
+if(sex=="男"){
+window.alert("上男厕所");
+}else if(sex=="女"){
+window.alert("上女厕所");
+}else{
+window.alert("不上厕所");
+}</pre><br/><p><span style="font-size:18px"><strong>注意：</strong>多分支，找到一个入口后，后面的都不判断了。<br/><strong>强调：</strong>一旦找到一个满足条件的入口，执行完毕后，就直接结束整个多分支。<br/><br/><strong><span style="white-space:pre"/>③多分支 switch</strong><br/><span style="white-space:pre"/>switch(条件表达式){<br/><span style="white-space:pre"/>case 常量1:<br/><span style="white-space:pre"/>语句; break;<br/><span style="white-space:pre"/>case 常量2:<br/><span style="white-space:pre"/>语句; break;<br/><span style="white-space:pre"/>…<br/><span style="white-space:pre"/>case 常量n:<br/><span style="white-space:pre"/>语句; break;<br/><span style="white-space:pre"/>default:<br/><span style="white-space:pre"/>语句;<br/>&#13;
+}<br/>&#13;
+注意：case有几个都行，default可以没有。当case1~n都不满足的时候，则default。default并不一定要在最后。<br/>&#13;
+switch的细节问题</span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			var a=890;
+			switch(a){
+				case 890:
+					window.alert("这是890");
+					break; //break 作用是跳出整个swithc语句
+				case 90:
+					window.alert("这是90");
+					break;
+				case 890:
+					window.alert("没有匹配的值");
+					break;
+				}
+			//********
+			//当break语句没有的时候，会接着向下执行，直到碰到第二个break，也不会去判断90了(后面不需要判断，直接进入)，从入口890进来了已经。
+			var a=890;
+			switch(a){
+				case 890:
+					window.alert("这又是890"); //输出
+					//这里没有break语句了
+				case 90:
+					window.alert("这是90"); //输出后跳出
+					break;
+				case 890:
+					window.alert("没有匹配的值");
+					break;
+			}
+			window.alert("end…");
+			//********
+			// 这个会出现什么提示？会弹出三个对话框，因为1没有任何匹配就进入了default，因为没有break，就接着执行window.alert("今天是星期一");因为又没有break，就再执行window.alert("今天是星期二");
+			var flag=1;
+			switch(flag){
+				default:
+				window.alert("默认");
+				case 'a':
+				window.alert("今天是星期一");
+				case 'b':
+				window.alert("今天是星期二");
+			}
+			//********
+			//下面的这个又会提示什么呢？1.1有匹配了，只显示1.1，然后语句结束。
+			var flag=1.1;
+			switch(flag){
+				default:
+				window.alert("默认1.1");
+				case 'a':
+				window.alert("今天是星期一1.1");
+				case 'b':
+				window.alert("今天是星期二1.1");
+				case 1.1:
+				window.alert("1.1");
+			}
+			//********
+			//对上面的程序再深一步，下面的这个又会提示什么呢？1.2有匹配了，先显示1.2，没有遇到break，就继续执行window.alert("今天是星期二1.2");还是没有遇到break，再执行window.alert("默认1.2");程序结束。
+			var flag=1.2;
+			switch(flag){
+				case 'a':
+				window.alert("今天是星期一1.2");
+				case 1.2:
+				window.alert("1.2");
+				case 'b':
+				window.alert("今天是星期二1.2");
+				default:
+				window.alert("默认1.2");
+			}
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><p><span style="font-size:18px">表达式可以是js支持的所有数据类型<br/><strong>注意：</strong><br/>&#13;
+a、js的switch语句类型可以是js支持的任何类型（数组和对象除外）<br/>&#13;
+b、case后面的数据类型可以 任意（数组和对象除外）<br/>&#13;
+c、break作用是跳出整个switch语句<br/>&#13;
+d、如果没有匹配的则执行default</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:#cc0000"><strong>（3）循环控制</strong></span></span></p>&#13;
+<p align="left"/><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			for(var i=0; i&lt;10; i++){
+				document.writeln("你好，刘德华同志！&lt;br/&gt;");
+			}
+			document.writeln("=======&lt;br/&gt;");
+			// while循环
+			var i=0;
+			while(i&lt;10){
+				document.writeln("你好，我是刘德华 &lt;br/&gt;");
+				i++;
+			}
+			// do while循环
+			document.writeln("=======&lt;br/&gt;");
+			var i=0;
+			do{
+				document.writeln("你好，我是张学友 &lt;br/&gt;");
+				i++;
+			}while(i&lt;10);
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><br/><p align="left"><span style="font-size:18px"><strong>循环控制有三种<br/>&#13;
+①for循环</strong><br/>&#13;
+for(循环初值;循环条件;步长){<br/><span style="white-space:pre"/>语句; //循环体<br/>&#13;
+}<br/><strong>②while循环</strong><br/>&#13;
+while(循环条件){<br/><span style="white-space:pre"/>语句; //循环体<br/></span></p>&#13;
+<p align="left"><span style="font-size:18px">}</span></p>&#13;
+<p align="left"><span style="font-size:18px"><strong>特别说明：</strong>while循环是先判断再执行语句。<br/><strong>③do while循环</strong><br/>&#13;
+do{</span></p>&#13;
+<p align="left"><span style="font-size:18px"><span style="white-space:pre"><span style="font-size:18px">语句;<span style="font-size:18px">//循环体</span></span></span><br/>&#13;
+}while(循环条件);<br/><strong>特别说明：</strong>do while循环是先执行，再判断。<br/>&#13;
+while和do while区别的<strong>通俗讲解：</strong><br/>&#13;
+还钱的问题<br/>&#13;
+while：上来先问你还不还钱，还钱，就不打你（先判断，再执行）<br/>&#13;
+do while：上来先打一顿，打完了再问，还钱吗（先执行，再判断）<br/><br/></span></p>&#13;
+<p align="left"><span style="font-size:18px">案例：<br/><strong>（1）计算1+2+…n的值</strong><br/></span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+	&lt;head&gt;
+		&lt;script language="javascript"&gt;
+			var n=window.prompt("请输入一个整数");
+			n=parseInt(n);
+
+			var res=0;
+			for(var i=0;i&lt;=n;i++){
+				res+=i;
+			}
+			document.writeln("结果是"+res);
+		&lt;/script&gt;
+	&lt;/head&gt;
+	&lt;body&gt;&lt;/body&gt;
+&lt;/html&gt;</pre><br/><p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

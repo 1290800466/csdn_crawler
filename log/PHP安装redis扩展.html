@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2 style="widows:auto; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:1.8em">&#13;
+</h2>&#13;
+<h2 style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">安装</span></h2>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">开始在 PHP 中使用 Redis 前， 我们需要确保已经安装了 redis 服务及 PHP redis 驱动，且你的机器上能正常使用 PHP。 接下来让我们安装 PHP redis 驱动：下载地址为:<a target="_blank" href="https://github.com/phpredis/phpredis/releases" style="background-color:inherit; color:rgb(100,133,76)"><span style="background-color:inherit">https://github.com/phpredis/phpredis/releases</span></a>。</span></p>&#13;
+<h3 style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">PHP安装redis扩展</span></h3>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">以下操作需要在下载的 phpredis 目录中完成：</span></p>&#13;
+<pre style="font-family:'courier new'; color:rgb(51,51,51); background-color:inherit"><span style="font-size:18px"><span style="background-color:inherit; color:rgb(0,0,0)">$ wget https</span><span style="background-color:inherit; color:rgb(102,102,0)">:</span><span style="background-color:inherit; color:rgb(136,0,0)">//github.com/phpredis/phpredis/archive/2.2.4.tar.gz</span><span style="background-color:inherit; color:rgb(0,0,0)">
+$ cd phpredis</span><span style="background-color:inherit; color:rgb(102,102,0)">-</span><span style="background-color:inherit; color:rgb(0,102,102)">2.2</span><span style="background-color:inherit; color:rgb(102,102,0)">.</span><span style="background-color:inherit; color:rgb(0,102,102)">7</span><span style="background-color:inherit; color:rgb(0,0,0)">                      </span><span style="background-color:inherit; color:rgb(136,0,0)"># 进入 phpredis 目录</span><span style="background-color:inherit; color:rgb(0,0,0)">
+$ </span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">usr</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,136)">local</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">bin</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">phpize              </span><span style="background-color:inherit; color:rgb(136,0,0)"># php安装后的路径</span><span style="background-color:inherit; color:rgb(0,0,0)">
+$ </span><span style="background-color:inherit; color:rgb(102,102,0)">./</span><span style="background-color:inherit; color:rgb(0,0,0)">configure </span><span style="background-color:inherit; color:rgb(102,102,0)">--</span><span style="background-color:inherit; color:rgb(0,0,136)">with</span><span style="background-color:inherit; color:rgb(102,102,0)">-</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">-</span><span style="background-color:inherit; color:rgb(0,0,0)">config</span><span style="background-color:inherit; color:rgb(102,102,0)">=</span><span style="background-color:inherit; color:rgb(0,136,0)">/usr/</span><span style="background-color:inherit; color:rgb(0,0,136)">local</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">bin</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">-</span><span style="background-color:inherit; color:rgb(0,0,0)">config
+$ make </span><span style="background-color:inherit; color:rgb(102,102,0)">&amp;&amp;</span><span style="background-color:inherit; color:rgb(0,0,0)"> make install</span></span></pre>&#13;
+<blockquote style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(243,247,240)">&#13;
+<p style="margin-top:5px; margin-bottom:5px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; font-style:italic">&#13;
+<span style="font-size:18px">如果你是 PHP7 版本，则需要下载指定分支：</span></p>&#13;
+<pre style="font-family:'courier new'; background-color:inherit"><span style="font-size:18px"><span style="background-color:inherit; color:rgb(0,0,0)">git clone </span><span style="background-color:inherit; color:rgb(102,102,0)">-</span><span style="background-color:inherit; color:rgb(0,0,0)">b php7 https</span><span style="background-color:inherit; color:rgb(102,102,0)">:</span><span style="background-color:inherit; color:rgb(136,0,0)">//github.com/phpredis/phpredis.git</span></span></pre>&#13;
+</blockquote>&#13;
+<h3 style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">修改php.ini文件</span></h3>&#13;
+<pre style="font-family:'courier new'; color:rgb(51,51,51); background-color:inherit"><span style="font-size:18px"><span style="background-color:inherit; color:rgb(0,0,0)">vi </span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">usr</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,136)">local</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">lib</span><span style="background-color:inherit; color:rgb(102,102,0)">/</span><span style="background-color:inherit; color:rgb(0,0,0)">php</span><span style="background-color:inherit; color:rgb(102,102,0)">.</span><span style="background-color:inherit; color:rgb(0,0,0)">ini</span></span></pre>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">增加如下内容:</span></p>&#13;
+<pre style="font-family:'courier new'; color:rgb(51,51,51); background-color:inherit"><span style="font-size:18px"><span style="background-color:inherit; color:rgb(0,0,0)">extension_dir </span><span style="background-color:inherit; color:rgb(102,102,0)">=</span><span style="background-color:inherit; color:rgb(0,0,0)"> </span><span style="background-color:inherit; color:rgb(0,136,0)">"/usr/local/php/lib/php/extensions/no-debug-zts-20090626"</span><span style="background-color:inherit; color:rgb(0,0,0)">
+
+extension</span><span style="background-color:inherit; color:rgb(102,102,0)">=</span><span style="background-color:inherit; color:rgb(0,0,0)">redis</span><span style="background-color:inherit; color:rgb(102,102,0)">.</span><span style="background-color:inherit; color:rgb(0,0,0)">so</span></span></pre>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">安装完成后重启php-fpm 或 apache。查看phpinfo信息，就能看到redis扩展。</span></p>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px"><img src="http://img.blog.csdn.net/20160526152559341?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></p>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">备注：</span></p>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">我用上面方法并未成功，我的lnmp环境使用yum安装的，在安装php-reds时直接用命令：</span></p>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+</p><pre code_snippet_id="1697798" snippet_file_name="blog_20160526_1_5139740" name="code" class="plain">yum  install  php-redis   </pre>&#13;
+<p style="margin-top:5px; margin-bottom:5px; color:rgb(51,51,51); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px">即可安装成功，此时重启服务器和php-fpm就可以用了！</span></p>&#13;
+<div><br/></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

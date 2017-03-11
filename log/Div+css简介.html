@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2><span style="font-size:14px">1、Div+css简介：</span></h2>&#13;
+<p><span style="font-size:14px">传统的页面是用table来布局和显示数据。这样有以下缺点：</span></p>&#13;
+<p><span style="font-size:14px">（1）、显示数据和样式是绑定在一起的，牵一发而动全身；</span></p>&#13;
+<p><span style="font-size:14px">（2）、布局不够灵活；</span></p>&#13;
+<p><span style="font-size:14px">（3）、可能导致一个页面有大量的table元素，致使代码冗余，增加带宽；</span></p>&#13;
+<p><span style="font-size:14px">（4）、table布局不利于搜索引擎的搜索。</span></p>&#13;
+<p><span style="font-size:14px">其也有优点：</span></p>&#13;
+<p><span style="font-size:14px">（1）、便于理解；</span></p>&#13;
+<p><span style="font-size:14px">（2）、不同的浏览器显示结果相同，table比较稳定；</span></p>&#13;
+<p><span style="font-size:14px">（3）、很好的显示数据。</span></p>&#13;
+<p><strong><span style="font-size:14px">2、Div+css的基本思想：</span></strong></p>&#13;
+<p><span style="font-size:14px">（1）、数据和样式要分离（也就是用div显示内容，但要显示的内容由css文件确定样式，再将css文件规定的样式添加到div中）；</span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+<p><span style="font-size:14px"><strong>Div+css：</strong>是一种目前比较流行的网页布局技术；div来存放需要显示的数据（文字，图表等）的容器，css就是用来指定放在div中的内容怎样显示，包括这些内容的位置和外观等，从而做到数据和显示相互的效果。</span></p>&#13;
+<p><strong><span style="font-size:14px"> </span></strong></p>&#13;
+<p><strong><span style="font-size:14px">网页设计的三个时期：</span></strong></p>&#13;
+<p><span style="font-size:14px">（1）、table网页设计</span></p>&#13;
+<p><span style="font-size:14px">（2）、table+css网页设计</span></p>&#13;
+<p><span style="font-size:14px">（3）、div+css网页设计</span></p>&#13;
+<p><span style="font-size:14px"> </span></p>&#13;
+<p><span style="font-size:14px">Ø  Div+css并不是要我们抛弃table，因为table在显示数据时，特别方便，因此在使用div+css时，该使用table时，就得使用。</span></p>&#13;
+<h2><span style="font-size:14px">3、DIV+CSS的优势：</span></h2>&#13;
+<p><span style="font-size:14px">（1）、符合W3C标准。</span></p>&#13;
+<p><span style="font-size:14px">（2）、支持浏览器的向后兼容，也就是无论未来的浏览器大战，胜利的是IE7或者是火狐，您的网站都能很好的兼容。    &#13;
+<br/>&#13;
+（3）、搜索引擎更加友好。相对与传统的table, 采用DIV+CSS技术的网页，对于搜索引擎的收录更加友好。     <br/>&#13;
+（4）、样式的调整更加方便。内容和样式的分离，使页面和样式的调整变得更加方便。</span></p>&#13;
+<p><span style="font-size:14px">（5）、CSS的极大优势表现在简洁的代码（避免代码冗余），对于一个大型网站来说，可以节省大量带宽，而且众所周知，搜索引擎喜欢清洁的代码。 &#13;
+<br/>&#13;
+（6）、表现和结构分离，在团队开发中更容易分工合作而减少相互关联性</span></p>&#13;
+<p><span style="font-size:14px"><strong> 4、实例：</strong></span></p>&#13;
+<p><span style="font-size:14px"><strong/></span></p><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;第一讲代码&lt;/title&gt;
+&lt;!--引入准备好的css文件--&gt;
+&lt;link rel="stylesheet" type="text/css" href="a1.css"/&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;b&gt;1.div+css入门案例：&lt;b&gt;&lt;br&gt;&lt;br&gt;
+&lt;!--
+div 中可以放任何东西；
+利用class属性调用样式案例；
+--&gt;
+&lt;div class="style1"&gt;
+&lt;img src="b1.jpg" /&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+
+&lt;/html&gt;</pre><br/>&#13;
+a1.css&#13;
+<p><span style="font-size:14px"><strong/></span></p><pre name="code" class="css">/*注意：css文件中注释是这样写的*/
+/*样式案例如下*/
+.style1{
+	width:300px;/*每写完一个属性后要带分号*/
+	height:400px;
+	/*背景颜色*/
+	background-color:red;
+	border:10px solid #c0ff00;
+	margin-left:300px;/*div框左移300像素*/
+	margin-top:200px;/*div框下移200像素*/
+	padding-top:20px;/*div框中内容下移20像素*/
+	padding-left:20px;/*div框中内容左移20像素*/
+}</pre><br/><p><span style="font-size:14px"> </span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

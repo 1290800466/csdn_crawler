@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<div id="art_demo" style="margin:5px 0px; padding:0px 5px; list-style:none; border:none; text-indent:30px; line-height:25px; font-family:Tahoma,Helvetica,Arial,宋体,sans-serif; background-color:rgb(253,253,253)">&#13;
+<span style="font-size:18px">这篇文章主要介绍了php使用cookie显示用户上次访问网站日期的方法,主要通过使用cookie保存访问时间来实现该功能,需要的朋友可以参考下</span></div>&#13;
+<div id="art_demo" style="margin:5px 0px; padding:0px 5px; list-style:none; border:none; text-indent:30px; line-height:25px; font-family:Tahoma,Helvetica,Arial,宋体,sans-serif; background-color:rgb(253,253,253)">&#13;
+<span style="font-size:18px"><span style="line-height:12px"> </span>本文实例讲述了php使用cookie显示用户上次访问网站日期的方法。分享给大家供大家参考。具体实现方法如下：</span></div>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">代码如下：</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre name="code" class="php">&lt;?php
+if(!empty($_COOKIE['lastvisit'])){//先判断，是否存在cookie
+    echo "您上次访问时间是：".$_COOKIE['lastvisit'];
+    setCookie("lastvisit",date("Y-m-d H:i:s"),time()+3600*24*360);
+}else{
+    echo "您是第一次登录，欢迎！";
+    setCookie("lastvisit",date("Y-m-d H:i:s"),time()+3600*24*360);
+}
+?&gt;</pre><br/><br/></div>  </body>
+            </html>

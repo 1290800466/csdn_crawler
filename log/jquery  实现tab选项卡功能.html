@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">代码示例：</span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;style&gt;
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px;
+	line-height: 31px;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #e0e0e0;
+	overflow: hidden;
+	position: relative;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 20px;
+	border: 1px solid #fff;
+	outline: none;
+}
+	
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+.tab_container {
+	border: 1px solid #999;
+	border-top: none;
+	clear: both;
+	float: left; 
+	width: 100%;
+	background: #fff;
+	-moz-border-radius-bottomright: 5px;
+	-khtml-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-khtml-border-radius-bottomleft: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+}
+&lt;/style&gt;
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;//Baidu CDN&lt;/script&gt;
+&lt;script type="text/javascript"&gt;  
+$(document).ready(function() {  
+    //Default Action  
+    $(".tab_content").hide(); //Hide all content  
+    $("ul.tabs li:first").addClass("active").show(); //Activate first tab  
+    $(".tab_content:first").show(); //Show first tab content  
+      
+    //On Click Event  
+    $("ul.tabs li").click(function() {  
+        $("ul.tabs li").removeClass("active"); //Remove any "active" class  
+        $(this).addClass("active"); //Add "active" class to selected tab  
+        $(".tab_content").hide(); //Hide all tab content  
+        var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content  
+        $(activeTab).fadeIn(); //Fade in the active content  
+        return false;  
+    });  
+});  
+&lt;/script&gt;  
+&lt;/head&gt; 
+    &lt;ul class="tabs"&gt;  
+        &lt;li class="active"&gt;&lt;a href="#tab1"&gt;TAB1&lt;/a&gt;&lt;/li&gt;  
+        &lt;li&gt;&lt;a href="#tab2"&gt;TAB2&lt;/a&gt;&lt;/li&gt;  
+    &lt;/ul&gt;  
+    &lt;div class="tab_container"&gt;  
+        &lt;div id="tab1" class="tab_content" style="display: block; "&gt;  
+			tab1内容
+        &lt;/div&gt;  
+        &lt;div id="tab2" class="tab_content" style="display: none; "&gt;  
+			tab2内容  
+        &lt;/div&gt;  
+    &lt;/div&gt;  
+&lt;/html&gt;
+</pre><br/><br/></div>  </body>
+            </html>

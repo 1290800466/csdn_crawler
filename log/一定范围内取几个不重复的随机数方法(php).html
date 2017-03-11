@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>方法一：</strong></p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//range 是将1到42 列成一个数组</span>
+
+<span class="hljs-variable">$numbers</span> = range (<span class="hljs-number">1</span>,<span class="hljs-number">42</span>);
+
+<span class="hljs-comment">//shuffle 将数组顺序随即打乱</span>
+
+shuffle (<span class="hljs-variable">$numbers</span>);
+
+<span class="hljs-comment">//array_slice 取该数组中的某一段 </span>
+
+<span class="hljs-variable">$result</span> = array_slice(<span class="hljs-variable">$numbers</span>,<span class="hljs-number">0</span>,<span class="hljs-number">3</span>);
+
+ print_r(<span class="hljs-variable">$result</span>);
+ <span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><strong>方法二：</strong></p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span> 
+
+<span class="hljs-variable">$numbers</span> = range (<span class="hljs-number">1</span>,<span class="hljs-number">20</span>); 
+
+shuffle (<span class="hljs-variable">$numbers</span>); 
+
+<span class="hljs-comment">//list() 函数用于在一次操作中给一组变量赋值。</span>
+<span class="hljs-comment">//each() 函数返回当前元素的键名和键值，并将内部指针向前移动。</span>
+
+<span class="hljs-keyword">while</span> (<span class="hljs-keyword">list</span> (, <span class="hljs-variable">$number</span>) = each (<span class="hljs-variable">$numbers</span>)) { 
+
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"$number"</span>; 
+
+} 
+
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><strong>方法三：</strong></p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span> 
+
+<span class="hljs-variable">$tmp</span>=<span class="hljs-keyword">array</span>(); 
+
+<span class="hljs-keyword">while</span>(count(<span class="hljs-variable">$tmp</span>)&lt;<span class="hljs-number">5</span>){ 
+
+    <span class="hljs-comment">//mt_rand() 函数生成随机整数。</span>
+
+    <span class="hljs-variable">$tmp</span>[]=mt_rand(<span class="hljs-number">1</span>,<span class="hljs-number">20</span>); 
+
+    <span class="hljs-comment">//array_unique() 函数用于移除数组中重复的值。如果两个或更多个数组值相同，只保留第一个值，其他的值被移除</span>
+
+    <span class="hljs-variable">$tmp</span>=array_unique(<span class="hljs-variable">$tmp</span>); 
+
+} 
+
+<span class="hljs-comment">//join() 函数返回一个由数组元素组合成的字符串。</span>
+<span class="hljs-comment">//join() 函数是 implode() 函数的别名。</span>
+
+<span class="hljs-keyword">print</span> join(<span class="hljs-string">','</span>,<span class="hljs-variable">$tmp</span>); 
+
+<span class="hljs-preprocessor">?&gt;</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>主要针对记录非常多的表</p>
+
+<p>常用分页sql语句：</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-keyword">start</span>, <span class="hljs-aggregate">count</span></span></code></pre>
+
+<p>当起始页较小时，查询没有性能问题，我们分别看下从10， 100， 1000， 10000开始分页的执行时间（每页取20条）， 如下：</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">10</span>, <span class="hljs-number">20</span>   <span class="hljs-number">0.016</span>秒
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">100</span>, <span class="hljs-number">20</span>   <span class="hljs-number">0.016</span>秒
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">1000</span>, <span class="hljs-number">20</span>   <span class="hljs-number">0.047</span>秒
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">10000</span>, <span class="hljs-number">20</span>   <span class="hljs-number">0.094</span>秒
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">400000</span>, <span class="hljs-number">20</span>   <span class="hljs-number">3.229</span>秒
+<span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> product limit <span class="hljs-number">866613</span>, <span class="hljs-number">20</span>   <span class="hljs-number">37.44</span>秒</code></pre>
+
+<p>我们已经看出随着起始记录的增加，时间也随着增大， 这说明分页语句limit跟起始页码是有很大关系的。</p>
+
+<p>像这种分页最大的页码页显然这种时间是无法忍受的。</p>
+
+<p>从中我们也能总结出两件事情：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">1）limit语句的查询时间与起始记录的位置成正比
+
+2）mysql的limit语句是很方便，但是对记录很多的表并不适合直接使用。</code></pre>
+
+<p><strong>对limit分页问题的性能优化方法：</strong></p>
+
+<p><strong>利用表的覆盖索引来加速分页查询</strong></p>
+
+<p><strong>利用了索引查询的语句中如果只包含了那个索引列（覆盖索引），那么这种情况会查询很快。</strong></p>
+
+<p>因为利用索引查找有优化算法，且数据就在查询索引上面，不用再去找相关的数据地址了，这样节省了很多时间。另外Mysql中也有相关的索引缓存，在并发高的时候利用缓存就效果更好了。</p>
+
+<p>在我们的例子中，我们知道id字段是主键，自然就包含了默认的主键索引。现在让我们看看利用覆盖索引的查询效果如何：</p>
+
+<p>查询最后一页的数据（利用覆盖索引，只包含id列），如下：</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> product limit <span class="hljs-number">866613</span>, <span class="hljs-number">20</span>;</span>   0.2秒</code></pre>
+
+<p>相对于查询了所有列的37.44秒，提升了大概100多倍的速度</p>
+
+<p>那么如果我们也要查询所有列，有两种方法，一种是id&gt;=的形式，另一种就是利用join，看下实际情况：</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> product <span class="hljs-keyword">WHERE</span> ID &gt; =(<span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> product limit <span class="hljs-number">866613</span>, <span class="hljs-number">1</span>) limit <span class="hljs-number">20</span></span></code></pre>
+
+<p>查询时间为0.2秒，简直是一个质的飞跃</p>
+
+<p>另一种写法</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> product a <span class="hljs-keyword">JOIN</span> (<span class="hljs-keyword">select</span> id <span class="hljs-keyword">from</span> product limit <span class="hljs-number">866613</span>, <span class="hljs-number">20</span>) b <span class="hljs-keyword">ON</span> a.ID = b.id</span></code></pre>
+
+<p>查询时间也很短</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

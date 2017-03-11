@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;?php
+//设置时区
+date_default_timezone_set('PRC');  /* 其中PRC为“中华人民共和国“  */
+//获取当前时间
+echo date("Y年m月d日 , H点i分s秒 ")."&lt;br/&gt;";
+//获取当前时间戳
+echo time()."&lt;br&gt;";
+//将任一时间戳转换为时间
+echo date('Y-m-d H:i:s',"1435799540");
+echo "&lt;br&gt;";
+//将某一时间转换为时间戳
+echo strtotime('2010-03-24 08:15:42');
+echo "&lt;br&gt;";
+//打印明天此时的时间戳
+echo "明天此时时间戳：".strtotime("+1 day");
+echo "&lt;br&gt;";
+//打印明天此时时间
+echo "明天此时时间：".date('Y-m-d H:i:s',strtotime("+1 day"));
+echo "&lt;br&gt;";
+//打印昨天此时时间
+echo "昨天此时时间：".date('Y-m-d H:i:s',strtotime("-1 day"));
+echo "&lt;br&gt;";
+//打印下星期此时时间
+echo "下星期此时时间：".date('Y-m-d H:i:s',strtotime("+1 week"));
+echo "&lt;br&gt;";
+//打印指定下一个星期几的时间
+echo "下一个星期1时间：".date('Y-m-d H:i:s',strtotime("next monday"));
+echo "&lt;br&gt;";
+//打印指定上一个星期1的时间
+echo "上一个星期1时间：".date('Y-m-d H:i:s',strtotime("last monday"));
+echo "&lt;br&gt;";
+//打印下个月此时时间
+echo "下个月此时时间：".date('Y-m-d H:i:s',strtotime("+1 month"));
+echo "&lt;br&gt;";
+//获取某一时间戳的年
+echo date("y","1435799540");
+echo "&lt;br&gt;";
+//获取当前时间戳的月
+echo date("m",time());
+echo "&lt;br&gt;";
+//获取当前时间戳的日
+echo date("d",time());
+echo "&lt;br&gt;";
+
+
+/*
+mktime()函数定义和用法：
+mktime() 函数返回一个日期的 Unix 时间戳。
+参数总是表示 GMT 日期，因此 is_dst 对结果没有影响。
+参数可以从右到左依次空着，空着的参数会被设为相应的当前 GMT 值。
+语法
+mktime(hour,minute,second,month,day,year,is_dst)
+参数	描述
+hour	可选。规定小时。
+minute	可选。规定分钟。
+second	可选。规定秒。
+month	可选。规定用数字表示的月。
+day	          可选。规定天。
+year	可选。规定年。在某些系统上，合法值介于 1901 - 2038 之间。不过在 PHP 5 中已经不存在这个限制了。
+is_dst  可选。如果时间在日光节约时间(DST)期间，则设置为1，否则设置为0，若未知，则设置为-1。
+                                自 5.1.0 起，is_dst 参数被废弃。因此应该使用新的时区处理特性。 
+*/
+
+
+echo mktime(9, 0, 0, date("m",time()), date("d",time()) ,date("y",time())); 
+echo "&lt;br&gt;";
+echo strtotime('2015-07-02 09:00:00');
+echo "&lt;br/&gt;";
+/* 
+利用时间戳对时间进行限制：
+需求：
+当达到某一条件时，让服务器发短信给用户，数量为多条。
+基本思路：linux 定时扫描，若有满足条件的用户，则发送短信。
+但为了防止打扰到用户，要求只能在白天8:00-20：00发送短信，怎么样获得到每天的这段时间区间？
+如下代码： */
+$y=date("Y",time());
+$m=date("m",time());
+$d=date("d",time());
+$start_time = mktime(8, 0, 0, $m, $d ,$y);
+$end_time = mktime(20, 0, 0, $m, $d ,$y);
+$time = time();
+if($time &gt;= $start_time &amp;&amp; $time &lt;= $end_time){
+    // do something....
+    echo "发短信！";
+}else{
+    echo "时间不对！";
+}
+echo "&lt;br/&gt;";
+//打印今天零点的时间戳
+echo strtotime("today")."&lt;br/&gt;";
+echo strtotime('2015-07-02 00:00:00');
+
+
+?&gt;
+
+</pre><br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>PHP 有四种不同的变量作用域：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs fsharp">local
+<span class="hljs-keyword">global</span>
+<span class="hljs-keyword">static</span>
+parameter</code></pre>
+
+<p><strong>局部和全局作用域</strong> <br/>
+在所有函数外部定义的变量，拥有全局作用域。除了函数外，全局变量可以被脚本中的任何部分访问，要在一个函数中访问一个全局变量，需要使用 global 关键字。 <br/>
+在 PHP 函数内部声明的变量是局部变量，仅能在函数内部访问： <br/>
+实例：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$x</span>=<span class="hljs-number">5</span>; <span class="hljs-comment">// 全局变量</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">()</span>
+//<span class="hljs-title">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">(&amp;<span class="hljs-variable">$y</span>)</span>   //替换为这句
+{</span>
+<span class="hljs-variable">$y</span>=<span class="hljs-number">10</span>; <span class="hljs-comment">// 局部变量</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;p&gt;Test variables inside the function:&lt;p&gt;"</span>;
+<span class="hljs-comment">//global $x;   //加上这句就好了</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"Variable x is: $x"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"Variable y is: $y"</span>;
+} 
+
+myTest();
+<span class="hljs-comment">//myTest($y);</span>
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;p&gt;Test variables outside the function:&lt;p&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"Variable x is: $x"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br&gt;"</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"Variable y is: $y"</span>;
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>在以上实例中 myTest() 函数定义了 <code>$x</code> 和 <code>$y</code> 变量。 $x 变量在函数外声明，所以它是全局变量 ， <code>$y</code> 变量在函数内声明所以它是局部变量。 <br/>
+当我们调用myTest()函数并输出两个变量的值, 函数将会输出局部变量 <code>$y</code> 的值，但是不能输出 <code>$x</code> 的值，因为 <code>$x</code> 变量在函数外定义，无法在函数内使用，如果要在一个函数中访问一个全局变量，需要使用 global 关键字。 <br/>
+然后我们在myTest()函数外输出两个变量的值，函数将会输出全局部变量 <code>$x</code> 的值，但是不能输出 <code>$y</code> 的值，因为 <code>$y</code> 变量在函数中定义，属于局部变量。</p>
+
+<p><em>你可以在不同函数中使用相同的变量名称，因为这些函数内定义的变量名是局部变量，只作用于该函数内。</em></p>
+
+<p><strong>PHP global 关键字</strong> <br/>
+global 关键字用于函数内访问全局变量。 <br/>
+在函数内调用函数外定义的全局变量，我们需要在函数中的变量前加上 global 关键字： <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$x</span>=<span class="hljs-number">5</span>;
+<span class="hljs-variable">$y</span>=<span class="hljs-number">10</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">()</span>
+{</span>
+<span class="hljs-keyword">global</span> <span class="hljs-variable">$x</span>,<span class="hljs-variable">$y</span>;
+<span class="hljs-variable">$y</span>=<span class="hljs-variable">$x</span>+<span class="hljs-variable">$y</span>;
+}
+
+myTest();
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$y</span>; <span class="hljs-comment">// 输出 15</span>
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>PHP 将所有全局变量存储在一个名为 $GLOBALS[index] 的数组中。 index 保存变量的名称。这个数组可以在函数内部访问，也可以直接用来更新全局变量。 <br/>
+上面的实例可以写成这样： <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$x</span>=<span class="hljs-number">5</span>;
+<span class="hljs-variable">$y</span>=<span class="hljs-number">10</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">()</span>
+{</span>
+<span class="hljs-variable">$GLOBALS</span>[<span class="hljs-string">'y'</span>]=<span class="hljs-variable">$GLOBALS</span>[<span class="hljs-string">'x'</span>]+<span class="hljs-variable">$GLOBALS</span>[<span class="hljs-string">'y'</span>];
+} 
+
+myTest();
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$y</span>;
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>注意： <br/>
+全局变量的定义和赋值要分开，不能放在一起。 <br/>
+如   <code>global $name=12;</code>   是错误的！ <br/>
+要这样：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">global</span> <span class="hljs-variable">$name</span>;
+<span class="hljs-variable">$name</span>=<span class="hljs-number">12</span>;</code></pre>
+
+<p><strong>Static 作用域</strong> <br/>
+当一个函数完成时，它的所有变量通常都会被删除。然而，有时候您希望某个局部变量不要被删除。 <br/>
+要做到这一点，请在您第一次声明变量时使用 static 关键字：（利用static关键字可以使函数完成后，变量保持在完成时得到的值，而不是返回初始值） <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">()</span>
+{</span>
+<span class="hljs-keyword">static</span> <span class="hljs-variable">$x</span>=<span class="hljs-number">0</span>;
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$x</span>;
+<span class="hljs-variable">$x</span>++;
+}
+
+myTest();   <span class="hljs-comment">//输出0</span>
+myTest();   <span class="hljs-comment">//输出1</span>
+myTest();   <span class="hljs-comment">//输出2</span>
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>然后，每次调用该函数时，该变量将会保留着函数前一次被调用时的值。 <br/>
+注释：该变量仍然是函数的局部变量。</p>
+
+<p><strong>参数作用域</strong> <br/>
+参数是通过调用代码将值传递给函数的局部变量。 <br/>
+参数是在参数列表中声明的，作为函数声明的一部分： <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myTest</span><span class="hljs-params">(<span class="hljs-variable">$x</span>)</span>
+{</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$x</span>;
+}
+
+myTest(<span class="hljs-number">5</span>);
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

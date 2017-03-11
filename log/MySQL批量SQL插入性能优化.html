@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+对于一些数据量较大的系统，数据库面临的问题除了查询效率低下，还有就是数据入库时间长。特别像报表系统，每天花费在数据导入上的时间可能会长达几个小时或十几个小时之久。因此，优化数据库插入性能是很有意义的。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+经过对MySQL innodb的一些性能测试，发现一些可以提高insert效率的方法，供大家参考参考。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong>1. 一条SQL语句插入多条数据。</strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+常用的插入语句如：</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('0', 'userid_0', 'content_0', 0);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('1', 'userid_1', 'content_1', 1);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+修改成：</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('0', 'userid_0', 'content_0', 0), ('1', 'userid_1', 'content_1', 1);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+修改后的插入操作能够提高程序的插入效率。这里第二种SQL执行效率高的主要原因是合并后日志量（MySQL的binlog和innodb的事务让日志）减少了，降低日志刷盘的数据量和频率，从而提高效率。通过合并SQL语句，同时也能减少SQL语句解析的次数，减少网络传输的IO。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<br/></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong>2. 在事务中进行插入处理。</strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+把插入修改成：</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">START TRANSACTION;</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('0', 'userid_0', 'content_0', 0);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('1', 'userid_1', 'content_1', 1);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">...</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">COMMIT;</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+使用事务可以提高数据的插入效率，这是因为进行一个INSERT操作时，MySQL内部会建立一个事务，在事务内才进行真正插入处理操作。通过使用事务可以减少创建事务的消耗，所有插入都在执行后才进行提交操作。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:center; word-wrap:break-word!important">&#13;
+<br/></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong>3. 数据有序插入。</strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+数据有序的插入是指插入记录在主键上是有序排列，例如datetime是记录的主键：</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('1', 'userid_1', 'content_1', 1);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('0', 'userid_0', 'content_0', 0);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('2', 'userid_2', 'content_2',2);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+修改成：</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('0', 'userid_0', 'content_0', 0);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('1', 'userid_1', 'content_1', 1);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">INSERT INTO `insert_table` (`datetime`, `uid`, `content`, `type`) </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px">    VALUES ('2', 'userid_2', 'content_2',2);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+由于数据库插入时，需要维护索引数据，无序的记录会增大维护索引的成本。我们可以参照innodb使用的B+tree索引，如果每次插入记录都在索引的最后面，索引的定位效率很高，并且对索引调整较小；如果插入的记录在索引中间，需要B+tree进行分裂合并等处理，会消耗比较多计算资源，并且插入记录的索引定位效率会下降，数据量较大时会有频繁的磁盘操作。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<br/></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; white-space:pre-wrap">上面三种方法</span>性能综合测试结果：</strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:center; word-wrap:break-word!important">&#13;
+<span style="line-height:25.6px">合并数据+事务的方法在较小数据量时，性能提高是很明显的，数据量较大时（1千万以上），性能会急剧下降，这是由于此时数据量超过了innodb_buffer的容量，每次定位索引涉及较多的磁盘读写操作，性能下降较快。而使用合并数据+事务+有序数据的方式在数据量达到千万级以上表现依旧是良好，在数据量较大时，有序数据索引定位较为方便，不需要频繁对磁盘进行读写操作，所以可以维持较高的性能。</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong><br/></strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<strong>注意事项：</strong></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+1. SQL语句是有长度限制，在进行数据合并在同一SQL中务必不能超过SQL长度限制，通过max_allowed_packet配置可以修改，默认是1M，测试时修改为8M。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+2. 事务需要控制大小，事务太大可能会影响执行的效率。MySQL有innodb_log_buffer_size配置项，超过这个值会把innodb的数据刷到磁盘中，这时，效率会有所下降。所以比较好的做法是，在数据达到这个这个值前进行事务提交。</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1><span style="font-size:18px; font-weight:normal"><span style="white-space:pre"/>PHP 在变量定义中不需要（或不支持）明示的类型定义；变量类型是根据使用该变量的上下文所决定的。</span></h1>&#13;
+<div class="blank3"/>&#13;
+<div id="con_all"/>&#13;
+<div id="art_content"><span style="font-size:18px">也就是说，如果把一个字符串值赋给变量 var，var 就成了一个字符串。如果又把一个整型值赋给 var，那它就成了一个整数。&#13;
+<br/><span style="white-space:pre"/>PHP 中的类型强制转换和 C 中的非常像：在要转换的变量之前加上用括号括起来的目标类型。&#13;
+<br/></span>&#13;
+<div class="codetitle"><span style="font-size:18px">代码如下:</span></div>&#13;
+<div id="code87878" class="codebody"><span style="font-size:18px"><br/></span><pre name="code" class="php">&lt;?php 
+$foo = 10; 
+echo "转换前：\$foo=".$foo; //输出一个整数 
+echo "&lt;br/&gt;" //输出：$foo=10 
+echo "&lt;br/&gt;"; 
+$foo = (boolean) $foo; //强制转换为布尔型 
+echo "转换后：\$foo=".$foo; //输出：$foo=1 
+?&gt; </pre><br/></div>&#13;
+<span style="font-size:18px">允许的强制转换有： <br/>&#13;
+(int)，(integer) - 转换成整型 <br/>&#13;
+(bool)，(boolean) - 转换成布尔型 <br/>&#13;
+(float)，(double)，(real) - 转换成浮点型 <br/>&#13;
+(string) - 转换成字符串 <br/>&#13;
+(array) - 转换成数组 <br/>&#13;
+(object) - 转换成对象 </span></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; color:rgb(0,82,255)"><span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important">概述</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+使用PHP的array_unique()函数允许你传递一个数组，然后移除重复的值，返回一个拥有唯一值的数组。这个函数大多数情况下都能工作得很好。但是，如果你尝试在一个大的数组里使用array_unique（）函数，它会运行地慢一些。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+有一个比较好而且更快的函数array_flip()来替代使用array_unique()函数来创建唯一的数组。这个魔法般的函数会交换数组里面每一个元素的键和值，因为键值必须唯一，因此，你会得到跟array_unique()函数一样的结果。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; color:rgb(0,82,255)"><span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important">更快的方式实现PHP数组去重</span></span></p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">/* 创建一个包含重复值的，一共四个元素的数组 */</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array('green','blue','orange','blue');</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">/* 翻转数组，你将会得到唯一键值的数组</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">array('green'=&gt;0,'blue'=&gt;1,'orange'=&gt;2); */</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_flip($array);</span><span style="color:rgb(136,136,136); font-size:12px; line-height:25.6px"> </span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; font-size:12px; color:rgb(136,136,136); word-wrap:break-word!important">/* 然后再翻转一次，将键和值重新放置，然后得到数组：array(0=&gt;'green',1=&gt;'blue',2=&gt;'orange'); */</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_flip($array);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+因为我们已经移除了一些元素，因此数组看起来不是正常的序列。比如我们可能会得到：array(0=&gt;’A’,2=&gt;’B’,5=&gt;’C’);。在某些情况下，这不是一个问题，但是如果你需要数组的键值保持数字的序列，你可以使用一到两种方法解决键值乱序的问题。</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; color:rgb(0,82,255)"><span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important">使用array_merge修复数组的keys</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+添加array_flip之后的函数，将会对数组的键值排序并且让它们恢复到正常的序列，如：0,1,2,3…</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array('green','blue','orange','blue');</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_flip($array);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_flip($array);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">/* 使用array_merge()函数修复键值*/</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_merge($array);</span></p>&#13;
+</blockquote>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; color:rgb(0,82,255)"><span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important">第二种方式，使用array_keys</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+注意，这种修复数组键值的方法比使用array_merge()函数稍微快了一点。你也可以在最后一步结合使用array_keys()函数(此函数返回翻转后的值)。然后当你翻转数组的值，键值就会根据顺序创建。</p>&#13;
+<blockquote style="margin:0px; padding:0px 0px 0px 10px; max-width:100%; border-left-width:3px; border-left-style:solid; border-left-color:rgb(219,219,219); color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; word-wrap:break-word!important">&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array('green','blue','orange','blue');</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_flip($array);</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">/* 跟第一个例子一样，但是现在我们先提取数组的键值 */</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; max-width:100%; clear:both; min-height:1em; white-space:pre-wrap; word-wrap:break-word!important">&#13;
+<span style="margin:0px; padding:0px; max-width:100%; word-wrap:break-word!important; font-size:12px; color:rgb(136,136,136)">$array = array_keys($array);</span></p>&#13;
+</blockquote>&#13;
+&#13;
+                      </div>  </body>
+            </html>

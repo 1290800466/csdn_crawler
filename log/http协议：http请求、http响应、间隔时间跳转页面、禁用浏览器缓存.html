@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="background:rgb(241,241,241)"><strong><span style="font-size:18px"/></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">http协议</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">1. http协议是建立在  tcp/ip协议基础上.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">2. 我们的web开发数据的传输都是依赖于http协议.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">3. http协议全称是 超文本传输协议</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">http协议的-<strong>http请求</strong>(request)</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">基本结构</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">请求行</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">消息头</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">                          &lt;----空行</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">消息体(实体内容)</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">举例:</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151"><span style="font-size:18px">GET/test/hello.html HTTP/1.1   </span></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">【表示发送的get请求, 请求资源是/test/hello.html 】</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">Accept: */* 【表示客户端可以接受任何数据】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">Referer: <span style="color:blue">http://localhost:80/test/abc.html</span> 【1.表示我是从哪里来】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">Accept-Language:zh-cn 【页面语言】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">User-Agent:Mozilla/4.0  【告诉服务我的浏览器的内核，操作系统】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">Accept-Encoding:gzip, deflate 【表示接受什么样的数据压缩格式.】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">Host:localhost:80 【主机:80】</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px"><strong>Connection:Keep-Alive</strong>     【表示不要立即断掉我们的请求.】</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">现在我们想知道，客户端究竟给服务器发送的内容</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">如果我这个http1.php. 不希望 192.168.1.33 这个用户访问.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="font-size:18px">在服务器端，我们可以通过$_SERVER来获取我们需要的信息</span></strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">重要的有:</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151"><span style="font-size:18px">HTTP_HOST</span></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">REMOTE_ADDR 访问该页面的ip</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">DOCUMENT_ROOT  可以获取 apche的主目录</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">REQUEST_URI 可以获取 请求的资源名</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">http请求有两种主要的方式</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151"><span style="font-size:18px">get / post</span></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px"><strong>get 和post的区别有哪些</strong></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">1.安全性 get 请求的数据会显示在 地址栏（URL路径中）上, post请求的数据，放在http协议的消息体</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">2.从可以提交数据的大小看.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">2.1  http协议本身并没有限制数据大小.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">2.2  浏览器在对get 和post请求做限制, get 请求数据 2k+35  ,post没有限制.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">3. get请求可以更好的添加到收藏夹.</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="font-size:18px">现在我们实际使用一些http请求，完成一个防盗链的练习.</span></p>&#13;
+<p><span style="font-size:18px"><span style="background:rgb(241,241,241)">☞</span><span style="background:rgb(241,241,241)"> http</span><span style="background:rgb(241,241,241)">请求不是固定，是根据实际情况的，比如</span><span style="background:rgb(241,241,241)">REFEER.</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="background:rgb(241,241,241)"/></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong> Http响应</strong>（response）</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">简单定义: 一个Http响应代表服务器给浏览器回送的数据，同时告诉浏览器应当怎样处理数据.</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">1.基本结构</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>状态行</strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>消息头信息</strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>                     &lt;--空行</strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>实体信息</strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>快速入门</strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">HTTP/1.1 200 OK           【200 ok 表示客户端请求成功】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Server: Microsoft-IIS/5.0           【表示告诉浏览器 服务器的情况 】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Date: Thu, 13 Jul 2000 05:46:53 GMT 【告诉浏览器 请求的页面 的时间 】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Content-Length: 2291                   【表示回送的数据有 2291个字节】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Content-Type: text/html        【文档类型】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Cache-control: private          【缓存】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">hello</span></p>&#13;
+<img src="http://img.blog.csdn.net/20150721204617449?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/><p><span style="font-size:18px"><span style="background:rgb(241,241,241)"/></span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">对状态码的说明</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><img src="http://img.blog.csdn.net/20150721204837846?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"/>&#13;
+<p align="left" style="background:rgb(241,241,241)">举例说明Http响应的实际应用</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">302状态码的使用</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">比如我们现在希望访问a.php 页面，让其自动重定向到b.php</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">基本用法使用</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">&lt;?php</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">      //header(“Location: 新的页面”);</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">      header(“Location: <span style="color:blue">http://www.sohu.com</span><span style="color:#515151">”);</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">       exit();</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">      </span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">?&gt;</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">细节: 302 状态码也可以让其跳转到外网去</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">404 码</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">404 最常见的状态码</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">404一般说就是该页面不存在</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">304码使用</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">304 码主要是告诉浏览器，请求的资源不需要更新</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">&lt;?php</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">    echo “hello”;</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">    echo “&lt;imgsrc=”Sunset.jpg”  width=”100px”&gt;“</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">?&gt;</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">上面说明了 304的具体用法</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">HTTP/1.1 304 Not Modified</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Date: Tue, 13 Sep 2011 02:10:38 GMT</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Server: Apache/2.2.17 (Win32) PHP/5.3.5</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Connection: Keep-Alive</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Keep-Alive: timeout=5, max=99</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">ETag:"12d00000000572c-6f69-3e1d849f35000"</p>&#13;
+<p> </p>&#13;
+<p align="left"><span style="color:#515151; background:#F1F1F1">下面是比较详细的一个</span><span style="color:#515151; background:#F1F1F1">Http</span><span style="color:#515151; background:#F1F1F1">响应</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Location: </span><a target="_blank" href="http://www.baidu.org/index.php"><span style="color:#236EB2">http://www.baidu.org/index.php</span></a></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Server:apache</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Content-Encoding: gzip   【内容编码支持gzip压缩算法】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Content-Length: 80      【返回数据大小】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Content-Language: zh-cn</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Content-Type: text/html; charset=GB2312</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Last-Modified: Tue, 11 Jul 2000 18:23:51GMT 【表示浏览器请求资源，最新更新时间】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Refresh:1;url=http://www.baidu.com  【告诉浏览器，间隔1秒，重定向到 baidu】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Content-Disposition: attachment;filename=aaa.zip</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Transfer-Encoding: chunked  </span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">Set-Cookie:SS=Q0=5Lb_nQ; path=/search  【讲Cookie】</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">Expires: -1</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="color:#515151">Cache-Control</span></strong><span style="color:#515151">:no-cache  </span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="color:#515151">Pragma</span></strong><span style="color:#515151">: no-cache</span>   </p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong>Connection</strong>: close/Keep-Alive<strong>   </strong></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><strong><span style="color:#515151">Date</span></strong><span style="color:#515151">: Tue, 11 Jul 2000 18:23:51 GMT</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">演示如何通过Http响应，控制浏览器间隔一定时间去跳转.</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">&lt;?php</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">       //header(</span><span style="color:#515151">“</span><span style="color:#515151">Refresh: 3 ; url=http://www.sohu.com</span><span style="color:#515151">”</span><span style="color:#515151">);</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">       header(</span><span style="color:#515151">“</span><span style="color:#515151">Refresh: 3 ;url=http://localhost/http/d.php</span><span style="color:#515151">”</span><span style="color:#515151">);</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">?&gt;</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">演示如何通过Http响应控制页面缓存,在默认情况下，浏览器会缓存页面.</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:#515151">&lt;?php</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">       //通过以下三个header语句来禁用缓存(ajax )，用三句是为了匹配不同的浏览器</p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:red">      header("Expires: -1");</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:red">      header("Cache-Control: no_cache");</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)"><span style="color:red">      header("Pragma: no-cache");</span></p>&#13;
+<p align="left" style="background:rgb(241,241,241)">       echo"hello!cache";</p>&#13;
+<p><span style="color:#515151"><br/></span><span style="color:#515151; background:#F1F1F1">?&gt;</span></p>&#13;
+<p><br/></p>&#13;
+<pre style="background:rgb(241,241,241)"><p><span style="font-size:18px"/></p></pre>&#13;
+&#13;
+                      </div>  </body>
+            </html>

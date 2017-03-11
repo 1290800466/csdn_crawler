@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Java的两大数据类型:</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">内置数据类型
+引用数据类型</code></pre>
+
+<p><strong>内置数据类型：</strong> <br/>
+Java语言提供了八种基本类型。六种数字类型（四个整数型，两个浮点型），一种字符类型，还有一种布尔型。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">byte</span>：
+<span class="hljs-keyword">byte</span>数据类型是<span class="hljs-number">8</span>位、有符号的，以二进制补码表示的整数； 占用<span class="hljs-number">1</span>字节
+-<span class="hljs-number">128</span>（-<span class="hljs-number">2</span>^<span class="hljs-number">7</span>）~ <span class="hljs-number">127</span>（<span class="hljs-number">2</span>^<span class="hljs-number">7</span>-<span class="hljs-number">1</span>）；
+默认值是<span class="hljs-number">0</span>；
+<span class="hljs-keyword">byte</span>类型用在大型数组中节约空间，主要代替整数，因为<span class="hljs-keyword">byte</span>变量占用的空间只有<span class="hljs-keyword">int</span>类型的四分之一；
+例子：<span class="hljs-keyword">byte</span> a = <span class="hljs-number">100</span>，<span class="hljs-keyword">byte</span> b = -<span class="hljs-number">50</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">short</span>：
+<span class="hljs-keyword">short</span>数据类型是<span class="hljs-number">16</span>位、有符号的以二进制补码表示的整数。  占用<span class="hljs-number">2</span>字节
+-<span class="hljs-number">32768</span>（-<span class="hljs-number">2</span>^<span class="hljs-number">15</span>）~ <span class="hljs-number">32767</span>（<span class="hljs-number">2</span>^<span class="hljs-number">15</span> - <span class="hljs-number">1</span>）；
+Short数据类型也可以像<span class="hljs-keyword">byte</span>那样节省空间。一个<span class="hljs-keyword">short</span>变量是<span class="hljs-keyword">int</span>型变量所占空间的二分之一；
+默认值是<span class="hljs-number">0</span>；  例子：<span class="hljs-keyword">short</span> s = <span class="hljs-number">1000</span>，<span class="hljs-keyword">short</span> r = -<span class="hljs-number">20000</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">int</span>：
+<span class="hljs-keyword">int</span>数据类型是<span class="hljs-number">32</span>位、有符号的以二进制补码表示的整数；    占用<span class="hljs-number">4</span>字节
+-<span class="hljs-number">2</span>,<span class="hljs-number">147</span>,<span class="hljs-number">483</span>,<span class="hljs-number">648</span>（-<span class="hljs-number">2</span>^<span class="hljs-number">31</span>）~ <span class="hljs-number">2</span>,<span class="hljs-number">147</span>,<span class="hljs-number">483</span>,<span class="hljs-number">647</span>（<span class="hljs-number">2</span>^<span class="hljs-number">31</span> - <span class="hljs-number">1</span>）；
+一般地整型变量默认为<span class="hljs-keyword">int</span>类型；
+默认值是<span class="hljs-number">0</span>；  例子：<span class="hljs-keyword">int</span> a = <span class="hljs-number">100000</span>, <span class="hljs-keyword">int</span> b = -<span class="hljs-number">200000</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-keyword">long</span>：
+<span class="hljs-keyword">long</span>数据类型是<span class="hljs-number">64</span>位、有符号的以二进制补码表示的整数；   占用<span class="hljs-number">8</span>字节
+-<span class="hljs-number">9</span>,<span class="hljs-number">223</span>,<span class="hljs-number">372</span>,<span class="hljs-number">036</span>,<span class="hljs-number">854</span>,<span class="hljs-number">775</span>,<span class="hljs-number">808</span>（-<span class="hljs-number">2</span>^<span class="hljs-number">63</span>）~ <span class="hljs-number">9</span>,<span class="hljs-number">223</span>,<span class="hljs-number">372</span>,<span class="hljs-number">036</span>,<span class="hljs-number">854</span>,<span class="hljs-number">775</span>,<span class="hljs-number">807</span>（<span class="hljs-number">2</span>^<span class="hljs-number">63</span> -<span class="hljs-number">1</span>）；
+这种类型主要使用在需要比较大整数的系统上；
+默认值是<span class="hljs-number">0L</span>； 例子： <span class="hljs-keyword">long</span> a = <span class="hljs-number">100000L</span>，Long b = -<span class="hljs-number">200000L</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cpp"><span class="hljs-keyword">float</span>：
+<span class="hljs-keyword">float</span>数据类型是单精度、<span class="hljs-number">32</span>位、符合IEEE <span class="hljs-number">754</span>标准的浮点数； 占用<span class="hljs-number">4</span>字节
+<span class="hljs-keyword">float</span>在储存大型浮点数组的时候可节省内存空间；
+默认值是<span class="hljs-number">0.0f</span>；
+浮点数不能用来表示精确的值，如货币；  例子：<span class="hljs-keyword">float</span> f1 = <span class="hljs-number">234.5f</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">double</span>：
+<span class="hljs-keyword">double</span>数据类型是双精度、<span class="hljs-number">64</span>位、符合IEEE <span class="hljs-number">754</span>标准的浮点数；    占用<span class="hljs-number">8</span>字节
+浮点数的默认类型为<span class="hljs-keyword">double</span>类型；
+<span class="hljs-keyword">double</span>类型同样不能表示精确的值，如货币；
+默认值是<span class="hljs-number">0.0</span>d；   例子：<span class="hljs-keyword">double</span> d1 = <span class="hljs-number">123.4</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">boolean</span>：
+<span class="hljs-keyword">boolean</span>数据类型表示一位的信息；     占用<span class="hljs-number">1</span>（数组中）或<span class="hljs-number">4</span>（正常）字节
+只有两个取值：<span class="hljs-keyword">true</span>和<span class="hljs-keyword">false</span>；
+这种类型只作为一种标志来记录<span class="hljs-keyword">true</span>/<span class="hljs-keyword">false</span>情况；
+默认值是<span class="hljs-keyword">false</span>；  例子：<span class="hljs-keyword">boolean</span> one = <span class="hljs-keyword">true</span>。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-built_in">char</span>：
+<span class="hljs-built_in">char</span>类型是一个单一的<span class="hljs-number">16</span>位<span class="hljs-keyword">Unicode</span>字符；   占用<span class="hljs-number">1</span>字节
+最小值是’\u0000’（即为<span class="hljs-number">0</span>）；
+最大值是’\uffff’（即为<span class="hljs-number">65</span>,<span class="hljs-number">535</span>）；
+<span class="hljs-built_in">char</span>数据类型可以储存任何字符；   例子：<span class="hljs-built_in">char</span> letter = ‘A’。</code></pre>
+
+<p><strong>引用类型：</strong></p>
+
+<p>引用类型指向一个对象，指向对象的变量是引用变量。这些变量在声明时被指定为一个特定的类型，比如Employee、Pubby等。变量一旦声明后，类型就不能被改变了。 <br/><font color="red">对象、数组都是引用数据类型。</font> <br/>
+所有引用类型的默认值都是null。 <br/>
+一个引用变量可以用来引用与任何与之兼容的类型。 <br/>
+例子：Site site = new Site(“Runoob”)。</p>
+
+<p><strong>Java常量：</strong></p>
+
+<p><font color="red">在 Java 中使用 final 关键字来修饰常量</font>，声明方式和变量类似：</p>
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">final</span> <span class="hljs-keyword">double</span> PI = <span class="hljs-number">3.1415927</span>;</code></pre>
+
+<p>虽然常量名也可以用小写，但为了便于识别，通常使用大写字母表示常量。 <br/><font color="red"> <br/>
+java 中字符串用双引号表示：</font></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet"><span class="hljs-string">"Hello World"</span>
+<span class="hljs-string">"two\nlines"</span>
+<span class="hljs-string">"\"</span>This <span class="hljs-keyword">is</span> <span class="hljs-keyword">in</span> quotes\<span class="hljs-string">""</span></code></pre>
+
+<p><strong>Java转义字符序列：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs tex"><span class="hljs-command">\n</span>  换行 (0x0a)
+<span class="hljs-command">\r</span>  回车 (0x0d)
+<span class="hljs-command">\f</span>  换页符(0x0c)
+<span class="hljs-command">\b</span>  退格 (0x08)
+<span class="hljs-command">\s</span>  空格 (0x20)
+<span class="hljs-command">\t</span>  制表符
+<span class="hljs-command">\"</span>  双引号
+<span class="hljs-command">\'</span>  单引号
+<span class="hljs-command">\\</span>  反斜杠
+<span class="hljs-command">\ddd</span>    八进制字符 (ddd)
+<span class="hljs-command">\uxxxx</span>  16进制Unicode字符 (xxxx)</code></pre>
+
+<p><strong>自动类型转换：</strong> <br/>
+整型、实型（常量）、字符型数据可以混合运算。运算中，不同类型的数据先转化为同一类型，然后进行运算。 <br/>
+转换从低级到高级。 <br/>
+低  ————————————&gt;  高</p>
+
+<p>byte,short,char—&gt; int —&gt; long—&gt; float —&gt; double  <br/><strong>数据类型转换必须满足如下规则：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-number">1.</span> 不能对<span class="hljs-keyword">boolean</span>类型进行类型转换。
+
+<span class="hljs-number">2.</span> 不能把对象类型转换成不相关类的对象。
+
+<span class="hljs-number">3.</span> 在把容量大的类型转换为容量小的类型时必须使用强制类型转换。
+
+<span class="hljs-number">4.</span> 转换过程中可能导致溢出或损失精度，例如：
+    <span class="hljs-keyword">int</span> i =<span class="hljs-number">128</span>;   
+    <span class="hljs-keyword">byte</span> b = (<span class="hljs-keyword">byte</span>)i;
+    因为<span class="hljs-keyword">byte</span>类型时<span class="hljs-number">8</span>位，最大值为<span class="hljs-number">127</span>，所以当强制转换为<span class="hljs-keyword">int</span>类型值<span class="hljs-number">128</span>时候就会导致溢出。
+
+<span class="hljs-number">5.</span> 浮点数到整数的转换时通过舍弃小数得到，而不是四舍五入，例如：
+    (<span class="hljs-keyword">int</span>)<span class="hljs-number">23.7</span> == <span class="hljs-number">23</span>;        
+    (<span class="hljs-keyword">int</span>)-<span class="hljs-number">45.89</span>f == -<span class="hljs-number">45</span></code></pre>
+
+<p><strong>自动类型转换：</strong> <br/>
+必须满足转换前的数据类型的位数要低于转换后的数据类型，例如: short数据类型的位数为16位，就可以自动转换位数为32的int类型，同样float数据类型的位数为32，可以自动转换为64位的double类型。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> ZiDongLeiZhuan{
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args){
+            <span class="hljs-keyword">char</span> c1=<span class="hljs-string">'a'</span>;<span class="hljs-comment">//定义一个char类型</span>
+            <span class="hljs-keyword">int</span> i1 = c1;<span class="hljs-comment">//char自动类型转换为int</span>
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"char自动类型转换为int后的值等于"</span>+i1);
+            <span class="hljs-keyword">char</span> c2 = <span class="hljs-string">'A'</span>;<span class="hljs-comment">//定义一个char类型</span>
+            <span class="hljs-keyword">int</span> i2 = c2+<span class="hljs-number">1</span>;<span class="hljs-comment">//插入类型和into类型计算</span>
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"char类型和int计算后的值等于"</span>+i2);
+        }
+}</code></pre>
+
+<p>运行结果为: <br/>
+char自动类型转换为int后的值等于97 <br/>
+char类型和int计算后的值等于66 <br/>
+解析：c1的值为字符’a’,查ascii码表可知对应的int类型值为97，’A’对应值为65，所以i2=65+1=66。 <br/><strong>强制类型转换：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-number">1.</span> 条件是转换的数据类型必须是兼容的。
+<span class="hljs-number">2.</span> 格式：(type)<span class="hljs-keyword">value</span> type是要强制类型转换后的数据类型 实例：
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> QiangZhiZhuanHuan{
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args){
+            <span class="hljs-keyword">int</span> i1 = <span class="hljs-number">123</span>;
+            <span class="hljs-keyword">byte</span> b = (<span class="hljs-keyword">byte</span>)i1;<span class="hljs-comment">//强制类型转换为byte</span>
+            System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"int强制类型转换为byte后的值等于"</span>+b);
+
+        }
+    }</code></pre>
+
+<p>运行结果： <br/>
+int强制类型转换为byte后的值等于123</p>
+
+<p><strong>隐含强制类型转换：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-number">1.</span> 整数的默认类型时<span class="hljs-keyword">int</span>
+<span class="hljs-number">2.</span> 浮点型不存在这种情况，因为在定义<span class="hljs-keyword">float</span>类型时必须在数字后面跟上F或者f</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

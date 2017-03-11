@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、查找服务器所有访问者ip方法：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">awk <span class="hljs-string">'{print $1}'</span> nginx_access.<span class="hljs-built_in">log</span> |<span class="hljs-built_in">sort</span> |uniq -c|<span class="hljs-built_in">sort</span> -n</code></pre>
+
+<p>nginx.access.log 为nginx访问日志文件所在路径</p>
+
+<p>会到如下结果，前面是ip的访问次数，后面是ip，很明显我们需要把访问次数多的ip并且不是蜘蛛的ip屏蔽掉，如下面结果， <br/>
+若 66.249.79.84 不为蜘蛛则需要屏蔽：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">     89 106.75.133.167
+     90 118.123.114.57
+     91 101.78.0.210
+     92 116.113.124.59
+     92 119.90.24.73
+     92 124.119.87.204
+    119 173.242.117.145
+   4320 66.249.79.84
+</code></pre>
+
+<p><strong>2、屏蔽IP的方法：</strong> <br/>
+在nginx的安装目录下面,新建屏蔽ip文件，命名为guolv_ip.conf，以后新增加屏蔽ip只需编辑这个文件即可。  <br/>
+加入如下内容并保存：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs nginx"><span class="hljs-title">deny</span> <span class="hljs-number">66.249.79.84</span> ; </code></pre>
+
+<p>在nginx的配置文件nginx.conf中加入如下配置，可以放到http, server, location, limit_except语句块，需要注意相对路径，本例当中nginx.conf，guolv_ip.conf在同一个目录中。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs actionscript"><span class="hljs-preprocessor"><span class="hljs-keyword">include</span> guolv_ip.conf;</span> </code></pre>
+
+<p>保存nginx.conf文件，然后测试现在的nginx配置文件是否是合法的：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"> nginx <span class="hljs-attribute">-t</span></code></pre>
+
+<p>如果配置没有问题，就会输出：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript"><span class="hljs-keyword">the</span> configuration <span class="hljs-type">file</span> /usr/<span class="hljs-keyword">local</span>/nginx/conf/nginx.conf syntax <span class="hljs-keyword">is</span> ok
+configuration <span class="hljs-type">file</span> /usr/<span class="hljs-keyword">local</span>/nginx/conf/nginx.conf test <span class="hljs-keyword">is</span> successful</code></pre>
+
+<p>如果配置有问题就需要检查下哪儿有语法问题，如果没有问题，需要执行下面命令，重载 nginx 配置文件： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">service nginx  reload</code></pre>
+
+<p><strong>3、注意：</strong></p>
+
+<p>屏蔽ip的配置文件既可以屏蔽单个ip，也可以屏蔽ip段，或者只允许某个ip或者某个ip段访问。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs glsl"><span class="hljs-comment">//屏蔽单个ip访问</span>
+
+deny IP; 
+
+<span class="hljs-comment">//允许单个ip访问</span>
+
+allow IP; 
+
+<span class="hljs-comment">//屏蔽所有ip访问</span>
+
+deny <span class="hljs-built_in">all</span>; 
+
+<span class="hljs-comment">//允许所有ip访问</span>
+
+allow <span class="hljs-built_in">all</span>; 
+
+<span class="hljs-comment">//屏蔽整个段即从123.0.0.1到123.255.255.254访问的命令</span>
+
+deny <span class="hljs-number">123.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">8</span>
+
+<span class="hljs-comment">//屏蔽IP段即从123.45.0.1到123.45.255.254访问的命令</span>
+
+deny <span class="hljs-number">124.45</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">16</span>
+
+<span class="hljs-comment">//屏蔽IP段即从123.45.6.1到123.45.6.254访问的命令</span>
+
+deny <span class="hljs-number">123.45</span><span class="hljs-number">.6</span><span class="hljs-number">.0</span>/<span class="hljs-number">24</span>
+
+<span class="hljs-comment">//如果你想实现这样的应用，除了几个IP外，其他全部拒绝，</span>
+<span class="hljs-comment">//那需要你在guolv_ip.conf中这样写</span>
+
+allow <span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.1</span>; 
+allow <span class="hljs-number">1.1</span><span class="hljs-number">.1</span><span class="hljs-number">.2</span>;
+deny <span class="hljs-built_in">all</span>; </code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs actionscript">单独网站屏蔽IP的方法，把<span class="hljs-preprocessor"><span class="hljs-keyword">include</span> guolv_ip.conf;</span> 放到网址对应的在server{}语句块，
+所有网站屏蔽IP的方法，把<span class="hljs-preprocessor"><span class="hljs-keyword">include</span> guolv_ip.conf;</span> 放到http {}语句块。</code></pre>
+
+<p>参考：<a href="http://www.nginx.cn/2487.html">http://www.nginx.cn/2487.html</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

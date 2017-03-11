@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong><span style="color:#ff0000">CDATA - （未解析）字符数据</span></strong><br/>&#13;
+术语 CDATA 是不应该由 XML 解析器解析的文本数据。<br/>&#13;
+像 "&lt;" 和 "&amp;" 字符在 XML 元素中都是非法的。<br/>&#13;
+"&lt;" 会产生错误，因为解析器会把该字符解释为新元素的开始。<br/>&#13;
+"&amp;" 会产生错误，因为解析器会把该字符解释为字符实体的开始。<br/>&#13;
+某些文本，比如 JavaScript 代码，包含大量 "&lt;" 或 "&amp;" 字符。为了避免错误，可以将脚本代码定义为 CDATA。<br/>&#13;
+CDATA 部分中的所有内容都会被解析器忽略。<br/>&#13;
+CDATA 部分由 "&lt;![CDATA[" 开始，由 "]]&gt;" 结束：<br/>&#13;
+&lt;script&gt;<br/>&#13;
+&lt;![CDATA[<br/>&#13;
+function matchwo(a,b)<br/>&#13;
+{<br/>&#13;
+if (a &lt; b &amp;&amp; a &lt; 0) then<br/>&#13;
+{<br/>&#13;
+return 1;<br/>&#13;
+}<br/>&#13;
+else<br/>&#13;
+{<br/>&#13;
+return 0;<br/>&#13;
+}<br/>&#13;
+}<br/>&#13;
+]]&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+在上面的实例中，解析器会忽略 CDATA 部分中的所有内容。<br/>&#13;
+关于 CDATA 部分的注释：<br/>&#13;
+CDATA 部分不能包含字符串 "]]&gt;"。也不允许嵌套的 CDATA 部分。<br/>&#13;
+标记 CDATA 部分结尾的 "]]&gt;" 不能包含空格或换行。<br/></span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>说明：</strong></span></p>&#13;
+<p><span style="font-size:18px">XML 文档中的所有文本均会被解析器解析。</span></p>&#13;
+<span style="font-size:18px">只有 CDATA 区段中的文本会被解析器忽略。<br/>&#13;
+在xml文件中，若某个标签内容包含特殊字符，如"&lt;"、"&amp;"等，他们在xml元素中都是非法的，为了避免错误，可以将这些符号放在&lt;![CDATA[...]]&gt;标签中，这样xml就不会对其解析，避免错误。<br/>&#13;
+CDATA的基本语法：<br/>&#13;
+&lt;![CDATA[<br/>&#13;
+内容...<br/>&#13;
+]]&gt;<br/>&#13;
+实例：<br/>&#13;
+&lt;介绍&gt;&lt;![CDATA[$^&amp;()&gt;&lt;LKL:&gt;Kjlk&gt;&lt;]]&gt;&lt;/介绍&gt;<br/>&#13;
+&lt;头像&gt;&lt;![CDATA[$%()^&amp;#@@]]&gt;&lt;/头像&gt;<br/><br/>&#13;
+面试题: 请问如何使用xml文件来传递、保存一个图片.<br/>&#13;
+答： 使用程序先读入到内存，然后保存到 xml 文件的&lt;![CDATA[ 文件内容]]&gt; 中<br/><br/></span><br/></div>  </body>
+            </html>

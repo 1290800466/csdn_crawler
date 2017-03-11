@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">Calculator.php：</span><br/></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre name="code" class="php">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8"&gt;
+&lt;link rel="stylesheet" type="text/css" href="calculatpr.css" &gt;
+&lt;title&gt;计算器&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="style1"&gt;&lt;/br&gt;
+	&lt;div class="style2"&gt;&lt;b class="style2" &gt;我的计算器&lt;/b&gt;&lt;/div&gt;&lt;br&gt;</pre><pre name="code" class="php">//当提交页面为当前页面时，可用以下语句，比直接用当前文件名安全</pre><pre name="code" class="php">//&lt;form method="post" action="&lt;?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?&gt;"&gt;</pre><pre name="code" class="php">//除了以上方法，还可以用当前PHP文件名或action="" 也可</pre><pre name="code" class="php">	&lt;form action="result.php"  method="post"&gt;
+	&lt;!--action 指定了目标文件名称，method制定了数据传输方法，由get和post两种方法--&gt;
+		num1: 
+		&lt;input type="text" name="num1" /&gt;
+		&lt;br /&gt;&lt;br /&gt;
+		num2: 
+		&lt;input type="text" name="num2" /&gt;
+		&lt;br/&gt;&lt;br /&gt;
+		运算符:
+		&lt;select class="style4" name="operator"&gt;
+			&lt;option value="加法"&gt;+&lt;/option&gt;
+			&lt;option value="减法"&gt;-&lt;/option&gt;
+			&lt;option value="乘法"&gt;*&lt;/option&gt;
+			&lt;option value="除法"&gt;/&lt;/option&gt;
+		&lt;/select&gt;
+		&lt;br/&gt;&lt;br/&gt;
+		           
+		&lt;input type="submit" value="计算" /&gt;&lt;br&gt;
+		&lt;!--注意：一个提交按钮（type="submit"）只能提交按钮所在的表单（&lt;form&gt;）中的数据，不能提交替他数据--&gt;
+	&lt;/form&gt;
+&lt;/div&gt; 
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p>result.php：</p>&#13;
+<p/>&#13;
+<pre name="code" class="php">&lt;?php
+		/* 
+		对于数据的接收有3种方法：
+			若原文件数据提交由get方法，可使用$_GET[]方法接收数据；
+			若原文件数据提交由post方法，可使用$_POST[]方法接收数据；
+			还有一种通用方法$_REQUEST[]，无论原文件用get还是post方法提交数据，都可用该方法接收。
+			 */
+		$number1 = $_REQUEST['num1'];    /* 中括号中数据为所要接收数据的name属性的值 */
+		$number2 = $_REQUEST['num2'];
+		$operator = $_REQUEST['operator'];
+		echo $number1;
+		echo "&lt;br&gt;";
+		echo $number2;
+		echo "&lt;br&gt;";
+		echo $operator;
+		echo "&lt;br&gt;";
+		if($operator == "加法" )
+		{
+			$result=$number1 + $number2;
+			
+		}
+		else if($operator == "减法" )
+		{
+			
+			$result=$number1 - $number2;
+		}
+		else if($operator == "乘法" )
+		{
+			
+			$result=$number1 * $number2;
+		}
+		else
+		{
+			if($number2 == 0 ){
+				$result = "除数不能为零！";
+			}
+			else{
+			$result=$number1 / $number2;
+			}
+		}
+	
+		echo $result;
+		echo "&lt;br&gt;";
+		echo "&lt;br&gt;";
+	?&gt;
+	
+	&lt;a href = "Calculator.php"&gt;返回计算界面&lt;/a&gt;</pre><br/><p><span style="font-size:18px">calculatpr.css：</span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre name="code" class="css">.style1{
+	width:250px;
+	height:350px;
+	padding:5px;
+	/* background:red; */
+	border-style: solid; 
+	border-width: 2px;
+	align:center;
+}
+.style2{
+	text-align:center;
+}
+</pre><br/><br/><p/>&#13;
+<br/><p/>&#13;
+<br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 style="font-size:25px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:0px">&#13;
+PHP <span class="color_h1" style="color:rgb(138,192,7)">数组</span></h1>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><p class="intro" style="line-height:20.1599998474121px; font-size:14px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(64,64,64); margin-top:10px">&#13;
+数组能够在单个变量中存储多个值：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+数组是什么？</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+数组是一个能在单个变量中存储多个值的特殊变量。</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+如果您有一个项目清单（例如：车名字的清单），将其存储到单个变量中，如下所示：</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">$cars1="Volvo";<br/>&#13;
+$cars2="BMW";<br/>&#13;
+$cars3="Toyota";</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+然而，如果您想要遍历数组并找出特定的一个呢？如果数组的项不只 3 个而是 300 个呢？</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+解决办法是创建一个数组！</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+数组可以在单个变量中存储多个值，并且您可以根据键访问其中的值。</p>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+在 PHP 中创建数组</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+在 PHP 中，array() 函数用于创建数组：</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">array();</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+在 PHP 中，有三种类型的数组：</p>&#13;
+<ul style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"><li style="padding:2px 0px"><strong>数值数组</strong> - 带有数字 ID 键的数组</li><li style="padding:2px 0px"><strong>关联数组</strong> - 带有指定的键的数组，每个键关联一个值</li><li style="padding:2px 0px"><strong>多维数组</strong> - 包含一个或多个数组的数组</li></ul><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+PHP 数值数组</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+这里有两种创建数值数组的方法：</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+自动分配 ID 键（ID 键总是从 0 开始）：</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">$cars=array("Volvo","BMW","Toyota");</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+人工分配 ID 键：</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">$cars[0]="Volvo";<br/>&#13;
+$cars[1]="BMW";<br/>&#13;
+$cars[2]="Toyota";</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例创建一个名为 $cars 的数值数组，并给数组分配三个元素,然后打印一段包含数组值的文本：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<br style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+获取数组的长度 - count() 函数</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+count() 函数用于返回数组的长度（元素的数量）：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+echo count($cars);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<br style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+遍历数值数组</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+遍历并打印数值数组中的所有值，您可以使用 for 循环，如下所示：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+$arrlength=count($cars);<br/><br/>&#13;
+for($x=0;$x&lt;$arrlength;$x++)<br/>&#13;
+{<br/>&#13;
+echo $cars[$x];<br/>&#13;
+echo "&lt;br&gt;";<br/>&#13;
+}<br/>&#13;
+?&gt;</div>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+//利用 foreach 遍历普通数组</div>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+<pre style="white-space:pre-wrap; word-wrap:break-word; color:rgb(51,51,51); font-size:14px; line-height:26px; margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',Courier,monospace; width:685px; background:rgb(245,245,245)">&lt;?php 
+$colors = array("red","green","blue","yellow"); 
+
+foreach ($colors as $value) {
+  echo "$value &lt;br&gt;";
+}
+?&gt;</pre>&#13;
+<br/></div>&#13;
+</div>&#13;
+<br style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+PHP 关联数组</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+关联数组是使用您分配给数组的<span style="color:#ff0000">指定的键</span>（以前的普通数组的键固定为0,1,2,3，...；而关联数组自己指定键，以下的Peter、Ben、Jon都是键值）的数组。</p>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+这里有两种创建关联数组的方法：</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+or:</p>&#13;
+<div class="code notranslate" style="width:711px; border:1px solid rgb(212,212,212); color:rgb(68,68,68); padding:5px; margin:0px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="font-size:13px; font-family:'courier new'">$age['Peter']="35";<br/>&#13;
+$age['Ben']="37";<br/>&#13;
+$age['Joe']="43";</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+随后可以在脚本中使用指定的键：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/>&#13;
+echo "Peter is " . $age['Peter'] . " years old.";<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<br style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:22px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+遍历关联数组</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+遍历并打印关联数组中的所有值，您可以使用 foreach 循环，如下所示：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/><br/>&#13;
+foreach($age as $x=&gt;$x_value) // foreach 遍历关联数组<br/>&#13;
+{<br/>&#13;
+echo "Key=" . $x . ", Value=" . $x_value;<br/>&#13;
+echo "&lt;br&gt;";<br/>&#13;
+}<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<br style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+</h2><p style="font-size:22px">注意：</p>&#13;
+<p><span style="font-weight:normal"><span style="font-size:22px">         </span>&#13;
+<span style="font-size:14px">如果我们创建一个数组的时候，没有给某个元素指定下标，php就会自动的用目前最大的那个下标值（整数），加上一作为该元素的下标（关键字）</span></span></p>&#13;
+<p><span style="font-size:14px">例：</span></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<pre name="code" class="php">&lt;?php  
+$arr = array(5=&gt;"logo",567,90);
+Echo $arr[5];    //输出logo
+Echo "&lt;br&gt;".$arr[6];  //输出567
+Echo "&lt;br&gt;".$arr[7];   //输出90
+?&gt;</pre><pre name="code" class="php">&lt;?php  
+$arr = array(5=&gt;"logo",567,90,12.34=&gt;"asd");
+$arr[true] = "true";
+$arr[false] = "false";
+$arr[null] = "null";
+Echo $arr[5];    //输出logo
+Echo "&lt;br&gt;".$arr[6];  //输出567
+Echo "&lt;br&gt;".$arr[7];   //输出90
+
+/* 
+当用true、false、null 为键值时
+True  可用true 、 1 表示
+False  可用  false  、   0  表示
+Null 可用  null  、  ""  表示
+*/
+Echo "&lt;br&gt;".$arr[true];   //输出true
+Echo "&lt;br&gt;".$arr[1];   //输出true
+Echo "&lt;br&gt;".$arr[false];   //输出false
+Echo "&lt;br&gt;".$arr[0];   //输出false
+Echo "&lt;br&gt;".$arr[null];   //null
+Echo "&lt;br&gt;".$arr[""];   //输出null
+
+
+Echo "&lt;br&gt;".$arr[12.34]."&lt;br/&gt;";   //输出asd,以小数部分表示也可
+Echo "&lt;br&gt;".$arr[12]."&lt;br/&gt;";   </pre><pre name="code" class="php">//输出asd,使用小数做key值，将自动截断小数部分，以整数部分表示即可
+
+
+print_r($arr);   </pre><pre name="code" class="php">//显示数组$arr的详细信息，输出Array ( [5] =&gt; logo [6] =&gt; 567 [7] =&gt; 90 [12] =&gt; asd ) 
+?&gt;</pre>&#13;
+<h2>php 数组的几个重要函数：</h2>&#13;
+<div><pre name="code" class="php">&lt;?php   
+/* 
+php 数组的几个重要函数：
+count()	返回数组中元素的数目。如：count($arr);
+is_array()  判断变量是否是数组，若是数组返回1，否则不返回任何东西。如：is_array($arr);
+print_r() 显示数组详细信息。如：print_r($arr);
+var_dump()  显示数组详细信息,同时显示数组内每个元素数据类型。如：var_dump($arr);
+explode("按照什么拆分，在哪里分割",要分割的字符串)   拆分字符串， 把字符串打散为数组。
+sort()	对数值数组进行升序排序。
+*/
+$arr = array(5=&gt;"logo",567,90,12.34=&gt;"asd");
+//$arr = 2;
+$b = count($arr);
+echo "&lt;br&gt;".$b;
+
+$a = is_array($arr);
+echo "&lt;br&gt;".$a;
+
+print_r($arr);
+echo "&lt;br&gt;";
+
+var_dump($arr);
+echo "&lt;br&gt;";
+
+$str = 'one,two,three,four';
+$c = explode(',',$str);
+print_r($c);
+echo "&lt;br&gt;";
+
+sort($arr);   //对数组$arr进行升序排序
+print_r($arr);   //重新输出数组$arr
+
+?&gt;</pre><br/><pre name="code" class="php">&lt;?php   
+
+/* 
+unset()  删除数组中的某个键,但在销毁后，关键字不会重新组合，保留原来的关键字；在非组中用来释放给定的变量
+
+数组运算符： 
+ 例子	    名称	        结果
+$a + $b	    联合	   $a 和 $b 的联合。
+$a == $b	相等	   如果 $a 和 $b 具有相同的键／值对则为 TRUE。
+$a === $b	全等	   如果 $a 和 $b 具有相同的键／值对并且顺序和类型都相同则为 TRUE。
+$a != $b	不等	   如果 $a 不等于 $b 则为 TRUE。
+$a &lt;&gt; $b	不等	   如果 $a 不等于 $b 则为 TRUE。
+$a !== $b	不全等	   如果 $a 不全等于 $b 则为 TRUE。
+
+*/
+$arr1 = array(5=&gt;"logo",567,90,12.34=&gt;"asd");
+print_r($arr1);
+
+echo "&lt;br&gt;";
+unset($arr1[6]);
+
+print_r($arr1);
+echo "&lt;br&gt;";
+
+$arr2 = array(5=&gt;"logo1",5617,910,12.34=&gt;"asd1");
+print_r($arr2);
+
+echo "&lt;br&gt;"."联合后：";
+$arr = $arr1 + $arr2;  
+//+ 运算符把右边的数组元素（除去键值与左边的数组元素相同的那些元素）附加到左边的数组后面，但是重复的键值不会被覆盖。
+print_r($arr);
+echo "&lt;br&gt;";
+
+
+?&gt;</pre><br/></div>&#13;
+<div><br/></div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

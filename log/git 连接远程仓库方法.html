@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>方案一 : 本地创建项目根目录, 然后与远程Git关联, 之后的操作一样：</p>
+
+<pre class="prettyprint"><code class="language-shell hljs vala"><span class="hljs-preprocessor">#创建新文件夹</span>
+mkdir xxx
+<span class="hljs-preprocessor">#进入</span>
+cd xxx 
+<span class="hljs-preprocessor">#初始化Git仓库 </span>
+git init
+<span class="hljs-preprocessor">#提交改变到缓存</span>
+git commit -m <span class="hljs-string">'description'</span>
+<span class="hljs-preprocessor">#本地git仓库关联GitHub仓库 </span>
+git remote add origin git@github.com:han1202012/TabHost_Test.git
+<span class="hljs-preprocessor">#提交到GitHub中 </span>
+git push -u origin master</code></pre>
+
+<p>方案二 : 方案二就是不用关联Git仓库, 直接从Git中克隆源码到本地, 项目根目录也不用创建;</p>
+
+<pre class="prettyprint"><code class="language-shell hljs perl"><span class="hljs-comment">#从GitHub上克隆项目到本地 </span>
+git clone git<span class="hljs-variable">@github</span>.com:han1202012/NDKHelloworld.git <span class="hljs-comment">#注意克隆的时候直接在仓库根目录即可, 不用再创建项目根目录 ;</span>
+<span class="hljs-comment">#添加文件 </span>
+git add ./*  <span class="hljs-comment"># 将目录中所有文件添加;</span>
+<span class="hljs-comment">#提交缓存 </span>
+git commit -<span class="hljs-keyword">m</span> <span class="hljs-string">'提交'</span>;
+<span class="hljs-comment">#提交到远程GitHub仓库 </span>
+git <span class="hljs-keyword">push</span> -u origin master ;</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

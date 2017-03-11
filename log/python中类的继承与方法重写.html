@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>在python中继承中的一些特点：</strong> <br/>
+1：在继承中基类的构造（<strong>init</strong>()方法）不会被自动调用，它需要在其派生类的构造中亲自专门调用。 <br/>
+2：在调用基类的方法时，需要加上基类的类名前缀，且需要带上self参数变量。区别于在类中调用普通函数时并不需要带上self参数 <br/>
+3：Python总是首先查找对应类型的方法，如果它不能在派生类（子类即当前类）中找到对应的方法，它才开始到基类(父类)中逐个查找。（先在本类中查找调用的方法，找不到才去基类中找）。 <br/>
+4：由上面的关系，可以进行方法的重写，在子类中重写父类方法。</p>
+
+<p>如果在继承元组中列了一个以上的类，那么它就被称作”多重继承” 。</p>
+
+<p><strong>语法：</strong> <br/>
+派生类的声明，与他们的父类类似，继承的基类列表跟在类名之后，如下所示： <br/>
+父类以元组的形式存在：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClassName</span> <span class="hljs-params">(ParentClass1[, ParentClass2, ...])</span>:</span>
+   <span class="hljs-string">'Optional class documentation string'</span>
+   class_suite</code></pre>
+
+<p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span>:</span>        
+    <span class="hljs-string">"父类"</span>
+    parentAttr = <span class="hljs-number">100</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">"调用父类构造函数"</span>
+
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">parentMethod</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">'调用父类方法'</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">setAttr</span><span class="hljs-params">(self, attr)</span>:</span>
+        Parent.parentAttr = attr
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getAttr</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">"父类属性 :"</span>, Parent.parentAttr
+
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span><span class="hljs-params">(Parent)</span>:</span> 
+    <span class="hljs-string">"定义子类"</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">"调用子类构造方法"</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">childMethod</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">'调用子类方法 child method'</span>
+        <span class="hljs-comment">#在子类中调用父类方法</span>
+        <span class="hljs-keyword">print</span> Parent.getAttr(self)
+
+
+
+c = Child()          <span class="hljs-comment"># 实例化子类</span>
+c.childMethod()      <span class="hljs-comment"># 调用子类的方法</span>
+c.parentMethod()     <span class="hljs-comment"># 调用父类方法</span>
+c.setAttr(<span class="hljs-number">200</span>)       <span class="hljs-comment"># 再次调用父类的方法</span>
+c.getAttr()          <span class="hljs-comment"># 再次调用父类的方法</span></code></pre>
+
+<p>检测类之间的父子关系：</p>
+
+<pre class="prettyprint"><code class="language-python hljs ">issubclass() - 布尔函数(zi,fu)判断一个类是另一个类的子类或者子孙类，语法：issubclass(sub,sup)
+isinstance(obj, Class) 布尔函数如果obj是Class类的实例对象或者是一个Class子类的实例对象则返回true。</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

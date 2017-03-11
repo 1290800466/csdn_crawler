@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">1、首先找到强大的开源资料，在</span><a target="_blank" href="http://www.barcodephp.com/en/download" style="color:rgb(0,66,118); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">barcode</a><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">官网下载<a target="_blank" href="http://www.barcodephp.com/en/download/file/111" style="margin:0px; font-family:'Segoe UI',Tahoma; color:rgb(81,81,81); font-size:13.3333330154419px; line-height:20px">barcodegen.1d-php5.v5.2.1.zip</a>版本，然后解压文件放到你的Apache服务器的根目录下</span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">文件结构如下：</span><br/></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><img src="http://img.blog.csdn.net/20150722165602281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="250" alt=""/><br/></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"/></span></p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+具体解析</p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+（1）class文件夹是已封装好生成条形码的类，只需要调用即可。</p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+（2）index.php是一个可选择条件生成条形码的功能，是主程序的入口，而html文件夹是提供的被引用的代码，code39.php指的是指向默认的编码格式。</p>&#13;
+<pre style="margin-top:0px; margin-bottom:1em; padding:0px; color:rgb(51,51,51); font-family:'Courier New',monospace; width:591.3671875px; overflow:auto; line-height:28px; background:rgb(230,230,230)"><ol class="dp-c" style="margin-left:55px; padding:5px 0px; color:rgb(92,92,92); word-wrap:break-word; word-break:normal; border:none; margin-top:0px!important; margin-right:0px!important; margin-bottom:1px!important; background:rgb(247,247,247)"><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; color:inherit; list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">&lt;?php  </span></li><li style="list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">header(</span><span class="string" style="margin:0px; padding:0px; border:none; color:blue; background-color:inherit">'Location: html/code39.php'</span><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">);  </span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; color:inherit; list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">?&gt; </span></li></ol></pre>&#13;
+<p/>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+当直接访问<a target="_blank" href="http://localhost/barcodegen/index.php" style="color:rgb(0,66,118)">http://localhost/barcodegen/index.php</a>时，用户体验可以体验该功能，任意选择项，生成对应的条形码。需要的话可以将它改版成module来使用。</p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+<img src="http://img.blog.csdn.net/20150722165942597?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="400" height="300" alt=""/><br/></p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+3）test.php是另外一个例子，通过代码直接生成HELLO条形码。　</p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+当访问<a target="_blank" href="http://localhost/barcodegen/test.php" style="color:rgb(0,66,118)">http://localhost/barcodegen/test.php</a>时，HELLO.PNG图片生成</p>&#13;
+<img src="http://img.blog.csdn.net/20150722170044131?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="200" height="100" alt=""/><br/><p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">生成条形码的代码：</span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">test_1D.php:</span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"/></span></p><pre name="code" class="php">&lt;?php
+// Including all required classes
+require_once('class/BCGFontFile.php');
+require_once('class/BCGColor.php');
+require_once('class/BCGDrawing.php');
+
+// Including the barcode technology
+require_once('class/BCGcode39.barcode.php');
+
+// Loading Font
+$font = new BCGFontFile('./font/Arial.ttf', 18);
+
+// Don't forget to sanitize user inputs
+$text = isset($_GET['text']) ? $_GET['text'] : 'HELLO';
+
+// The arguments are R, G, B for color.
+$color_black = new BCGColor(0, 0, 0);
+$color_white = new BCGColor(255, 255, 255);
+
+$drawException = null;
+try {
+    $code = new BCGcode39();
+    $code-&gt;setScale(2); // Resolution
+    $code-&gt;setThickness(30); // Thickness
+    $code-&gt;setForegroundColor($color_black); // Color of bars
+    $code-&gt;setBackgroundColor($color_white); // Color of spaces
+    $code-&gt;setFont($font); // Font (or 0)
+    $code-&gt;parse($text); // Text
+} catch(Exception $exception) {
+    $drawException = $exception;
+}
+
+/* Here is the list of the arguments
+1 - Filename (empty : display on screen)
+2 - Background color */
+$drawing = new BCGDrawing('', $color_white);
+if($drawException) {
+    $drawing-&gt;drawException($drawException);
+} else {
+    $drawing-&gt;setBarcode($code);
+    $drawing-&gt;draw();
+}
+
+// Header that says it is an image (remove it if you save the barcode to a file)
+header('Content-Type: image/png');
+header('Content-Disposition: inline; filename="barcode.png"');
+
+// Draw (or save) the image into PNG format.
+$drawing-&gt;finish(BCGDrawing::IMG_FORMAT_PNG);
+?&gt;</pre><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">然后新建test_1D.html文件，向<span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">test_1D.php</span>请求数据:</span>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"/></span></p><pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Test with embedded image&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;img src="test_1D.php?text=123456" alt="barcode" /&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">最后访问</span><a target="_blank" href="http://localhost/barcodegen/test.html" style="color:rgb(0,66,118); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">http://localhost/barcodegen/test<span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">_1D</span>.html</a><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">或访问</span><a target="_blank" href="http://localhost/barcodegen/buildcode.php?codebar=BCGcode39&amp;text=abc123" style="color:rgb(0,66,118); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">http://localhost/barcodegen/</a><span style="color:rgb(51,51,51); font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(240,240,240)">test_1D.php?text=123456</span><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)">，浏览器直接生成png格式的条形码</span>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"><img src="http://img.blog.csdn.net/20150722170733817?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="220" height="100" alt=""/><br/></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)"><span style="color:rgb(51,51,51); font-family:宋体; font-size:14px; line-height:28px; text-indent:28px; background-color:rgb(248,248,248)"/></span></p>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+其中codebar支持的编码格式可以由用户请求所得：</p>&#13;
+<pre style="margin-top:0px; margin-bottom:1em; padding:0px; color:rgb(51,51,51); font-family:'Courier New',monospace; width:591.3671875px; overflow:auto; line-height:28px; background:rgb(230,230,230)"><ol class="dp-xml" style="margin-left:55px; padding:5px 0px; color:rgb(92,92,92); word-wrap:break-word; word-break:normal; border:none; margin-top:0px!important; margin-right:0px!important; margin-bottom:1px!important; background:rgb(247,247,247)"><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; color:inherit; list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">/*'BCGcodabar','BCGcode11','BCGcode39','BCGcode39extended','BCGcode93',　  </span></li><li style="list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px; margin:0px!important; padding:0px 3px 0px 10px!important"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">'BCGcode128','BCGean8','BCGean13','BCGisbn','BCGi25','BCGs25','BCGmsi',　  </span></li><li class="alt" style="margin:0px!important; padding:0px 3px 0px 10px!important; color:inherit; list-style:decimal outside none; word-wrap:break-word; word-break:normal; border:none; line-height:18px"><span style="margin:0px; padding:0px; border:none; color:black; background-color:inherit">'BCGupca','BCGupce','BCGupcext2','BCGupcext5','BCGpostnet','BCGothercode'*/　 </span></li></ol></pre>&#13;
+<p style="margin-top:10px; margin-bottom:10px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); text-indent:28px; font-family:宋体; font-size:14px; line-height:28px; background-color:rgb(248,248,248)">&#13;
+剩下的就是验证了</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

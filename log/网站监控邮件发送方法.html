@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>网站监控、功能脚本执行结果邮件：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">/**
+ * 邮件发送方法
+ *<span class="hljs-phpdoc"> @param</span> string $title 邮件主题
+ *<span class="hljs-phpdoc"> @param</span> string $content 邮件内容
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">send_email</span><span class="hljs-params">(<span class="hljs-variable">$title</span>, <span class="hljs-variable">$content</span>)</span> {</span>
+    <span class="hljs-comment">//如下以get请求发送邮件，链接中不能有&amp;符号，以斜杠替换</span>
+    <span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&amp;"</span>, <span class="hljs-string">"/"</span>, <span class="hljs-variable">$content</span>);
+    <span class="hljs-comment">//获取是哪里调用的本方法，可以获取文件、行数、函数名称、参数等信息</span>
+    <span class="hljs-variable">$backtrace</span> = debug_backtrace();
+    <span class="hljs-variable">$send_time</span> = <span class="hljs-string">'发送时间： '</span> . date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()) . <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-variable">$send_ip</span> = <span class="hljs-string">'发送服务器： '</span> . gethostbyname(gethostname()) . <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-variable">$content</span> = <span class="hljs-variable">$send_time</span> . <span class="hljs-variable">$send_ip</span> . <span class="hljs-string">'邮件内容： '</span> . <span class="hljs-string">"&lt;br/&gt;"</span> . <span class="hljs-variable">$content</span>;
+    <span class="hljs-comment">//邮件发送接口,出于安全考虑，邮件接收者最好写死，通过传参不同控制邮件接受者</span>
+    <span class="hljs-variable">$sendurl</span> = <span class="hljs-string">'http://api.baidu.com/send_email.php?type=1&amp;title='</span> . <span class="hljs-variable">$title</span> . <span class="hljs-string">'&amp;content='</span> . <span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$result</span> = file_get_contents(<span class="hljs-variable">$sendurl</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">'ok'</span> != <span class="hljs-variable">$result</span>) {
+        <span class="hljs-comment">//写入php错误记录日志</span>
+        error_log(<span class="hljs-string">'PHP Warning:  邮件发送失败  in '</span> . <span class="hljs-variable">$backtrace</span>[<span class="hljs-number">0</span>][<span class="hljs-string">'file'</span>] . <span class="hljs-string">' on line '</span> . <span class="hljs-variable">$backtrace</span>[<span class="hljs-number">0</span>][<span class="hljs-string">'line'</span>] , <span class="hljs-number">0</span>);
+        <span class="hljs-comment">//自定义记录邮件内容</span>
+        <span class="hljs-variable">$message</span> = <span class="hljs-string">'PHP Warning:  邮件发送失败  in '</span> . <span class="hljs-variable">$backtrace</span>[<span class="hljs-number">0</span>][<span class="hljs-string">'file'</span>] . <span class="hljs-string">' on line '</span> . <span class="hljs-variable">$backtrace</span>[<span class="hljs-number">0</span>][<span class="hljs-string">'line'</span>] . <span class="hljs-string">"&lt;br/&gt;"</span> . <span class="hljs-variable">$content</span> . <span class="hljs-string">"\n"</span>;
+        <span class="hljs-variable">$message</span> = str_replace(<span class="hljs-string">"&lt;br/&gt;"</span>, <span class="hljs-string">"\n\t"</span>, <span class="hljs-variable">$message</span>);
+        error_log(<span class="hljs-variable">$message</span>, <span class="hljs-number">3</span>, <span class="hljs-string">"error.log"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    }
+}
+
+send_email(<span class="hljs-string">'test'</span>, <span class="hljs-string">'test'</span>);</code></pre>
+
+<p>邮件发送接口可以用 PHPMailer 写，若邮件发送成功，返回 ‘ok’!</p>
+
+<p>还要注意邮件内容大小，发送邮件时对邮件内容字符数有限制</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">/**
+ * 邮件发送方法
+ *<span class="hljs-phpdoc"> @param</span> str $title 邮件主题
+ *<span class="hljs-phpdoc"> @param</span> str $content 邮件内容
+ *<span class="hljs-phpdoc"> @param</span> str $email 单独发送email
+ *<span class="hljs-phpdoc"> @param</span> int $type 测试发送设为 1
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sendEmail</span><span class="hljs-params">(<span class="hljs-variable">$title</span>, <span class="hljs-variable">$content</span>, <span class="hljs-variable">$email</span>=null, <span class="hljs-variable">$type</span>=null)</span> {</span>
+    <span class="hljs-variable">$url</span> = <span class="hljs-string">'http://api.baidu.com/send_email.php'</span>;
+    <span class="hljs-variable">$post_data</span> = <span class="hljs-keyword">array</span>();
+    <span class="hljs-comment">//要注意  php.ini  中对post请求传值大小的限制</span>
+    <span class="hljs-variable">$content</span> = substr(<span class="hljs-variable">$content</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1024</span>*<span class="hljs-number">1000</span>);
+    <span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&amp;"</span>, <span class="hljs-string">"/"</span>, <span class="hljs-variable">$content</span>);
+    <span class="hljs-variable">$content</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()) . <span class="hljs-string">"&lt;br/&gt;"</span> . <span class="hljs-variable">$content</span>;
+    !<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$type</span>) ? <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'type'</span>] = <span class="hljs-variable">$type</span> : <span class="hljs-keyword">false</span>;
+    !<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$email</span>) ? <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'email'</span>] = <span class="hljs-variable">$email</span> : <span class="hljs-keyword">false</span>;
+    <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'title'</span>] = <span class="hljs-variable">$title</span>;
+    <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'content'</span>] = <span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$result</span> = curlPost(<span class="hljs-variable">$url</span>, <span class="hljs-variable">$post_data</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-string">'ok'</span> != <span class="hljs-variable">$result</span>[<span class="hljs-string">'data'</span>]) {
+        <span class="hljs-variable">$message</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()) . <span class="hljs-keyword">__FILE__</span> . <span class="hljs-string">'   邮件发送失败!!!'</span>;
+        <span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&lt;br/&gt;"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-variable">$content</span>);
+        <span class="hljs-variable">$message_err</span> = <span class="hljs-variable">$message</span> . <span class="hljs-string">"\n"</span> . <span class="hljs-variable">$content</span>;
+        error_log(<span class="hljs-variable">$message_err</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"error.log"</span>);
+        <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'title'</span>] = <span class="hljs-string">'邮件发送失败通知'</span>;
+        <span class="hljs-variable">$message</span> .= !<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$result</span>[<span class="hljs-string">'error'</span>]) ? <span class="hljs-string">'失败原因 : '</span> . <span class="hljs-variable">$result</span>[<span class="hljs-string">'error'</span>] : <span class="hljs-string">''</span>;
+        <span class="hljs-variable">$post_data</span>[<span class="hljs-string">'content'</span>] = <span class="hljs-variable">$message</span>;
+        curlPost(<span class="hljs-variable">$url</span>, <span class="hljs-variable">$post_data</span>);
+    }
+}
+
+<span class="hljs-comment">/**
+ * 发送post请求
+ *<span class="hljs-phpdoc"> @param</span> str $url 
+ *<span class="hljs-phpdoc"> @param</span> array $post_data
+ *<span class="hljs-phpdoc"> @return</span> multitype:mixed string
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curlPost</span><span class="hljs-params">(<span class="hljs-variable">$url</span>, <span class="hljs-variable">$post_data</span>)</span> {</span>
+    <span class="hljs-variable">$curl</span> = curl_init();
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_URL, <span class="hljs-variable">$url</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_POST, <span class="hljs-number">1</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_POSTFIELDS, <span class="hljs-variable">$post_data</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_HTTPHEADER, <span class="hljs-keyword">array</span>(<span class="hljs-string">'Expect:'</span>));
+    <span class="hljs-variable">$data</span> = curl_exec(<span class="hljs-variable">$curl</span>);
+    <span class="hljs-variable">$code</span> = curl_getinfo(<span class="hljs-variable">$curl</span>,CURLINFO_HTTP_CODE);
+    <span class="hljs-variable">$error</span> = curl_error(<span class="hljs-variable">$curl</span>);
+    curl_close(<span class="hljs-variable">$curl</span>);
+    <span class="hljs-variable">$result</span> = <span class="hljs-keyword">array</span>(
+        <span class="hljs-string">'data'</span> =&gt; <span class="hljs-variable">$data</span>,
+        <span class="hljs-string">'code'</span> =&gt; <span class="hljs-variable">$code</span>,
+        <span class="hljs-string">'error'</span> =&gt; <span class="hljs-variable">$error</span>,
+    );
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+}
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

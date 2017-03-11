@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>int(M)我们先来拆分，int是代表整型数据那么中间的M应该是代表多少位了，后来查mysql手册也得知了我的理解是正确的，下面我来举例说明。 <br/>
+MySQL 数据类型中的 integer types 有点奇怪。你可能会见到诸如：int(3)、int(4)、int(8) 之类的 int 数据类型。刚接触 MySQL 的时候，我还以为 int(3) 占用的存储空间比 int(4) 要小， int(4) 占用的存储空间比 int(8) 小。 <br/>
+后来，参看 MySQL 手册，发现自己理解错了。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">int(M): M indicates <span class="hljs-operator">the</span> maximum display width <span class="hljs-keyword">for</span> <span class="hljs-keyword">integer</span> types.</code></pre>
+
+<p>在 integer 数据类型中，M 表示最大显示宽度。</p>
+
+<p>原来，在 int(M) 中，M 的值跟 int(M) 所占多少存储空间并无任何关系。 int(3)、int(4)、int(8) 在磁盘上都是占用 4 btyes 的存储空间。说白了，除了显示给用户的方式有点不同外，int(M) 跟 int 数据类型是相同的。 <br/>
+另外，int(M) 只有跟 zerofill 结合起来，才能使我们清楚的看到不同之处。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs asciidoc">mysql&gt; drop table if exists t;
+mysql&gt; create table t(id int zerofill);
+mysql&gt; insert into t(id) values(10);
+<span class="hljs-header">mysql&gt; select * from t;
++------------+</span>
+<span class="hljs-header">| id         |
++------------+</span>
+<span class="hljs-header">| 0000000010 |
++------------+</span>
+mysql&gt; alter table t change column id id int(3) zerofill;
+<span class="hljs-header">mysql&gt; select * from t;
++------+</span>
+<span class="hljs-header">| id   |
++------+</span>
+<span class="hljs-header">|  010 |
++------+</span>
+mysql&gt;
+mysql&gt; alter table t change column id id int(4) zerofill;
+<span class="hljs-header">mysql&gt; select * from t;
++------+</span>
+<span class="hljs-header">| id   |
++------+</span>
+<span class="hljs-header">| 0010 |
++------+</span>
+mysql&gt;
+mysql&gt; insert into t(id) values(1000000);
+<span class="hljs-header">mysql&gt; select * from t;
++---------+</span>
+<span class="hljs-header">| id      |
++---------+</span>
+|    0010 |
+<span class="hljs-header">| 1000000 |
++---------+</span></code></pre>
+
+<p>从上面的测试可以看出，“(M)”指定了 int 型数值显示的宽度，如果字段数据类型是 int(4)，则：当显示数值 10 时，在左边要补上 “00”；当显示数值 100 是，在左边要补上“0”；当显示数值 1000000 时，已经超过了指定宽度“（4）”，因此按原样输出。 <br/>
+在使用 MySQL 数据类型中的整数类型（tinyint、smallint、 mediumint、 int/integer、bigint）时，非特殊需求下，在数据类型后加个“(M)”，我想不出有何意义。 <br/>
+下面补充一下数据类型 <br/>
+1、整型</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-variable">MySQL</span>数据类型   含义（有符号）
+<span class="hljs-function"><span class="hljs-title">tinyint</span><span class="hljs-params">(m)</span>  1个字节  范围<span class="hljs-params">(-<span class="hljs-number">128</span>~<span class="hljs-number">127</span>)</span>
+<span class="hljs-title">smallint</span><span class="hljs-params">(m)</span> 2个字节  范围<span class="hljs-params">(-<span class="hljs-number">32768</span>~<span class="hljs-number">32767</span>)</span>
+<span class="hljs-title">mediumint</span><span class="hljs-params">(m)</span>    3个字节  范围<span class="hljs-params">(-<span class="hljs-number">8388608</span>~<span class="hljs-number">8388607</span>)</span>
+<span class="hljs-title">int</span><span class="hljs-params">(m)</span>  4个字节  范围<span class="hljs-params">(-<span class="hljs-number">2147483648</span>~<span class="hljs-number">2147483647</span>)</span>
+<span class="hljs-title">bigint</span><span class="hljs-params">(m)</span>   8个字节  范围<span class="hljs-params">(+-<span class="hljs-number">9.22</span>*<span class="hljs-number">10</span>的<span class="hljs-number">18</span>次方)</span></span></code></pre>
+
+<p>取值范围如果加了unsigned，则最大值翻倍，如tinyint unsigned的取值范围为(0~256)。 <br/>
+int(m)里的m是表示SELECT查询结果集中的显示宽度，并不影响实际的取值范围，没有影响到显示的宽度，不知道这个m有什么用。</p>
+
+<p>2、浮点型(float和double)</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-variable">MySQL</span>数据类型   含义
+<span class="hljs-function"><span class="hljs-title">float</span><span class="hljs-params">(m,d)</span>  单精度浮点型    8位精度<span class="hljs-params">(<span class="hljs-number">4</span>字节)</span>     <span class="hljs-title">m</span>总个数，<span class="hljs-title">d</span>小数位
+<span class="hljs-title">double</span><span class="hljs-params">(m,d)</span> 双精度浮点型    16位精度<span class="hljs-params">(<span class="hljs-number">8</span>字节)</span>    <span class="hljs-title">m</span>总个数，<span class="hljs-title">d</span>小数位</span></code></pre>
+
+<p>设一个字段定义为float(5,3)，如果插入一个数123.45678,实际数据库里存的是123.457，但总个数还以实际为准，即6位。 <br/>
+3、定点数 <br/>
+浮点型在数据库中存放的是近似值，而定点类型在数据库中存放的是精确值。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-function"><span class="hljs-title">decimal</span><span class="hljs-params">(m,d)</span> 参数<span class="hljs-title">m</span>&lt;65 是总个数，<span class="hljs-title">d</span>&lt;30且 <span class="hljs-title">d</span>&lt;<span class="hljs-title">m</span> 是小数位。</span></code></pre>
+
+<p>4、字符串(char,varchar,_text)</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss">MySQL数据类型   含义
+<span class="hljs-function">char(n)</span>     固定长度，最多255个字符
+<span class="hljs-function">varchar(n)</span>  可变长度，最多65535个字符
+tinytext    可变长度，最多255个字符
+<span class="hljs-value">text</span>        可变长度，最多65535个字符
+mediumtext  可变长度，最多2的24次方-1个字符
+longtext    可变长度，最多2的32次方-1个字符</code></pre>
+
+<p>5、日期和时间数据类型</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs css"><span class="hljs-tag">MySQL</span>数据类型   含义
+<span class="hljs-tag">date</span>        3字节，日期，格式：2014<span class="hljs-tag">-09-18</span>
+<span class="hljs-tag">time</span>        3字节，时间，格式：08<span class="hljs-pseudo">:42</span><span class="hljs-pseudo">:30</span>
+<span class="hljs-tag">datetime</span>    8字节，日期时间，格式：2014<span class="hljs-tag">-09-18</span> 08<span class="hljs-pseudo">:42</span><span class="hljs-pseudo">:30</span>
+<span class="hljs-tag">timestamp</span>   4字节，自动存储记录修改的时间
+<span class="hljs-tag">year</span>        1字节，年份</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

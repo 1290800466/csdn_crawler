@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"> 定义和用法<br/>&#13;
+ error_log() 函数向服务器错误记录、文件或远程目标发送一个错误。<br/>&#13;
+ 如果成功该函数返回 TRUE，如果失败该函数返回 FALSE。<br/>&#13;
+ 语法<br/>&#13;
+ error_log(error,type,destination,headers)<br/>&#13;
+ 参数<span style="white-space:pre"> </span>描述<br/>&#13;
+ error<span style="white-space:pre"> </span>必需。要记录的错误消息。<br/>&#13;
+ type<span style="white-space:pre"> </span>可选。规定错误记录的类型。<br/>&#13;
+ 可能的记录类型：<br/>&#13;
+ 0 - 默认。根据在 php.ini 文件中的 error_log 配置，错误被发送到服务器日志系统或文件。<br/>&#13;
+ 1 - 错误被发送到 destination 参数中的地址。只有该类型使用 headers 参数。<br/>&#13;
+ 2 - 通过 PHP debugging 连接来发送错误。该选项只在 PHP 3 中可用。<br/>&#13;
+ 3 - 错误发送到文件目标字符串，表示以追加的形式记录。<br/>&#13;
+ destination<span style="white-space:pre"> </span>可选。规定向何处发送错误消息。该参数的值依赖于 "type" 参数的值。<br/>&#13;
+ headers<span style="white-space:pre"> </span>可选。只在 "type" 参数为 1 时使用。规定附加的头部，比如 From, Cc 以及 Bcc。附加头部由 CRLF (\r\n) 分隔。<br/>&#13;
+ 注意：在发送电子邮件时，必须包含 From 头部。可以在 php.ini 文件中或者通过此参数设置。<br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+//设置时区
+date_default_timezone_set('PRC');  /* 其中PRC为“中华人民共和国“  */
+//自定义错误函数
+function  my_error($errno,$errmes){
+    $err_info="错误号是:".$errno."--".$errmes.date("Y年m月d日 , H点i分s秒 ");
+    echo $err_info;
+    //把这个错误信息保存
+    //\r\n 表示向文件输入一个回车换行
+    //&lt;br/&gt; 表示向网页输出一个回车换行
+    error_log($err_info."\r\n",3,"D:/myerr.txt");
+}
+set_error_handler("my_error",E_USER_ERROR);
+//当set_error_handler只有一个参数时，表示只要出现错误就执行my_error函数
+//set_error_handler("my_error");
+
+//错误触发器
+$test=2;
+if ($test&gt;1)
+{
+    //调用触发器,同时指定错误级别.
+    //此处的错误类型可以有以下几种：E_USER_ERROR、E_USER_WARNING、E_USER_NOTICE
+    trigger_error("Value must be 1 or below",E_USER_ERROR);
+    //只调用触发器,错误级别输出默认值.
+    //trigger_error("Value must be 1 or below");
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

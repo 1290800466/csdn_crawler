@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="python">1、访问百度首页的selenium+python示例代码</pre><pre name="code" class="python">from selenium import webdriver
+import time
+driver = webdriver.Ie()
+driver.get("http://www.baidu.com")
+time.sleep(10)
+driver.close()
+driver.quit()
+driver = None&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px">2、登陆139邮箱的selenium+python示例代码<br/></span></p>&#13;
+<p/>&#13;
+<pre name="code" class="python">from selenium import webdriver
+import time
+driver=webdriver.Ie()
+driver.get("http://m.mail.10086.cn")
+driver.implicitly_wait(30)
+driver.find_element_by_id("ur").send_keys("15610537527")
+driver.find_element_by_id("pw").send_keys("15866584957")
+driver.find_element_by_class_name("loading_btn").click()
+time.sleep(5)
+driver.quit()
+</pre><span style="font-size:18px"><br/></span><pre name="code" class="python">from selenium import webdriver  #要想使用selenium 的webdriver 里的函数，首先把包导进来
+import time		#调入time 函数
+driver=webdriver.Ie()   
+#选择浏览器，可以是Firefox 、Ie 或Chrome，使用前需安装浏览器插件；
+#driver是一个变量，可随便起
+driver.get("http://m.mail.10086.cn")
+#mplicitly_wait() 方法实现智能等待，相当于uft中的集合点，此处智能等待30秒
+driver.implicitly_wait(30)
+driver.find_element_by_id("ur").send_keys("15610537527")
+#一个元素有若干属性id 、name、（也可以用其它方式定位），此处通过id识别元素，该输入框的id叫ur ，
+#我要在输入框里输入15610537527
+driver.find_element_by_id("pw").send_keys("15866584957")
+driver.find_element_by_class_name("loading_btn").click()
+#搜索的按钮的name 叫loading_btn ，我需要点一下按钮（ click() ）。
+time.sleep(5)     #休眠5秒
+#driver.quit()  #退出并关闭窗口的每一个相关的驱动程序
+driver.close() #关闭当前窗口,注意与上者的区别，按需选用</pre><br/><br/><p/>&#13;
+<span style="font-size:18px"><br/><br/></span>&#13;
+<p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

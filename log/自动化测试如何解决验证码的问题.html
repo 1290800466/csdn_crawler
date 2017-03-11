@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<h2><small style="text-align:left; color:rgb(171,171,171); display:block; font-family:Verdana,'Lucida Grande',Geneva,Arial,sans-serif; line-height:18px"><span style="font-size:18px">转自-博客园-虫师</span></small></h2>&#13;
+<small style="text-align:left; font-size:12px; color:rgb(171,171,171); display:block; font-family:Verdana,'Lucida Grande',Geneva,Arial,sans-serif; line-height:18px"><span style="color:rgb(51,51,51); font-family:Georgia,'Times New Roman',Times,sans-serif; font-size:15px; line-height:1.8">注意：本标题的“自动化测试”&#13;
+ 包括性能测试 与UI级的自动化测试</span><span style="font-size:15px; line-height:1.8; color:rgb(51,51,51); font-family:Georgia,'Times New Roman',Times,sans-serif">经常会被问到如何解决验证码的问题，在此记录一下我所知道的几种方式。</span></small>&#13;
+<p/>&#13;
+<div class="entry" style="font-size:14px; font-family:Georgia,'Times New Roman',Times,sans-serif; line-height:1.8; word-break:break-all; color:rgb(51,51,51)">&#13;
+<div id="cnblogs_post_body" style="margin-bottom:20px; word-break:break-word">&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　对于<span style="line-height:1.8; font-family:'Times New Roman'">web</span><span style="line-height:1.8; font-family:宋体">应用来说，大部分的系统在用户登录时都要求用户输入验证码，验证码的类型的很多，有字母数字的，有汉字的，甚至还要用户输入一条算术题的答案的，对于系统来说使用验证码可以有效果的防止采用机器猜测方法对口令的刺探，在一定程度上增加了安全性。但对于测试人员来说，不管是进行性能测试还是自动化测试都是一个棘手的问题。</span></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-family:宋体"><img src="http://images.cnitblog.com/i/311516/201403/180906223343844.png" alt="" style="border:0px"/></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"> </p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto">下面来谈一下处理验证码的几种方法。</p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px"><strong>去掉验证码</strong></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　这是最简单的方法，对于开发人员来说，只是把验证码的相关代码注释掉即可，如果是在测试环境，这样做可省去了测试人员不少麻烦，如果自动化脚本是要在正式环境跑，这样就给系统带来了一定的风险。</span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px"><strong>设置万能码</strong></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　去掉验证码的主要是安全问题，为了应对在线系统的安全性威胁，可以在修改程序时不取消验证码，而是程序中留一个“后门”<span style="line-height:1.8; font-family:'Times New Roman'">---</span><span style="line-height:1.8; font-family:宋体">设置一个“万能验证码”，只要用户输入这个“万能验证码”，程序就认为验证通过，否则按照原先的验证方式进行验证。</span></span></p>&#13;
+<div class="cnblogs_code" style="border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; color:rgb(0,0,0); font-family:'Courier New'!important; font-size:12px!important; background-color:rgb(245,245,245)">&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; max-width:600px; font-family:'Courier New'!important"><span style="font-size:14px; line-height:1.5!important"><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">coding=utf-8</span>
+<span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">import</span><span style="font-size:12px!important; line-height:1.5!important"> random
+
+</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">生成0到10之间的随机数</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">
+#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">d = random.uniform(0,10)</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">
+#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">print d</span>
+
+<span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">生成一个1000到9999之间的随机整数</span>
+d = random.randint(1000,9999<span style="font-size:12px!important; line-height:1.5!important">)
+</span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">print</span> u<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">生成的随机数:%d </span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span> %<span style="font-size:12px!important; line-height:1.5!important">d
+
+i </span>= input(u<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">请输入随机数:</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="font-size:12px!important; line-height:1.5!important">)
+</span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">print</span><span style="font-size:12px!important; line-height:1.5!important"> i
+
+</span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">if</span> i ==<span style="font-size:12px!important; line-height:1.5!important"> d:
+    </span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">print</span> u<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">登录成功!!</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span>
+<span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">elif</span> i == 1111<span style="font-size:12px!important; line-height:1.5!important">:
+    </span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">print</span> u<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">登录成功!!</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span>
+<span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">else</span><span style="font-size:12px!important; line-height:1.5!important">:
+    </span><span style="color:rgb(0,0,255); font-size:12px!important; line-height:1.5!important">print</span> u<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">请重新输入验证码！</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span></span></pre>&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+</div>&#13;
+<p style="line-height:1.8; margin:10px auto">运行结果：</p>&#13;
+<div class="cnblogs_code" style="border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; color:rgb(0,0,0); font-family:'Courier New'!important; font-size:12px!important; background-color:rgb(245,245,245)">&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; max-width:600px; font-family:'Courier New'!important"><span style="font-size:14px; line-height:1.5!important">&gt;&gt;&gt; ================================ RESTART ================================
+&gt;&gt;&gt;<span style="font-size:12px!important; line-height:1.5!important"> 
+生成的随机数:</span>3764<span style="font-size:12px!important; line-height:1.5!important"> 
+请输入随机数:</span>1111
+1111<span style="font-size:12px!important; line-height:1.5!important">
+登录成功!!
+</span>&gt;&gt;&gt; ================================ RESTART ================================
+&gt;&gt;&gt;<span style="font-size:12px!important; line-height:1.5!important"> 
+生成的随机数:</span>3763<span style="font-size:12px!important; line-height:1.5!important"> 
+请输入随机数:</span>3763
+3763<span style="font-size:12px!important; line-height:1.5!important">
+登录成功!!
+</span>&gt;&gt;&gt; ================================ RESTART ================================
+&gt;&gt;&gt;<span style="font-size:12px!important; line-height:1.5!important"> 
+生成的随机数:</span>1928<span style="font-size:12px!important; line-height:1.5!important"> 
+请输入随机数:</span>1354646
+1354646<span style="font-size:12px!important; line-height:1.5!important">
+请重新输入验证码！</span></span></pre>&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+</div>&#13;
+<p style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">random</span></p>&#13;
+<p style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">random用于生成随机数</span></p>&#13;
+<p style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">randint()</span></p>&#13;
+<p style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">randint()方法用于生成随机整数，传递的两个参数分别是随机数的范围，randint(1000，9999)第二个参数要大于第一个参数。</span></p>&#13;
+<p style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">我们要求用户输入随机数，并且对用户输入做判断，如果等于生成的随机数那么，登录成功，如果等于1111也算登录成功，否则失败。那么等于1111的判断就是一个万能码。</span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px"><strong>验证码识别技术</strong></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　例如可以通过Python-tesseract 来识别图片验证码，Python-tesseract<span style="line-height:1.8; font-family:宋体">是光学字符识别</span><span style="line-height:1.8; font-family:'Times New Roman'">Tesseract OCR</span><span style="line-height:1.8; font-family:宋体">引擎的</span><span style="line-height:1.8; font-family:'Times New Roman'">Python</span><span style="line-height:1.8; font-family:宋体">封装类。能够读取任何常规的图片文件</span><span style="line-height:1.8; font-family:'Times New Roman'">(JPG, GIF ,PNG , TIFF</span><span style="line-height:1.8; font-family:宋体">等</span><span style="line-height:1.8; font-family:'Times New Roman'">)</span>。不过，目前市面上的验证码形式繁多，目前任何一种验证码识别技术，识别率都不是<span style="line-height:1.8; font-family:'Times New Roman'">100% </span><span style="line-height:1.8; font-family:宋体">。</span></span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><strong><span style="line-height:1.8; font-size:15px">记录cookie</span></strong></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">（<span style="line-height:1.8; color:rgb(255,0,0)">适用于UI自动化测试，且目前在大部应用的用户名密码不记录在cookie 或 进行加密处理。</span>）</span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　通过向浏览器中添加<span style="line-height:1.8; font-family:'Times New Roman'">cookie </span><span style="line-height:1.8; font-family:宋体">可以绕过登录的验证码，这是比较有意思的一种解决方案。我们可以在用户登录之前，通过</span>add_cookie()方法将用户名密码写入浏览器cookie ，再次访问系统登录链接将自动登录。例如下面的方式：</span></p>&#13;
+<div class="cnblogs_code" style="border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; color:rgb(0,0,0); font-family:'Courier New'!important; font-size:12px!important; background-color:rgb(245,245,245)">&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; max-width:600px; font-family:'Courier New'!important"><span style="font-size:14px; line-height:1.5!important"><span style="font-size:12px!important; line-height:1.5!important">....
+</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">访问xxxx网站</span>
+driver.get(<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">http://www.xxxx.cn/</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="font-size:12px!important; line-height:1.5!important">)
+</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">将用户名密码写入浏览器cookie</span>
+driver.add_cookie({<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">name</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>:<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">Login_UserNumber</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>, <span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">value</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>:<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">username</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="font-size:12px!important; line-height:1.5!important">})
+driver.add_cookie({</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">name</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>:<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">Login_Passwd</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>, <span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">value</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span>:<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">password</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">'</span><span style="font-size:12px!important; line-height:1.5!important">})
+</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">#</span><span style="color:rgb(0,128,0); font-size:12px!important; line-height:1.5!important">再次访问xxxx网站，将会自动登录</span>
+driver.get(<span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">http://www.xxxx.cn/</span><span style="color:rgb(128,0,0); font-size:12px!important; line-height:1.5!important">"</span><span style="font-size:12px!important; line-height:1.5!important">)
+time.sleep(</span>3<span style="font-size:12px!important; line-height:1.5!important">)
+....
+driver.quit()</span></span></pre>&#13;
+<div class="cnblogs_code_toolbar" style="margin-top:5px"><span class="cnblogs_code_copy" style="padding-right:5px; line-height:1.5!important"><a target="_blank" title="复制代码" style="outline:none; color:rgb(61,129,238); border:none!important"><img src="http://common.cnblogs.com/images/copycode.gif" alt="复制代码" style="border:none rgb(221,221,221)!important; background-color:rgb(255,255,255)"/></a></span></div>&#13;
+</div>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto">　<span style="line-height:1.8; font-size:15px">　使用cookie进行登录最大的难点是如何获得用户名密码的name ，如果找到不到name 的名字，就没办法向value 中输用户名、密码信息。</span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">　　我建议是可以通过get_cookies()方法来获取登录的所有的cookie信息，从而进行找到用户名、密码的name 对象的名字；当然，最简单的方法还是询问前端开发人员。</span><span style="line-height:1.8"> </span></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><strong><span style="line-height:1.8; font-size:15px">总结：</span></strong></p>&#13;
+<p class="p0" style="line-height:1.8; margin:10px auto"><span style="line-height:1.8; font-size:15px">    最简单安全，行之有效的方式就是设置万能码，稍微和开发沟通一下就OK了。如果乐于“闷头苦干自力更生”的话也可研究验证码识别技术。</span></p>&#13;
+</div>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

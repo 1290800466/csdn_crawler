@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">/**
+ * 检测多个主从数据库是否挂掉
+ * 建立从数据库$slave_db的二维数组，内容包含每个从服务器的配置数据
+ */</span>
+
+header(<span class="hljs-string">"Content-Type: text/html; charset=utf-8"</span>);
+set_time_limit(<span class="hljs-number">0</span>);
+<span class="hljs-variable">$slave_db</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'db1'</span>=&gt;<span class="hljs-keyword">array</span>(
+        <span class="hljs-string">'hostname'</span> =&gt; <span class="hljs-string">'127.0.0.1'</span>,
+        <span class="hljs-string">'port'</span> =&gt; <span class="hljs-number">3306</span>,
+        <span class="hljs-string">'database'</span> =&gt; <span class="hljs-string">'test'</span>,
+        <span class="hljs-string">'username'</span> =&gt; <span class="hljs-string">'root'</span>,
+        <span class="hljs-string">'password'</span> =&gt; <span class="hljs-string">'111111'</span>,
+        <span class="hljs-string">'charset'</span> =&gt; <span class="hljs-string">'utf8'</span>,
+    ),
+    <span class="hljs-string">'db2'</span>=&gt;<span class="hljs-keyword">array</span>(
+        <span class="hljs-string">'hostname'</span> =&gt; <span class="hljs-string">'127.0.0.2'</span>,
+        <span class="hljs-string">'port'</span> =&gt; <span class="hljs-number">3306</span>,
+        <span class="hljs-string">'database'</span> =&gt; <span class="hljs-string">'test'</span>,
+        <span class="hljs-string">'username'</span> =&gt; <span class="hljs-string">'root'</span>,
+        <span class="hljs-string">'password'</span> =&gt; <span class="hljs-string">'111111'</span>,
+        <span class="hljs-string">'charset'</span> =&gt; <span class="hljs-string">'utf8'</span>,
+    ),
+
+);
+
+<span class="hljs-variable">$content</span> = <span class="hljs-string">''</span>;
+<span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$slave_db</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$db_key</span>) {
+    <span class="hljs-variable">$host</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'hostname'</span>];
+    <span class="hljs-variable">$port</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'port'</span>];
+    <span class="hljs-variable">$db_user</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'username'</span>];
+    <span class="hljs-variable">$db_pass</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'password'</span>];
+
+    <span class="hljs-variable">$slave_link</span> = mysql_connect(<span class="hljs-variable">$host</span>,<span class="hljs-variable">$db_user</span>,<span class="hljs-variable">$db_pass</span>);
+    <span class="hljs-keyword">if</span>(mysql_errno()) {
+        <span class="hljs-variable">$content</span> .= <span class="hljs-string">"从数据库( $host )无法连接 ！ &lt;br/&gt;"</span>;
+        <span class="hljs-variable">$content</span> .= mysql_error() . <span class="hljs-string">"&lt;br/&gt;"</span>;
+        <span class="hljs-keyword">continue</span>;
+    }
+
+    <span class="hljs-variable">$sql</span> = <span class="hljs-string">"show slave status"</span>;
+    <span class="hljs-variable">$result</span> = mysql_query(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$slave_link</span>);
+    <span class="hljs-variable">$row</span> = mysql_fetch_assoc(<span class="hljs-variable">$result</span>);
+
+    <span class="hljs-variable">$Slave_IO_Running</span> = <span class="hljs-variable">$row</span>[<span class="hljs-string">'Slave_IO_Running'</span>];
+    <span class="hljs-variable">$Slave_SQL_Running</span> = <span class="hljs-variable">$row</span>[<span class="hljs-string">'Slave_SQL_Running'</span>];
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-string">'Yes'</span> == <span class="hljs-variable">$Slave_IO_Running</span> &amp;&amp; <span class="hljs-string">'Yes'</span> == <span class="hljs-variable">$Slave_SQL_Running</span>) {
+
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-variable">$content</span> .= <span class="hljs-string">"从数据库( $host )挂掉了！ &lt;br/&gt;"</span>;
+    }
+    mysql_free_result(<span class="hljs-variable">$result</span>);
+    mysql_close(<span class="hljs-variable">$slave_link</span>);
+
+}
+
+<span class="hljs-comment">//若报错信息不为空，发送报错邮件</span>
+<span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$content</span>)) {
+    <span class="hljs-variable">$title</span> = <span class="hljs-string">'主从数据库状态检测报错 '</span>;
+    <span class="hljs-variable">$content</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()) . <span class="hljs-string">"&lt;br/&gt;"</span> . <span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$sendurl</span> = <span class="hljs-string">"http://localhost/api.ftrend.com/test.php?title="</span>.<span class="hljs-variable">$title</span>.<span class="hljs-string">"&amp;content="</span>.<span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$result</span> = file_get_contents(<span class="hljs-variable">$sendurl</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-string">'ok'</span> != <span class="hljs-variable">$result</span>) {
+        <span class="hljs-variable">$message</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()).<span class="hljs-string">'slaveStatus.php主从数据库状态检测报错,邮件发送失败!'</span>.<span class="hljs-string">"\n"</span>;
+        <span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&lt;br/&gt;"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-variable">$content</span>);
+        <span class="hljs-variable">$message</span> .= <span class="hljs-variable">$content</span>;
+        error_log(<span class="hljs-variable">$message</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"error.log"</span>);
+    }
+}
+</code></pre>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$title</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">'title'</span>];
+<span class="hljs-variable">$content</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">'content'</span>];
+<span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&lt;br/&gt;"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-variable">$content</span>);
+error_log(<span class="hljs-variable">$title</span>.<span class="hljs-string">"\n"</span>,<span class="hljs-number">3</span>,<span class="hljs-string">'error.log'</span>);
+error_log(<span class="hljs-variable">$content</span>.<span class="hljs-string">"\n"</span>,<span class="hljs-number">3</span>,<span class="hljs-string">'error.log'</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">'ok'</span>;</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

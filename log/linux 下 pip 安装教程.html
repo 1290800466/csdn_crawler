@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>pip下载：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-shell hljs rust"># wget <span class="hljs-string">"https://pypi.python.org/packages/source/p/pip/pip-1.5.4.tar.gz#md5=834b2904f92d46aaa333267fb1c922bb"</span> --no-<span class="hljs-keyword">check</span>-certificate</code></pre>
+
+<p><strong>pip安装：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-shell hljs vala"><span class="hljs-preprocessor"># tar -xzvf pip-1.5.4.tar.gz</span>
+<span class="hljs-preprocessor"># cd pip-1.5.4</span>
+<span class="hljs-preprocessor"># python setup.py install</span></code></pre>
+
+<p>提示错误：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql">[sudo] password for dslab:  
+Traceback (most recent <span class="hljs-operator"><span class="hljs-keyword">call</span> <span class="hljs-keyword">last</span>):  
+  File <span class="hljs-string">"setup.py"</span>, line <span class="hljs-number">5</span>, <span class="hljs-keyword">in</span> &lt;<span class="hljs-keyword">module</span>&gt;  
+    <span class="hljs-keyword">from</span> setuptools import setup, find_packages  
+ImportError: <span class="hljs-keyword">No</span> <span class="hljs-keyword">module</span> named setuptools  </span></code></pre>
+
+<p>安装pip时提示setup.py中使用setuptools中的模块，但是电脑中并没有安装setuptools软件包，所以我们需要先下载并安装 setuptools！</p>
+
+<p><strong>安装setuptools软件包：</strong></p>
+
+<p>(1)下载setuptools包</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruleslanguage"><span class="hljs-array"># wget http</span>:<span class="hljs-comment">//pypi.python.org/packages/source/s/setuptools/setuptools-2.0.tar.gz</span></code></pre>
+
+<p>(2)解压setuptools包</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># tar zxvf setuptools-2.0.tar.gz</span>
+<span class="hljs-preprocessor"># cd setuptools-2.0</span></code></pre>
+
+<p>(3)编译setuptools</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># python setup.py build</span></code></pre>
+
+<p>(4)开始执行setuptools安装</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># python setup.py install</span></code></pre>
+
+<p><strong>再次安装pip，并使用pip安装其他软件包：</strong></p>
+
+<p>现在，setuptools已经安装好，我们再次进入pip-1.5.4目录，使用 “python setup.py install” 命令安装pip：</p>
+
+<pre class="prettyprint"><code class="language-shell hljs vala"><span class="hljs-preprocessor"># cd pip-1.5.4/</span>
+<span class="hljs-preprocessor"># python setup.py install</span></code></pre>
+
+<p>安装好pip之后，我们就可以直接使用pip安装其他软件包了：</p>
+
+<pre class="prettyprint"><code class="language-shell hljs cmake">pip <span class="hljs-keyword">install</span> nose
+pip <span class="hljs-keyword">install</span> virtualenv
+pip <span class="hljs-keyword">install</span> distribute</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

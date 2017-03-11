@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>若请求url已改变且设置了自动跳转，可通过设置  CURLOPT_FOLLOWLOCATION  参数实现自动请求跳转链接。若要手动判断是否跳转，可通过 curl_getinfo($ch) 方法获取具体请求信息，其中包括要跳转路径。 <br/>
+实例：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$url</span> = <span class="hljs-string">'http://auto.jrj.com.cn/'</span>;
+<span class="hljs-variable">$ch</span> = curl_init();
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_URL, <span class="hljs-variable">$url</span>);
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_HEADER, <span class="hljs-number">0</span>);
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);
+<span class="hljs-comment">//若给定url自动跳转到新的url,有了下面参数可自动获取新url内容：302跳转</span>
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_FOLLOWLOCATION, <span class="hljs-number">1</span>);
+<span class="hljs-comment">//设置cURL允许执行的最长秒数。</span>
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_TIMEOUT, <span class="hljs-number">10</span>);
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_USERAGENT, <span class="hljs-string">'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0'</span>);
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_REFERER, <span class="hljs-variable">$url</span>);
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_ENCODING, <span class="hljs-string">'gzip, deflate'</span>);
+<span class="hljs-variable">$content</span> = curl_exec(<span class="hljs-variable">$ch</span>);
+<span class="hljs-comment">//获取请求返回码，请求成功返回200</span>
+<span class="hljs-variable">$code</span> = curl_getinfo(<span class="hljs-variable">$ch</span>,CURLINFO_HTTP_CODE);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$code</span> . <span class="hljs-string">"\n\n"</span>;
+
+<span class="hljs-comment">//获取一个cURL连接资源句柄的信息。</span>
+<span class="hljs-comment">//$headers 中包含跳转的url路径 </span>
+<span class="hljs-variable">$headers</span> = curl_getinfo(<span class="hljs-variable">$ch</span>);
+var_dump(<span class="hljs-variable">$headers</span>);
+
+<span class="hljs-comment">// $content 为url请求内容</span>
+<span class="hljs-comment">//echo "\n\n" . $content . "\n";</span></code></pre>
+
+<p>curl_getinfo($ch) 返回信息如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">array</span> (
+  <span class="hljs-string">'url'</span> =&gt; <span class="hljs-string">'http://auto.jrj.com.cn/'</span>,
+  <span class="hljs-string">'content_type'</span> =&gt; <span class="hljs-string">'text/html'</span>,
+  <span class="hljs-string">'http_code'</span> =&gt; <span class="hljs-number">301</span>,
+  <span class="hljs-string">'header_size'</span> =&gt; <span class="hljs-number">352</span>,
+  <span class="hljs-string">'request_size'</span> =&gt; <span class="hljs-number">206</span>,
+  <span class="hljs-string">'filetime'</span> =&gt; -<span class="hljs-number">1</span>,
+  <span class="hljs-string">'ssl_verify_result'</span> =&gt; <span class="hljs-number">0</span>,
+  <span class="hljs-string">'redirect_count'</span> =&gt; <span class="hljs-number">0</span>,
+  <span class="hljs-string">'total_time'</span> =&gt; <span class="hljs-number">0.13020600000000004</span>,
+  <span class="hljs-string">'namelookup_time'</span> =&gt; <span class="hljs-number">0.021582</span>,
+  <span class="hljs-string">'connect_time'</span> =&gt; <span class="hljs-number">0.053791999999999951</span>,
+  <span class="hljs-string">'pretransfer_time'</span> =&gt; <span class="hljs-number">0.053817000000000004</span>,
+  <span class="hljs-string">'size_upload'</span> =&gt; <span class="hljs-number">0.0</span>,
+  <span class="hljs-string">'size_download'</span> =&gt; <span class="hljs-number">182.0</span>,
+  <span class="hljs-string">'speed_download'</span> =&gt; <span class="hljs-number">1397.0</span>,
+  <span class="hljs-string">'speed_upload'</span> =&gt; <span class="hljs-number">0.0</span>,
+  <span class="hljs-string">'download_content_length'</span> =&gt; <span class="hljs-number">182.0</span>,
+  <span class="hljs-string">'upload_content_length'</span> =&gt; <span class="hljs-number">0.0</span>,
+  <span class="hljs-string">'starttransfer_time'</span> =&gt; <span class="hljs-number">0.13016799999999995</span>,
+  <span class="hljs-string">'redirect_time'</span> =&gt; <span class="hljs-number">0.0</span>,
+  <span class="hljs-string">'redirect_url'</span> =&gt; <span class="hljs-string">'http://ucheke.jrj.com.cn/'</span>,
+  <span class="hljs-string">'primary_ip'</span> =&gt; <span class="hljs-string">'211.135.187.48'</span>,
+  <span class="hljs-string">'certinfo'</span> =&gt; <span class="hljs-keyword">array</span> ( ),
+)</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

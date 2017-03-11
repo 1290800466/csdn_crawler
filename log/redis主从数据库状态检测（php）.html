@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">/**
+ * 检测多个主从redis数据库是否挂掉
+ * 建立从数据库$redis_db的二维数组，内容包含每个从服务器的配置数据
+ */</span>
+
+header(<span class="hljs-string">"Content-Type: text/html; charset=utf-8"</span>);
+set_time_limit(<span class="hljs-number">0</span>);
+<span class="hljs-variable">$redis_db</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'db1'</span>=&gt;<span class="hljs-keyword">array</span>(
+        <span class="hljs-string">'hostname'</span> =&gt; <span class="hljs-string">'127.0.0.1'</span>,
+        <span class="hljs-string">'port'</span> =&gt; <span class="hljs-number">6379</span>,
+        <span class="hljs-string">'password'</span> =&gt; <span class="hljs-string">''</span>,
+    ),
+    <span class="hljs-string">'db2'</span>=&gt;<span class="hljs-keyword">array</span>(
+        <span class="hljs-string">'hostname'</span> =&gt; <span class="hljs-string">'192.168.2.179'</span>,
+        <span class="hljs-string">'port'</span> =&gt; <span class="hljs-number">6379</span>,
+        <span class="hljs-string">'password'</span> =&gt; <span class="hljs-string">'111111'</span>,
+    ),
+
+);
+<span class="hljs-variable">$content</span> = <span class="hljs-string">''</span>;
+<span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$redis_db</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$db_key</span>) {
+
+    <span class="hljs-variable">$host</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'hostname'</span>];
+    <span class="hljs-variable">$port</span> = <span class="hljs-variable">$db_key</span>[<span class="hljs-string">'port'</span>];
+
+    <span class="hljs-variable">$redis</span> = <span class="hljs-keyword">new</span> Redis();
+    <span class="hljs-comment">//连接本地的 Redis 服务</span>
+    <span class="hljs-variable">$status</span>= <span class="hljs-variable">$redis</span>-&gt;connect(<span class="hljs-variable">$host</span>, <span class="hljs-variable">$port</span>);
+    <span class="hljs-keyword">if</span>(!<span class="hljs-variable">$status</span>) {
+        <span class="hljs-variable">$content</span> .= <span class="hljs-string">"redis从数据库( $host )无法连接 ！ &lt;br/&gt;"</span>;
+        <span class="hljs-keyword">continue</span>;
+    }
+    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$db_key</span>[<span class="hljs-string">'password'</span>])) {
+        <span class="hljs-variable">$pass</span> = <span class="hljs-variable">$redis</span>-&gt;auth(<span class="hljs-variable">$db_key</span>[<span class="hljs-string">'password'</span>]);
+        <span class="hljs-keyword">if</span>(!<span class="hljs-variable">$pass</span>) {
+            <span class="hljs-variable">$content</span> .= <span class="hljs-string">"redis从数据库( $host )密码错误 ！ &lt;br/&gt;"</span>;
+            <span class="hljs-keyword">continue</span>;
+        }
+    }
+    <span class="hljs-keyword">try</span> {
+        <span class="hljs-variable">$config</span> = <span class="hljs-variable">$redis</span>-&gt;info();
+
+        <span class="hljs-keyword">if</span>(<span class="hljs-string">'up'</span> == <span class="hljs-variable">$config</span>[<span class="hljs-string">'master_link_status'</span>]) {
+
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-variable">$content</span> .= <span class="hljs-string">"redis从数据库( $host )挂掉了！ &lt;br/&gt;"</span>;
+        }
+    }
+    <span class="hljs-keyword">catch</span>(RedisException <span class="hljs-variable">$e</span>)
+    {
+        <span class="hljs-variable">$content</span> .= <span class="hljs-string">"redis从数据库( $host )报错："</span> . <span class="hljs-variable">$e</span>-&gt;getMessage().<span class="hljs-string">"&lt;br/&gt;"</span>;
+    }
+
+}
+
+
+<span class="hljs-comment">//若报错信息不为空，发送报错邮件</span>
+<span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$content</span>)) {
+    <span class="hljs-variable">$title</span> = <span class="hljs-string">'主从redis数据库状态检测报错 '</span>;
+    <span class="hljs-variable">$content</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()) . <span class="hljs-string">"&lt;br/&gt;"</span> . <span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$sendurl</span> = <span class="hljs-string">"http://localhost/api.com/test.php?title="</span>.<span class="hljs-variable">$title</span>.<span class="hljs-string">"&amp;content="</span>.<span class="hljs-variable">$content</span>;
+    <span class="hljs-variable">$result</span> = file_get_contents(<span class="hljs-variable">$sendurl</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-string">'ok'</span> != <span class="hljs-variable">$result</span>) {
+        <span class="hljs-variable">$message</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>,time()).<span class="hljs-string">' redisSlave.php 主从redis数据库状态检测报错  邮件发送失败!'</span>.<span class="hljs-string">"\n"</span>;
+        <span class="hljs-variable">$content</span> = str_replace(<span class="hljs-string">"&lt;br/&gt;"</span>, <span class="hljs-string">"\n"</span>, <span class="hljs-variable">$content</span>);
+        <span class="hljs-variable">$message</span> .= <span class="hljs-variable">$content</span>;
+        error_log(<span class="hljs-variable">$message</span>,<span class="hljs-number">3</span>,<span class="hljs-string">"error.log"</span>);
+    }
+}
+
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

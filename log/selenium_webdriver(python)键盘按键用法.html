@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p/><pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+#要使用键盘操作，首先需要引入keys 包
+from selenium.webdriver.common.keys import Keys 
+#import os
+import time
+driver = webdriver.Ie()
+driver.get("http://www.mxvpnjsq.cc/member.php?mod=logging&amp;action=login")
+time.sleep(3)
+driver.maximize_window() # 浏览器全屏显示
+#driver.find_element_by_id("username_L70iK").clear()
+driver.find_element_by_name("username").send_keys("1290800466")
+#tab 的定位相相于清除了密码框的默认提示信息，等同上面的clear()
+#通过.send_keys(keys.按键名称)调用按键：
+#.send_keys(Keys.TAB) # 按TAB键
+#.send_keys(Keys.ENTER) # 按回车键
+driver.find_element_by_name("username").send_keys(Keys.TAB)
+time.sleep(3)
+driver.find_element_by_name("password").send_keys("15866584957")
+#通过定位密码框，enter（回车）来代替登陆按钮
+driver.find_element_by_name("password").send_keys(Keys.ENTER)
+time.sleep(5)
+driver.quit()</pre><br/><br/></div>  </body>
+            </html>

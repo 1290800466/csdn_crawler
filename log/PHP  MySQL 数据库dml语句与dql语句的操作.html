@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>数据库操作语句主要分为dml语句和dql语句：</strong><br/>&#13;
+数据操作语句（dml）语句：具体是指 UPDATE更新、INSERT插入、DELETE删除。<br/>&#13;
+数据查询语句（dql）语句：指 SELECT 数据查询语言<br/>&#13;
+如果执行的是dml语句，则返回bool值<br/>&#13;
+如果执行的是dql语句，则返回查询结果$res，从$res中取出查询结果主要有一下四种方式：<br/>&#13;
+mysql_fetch_row($res)  ,返回一个索引的数组  (推荐.)<br/>&#13;
+mysql_fetch_assoc($res)  ,返回一个关联数组<br/>&#13;
+mysql_fetch_array($res)  ,返回索引数组和关联数组 (两套)<br/>&#13;
+mysql_fetch_object($res) ,把一行数据，当做一个对象返回.</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1617889" snippet_file_name="blog_20160321_1_1624114" name="code" class="php">&lt;?php
+
+//演示对test表进行增，删，改,查的操作
+$conn=mysql_connect("localhost","root","111111");
+if(!$conn){
+    die("连接数据库失败！".mysql_error());
+}
+mysql_select_db("test",$conn) or die("数据库选择失败！".mysql_error());
+mysql_query("set names utf8");
+//$sql="insert into test(id,name,age,class,home,school) values(1,'qw',12,12,12,12)";
+//$sql="delete from test where id=1";
+$sql="update test set age=100 where id=2";
+$sql_dql="select * from test";
+//如果是dml操作，则返回bool
+$res=mysql_query($sql,$conn);
+if(!$res){
+    die("操作失败".mysql_error());
+}
+//看看有几条数据受到影响，
+if(mysql_affected_rows($conn)&gt;0){
+    echo "受影响的行数为：".mysql_affected_rows($conn)."行";
+}else{
+    echo "没有影响到行数";
+}
+//如果执行的是dql语句，则返回查询结果$res，从$res中取出查询结果
+$result = mysql_query($sql_dql,$conn);
+if(!$result){
+    echo '数据库查询失败！'.mysql_error();
+    exit;
+}
+echo "&lt;br/&gt;";
+//返回索引数组
+// while($row = mysql_fetch_row($result)){
+//     echo $row[0]."--";
+//     echo $row[1]."--";
+//     echo $row[2]."--";
+//     echo $row[3]."--";
+//     echo $row[4]."--";
+//     echo $row[5]."--";
+//     echo "&lt;br&gt;";
+// }
+// echo "共输出".mysql_affected_rows($conn)."条记录！";
+//返回关联数组
+// while($row = mysql_fetch_assoc($result)){
+//     echo $row['id']."--";
+//     echo $row['name']."--";
+//     echo $row['age']."--";
+//     echo $row['home']."--";
+//     echo $row['class']."--";
+//     echo $row['school']."--";
+//     echo "&lt;br&gt;";
+// }
+// echo "共输出".mysql_affected_rows($conn)."条记录！";
+//返回索引数组和关联数组 (两套)
+// while($row = mysql_fetch_array($result)){
+//     echo $row['id']."--";
+//     echo $row[0]."--";
+//     echo $row['name']."--";
+//     echo $row[1]."--";
+//     echo $row['age']."--";
+//     echo $row[2]."--";
+//     echo $row['home']."--";
+//     echo $row['class']."--";
+//     echo $row['school']."--";
+//     echo "&lt;br&gt;";
+// }
+// echo "共输出".mysql_affected_rows($conn)."条记录！";
+//把一行数据，当做一个对象返回.
+while($row = mysql_fetch_object($result)){
+    echo $row-&gt;id."--";
+    echo $row-&gt;name."--";
+    echo $row-&gt;age."--";
+    echo $row-&gt;home."--";
+    echo $row-&gt;class."--";
+    echo $row-&gt;school."--";
+    echo "&lt;br&gt;";
+}
+echo "共输出".mysql_affected_rows($conn)."条记录！";
+//释放资源,使用完$result结果集后，一定要尽快释放资源，有助于减轻内存压力：
+mysql_free_result($result);
+//关闭连接,$conn 的使用原则是尽量晚创建，尽量早释放
+mysql_close($conn);
+?&gt;</pre><br/><pre code_snippet_id="1617889" snippet_file_name="blog_20160321_2_7131775" name="code" class="php">&lt;?php
+$result = mysql_query("SELECT id,email FROM people WHERE id = '42'");
+if (!$result) {
+    echo 'Could not run query: ' . mysql_error();
+    exit;
+}
+/* Use the result, assuming we're done with it afterwards */
+$row = mysql_fetch_assoc($result);
+
+/* Now we free up the result and continue on with our script */
+mysql_free_result($result);
+
+echo $row['id'];
+echo $row['email'];
+?&gt;</pre><br/><p><span class="function" style="color:rgb(51,51,51); font-family:'Fira Sans','Source Sans Pro',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; background-color:rgb(242,242,242)"><span style="">mysql_free_result()</span></span><span style="color:rgb(51,51,51); font-family:'Fira Sans','Source Sans Pro',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; background-color:rgb(242,242,242)"> 仅需要在考虑到返回很大的结果集时会占用多少内存时调用。在脚本结束后所有关联的内存都会被自动释放。</span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Fira Sans','Source Sans Pro',Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; background-color:rgb(242,242,242)">$row = mysql_fetch_assoc($result);<br/><br/>&#13;
+mysql_free_result($result); 用在$row 之后即可<br/></span></p>&#13;
+<p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

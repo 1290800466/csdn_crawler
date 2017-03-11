@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px"><strong>zx.html</strong></span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;body&gt;
+&lt;select id="ShippingMethod"  name="ShippingMethod"&gt;
+&lt;option value="12.51"&gt;UPS Next Day Air ==&gt; $12.51&lt;/option&gt;
+&lt;option value="11.61"&gt;UPS Next Day Air Saver ==&gt; $11.61&lt;/option&gt;
+&lt;option value="10.69"&gt;UPS 3 Day Select ==&gt; $10.69&lt;/option&gt;
+&lt;option value="9.03"&gt;UPS 2nd Day Air ==&gt; $9.03&lt;/option&gt;
+&lt;option value="8.34"&gt;UPS Ground ==&gt; $8.34&lt;/option&gt;
+&lt;option value="9.25"&gt;USPS Priority Mail Insured ==&gt; $9.25&lt;/option&gt;
+&lt;option value="7.45"&gt;USPS Priority Mail ==&gt; $7.45&lt;/option&gt;
+&lt;option value="3.20"&gt;USPS First Class ==&gt; $3.20&lt;/option&gt;
+&lt;/select&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><img src="http://img.blog.csdn.net/20150519133452943?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="300" height="250" alt=""/><p><br/><span style="font-size:14px"><strong>python:</strong></span></p>&#13;
+<p/><pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import os,time
+driver= webdriver.Firefox()
+
+file_path = os.path.abspath('C:\Users\Administrator\Desktop\zx.html')
+print file_path
+driver.get(file_path)
+time.sleep(2)
+#先定位到下拉框
+m=driver.find_element_by_xpath("//*[@id='ShippingMethod']")
+#再点击下拉框下的选项
+m.find_element_by_xpath("//*[@id='ShippingMethod']/option[3]").click()
+time.sleep(3)
+driver.quit()</pre><span style="font-size:14px"><br/><strong>注意：</strong><br/>&#13;
+这里可能与之前的操作有所不同，首先要定位到下拉框的元素，然后选择下拉列表中的选项进行点击操作。<br/>&#13;
+m=driver.find_element_by_id("ShippingMethod")<br/>&#13;
+m.find_element_by_xpath("//option[@value='10.69']").click()</span><br/><p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

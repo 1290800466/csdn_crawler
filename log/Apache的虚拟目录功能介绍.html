@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Apache的虚拟目录功能：</strong></p>
+
+<p>已知我们把web应用放在Apache默认的hdocs目录下，Apache会自动的管理它。若我们想把web应用放在其他目录下， <br/>
+Apache仍然能够访问它，则需要用到Apache的虚拟目录功能。</p>
+
+<p>Apache配置虚拟目录方法：</p>
+
+<p>方法一：</p>
+
+<p>（1） 进入Apache的conf目录 <br/>
+（2）打开httpd.conf文件输入： <br/>
+查找 <br/>
+       在ScriptAlias/cgi-bin/”D:/ProgramFiles/wamp/server/Apache2.2/cgi-bin/” <br/>
+   的后面输入：Alias/php “F:/www_php”  <br/>
+（3）注释掉documentroot路径 <br/>
+  注意：虚拟目录为php <br/>
+方法二：</p>
+
+<p>查找#Virtual hosts <br/>
+将# Includeconf/extra/httpd-vhosts.conf前面的“#”去掉 <br/>
+打开Apache目录下Apache2.2\conf\extra\httpd-vhosts.conf文件 <br/>
+在文件末尾添加 <br/><br/>
+     Alias  /php  “F:/www_php”  <br/></p>
+
+<p>注释掉documentroot路径 <br/>
+重启Apache1 <br/>
+在浏览器中输入<a href="http://localhost/php">http://localhost/php</a>即可访问对应的目录 <br/>
+Apache的虚拟目录功能对某一个目录进行访问权限的控制</p>
+
+<p>虚拟目录：优点：便于访问  便于移动站点的目录   加大磁盘空间   安全性好</p>
+
+<p>建立虚拟目录：  <br/>
+修改httpd.conf</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs apache"><span class="hljs-keyword">Alias</span> /test “/var/www/test”
+<span class="hljs-tag">&lt;Directory“/var/www/test”&gt;</span>
+   <span class="hljs-keyword"><span class="hljs-common">Options</span></span> Indexes MultiViews       
+<span class="hljs-comment">#这里的权限设置，是对上面的/var/www/test文件的权限设置</span>
+   <span class="hljs-keyword">AllowOverride</span> None          
+   <span class="hljs-keyword"><span class="hljs-common">Order</span></span> allow,deny
+   <span class="hljs-keyword"><span class="hljs-common">Allow</span></span> from <span class="hljs-literal">all</span>
+<span class="hljs-tag">&lt;/Directory&gt;</span></code></pre>
+
+<p>Apache 使用的访问控制指令： <br/>
+       Order 指定执行规则顺序 <br/>
+       Deny 指定拒绝访问列表 <br/>
+       Allow 指定允许访问列表 <br/>
+访问权限的顺序 <br/>
+      Orderallow,deny(默认禁止所有客户访问，在执行deny规则前先执行allow规则) <br/>
+      Orderdeny,allow(默认禁止所有客户访问，在执行allow规则前先执行deny规则)</p>
+
+<p>Deny和allow访问列表的几种形式： <br/>
+         ALL：所有客户 <br/>
+         域名：如：sina.com <br/>
+         IP：部分或全部（中间用空格隔开） <br/>
+         网络： 如：192.168.1.1/255.255.255.0   192.168.1.1/24</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

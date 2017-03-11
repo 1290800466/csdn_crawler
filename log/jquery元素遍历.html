@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、遍历祖先元素：</strong></p>
+
+<p>parent()  ：返回被选元素的直接父元素。</p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"span"</span>).parent();
+});</code></pre>
+
+<p>parents() ： 返回被选元素的所有祖先元素，它一路向上直到文档的根元素 ()。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"span"</span>).parents();
+});
+
+<span class="hljs-comment">//也可以使用可选参数来过滤对祖先元素的搜索</span>
+$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//表示遍历标签为&lt;ul&gt;的父元素</span>
+  $(<span class="hljs-string">"span"</span>).parents(<span class="hljs-string">"ul"</span>);
+});</code></pre>
+
+<p>parentsUntil()  ：返回介于两个给定元素之间的所有祖先元素。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//返回介于 &lt;span&gt; 与 &lt;div&gt; 元素之间的所有祖先元素</span>
+  $(<span class="hljs-string">"span"</span>).parentsUntil(<span class="hljs-string">"div"</span>);
+});</code></pre>
+
+<p><strong>2、遍历后代元素：</strong></p>
+
+<p>children()  ：返回被选元素的所有直接子元素。</p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"div"</span>).children();
+});</code></pre>
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-comment">//可以使用可选参数来过滤对子元素的搜索。</span>
+$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//返回类名为 "1" 的所有 &lt;p&gt; 元素，并且它们是 &lt;div&gt; 的直接子元素</span>
+  $(<span class="hljs-string">"div"</span>).children(<span class="hljs-string">"p.1"</span>);
+});</code></pre>
+
+<p>find()  : 返回被选元素的后代元素，一路向下直到最后一个后代。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-comment">//返回属于 &lt;div&gt; 后代的所有 &lt;span&gt; 元素</span>
+$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"div"</span>).find(<span class="hljs-string">"span"</span>);
+});</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//返回 &lt;div&gt; 的所有后代</span>
+  $(<span class="hljs-string">"div"</span>).find(<span class="hljs-string">"*"</span>);
+});</code></pre>
+
+<p><strong>3、遍历同胞元素：</strong></p>
+
+<p>siblings()  ：返回被选元素的所有同胞元素。</p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"h2"</span>).siblings();
+});</code></pre>
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-comment">//可以使用可选参数来过滤对同胞元素的搜索。</span>
+$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//返回属于 &lt;h2&gt; 的同胞元素的所有 &lt;p&gt; 元素</span>
+  $(<span class="hljs-string">"h2"</span>).siblings(<span class="hljs-string">"p"</span>);
+});</code></pre>
+
+<p>next()  ：返回被选元素的下一个同胞元素。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"h2"</span>).next();
+});</code></pre>
+
+<p>nextAll()  : 返回被选元素的所有跟随的(下面的)同胞元素</p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+  $(<span class="hljs-string">"h2"</span>).nextAll();
+});</code></pre>
+
+<p>nextUntil()  ：返回介于两个给定参数之间的所有跟随的同胞元素。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+<span class="hljs-comment">//返回介于 &lt;h2&gt; 与 &lt;h6&gt; 元素之间的所有同胞元素</span>
+  $(<span class="hljs-string">"h2"</span>).nextUntil(<span class="hljs-string">"h6"</span>);
+});</code></pre>
+
+<p>prev(), prevAll() 以及 prevUntil() 方法的工作方式与上面的方法类似，只不过方向相反</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

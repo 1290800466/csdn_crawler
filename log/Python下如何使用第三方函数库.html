@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2>Python下使用第三方函数库：</h2>&#13;
+<p><span style="font-size:18px">以httplib2 为例</span></p>&#13;
+<p><span style="font-size:18px">以下代码为读取某网页信息：</span></p>&#13;
+<p><span style="font-size:18px"><span style="color:red">&gt;&gt;&gt; import urllib    </span>&#13;
+//该库可以访问web网页</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt;url="http://www.163.com"                   </span>&#13;
+</p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt;content=urllib.urlopen(url).read()   //读取某网页信息</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt;open("163.com.html","w").write(content)    //将读取的网页信息写入163.com.html文件，若没有该文件则新建一个。</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px"><span style="color:red">&gt;&gt;&gt; import webbrowser</span>                    //该库用来调用本地浏览器</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt;webbrowser.open_new_tab("163.com.html")   //将163.com.html文件用浏览器打开</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt; webbrowser.open_new_tab("www.163.com")</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px"><span style="color:red">&gt;&gt;&gt; import webbrowser as web</span>  //该库用来调用本地浏览器,对于较长的模块名，为方便，可以给他起一个假名，如webbrowser 起假名web。Python语句基本语法：</span></p>&#13;
+<p><span style="font-size:18px">Module_name.method(parameters)。</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt; <span style="color:red">web.</span>browser.open_new_tab("163.com.html")   //将163.com.html文件用浏览器打开</span></p>&#13;
+<p><span style="font-size:18px">&gt;&gt;&gt; <span style="color:red">web.</span>browser.open_new_tab("www.163.com")</span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

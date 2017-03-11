@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p>frame.html:</p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8" /&gt;
+&lt;title&gt;frame&lt;/title&gt;
+&lt;script type="text/javascript"
+async=""src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+"&gt;&lt;/script&gt;
+&lt;link
+href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstra
+p-combined.min.css" rel="stylesheet" /&gt;
+&lt;script type="text/javascript"&gt;$(document).ready(function(){});&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="row-fluid"&gt;
+&lt;div class="span10 well"&gt;
+&lt;h3&gt;frame&lt;/h3&gt;
+&lt;iframe id="f1" src="inner.html" width="800",
+height="600"&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;script
+src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.
+min.js"&gt;&lt;/script&gt;
+&lt;/html&gt;</pre><br/><br/><p>inner.html:</p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8" /&gt;
+&lt;title&gt;inner&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="row-fluid"&gt;
+&lt;div class="span6 well"&gt;
+&lt;h3&gt;inner&lt;/h3&gt;
+&lt;iframe id="f2" src="http://www.baidu.com"
+width="700"height="500"&gt;&lt;/iframe&gt;
+&lt;a href="javascript:alert('watir-webdriver better thanselenium webdriver;')"&gt;click&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p><br/></p>&#13;
+<p/>&#13;
+<h2>多层框架或窗口的定位：</h2>&#13;
+<p/>&#13;
+<p/><pre name="code" class="python">#coding=utf-8
+'''
+多层框架或窗口的定位：
+ switch_to_frame()
+ switch_to_window()
+
+对于一个现代的web 应用，经常会出现框架（frame） 或窗口（window）的应用，
+这也就给我们的定位带来了一个难题。有时候我们定位一个元素，定位器没有问题，但一直定位不了，
+这时候就要首先检查这个元素是否在一个frame 中，seelnium webdriver 提供了一个switch_to_frame法，
+可以很轻松的来解决这个问题。
+'''
+from selenium import webdriver
+import time
+import os
+browser = webdriver.Chrome()
+file_path = os.path.abspath('frame.html')
+print file_path
+browser.get(file_path)
+browser.implicitly_wait(30)
+#先找到到ifrome1（id = f1），利用其id寻找
+browser.switch_to_frame("f1")
+#再找到其下面的ifrome2(id =f2)，利用其id寻找
+browser.switch_to_frame("f2")
+#下面就可以正常的操作元素了
+browser.find_element_by_id("kw").send_keys("selenium")
+browser.find_element_by_id("su").click()
+time.sleep(3)
+'''
+有可能嵌套的不是框架，而是窗口，还有针对窗口的方法：switch_to_window
+用法与switch_to_frame 相同：
+driver.switch_to_window("windowName")
+'''
+browser.quit()</pre><br/><br/><br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>Java修饰符分类：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">访问修饰符
+
+非访问修饰符</code></pre>
+
+<p><strong>一、访问控制修饰符：</strong></p>
+
+<p>Java中，可以使用访问控制符来保护对类、变量、方法和构造方法的访问。 <br/>
+Java支持4种不同的访问权限。</p>
+
+<pre class="prettyprint"><code class=" hljs cs">默认的，也称为 <span class="hljs-keyword">default</span>，在同一包内可见，不使用任何修饰符。
+私有的，以 <span class="hljs-keyword">private</span> 修饰符指定，在同一类内可见。
+共有的，以 <span class="hljs-keyword">public</span> 修饰符指定，对所有类可见。
+受保护的，以 <span class="hljs-keyword">protected</span> 修饰符指定，对同一包内的类和所有子类可见。</code></pre>
+
+<p>访问权限：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mathematica">修饰符       当前类   同一包内     子孙类    其他包
+
+public        Y        Y          Y       Y
+protected     Y        Y          Y       <span class="hljs-keyword">N</span>
+default       Y        Y          <span class="hljs-keyword">N</span>       <span class="hljs-keyword">N</span>
+private       Y        <span class="hljs-keyword">N</span>          <span class="hljs-keyword">N</span>       <span class="hljs-keyword">N</span></code></pre>
+
+<p><strong>默认访问修饰符-不使用任何关键字</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">接口里的变量都隐式声明为<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span>,而接口里的方法默认情况下访问权限为<span class="hljs-keyword">public</span>。
+如下例所示，变量和方法的声明可以不使用任何修饰符。</code></pre>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs applescript">String <span class="hljs-property">version</span> = <span class="hljs-string">"1.5.1"</span>;
+<span class="hljs-type">boolean</span> processOrder() {
+<span class="hljs-command">   return</span> <span class="hljs-constant">true</span>;
+}</code></pre>
+
+<p><strong>私有访问修饰符-private</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">私有访问修饰符是最严格的访问级别，所以被声明为 <span class="hljs-keyword">private</span> 的方法、变量和构造方法只能被所属类访问，并且类和接口不能声明为 <span class="hljs-keyword">private</span>。
+声明为私有访问类型的变量只能通过类中公共的 getter 方法被外部类访问。
+<span class="hljs-keyword">Private</span> 访问修饰符的使用主要用来隐藏类的实现细节和保护类的数据。</code></pre>
+
+<p>下面的类使用了私有访问修饰符：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Logger {
+   <span class="hljs-keyword">private</span> String format;
+   <span class="hljs-keyword">public</span> String <span class="hljs-title">getFormat</span>() {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.format;
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setFormat</span>(String format) {
+      <span class="hljs-keyword">this</span>.format = format;
+   }
+}</code></pre>
+
+<p><strong>公有访问修饰符-public</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">如果几个相互访问的 <span class="hljs-keyword">public</span> 类分布在不同的包中，则需要导入相应 <span class="hljs-keyword">public</span> 类所在的包。由于类的继承性，类所有的公有方法和变量都能被其子类继承。
+Java 程序的 <span class="hljs-title">main</span>() 方法必须设置成公有的，否则，Java 解释器将不能运行该类。</code></pre>
+
+<p>以下函数使用了公有访问控制：</p>
+
+<pre class="prettyprint"><code class=" hljs r">public static void main(String[] arguments) {
+   // <span class="hljs-keyword">...</span>
+}</code></pre>
+
+<p><strong>受保护的访问修饰符-protected</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">Protected</span> 访问修饰符不能修饰类和接口，方法和成员变量能够声明为 <span class="hljs-keyword">protected</span>，但是接口的成员变量和成员方法不能声明为 <span class="hljs-keyword">protected</span>。
+子类能访问 <span class="hljs-keyword">Protected</span> 修饰符声明的方法和变量，这样就能保护不相关的类使用这些方法和变量。
+下面的父类使用了 <span class="hljs-keyword">protected</span> 访问修饰符，子类重载了父类的 openSpeaker() 方法。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs axapta"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AudioPlayer</span> {</span>
+   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">boolean</span> openSpeaker(Speaker sp) {
+      <span class="hljs-comment">// 实现细节</span>
+   }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StreamingAudioPlayer</span> {</span>
+   <span class="hljs-keyword">boolean</span> openSpeaker(Speaker sp) {
+      <span class="hljs-comment">// 实现细节</span>
+   }
+}</code></pre>
+
+<p><strong>注意以下方法继承的规则：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">父类中声明为 <span class="hljs-keyword">public</span> 的方法在子类中也必须为 <span class="hljs-keyword">public</span>。
+父类中声明为 <span class="hljs-keyword">protected</span> 的方法在子类中要么声明为 <span class="hljs-keyword">protected</span>，要么声明为 <span class="hljs-keyword">public</span>，不能声明为 <span class="hljs-keyword">private</span>。
+父类中声明为 <span class="hljs-keyword">private</span> 的方法，不能够被继承。</code></pre>
+
+<p><strong>二、非访问修饰符：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs oxygene"><span class="hljs-keyword">static</span> 修饰符，用来创建类方法和类变量。
+<span class="hljs-keyword">Final</span> 修饰符，用来修饰类、方法和变量，<span class="hljs-keyword">final</span> 修饰的类不能够被继承，修饰的方法不能被继承类重新定义，修饰的变量为常量，是不可修改的。
+<span class="hljs-keyword">Abstract</span> 修饰符，用来创建抽象类和抽象方法。
+Synchronized 和 <span class="hljs-keyword">volatile</span> 修饰符，主要用于线程的编程。</code></pre>
+
+<p><strong>Static 修饰符</strong></p>
+
+<p><strong>静态变量：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">Static</span> 关键字用来声明独立于对象的静态变量，无论一个类实例化多少对象，它的静态变量只有一份拷贝。 静态变量也被成为类变量。局部变量不能被声明为 <span class="hljs-keyword">static</span> 变量。</code></pre>
+
+<p><strong>静态方法：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">Static 关键字用来声明独立于对象的静态方法。静态方法不能使用类的非静态变量。静态方法从参数列表得到数据，然后计算这些数据。
+对类变量和方法的访问可以直接使用 classname<span class="hljs-preprocessor">.variablename</span> 和 classname<span class="hljs-preprocessor">.methodname</span> 的方式访问。</code></pre>
+
+<p>如下例所示，static修饰符用来创建类方法和类变量。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> InstanceCounter {
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> numInstances = <span class="hljs-number">0</span>;
+   <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getCount</span>() {
+      <span class="hljs-keyword">return</span> numInstances;
+   }
+
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addInstance</span>() {
+      numInstances++;
+   }
+
+   InstanceCounter() {
+      InstanceCounter.addInstance();
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] arguments) {
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Starting with "</span> +
+      InstanceCounter.getCount() + <span class="hljs-string">" instances"</span>);
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">500</span>; ++i){
+         <span class="hljs-keyword">new</span> InstanceCounter();
+          }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Created "</span> +
+      InstanceCounter.getCount() + <span class="hljs-string">" instances"</span>);
+   }
+}</code></pre>
+
+<p><strong>Final 修饰符</strong></p>
+
+<p><strong>Final 变量：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">Final</span> 变量能被显式地初始化并且只能初始化一次。被声明为 <span class="hljs-keyword">final</span> 的对象的引用不能指向不同的对象。但是 <span class="hljs-keyword">final</span> 对象里的数据可以被改变。也就是说 <span class="hljs-keyword">final</span> 对象的引用不能改变，但是里面的值可以改变。
+<span class="hljs-keyword">Final</span> 修饰符通常和 <span class="hljs-keyword">static</span> 修饰符一起使用来创建类常量。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+  final <span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span> = <span class="hljs-number">10</span>;
+  <span class="hljs-comment">// 下面是声明常量的实例</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> final <span class="hljs-keyword">int</span> BOXWIDTH = <span class="hljs-number">6</span>;
+  <span class="hljs-keyword">static</span> final String TITLE = <span class="hljs-string">"Manager"</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">changeValue</span>(){
+     <span class="hljs-keyword">value</span> = <span class="hljs-number">12</span>; <span class="hljs-comment">//将输出一个错误</span>
+  }
+}</code></pre>
+
+<p><strong>Final 方法：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">类中的 <span class="hljs-keyword">Final</span> 方法可以被子类继承，但是不能被子类修改。
+声明 <span class="hljs-keyword">final</span> 方法的主要目的是防止该方法的内容被修改。</code></pre>
+
+<p>如下所示，使用 final 修饰符声明方法。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Test{
+    <span class="hljs-keyword">public</span> final <span class="hljs-keyword">void</span> <span class="hljs-title">changeName</span>(){
+       <span class="hljs-comment">// 方法体</span>
+    }
+}</code></pre>
+
+<p><strong>Final类：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-keyword">Final</span> 类不能被继承，没有类能够继承 <span class="hljs-keyword">final</span> 类的任何特性。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> final <span class="hljs-keyword">class</span> Test {
+   <span class="hljs-comment">// 类体</span>
+}</code></pre>
+
+<p><strong>Abstract 修饰符</strong></p>
+
+<p><strong>抽象类：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">抽象类不能用来实例化对象，声明抽象类的唯一目的是为了将来对该类进行扩充。
+一个类不能同时被 <span class="hljs-keyword">abstract</span> 和 <span class="hljs-keyword">final</span> 修饰。如果一个类包含抽象方法，那么该类一定要声明为抽象类，否则将出现编译错误。
+抽象类可以包含抽象方法和非抽象方法。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">abstract</span> class Caravan{
+   <span class="hljs-keyword">private</span> <span class="hljs-keyword">double</span> price;
+   <span class="hljs-keyword">private</span> String model;
+   <span class="hljs-keyword">private</span> String year;
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">goFast</span>(); <span class="hljs-comment">//抽象方法</span>
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">changeColor</span>();
+}</code></pre>
+
+<p><strong>抽象方法：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">抽象方法是一种没有任何实现的方法，该方法的的具体实现由子类提供。
+抽象方法不能被声明成 <span class="hljs-keyword">final</span> 和 <span class="hljs-keyword">static</span>。
+任何继承抽象类的子类必须实现父类的所有抽象方法，除非该子类也是抽象类。
+如果一个类包含若干个抽象方法，那么该类必须声明为抽象类。抽象类可以不包含抽象方法。
+抽象方法的声明以分号结尾，例如：<span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title">sample</span>();。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs axapta"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SuperClass</span>{</span>
+    <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> m(); <span class="hljs-comment">//抽象方法</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SubClass</span> <span class="hljs-inheritance"><span class="hljs-keyword">extends</span></span> <span class="hljs-title">SuperClass</span>{</span>
+     <span class="hljs-comment">//实现抽象方法</span>
+      <span class="hljs-keyword">void</span> m(){
+          .........
+      }
+}</code></pre>
+
+<p><strong>Synchronized 修饰符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">Synchronized 关键字声明的方法同一时间只能被一个线程访问。Synchronized 修饰符可以应用于四个访问修饰符。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">showDetails</span>(){
+.......
+}</code></pre>
+
+<p><strong>Transient 修饰符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">序列化的对象包含被 <span class="hljs-keyword">transient</span> 修饰的实例变量时，java 虚拟机(JVM)跳过该特定的变量。
+该修饰符包含在定义变量的语句中，用来预处理类和变量的数据类型。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">transient</span> <span class="hljs-keyword">int</span> limit = <span class="hljs-number">55</span>;   <span class="hljs-comment">// 不会持久化</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> b; <span class="hljs-comment">// 持久化</span></code></pre>
+
+<p><strong>Volatile修饰符</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">Volatile 修饰的成员变量在每次被线程访问时，都强制从共享内存中重新读取该成员变量的值。而且，当成员变量发生变化时，会强制线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。
+一个 <span class="hljs-keyword">volatile</span> 对象引用可能是 <span class="hljs-keyword">null</span>。</code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyRunnable</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Runnable</span>
+{</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">volatile</span> <span class="hljs-keyword">boolean</span> active;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span>()
+    {
+        active = <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">while</span> (active) <span class="hljs-comment">// 第一行</span>
+        {
+            <span class="hljs-comment">// 代码</span>
+        }
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">stop</span>()
+    {
+        active = <span class="hljs-keyword">false</span>; <span class="hljs-comment">// 第二行</span>
+    }
+}</code></pre>
+
+<p>通常情况下，在一个线程调用 run() 方法（在 Runnable 开启的线程），在另一个线程调用 stop() 方法。 如果 第一行 中缓冲区的 active 值被使用，那么在 第二行 的 active 值为 false 时循环不会停止。 <br/>
+但是以上代码中我们使用了 volatile 修饰 active，所以该循环会停止。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

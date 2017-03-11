@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>错误详情显示</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua">配置文件config/app.php中的<span class="hljs-built_in">debug</span>配置项控制浏览器显示的错误详情数量。默认情况下，该配置项通过.env文件中的环境变量APP_DEBUG进行设置。
+
+对本地开发而言，你应该设置环境变量APP_DEBUG值为<span class="hljs-keyword">true</span>。在生产环境，该值应该被设置为<span class="hljs-keyword">false</span>。如果在生产环境被设置为<span class="hljs-keyword">true</span>，就有可能将一些敏感的配置值暴露给终端用户。</code></pre>
+
+<p><strong>日志存储</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">默认情况下，Laravel支持日志方法single, daily, syslog 和 errorlog。如果你想要日志文件按日生成而不是生成单个文件，应该在配置文件config/app.php中设置log值如下：
+
+<span class="hljs-string">'log'</span> =&gt; <span class="hljs-string">'daily'</span>
+即 ： <span class="hljs-string">'log'</span> =&gt; env(<span class="hljs-string">'APP_LOG'</span>, <span class="hljs-string">'daily'</span>),</code></pre>
+
+<p><strong>日志文件最大生命周期</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">使用daily日志模式的时候，Laravel默认最多为我们保留最近<span class="hljs-number">5</span>天的日志，如果你想要修改这个时间，需要添加一个配置log_max_files到app配置文件：
+
+<span class="hljs-string">'log_max_files'</span> =&gt; <span class="hljs-number">30</span>
+即 ： <span class="hljs-string">'log_max_files'</span> =&gt; env(<span class="hljs-string">'APP_LOG_MAX_FILES'</span>, <span class="hljs-string">'30'</span>),</code></pre>
+
+<p><strong>日志错误级别</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mel">使用Monolog的时候，日志消息可能有不同的错误级别，默认情况下，Laravel将所有日志写到storage目录，但是在生产环境中，你可能想要配置最低错误级别，这可以通过在配置文件app.php中通过添加配置项 log_level 来实现。
+
+该配置项被配置后，Laravel会记录所有错误级别大于等于这个指定级别的日志，例如，默认 log_level 是 <span class="hljs-keyword">error</span> ，则将会记录<span class="hljs-keyword">error</span>、critical、alert以及emergency级别的日志信息：
+
+<span class="hljs-string">'log_level'</span> =&gt; <span class="hljs-keyword">env</span>(<span class="hljs-string">'APP_LOG_LEVEL'</span>, <span class="hljs-string">'error'</span>),
+（配置.<span class="hljs-keyword">env</span>  APP_LOG_LEVEL=debug）
+注：Monolog支持以下错误级别(错误级别依次提高) —— debug、info、notice、<span class="hljs-keyword">warning</span>、<span class="hljs-keyword">error</span>、critical、alert、emergency。</code></pre>
+
+<p><strong>自定义Monolog配置</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">如果你想要在应用中完全控制Monolog的配置，可以使用configureMonologUsing方法。你需要在bootstrap/app.php文件返回$app变量之前调用该方法：
+
+$app-&gt;configureMonologUsing(<span class="hljs-keyword">function</span>($monolog) {
+    $monolog-&gt;pushHandler(<span class="hljs-keyword">...</span>);
+});
+
+<span class="hljs-keyword">return</span> $app;</code></pre>
+
+<p><strong>异常处理器</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">所有异常都由类App\Exceptions\Handler处理，该类包含两个方法：report和render。下面我们详细阐述这两个方法。
+
+report方法
+
+report方法用于记录异常并将其发送给外部服务如Bugsnag或Sentry，默认情况下，report方法只是将异常传递给异常被记录的基类，当然你也可以按自己的需要记录异常并进行相关处理。
+
+例如，如果你需要以不同方式报告不同类型的异常，可使用PHP的<span class="hljs-keyword">instanceof</span>比较操作符：
+
+<span class="hljs-javadoc">/**
+ * 报告或记录异常
+ *
+ * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+ *
+ *<span class="hljs-javadoctag"> @param</span>  \Exception  $e
+ *<span class="hljs-javadoctag"> @return</span> void
+ */</span>
+<span class="hljs-keyword">public</span> function <span class="hljs-title">report</span>(Exception $e){
+    <span class="hljs-keyword">if</span> ($e <span class="hljs-keyword">instanceof</span> CustomException) {
+        <span class="hljs-comment">//</span>
+    }
+
+    <span class="hljs-keyword">return</span> parent::report($e);
+}
+通过类型忽略异常
+
+异常处理器的$dontReport属性包含一个不会被记录的异常类型数组，默认情况下，<span class="hljs-number">404</span>错误异常不会被写到日志文件，如果需要的话你可以添加其他异常类型到这个数组：
+
+<span class="hljs-javadoc">/**
+ * A list of the exception types that should not be reported.
+ *
+ *<span class="hljs-javadoctag"> @var</span> array
+ */</span>
+<span class="hljs-keyword">protected</span> $dontReport = [
+    \Illuminate\Auth\AuthenticationException::class,
+    \Illuminate\Auth\Access\AuthorizationException::class,
+    \Symfony\Component\HttpKernel\Exception\HttpException::class,
+    \Illuminate\Database\Eloquent\ModelNotFoundException::class,
+    \Illuminate\Validation\ValidationException::class,
+];
+render方法
+
+render方法负责将给定异常转化为发送给浏览器的HTTP响应，默认情况下，异常被传递给为你生成响应的基类。当然，你也可以按照自己的需要检查异常类型或者返回自定义响应：
+
+<span class="hljs-javadoc">/**
+ * 将异常渲染到HTTP响应中
+ *
+ *<span class="hljs-javadoctag"> @param</span>  \Illuminate\Http\Request  $request
+ *<span class="hljs-javadoctag"> @param</span>  \Exception  $e
+ *<span class="hljs-javadoctag"> @return</span> \Illuminate\Http\Response
+ */</span>
+<span class="hljs-keyword">public</span> function <span class="hljs-title">render</span>($request, Exception $e){
+    <span class="hljs-keyword">if</span> ($e <span class="hljs-keyword">instanceof</span> CustomException) {
+        <span class="hljs-keyword">return</span> response()-&gt;view(<span class="hljs-string">'errors.custom'</span>, [], <span class="hljs-number">500</span>);
+    }
+
+    <span class="hljs-keyword">return</span> parent::render($request, $e);
+}</code></pre>
+
+<p><strong>HTTP异常</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">有些异常描述来自服务器的HTTP错误码，例如，这可能是一个“页面未找到”错误（<span class="hljs-number">404</span>），“认证失败错误”（<span class="hljs-number">401</span>）亦或是程序出错造成的<span class="hljs-number">500</span>错误，为了在应用中生成这样的响应，可以使用<span class="hljs-keyword">abort</span>方法：
+
+<span class="hljs-keyword">abort</span>(<span class="hljs-number">404</span>);
+<span class="hljs-keyword">abort</span>方法会立即引发一个会被异常处理器渲染的异常，此外，你还可以像这样提供响应描述：
+
+<span class="hljs-keyword">abort</span>(<span class="hljs-number">403</span>, <span class="hljs-string">'Unauthorized action.'</span>);
+该方法可在请求生命周期的任何时间点使用。</code></pre>
+
+<p><strong>自定义HTTP错误页面</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">在Laravel中，返回不同HTTP状态码的错误页面很简单，例如，如果你想要自定义<span class="hljs-number">404</span>错误页面，创建一个resources/views/errors/<span class="hljs-number">404.</span>blade<span class="hljs-preprocessor">.php</span>文件，该视图文件用于渲染程序返回的所有<span class="hljs-number">404</span>错误。需要注意的是，该目录下的视图命名应该和相应的HTTP状态码相匹配。</code></pre>
+
+<p><strong>记录日志</strong></p>
+
+<pre class="prettyprint"><code class=" hljs lasso">日志记录器提供了RFC <span class="hljs-number">5424</span>中定义的八种日志级别：emergency、alert、critical、error、warning、notice、info 和 debug。
+<span class="hljs-variable">$error</span>为错误信息, 可以是字符串或数组
+例： <span class="hljs-variable">$error</span> <span class="hljs-subst">=</span> <span class="hljs-string">'xxxx'</span> <span class="hljs-built_in">.</span> <span class="hljs-string">' in '</span> <span class="hljs-built_in">.</span> __FILE__ <span class="hljs-built_in">.</span> <span class="hljs-string">' on line '</span> <span class="hljs-built_in">.</span> __LINE__;
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::emergency</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::alert</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::critical</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::error</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::warning</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::notice</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::info</span>(<span class="hljs-variable">$error</span>);
+<span class="hljs-keyword">Log</span><span class="hljs-tag">::debug</span>(<span class="hljs-variable">$error</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

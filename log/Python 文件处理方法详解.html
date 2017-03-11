@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>打开和关闭文件：</strong></p>
+
+<p><strong>open 函数：</strong>打开一个文件，创建一个file对象，相关的方法才可以调用它进行读写。</p>
+
+<p>语法：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">file object = open(file_name [, access_mode][, buffering])
+<span class="hljs-comment">#各个参数的细节如下：</span>
+<span class="hljs-string">'''
+file_name：file_name变量是一个包含了你要访问的文件名称的字符串值。
+access_mode：决定了打开文件的模式：只读，写入，追加等。这个参数是非强制的，默认文件访问模式为只读(r)。
+buffering:如果buffering的值被设为0，就不会有寄存。如果buffering的值取1，访问文件时会寄存行。
+如果将buffering的值设为大于1的整数，表明了这就是的寄存区的缓冲大小。如果取负值，寄存区的缓冲大小则为系统默认。
+'''</span></code></pre>
+
+<p><strong>不同模式打开文件的完全列表：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">模式                  描述
+r   以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。
+rb  以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。
+r+  打开一个文件用于读写。文件指针将会放在文件的开头。
+rb+ 以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。
+w   打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+wb  以二进制格式打开一个文件只用于写入。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+w+  打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+wb+ 以二进制格式打开一个文件用于读写。如果该文件已存在则将其覆盖。如果该文件不存在，创建新文件。
+a   打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件进行写入。
+ab  以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件进行写入。
+a+  打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。
+ab+ 以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。</code></pre>
+
+<p><strong>File对象的属性：</strong></p>
+
+<p>一个文件被打开后，你有一个file对象，你可以得到有关该文件的各种信息。 <br/>
+以下是和file对象相关的所有属性的列表：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript">    属性                   描述
+<span class="hljs-type">file</span>.closed     返回<span class="hljs-constant">true</span>如果文件已被关闭，否则返回<span class="hljs-constant">false</span>。
+<span class="hljs-type">file</span>.mode       返回被打开文件的访问模式。
+<span class="hljs-type">file</span>.<span class="hljs-property">name</span>       返回文件的名称。
+<span class="hljs-type">file</span>.softspace  如果用print输出后，必须跟一个空格符，则返回<span class="hljs-constant">false</span>。否则返回<span class="hljs-constant">true</span>。</code></pre>
+
+<p>如下实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开一个文件</span>
+fo = open(<span class="hljs-string">"foo.txt"</span>, <span class="hljs-string">"wb"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名: "</span>, fo.name
+<span class="hljs-keyword">print</span> <span class="hljs-string">"是否已关闭 : "</span>, fo.closed
+<span class="hljs-keyword">print</span> <span class="hljs-string">"访问模式 : "</span>, fo.mode
+<span class="hljs-keyword">print</span> <span class="hljs-string">"末尾是否强制加空格 : "</span>, fo.softspace
+
+<span class="hljs-comment">#以上实例输出结果：</span>
+<span class="hljs-comment">#文件名:  foo.txt</span>
+<span class="hljs-comment">#是否已关闭 :  False</span>
+<span class="hljs-comment">#访问模式 :  wb</span>
+<span class="hljs-comment">#末尾是否强制加空格 :  0</span></code></pre>
+
+<p><strong>close()方法 : </strong>刷新缓冲区里任何还没写入的信息，并关闭该文件，这之后便不能再进行写入。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl">fileObject.<span class="hljs-keyword">close</span>();</code></pre>
+
+<p>例子：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开一个文件</span>
+fo = open(<span class="hljs-string">"./test/foo.txt"</span>, <span class="hljs-string">"wb"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名: "</span>, fo.name
+
+<span class="hljs-comment"># 关闭打开的文件</span>
+fo.close()
+<span class="hljs-comment">#以上实例输出结果：</span>
+<span class="hljs-comment">#文件名:  foo.txt</span></code></pre>
+
+<p><strong>读写文件：</strong></p>
+
+<p>使用read()和write()方法来读取和写入文件。 <br/><strong>write()方法：</strong>将字符串写入一个打开的文件。 <br/><font color="red">注意：Python字符串可以是二进制数据，而不是仅仅是文字。</font> <br/>
+write()方法不会在字符串的结尾添加换行符(‘\n’)： <br/>
+write只能写字符串，写入数字时，要转换格式 str(number) <br/>
+语法：</p>
+
+<pre class="prettyprint"><code class=" hljs delphi">fileObject.<span class="hljs-keyword">write</span>(<span class="hljs-keyword">string</span>);</code></pre>
+
+<p>在这里，被传递的参数是要写入到已打开文件的内容。 <br/>
+例子：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开一个文件</span>
+fo = open(<span class="hljs-string">"foo.txt"</span>, <span class="hljs-string">"wb"</span>)
+fo.write( <span class="hljs-string">"www.runoob.com!\nVery good site!\n"</span>);
+
+<span class="hljs-comment"># 关闭打开的文件</span>
+fo.close()</code></pre>
+
+<p><strong>writelines() ：</strong>用于向文件中写入一序列的字符串。 <br/>
+这一序列字符串可以是由迭代对象产生的，如一个字符串列表。 <br/>
+换行需要制定换行符 \n。 <br/>
+语法</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs rust">fileObject.writelines( [ <span class="hljs-keyword">str</span> ])</code></pre>
+
+<p>参数 <br/>
+str – 要写入文件的字符串序列。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"test.txt"</span>, <span class="hljs-string">"w"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+seq = [<span class="hljs-string">"菜鸟教程 1\n"</span>, <span class="hljs-string">"菜鸟教程 2"</span>]
+fo.writelines( seq )
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+<p><strong>read()方法：</strong>从一个打开的文件中读取一个字符串，文件指针移动到字符串结束位置。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript">fileObject.<span class="hljs-command">read</span>([<span class="hljs-command">count</span>]);
+参数说明：
+<span class="hljs-command">count</span>：从已打开文件中读取的字节计数。该方法从文件的开头开始读入，如果没有传入<span class="hljs-command">count</span>，它会尝试尽可能多地读取更多的内容，很可能是直到文件的末尾。</code></pre>
+
+<p>例子： <br/>
+这里我们用到以上创建的 foo.txt 文件。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开一个文件</span>
+fo = open(<span class="hljs-string">"foo.txt"</span>, <span class="hljs-string">"r+"</span>)
+str = fo.read(<span class="hljs-number">10</span>);
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取的字符串是 : "</span>, str
+fo.close()  <span class="hljs-comment"># 关闭打开的文件</span></code></pre>
+
+<p><strong>readline() ：</strong>从文件当前指针开始读取整行，包括 “\n” 字符。如果指定了一个非负数的参数，则返回指定大小的字节数，包括 “\n” 字符。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl">fileObject.<span class="hljs-keyword">readline</span>(); </code></pre>
+
+<p>参数 <br/>
+size – 从文件中读取的字节数。 <br/>
+返回值 <br/>
+返回从字符串中读取的字节。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"runoob.txt"</span>, <span class="hljs-string">"rw+"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+
+//读取文件后，文件指针跳到下一行行首
+line = fo.readline()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取第一行 %s"</span> % (line)
+
+line = fo.readline(<span class="hljs-number">5</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取的字符串为: %s"</span> % (line)
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+<p><strong>readlines()：</strong> 用于读取所有行(直到结束符 EOF)并返回列表，若给定sizeint&gt;0，返回总和大约为sizeint字节的行, 实际读取值可能比sizhint较大, 因为需要填充缓冲区。 <br/>
+如果碰到结束符 EOF 则返回空字符串。 <br/>
+语法</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">fileObject<span class="hljs-preprocessor">.readlines</span>( sizehint )<span class="hljs-comment">;</span></code></pre>
+
+<p>参数 <br/>
+sizehint – 从文件中读取的字节数。 <br/>
+返回值： <br/>
+以列表的形式返回数据，文件每一行内容为一个列表元素 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"runoob.txt"</span>, <span class="hljs-string">"rw+"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+
+line = fo.readlines()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取的数据为: %s"</span> % (line)
+
+line = fo.readlines(<span class="hljs-number">2</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取的数据为: %s"</span> % (line)
+
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+<p><strong>next() ：</strong>在文件使用迭代器时会使用到，在循环中，next()方法会在每次循环中调用，该方法返回文件的下一行， <br/>
+如果到达结尾(EOF),则触发 StopIteration <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby">fileObject.<span class="hljs-keyword">next</span>(); </code></pre>
+
+<p>实例 <br/>
+文件 runoob.txt 的内容如下： <br/>
+这是第一行 <br/>
+这是第二行 <br/>
+这是第三行 <br/>
+这是第四行 <br/>
+这是第五行 <br/>
+循环读取文件的内容：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"runoob.txt"</span>, <span class="hljs-string">"rw+"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+
+<span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    <span class="hljs-comment">#执行 fo.next() 后文件指针跳到末尾</span>
+    line = fo.next()
+    <span class="hljs-keyword">print</span> <span class="hljs-string">"第 %d 行 - %s"</span> % (index, line)
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+<p>以上实例输出结果为： <br/>
+文件名为:  runoob.txt <br/>
+第 0 行 - 这是第一行</p>
+
+<p>第 1 行 - 这是第二行</p>
+
+<p>第 2 行 - 这是第三行</p>
+
+<p>第 3 行 - 这是第四行</p>
+
+<p>第 4 行 - 这是第五行</p>
+
+<p><strong>文件指针位置：</strong></p>
+
+<p><strong>tell()：</strong>方法告诉你文件内的当前位置；换句话说，下一次的读写会发生在文件开头这么多字节之后。 <br/><strong>seek（offset [,from]）：</strong>方法改变当前文件的位置。Offset变量表示要移动的字节数。From变量指定开始移动字节的参考位置。 <br/>
+如果from被设为0，这意味着将文件的开头作为移动字节的参考位置。如果设为1，则使用当前的位置作为参考位置。 <br/>
+如果它被设为2，那么该文件的末尾将作为参考位置。 <br/>
+例子： <br/>
+就用我们上面创建的文件foo.txt。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开一个文件</span>
+fo = open(<span class="hljs-string">"foo.txt"</span>, <span class="hljs-string">"r+"</span>)
+str = fo.read(<span class="hljs-number">10</span>);
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取的字符串是 : "</span>, str
+
+<span class="hljs-comment"># 查找文件指针当前位置</span>
+position = fo.tell();
+<span class="hljs-keyword">print</span> <span class="hljs-string">"当前文件位置 : "</span>, position
+
+<span class="hljs-comment"># 把指针再次重新定位到文件开头</span>
+position = fo.seek(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+str = fo.read(<span class="hljs-number">10</span>);
+<span class="hljs-keyword">print</span> <span class="hljs-string">"重新读取字符串 : "</span>, str
+<span class="hljs-comment"># 关闭打开的文件</span>
+fo.close()</code></pre>
+
+<p>以上实例输出结果： <br/>
+读取的字符串是 :  www.runoob <br/>
+当前文件位置 :  10 <br/>
+重新读取字符串 :  www.runoob</p>
+
+<p><strong>文件截取：</strong></p>
+
+<p><strong>truncate() ：</strong>用于截断文件，如果指定了可选参数 size，则表示截断文件为 size 个字符（相当于保留整个文件文首开始的size个字符）。 如果没有指定 size，则从当前位置起截断（相当于清空文件当前文件指针后的内容）；截断之后 size 后面的所有字符被删除。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql">fileObject.<span class="hljs-operator"><span class="hljs-keyword">truncate</span>( [ <span class="hljs-keyword">size</span> ])</span></code></pre>
+
+<p>参数 <br/>
+size – 可选，如果存在则文件截断为 size 字节。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"runoob.txt"</span>, <span class="hljs-string">"r+"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+
+line = fo.readline()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取第一行: %s"</span> % (line)
+
+<span class="hljs-comment"># 截断剩下的字符串</span>
+fo.truncate()
+
+<span class="hljs-comment"># 尝试再次读取数据</span>
+line = fo.readline()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取数据: %s"</span> % (line)
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment"># 打开文件</span>
+fo = open(<span class="hljs-string">"runoob.txt"</span>, <span class="hljs-string">"r+"</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">"文件名为: "</span>, fo.name
+
+<span class="hljs-comment"># 截取10个字节</span>
+fo.truncate(<span class="hljs-number">10</span>)
+
+str = fo.read()
+<span class="hljs-keyword">print</span> <span class="hljs-string">"读取数据: %s"</span> % (str)
+
+<span class="hljs-comment"># 关闭文件</span>
+fo.close()</code></pre>
+
+<p><font color="red"><strong>下面文件操作需要 os 模块配合：</strong></font></p>
+
+<p><strong>重命名和删除文件：</strong></p>
+
+<p>Python的os模块提供了帮你执行文件处理操作的方法，比如重命名和删除文件。 <br/><strong>rename()：</strong>需要两个参数，当前的文件名和新文件名。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.rename(current_file_name, new_file_name)</code></pre>
+
+<p>例子： <br/>
+下例将重命名一个已经存在的文件test1.txt。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-comment">#文件的重命名和删除需要 os 模块</span>
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 重命名文件test1.txt到test2.txt。</span>
+os.rename( <span class="hljs-string">"test1.txt"</span>, <span class="hljs-string">"test2.txt"</span> )</code></pre>
+
+<p><strong>remove()：</strong>删除文件，需要提供要删除的文件名作为参数。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.remove(file_name)</code></pre>
+
+<p>例子： <br/>
+下例将删除一个已经存在的文件test2.txt。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 删除一个已经存在的文件test2.txt</span>
+os.remove(<span class="hljs-string">"test2.txt"</span>)</code></pre>
+
+<p><strong>Python里的目录：</strong></p>
+
+<p>os模块有许多方法能帮你创建，删除和更改目录。 <br/><strong>mkdir()：</strong>在当前目录下创建新的目录们。你需要提供一个包含了要创建的目录名称的参数。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.mkdir(<span class="hljs-string">"newdir"</span>)</code></pre>
+
+<p>例子： <br/>
+下例将在当前目录下创建一个新目录test。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 创建目录test</span>
+os.mkdir(<span class="hljs-string">"test"</span>)</code></pre>
+
+<p><strong>chdir()：</strong>改变当前的目录。chdir()方法需要的一个参数是你想设成当前目录的目录名称。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.chdir(<span class="hljs-string">"newdir"</span>)</code></pre>
+
+<p>例子： <br/>
+下例将进入”/home/newdir”目录。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 将当前目录改为"/home/newdir"</span>
+os.chdir(<span class="hljs-string">"/home/newdir"</span>)</code></pre>
+
+<p><strong>getcwd()：</strong>显示当前的工作目录。 <br/>
+语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.getcwd()</code></pre>
+
+<p>例子： <br/>
+下例给出当前目录：</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 给出当前的目录</span>
+os.getcwd()</code></pre>
+
+<p><strong>rmdir()：</strong>删除目录（只能删除空目录），目录名称以参数传递。</p>
+
+<p>语法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua"><span class="hljs-built_in">os</span>.rmdir(<span class="hljs-string">'dirname'</span>)</code></pre>
+
+<p>例子： <br/>
+以下是删除” /tmp/test”目录的例子。目录的完全合规的名称必须被给出，否则会在当前目录下搜索该目录。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># 删除”/tmp/test”目录</span>
+os.rmdir( <span class="hljs-string">"/tmp/test"</span>  )</code></pre>
+
+<p><strong>文件、目录相关的方法：</strong></p>
+
+<p>如下： <br/>
+File 对象方法: file对象提供了操作文件的一系列方法。 <br/>
+OS 对象方法: 提供了处理文件及目录的一系列方法。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

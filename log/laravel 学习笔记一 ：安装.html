@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、服务器要求</strong></p>
+
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">PHP版本 &gt;</span>=<span class="hljs-string"> 5.6.4
+PHP扩展：OpenSSL
+PHP扩展：PDO
+PHP扩展：Mbstring
+PHP扩展：Tokenizer</span></code></pre>
+
+<p><strong>2、安装</strong> <br/>
+Laravel 使用 Composer 管理依赖，因此，使用 Laravel 之前，确保机器上已经安装了Composer。 <br/>
+通过 Composer Create-Project安装： <br/>
+若现在/mnt/hgfs/webserver  目录下建立项目   study.laravel.com</p>
+
+<pre class="prettyprint"><code class="language-shell hljs livecodeserver">cd /mnt/hgfs/webserver
+composer <span class="hljs-built_in">create</span>-project <span class="hljs-comment">--prefer-dist laravel/laravel study.laravel.com</span><span class="hljs-comment">
+//安装旧版本</span>
+composer <span class="hljs-built_in">create</span>-project <span class="hljs-comment">--prefer-dist laravel/laravel study.laravel.com 5.2.*</span></code></pre>
+
+<p><strong>3、目录结构</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">App : app目录包含了应用的核心代码，此外你为应用编写的代码绝大多数也会放到这里；
+
+Bootstrap : bootstrap目录包含了少许文件，用于框架的启动和自动载入配置，还有一个cache文件夹用于包含框架为提升性能所生成的文件，如路由和服务缓存文件；
+
+Config : config目录包含了应用所有的配置文件，建议通读一遍这些配置文件以便熟悉所有配置项；
+
+Database : database目录包含了数据迁移及填充文件，还可以将其作为 SQLite 数据库存放目录；
+
+Public : public目录包含了入口文件index<span class="hljs-preprocessor">.php</span>和前端资源文件（图片、JavaScript、CSS等）；
+
+Resources : resources目录包含了视图文件及原生资源文件（LESS、SASS、CoffeeScript），以及本地化文件；
+
+Routes : 包含了应用的所有路由定义。Laravel默认提供了三个路由文件：web<span class="hljs-preprocessor">.php</span>、api<span class="hljs-preprocessor">.php</span>和console<span class="hljs-preprocessor">.php</span>。
+
+web<span class="hljs-preprocessor">.php</span> 文件包含的路由都会应用web中间件组，具备Session、CSRF防护以及Cookie加密功能，如果应用无需提供无状态的、RESTful风格的API，所有路由都会定义在web<span class="hljs-preprocessor">.php</span>文件。
+
+api<span class="hljs-preprocessor">.php</span> 文件包含的路由应用了api中间件组，具备频率限制功能，这些路由是无状态的，所以请求通过这些路由进入应用需要通过token进行认证并且不能访问Session状态。
+
+console<span class="hljs-preprocessor">.php</span> 文件用于定义所有基于闭包的控制台命令，每个闭包都被绑定到一个控制台命令并且允许与命令行IO方法进行交互，尽管这个文件并不定义HTTP路由，但是它定义了基于控制台的应用入口（路由）。
+
+Storage : 包含了编译过的Blade模板、基于文件的session、文件缓存，以及其它由框架生成的文件，该目录被细分为成app、framework和logs子母录，app目录用于存放应用要使用的文件，framework目录用于存放框架生成的文件和缓存，最后，logs目录包含应用的日志文件；
+
+storage/app/public 目录用于存储用户生成的文件，比如可以被公开访问的用户头像，要达到被访问的目的，你还需要在public目录下生成一个软连接 storage 指向这个目录。你可以通过 php artisan storage:link 命令生成这个软链接。
+
+Tests : tests目录包含自动化测试，其中已经提供了一个开箱即用的PHPUnit示例；每一个测试类都要以 Test 开头，你可以通过 phpunit 或 php vendor/bin/phpunit 命令来运行测试。
+
+Vendor : vendor目录包含Composer依赖。</code></pre>
+
+<p><strong>4、程序入口文件</strong></p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">study<span class="hljs-preprocessor">.laravel</span><span class="hljs-preprocessor">.com</span>/public/index<span class="hljs-preprocessor">.php</span>
+配置nginx时设置该应用的入口为： root  /mnt/hgfs/webserver/study<span class="hljs-preprocessor">.laravel</span><span class="hljs-preprocessor">.com</span>/public<span class="hljs-comment">;</span></code></pre>
+
+<p><strong>5、App目录详解</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs go">应用的核心代码位于app目录下，默认情况下，该目录位于命名空间 App 下，  并且被 Composer 通过 PSR<span class="hljs-number">-4</span>自动载入标准 自动加载。
+
+app目录下包含多个子目录，如Console、Http、Providers等。Console和Http目录提供了进入应用核心的API，HTTP协议和CLI是和应用进行交互的两种机制，但实际上并不包含应用逻辑。换句话说，它们只是两个向应用发布命令的方式。Console目录包含了所有的Artisan命令，Http目录包含了控制器、中间件和请求等。
+
+其他目录将会在你通过Artisan命令<span class="hljs-built_in">make</span>生成相应类的时候生成到app目录下。例如，app/Jobs目录直到你执行 <span class="hljs-built_in">make</span>:job 命令生成任务类时才会出现在app目录下。
+
+注意：app目录中的很多类都可以通过Artisan命令生成，要查看所有有效的命令，可以在终端中运行php artisan list <span class="hljs-built_in">make</span>命令。
+Console目录
+
+Console目录包含应用所有自定义的Artisan命令，这些命令类可以使用<span class="hljs-built_in">make</span>:command命令生成。该目录下还有console核心类，在这里可以注册自定义的Artisan命令以及定义调度任务。
+
+Events目录
+
+这个目录默认不存在，但是可以通过 event:generate 和 event:<span class="hljs-built_in">make</span> 命令创建。该目录用于存放事件类。事件类用于告知应用其他部分某个事件发生并提供灵活的、解耦的处理机制。
+
+Exceptions目录
+
+Exceptions目录包含应用的异常处理器，同时还是处理应用抛出的任何异常的好地方。如果你想要自定义异常如何记录异常或渲染，需要修改 Handler 类。
+
+Http目录
+
+Http 目录包含了控制器、中间件以及表单请求等，几乎所有进入应用的请求处理都在这里进行。
+
+Jobs目录
+
+该目录默认不存在，可以通过执行 <span class="hljs-built_in">make</span>:job 命令生成，Jobs目录用于存放队列任务，应用中的任务可以被队列化，也可以在当前请求生命周期内同步执行。同步执行的任务有时也被看作命令，因为它们实现了命令模式。
+
+Listeners目录
+
+这个目录默认不存在，可以通过执行 event:generate 和 <span class="hljs-built_in">make</span>:listener 命令创建。Listeners目录包含处理事件的类（事件监听器），事件监听器接收一个事件并提供对该事件发生后的响应逻辑，例如，UserRegistered事件可以被SendWelcomeEmail监听器处理。
+
+Mail目录
+
+这个目录默认不存在，但是可以通过执行 <span class="hljs-built_in">make</span>:mail 命令生成，Mail目录包含邮件发送类，邮件对象允许你在一个地方封装构建邮件所需的所有业务逻辑，然后使用 Mail::send 方法发送邮件。
+
+Notifications目录
+
+这个目录默认不存在，你可以通过执行 <span class="hljs-built_in">make</span>:notification 命令创建， Notifications 目录包含应用发送的所有通知，比如事件发生通知。Laravel的通知功能将通知发送和通知驱动解耦，你可以通过邮件，也可以通过Slack、短信或者数据库发送通知。
+
+Policies目录
+
+这个目录默认不存在，你可以通过执行 <span class="hljs-built_in">make</span>:policy 命令来创建， Policies 目录包含了所有的授权策略类，策略用于判断某个用户是否有权限去访问指定资源。更多详情，请查看授权文档。
+
+Providers目录
+
+Providers 目录包含应用的所有服务提供者。服务提供者在启动应用过程中绑定服务到容器、注册事件以及执行其他任务以为即将到来的请求处理做准备。
+
+在新安装的Laravel应用中，该目录已经包含了一些服务提供者，你可以按需添加自己的服务提供者到该目录。
+
+
+上面不存在目录安装方法：
+cd study.laravel.com
+./artisan  <span class="hljs-built_in">make</span>:mail mail
+
+执行以上命令会在app目录下生成  mail/mail.php  目录文件</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

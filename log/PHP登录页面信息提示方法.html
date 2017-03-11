@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p>login.php:</p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1964452" snippet_file_name="blog_20161103_1_5136694" name="code" class="php">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;form action="check_login.php" name="loginform"   method="post"&gt;
+帐号：                   
+	&lt;input type="text"  name="name" /&gt;
+密码：
+	&lt;input type="password"  name="pwd" /&gt;
+&lt;input type="submit" value="登 录" /&gt;
+&lt;/form&gt;
+&lt;?php 
+echo "&lt;br/&gt;";
+//通过 error 值，确定提示信息
+if(!empty($_GET['error'])){
+    $error=$_GET['error'];
+    If($error==1){
+        Echo "&lt;font color ='red'&gt;您输入的账号或密码错误！&lt;/font&gt;";
+    }elseif ($error==2){
+        Echo "&lt;font color ='red'&gt;您输入的账号或密码正确！&lt;/font&gt;";
+    }
+}
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><br/></p>&#13;
+checkl_ogin.php:<br/><p/>&#13;
+<pre code_snippet_id="1964452" snippet_file_name="blog_20161103_2_2137289" name="code" class="php">&lt;?php
+header("Content-type: text/html; charset=utf-8");
+session_start();				//初始化session变量
+$username = $_POST['name'];          //接收表单提交的用户名
+$password=md5($_POST['pwd']);   //接收表单提交的密码
+
+class chkinput    //定义类
+{                
+	var $name; 
+	var $pwd;
+
+	function chkinput($x,$y)			//定义一个方法
+	{
+		$this-&gt;name=$x;				//将管理员名称传给类对象$this-&gt;name
+		$this-&gt;pwd=$y;				//将管理员密码传给类对象$this-&gt;pwd
+    } 
+	function checkinput()
+	{
+		include("conn.php");   		  //连接数据库文件  
+		$sql=mysql_query("select username,password from admin where username='".$this-&gt;name."' and password='".$this-&gt;pwd."'",$conn);
+		$info=mysql_fetch_array($sql);        //检索管理员名称和密码是否正确	 
+		if($info==false)					//如果管理员名称或密码不正确，则弹出相关提示信息
+		{                    
+		    header("location:login.php?error=1");
+			exit;
+		}
+		else								//如果管理员名称或密码正确，则直接跳转到登陆成功后界面
+		{                              
+			header("location:login.php?error=2");
+			$_SESSION['admin_name']=$info['username'];    //将管理员名称存到$_SESSION[admin_name]变量中
+			$_SESSION['pwd']=$info['password'];            ////将管理员名称存到$_SESSION[pwd]变量中			
+		}
+	}
+} 
+
+$obj=new chkinput(trim($username),trim($password));      //创建对象
+$obj-&gt;checkinput();        	//调用类
+?&gt;</pre>&#13;
+<p/>&#13;
+<p><br/></p>&#13;
+conn.php:&#13;
+<p/>&#13;
+<pre code_snippet_id="1964452" snippet_file_name="blog_20161103_3_5027227" name="code" class="php">&lt;?php
+header("Content-type: text/html; charset=utf-8");
+$conn = mysql_connect("localhost","root","111111");
+if(!$conn)
+{
+	die("连接数据库失败".mysql_error());
+}
+mysql_select_db("design") or die("数据库选择失败".mysql_error());
+mysql_query("set names 'uft8'");
+?&gt;</pre><br/><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>工厂模式使用场景：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">简单来说，当需求对类的个数不明确的时候，可以使用工厂模式，如：
+你需要创建一个在线博物馆，但你并不确切的知道究竟有多少文物，你不可能无限的增加新的文物类，同时对于损毁的文物，你不可能无限的去清理这些类。
+反过来说，如果你确切的知道类的总量，那么你就没有必要使用工厂模式，直接通过继承的方式就能实现好的设计。</code></pre>
+
+<p><strong>实例1：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-comment">//设定数据库接口</span>
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Db</span>{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">realwork</span><span class="hljs-params">()</span>;</span>
+
+}
+
+<span class="hljs-comment">//设定工厂接口</span>
+
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Factory</span>{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">facWorking</span><span class="hljs-params">()</span>;</span>
+
+}
+
+<span class="hljs-comment">//MySQL实际功能类</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Mysql</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Db</span>{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">realWork</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'开始使用mysql'</span>;
+
+    }
+
+}
+
+<span class="hljs-comment">//Oracle</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Oracle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">db</span>{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">realWork</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'开始使用oracle'</span>;
+
+    }
+
+}
+
+<span class="hljs-comment">//NoSQL实际功能类</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Nosql</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">db</span>{</span>
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">realWork</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'开始使用nosql'</span>;
+
+    }
+
+}
+
+<span class="hljs-comment">//对外展示的MySQL工厂类</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FacMysql</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">factory</span>{</span>
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$database</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">facWorking</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span> = <span class="hljs-keyword">new</span> Mysql();
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span>-&gt;realWork();
+
+    }
+
+}
+
+<span class="hljs-comment">//对外展示的Oracle工厂类</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FacOracle</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">factory</span>{</span>
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$database</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">facWorking</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span> = <span class="hljs-keyword">new</span> Oracle();
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span>-&gt;realWork();
+
+    }
+
+}
+
+<span class="hljs-comment">//对外展示的NoSQL工厂类</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FacNosql</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">factory</span>{</span>
+
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$database</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">facWorking</span><span class="hljs-params">()</span>{</span>
+
+        <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span> = <span class="hljs-keyword">new</span> Nosql();
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::<span class="hljs-variable">$database</span>-&gt;realWork();
+
+    }
+
+}
+
+<span class="hljs-comment">//现在我想实现MySQL数据库的功能，但是我只需要调用MySQL的工厂类即可，我无法并且也没必要知道，实际类和方法的名字</span>
+
+<span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> facMysql();
+
+print_r(<span class="hljs-variable">$db</span>-&gt;facWorking()); <span class="hljs-comment">//output：开始使用MySQL</span>
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p><strong>实例2：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">IUser</span>
+{</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span><span class="hljs-params">()</span>;</span>
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IUser</span>
+{</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">( <span class="hljs-variable">$id</span> )</span> {</span> }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getName</span><span class="hljs-params">()</span>
+  {</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"Jack"</span>;
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserFactory</span>
+{</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Create</span><span class="hljs-params">( <span class="hljs-variable">$id</span> )</span>
+  {</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User( <span class="hljs-variable">$id</span> );
+  }
+}
+
+<span class="hljs-variable">$uo</span> = UserFactory::Create( <span class="hljs-number">1</span> );
+<span class="hljs-keyword">echo</span>( <span class="hljs-variable">$uo</span>-&gt;getName().<span class="hljs-string">"\n"</span> );
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

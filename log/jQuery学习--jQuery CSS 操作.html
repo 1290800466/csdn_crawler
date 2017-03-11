@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2 style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="line-height:1.8em"><span style="font-size:18px; color:#ff0000">jQuery 操作 CSS</span></span></h2>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+addClass() - 向被选元素添加一个或多个类</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+removeClass() - 从被选元素删除一个或多个类</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+toggleClass() - 对被选元素进行添加/删除类的切换操作</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+css() - 设置或返回样式属性</li></ul><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+实例样式表</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+下面的样式表将用于本页的所有例子：</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+.important<br/>&#13;
+{<br/>&#13;
+font-weight:bold;<br/>&#13;
+font-size:xx-large;<br/>&#13;
+}<br/><br/>&#13;
+.blue<br/>&#13;
+{<br/>&#13;
+color:blue;<br/>&#13;
+}</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery addClass() 方法</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+向不同的元素添加 class 属性。在添加类时，您也可以选取多个元素：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("button").click(function(){<br/>&#13;
+  $("h1,h2,p").addClass("blue");<br/>&#13;
+  $("div").addClass("important");<br/>&#13;
+});</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+您也可以在 addClass() 方法中规定多个类：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("button").click(function(){<br/>&#13;
+  $("#div1").addClass("important blue");<br/>&#13;
+});</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery removeClass() 方法</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+下面的例子演示如何在不同的元素中删除指定的 class 属性：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("button").click(function(){<br/>&#13;
+  $("h1,h2,p").removeClass("blue");<br/>&#13;
+});</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery toggleClass() 方法</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+下面的例子将展示如何使用 jQuery toggleClass() 方法。该方法对被选元素进行添加/删除类的切换操作：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("button").click(function(){<br/>&#13;
+  $("h1,h2,p").toggleClass("blue");<br/>&#13;
+});</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+jQuery css() 方法</h2>&#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:2em; font-size:12px">css() 方法设置或返回被选元素的一个或多个样式属性。</span></h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+</p>&#13;
+<div class="article-body" style="border:0px; margin:0px; padding:10px 10px 20px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<div class="article-intro" id="content" style="border:0px; margin:0px; padding:0px">&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em">&#13;
+返回 CSS 属性</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+如需返回指定的 CSS 属性的值，请使用如下语法：</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+css("<em>propertyname</em>");</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的例子将返回首个匹配元素的 background-color 值：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; color:rgb(0,0,0); background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("p").css("background-color");</div>&#13;
+</div>&#13;
+<br/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em">&#13;
+设置 CSS 属性</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+如需设置指定的 CSS 属性，请使用如下语法：</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+css("<em>propertyname</em>","<em>value</em>");//css的value值可以用方法代替</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的例子将为所有匹配元素设置 background-color 值：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; color:rgb(0,0,0); background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("p").css("background-color","yellow");</div>&#13;
+</div>&#13;
+<br/><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; background-color:rgb(212,212,212)"/><h2 style="border:0px; margin:2px 0px; padding:0px; font-size:1.8em; line-height:1.8em">&#13;
+设置多个 CSS 属性</h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+如需设置多个 CSS 属性，请使用如下语法：</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+css({"<em>propertyname</em>":"<em>value</em>","<em>propertyname</em>":"<em>value</em>",...});</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的例子将为所有匹配元素设置 background-color 和 font-size：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; color:rgb(0,0,0); background-color:rgb(229,238,204)">&#13;
+<div class="example_code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+$("p").css({"background-color":"yellow","font-size":"200%"});</div>&#13;
+</div>&#13;
+</div>&#13;
+</div>&#13;
+<div class="previous-next-links" style="border-width:1px 0px; border-top-style:solid; border-bottom-style:solid; border-top-color:rgb(239,239,239); border-bottom-color:rgb(239,239,239); margin:0px; padding:10px 30px; overflow:hidden; color:rgb(204,204,204); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background:rgb(251,251,251)">&#13;
+</div>&#13;
+<br/><p/>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

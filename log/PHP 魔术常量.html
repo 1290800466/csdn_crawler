@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><br/>&#13;
+1、  __LINE__   获取文件中的当前行号。<br/><br/>&#13;
+       实例: <br/><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+echo "这是第 ". __LINE__ ."行";
+echo "&lt;br/&gt;";
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+2、  __FILE__   获取文件的完整路径和文件名，如果用在被包含文件中，则返回被包含的文件名。<br/>&#13;
+       实例:<br/><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+echo "该文件的绝对路径： ". __FILE__;
+echo "&lt;br/&gt;";
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+3、    __DIR__  获取文件所在的目录。如果用在被包括文件中，则返回被包括的文件所在的目录。<br/>&#13;
+         实例:<br/><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+echo "该文件位于 ". __DIR__ ."文件夹下";
+echo "&lt;br/&gt;";
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+4、 __FUNCTION__  获取该函数被定义时的名字（区分大小写），只返回函数名<br/>&#13;
+      实例:<br/><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+function Test() {
+echo  "该函数名为：". __FUNCTION__ ;
+echo "&lt;br/&gt;";
+}
+Test();
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+5、  __CLASS__  获取该类被定义时的名字（区分大小写）<br/>&#13;
+       实例:<br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+class test {
+function show() {
+echo "该类名为：". __CLASS__ . "&lt;br&gt;";
+echo "该函数名为：". __FUNCTION__ ;
+echo "&lt;br/&gt;";
+}
+}
+$t = new test();
+$t-&gt;show();
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">6、   __METHOD__    获取该方法被定义时的名字（区分大小写）,若该函数在类中，则返回 类方法名称，</span></p>&#13;
+<p><span style="font-size:18px">        即：  类名::方法名。</span></p>&#13;
+<span style="font-size:18px">实例:<br/><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+function test1() {
+echo  "该函数名为：". __METHOD__ ;
+echo "&lt;br/&gt;";
+}
+test1();
+?&gt;
+&lt;?php 
+class chhua{     
+    function test(){   
+        //返回类方法的名称      
+        echo __METHOD__;
+    } 
+}    
+$e=new chhua();    
+$e-&gt;test();//输出：chhua::test
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2 style="padding:8px 0px 16px; margin:0px; font-size:26px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<br/></h2>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+1.如果要对已存在的控制器进行二次开发，为了方便升级不建议直接对内核文件直接修改该，您可以通过"MY_*.php"的形式进行二次开发。</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+例如您要对改phpcms/mood/index.php进行二次开发。您可以在与index.php同级的目录下建立"MY_index.php" </p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+MY_index.php代码如下</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+ </p>&#13;
+<blockquote style="padding:10px; margin:10px; border:1px solid rgb(204,204,204); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px; background-color:rgb(247,247,247)">&#13;
+<span class="pln" style="padding:0px; margin:0px"> </span>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"/><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">&lt;?</span><span class="pln" style="padding:0px; margin:0px">php</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> </span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"> </span>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px">　　</span><span class="kwd" style="padding:0px; margin:0px; color:rgb(0,0,136)">class</span><span class="pln" style="padding:0px; margin:0px"> MY_index </span><span class="kwd" style="padding:0px; margin:0px; color:rgb(0,0,136)">extends</span><span class="pln" style="padding:0px; margin:0px"> index</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">{</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> 　　　　</span><span class="kwd" style="padding:0px; margin:0px; color:rgb(0,0,136)">function</span><span class="pln" style="padding:0px; margin:0px"> __construct</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">()</span><span class="pln" style="padding:0px; margin:0px"> </span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">{</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> 　　　　　　parent</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">::</span><span class="pln" style="padding:0px; margin:0px">__construct</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">();</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> 　　　　</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">}</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> </span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"> </span>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px">　　　　</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">……</span><span class="pln" style="padding:0px; margin:0px">your code</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/>&#13;
+<div style="padding:0px; margin:0px"><span class="pln" style="padding:0px; margin:0px"> </span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">}</span></div>&#13;
+<span class="pln" style="padding:0px; margin:0px"/></blockquote>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+这样当您通过url访问index控制器的时候，系统会默认指向MY_index.php 并且原文件的方法将被继承，可以直接使用。</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

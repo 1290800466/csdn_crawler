@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>使用实例：</strong></span></p>&#13;
+<p/><pre code_snippet_id="1558425" snippet_file_name="blog_20160117_1_1500970" name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;layDate 调用实例&lt;/title&gt;
+&lt;script src="laydate/laydate.js"&gt;&lt;/script&gt;
+&lt;style&gt;
+html{background-color:#E3E3E3; font-size:14px; color:#000; font-family:'微软雅黑'}
+h2{line-height:30px; font-size:20px;}
+a,a:hover{ text-decoration:none;}
+pre{font-family:'微软雅黑'}
+.box{width:970px; padding:10px 20px; background-color:#fff; margin:10px auto;}
+.box a{padding-right:20px;}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="width:970px; margin:10px auto;"&gt;
+    演示一：&lt;input placeholder="请输入日期" class="laydate-icon" onclick="laydate()"&gt;
+&lt;/div&gt;
+&lt;div class="box"&gt;
+&lt;pre&gt;
+&lt;strong&gt;【注意事项】&lt;/strong&gt;
+一、请千万勿移动laydate中的目录结构，它们具有完整的依赖体系。使用时，只需引入laydate/laydate.js即可。
+二、如果您的网站的js采用合并或模块加载，您需要打开laydate.js，修改path。
+三、laydate遵循LGPL开源协议，永不收费！
+四、版权最终解释权：贤心。
+&lt;/pre&gt;
+演示二：&lt;input class="laydate-icon" id="demo" value="2014-6-25更新"&gt;
+
+&lt;/br&gt;
+演示三：
+&lt;input class="laydate-icon" onclick="laydate()"&gt;&lt;/br&gt;
+这是是一个最简单的调用方式，它会把自身作为目标元素。除此之外，您还可以按照需求传入一些其它key，比如：&lt;/br&gt;
+演示四：
+&lt;input class="laydate-icon" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"&gt;&lt;/br&gt;
+
+那么对于输入框，如果用户乱填怎么办？没关系，laydate会智能纠错，你可以尝试在上述表单输入任意值，然后点击页面其它处测试一下。&lt;/br&gt;
+当然，您其实还可以设定任何html元素作为目标对象，又比如：&lt;div onclick="laydate()"&gt;&lt;/div&gt;&lt;/br&gt;
+        
+注意事项&lt;/br&gt;
+解压后，将laydate整个文件放至您项目的任意目录，不要移动其文件结构，它们具有完整的依赖体系。&lt;/br&gt;
+使用只需在页面引入laydate.js即可。&lt;/br&gt;
+如果您的网站的js采用合并或模块加载，您需要打开laydate.js，修改path。&lt;/br&gt;
+用于实际项目时请保留来源，勿剔除laydate.js头部注释。&lt;/br&gt;
+&lt;/br&gt;
+
+选择理由&lt;/br&gt;
+layDate除了包含日期范围限制、开始日期设定、自定义日期格式、时间戳转换、当天的前后若干天返回、&lt;/br&gt;时分秒选择、智能响应、自动纠错、节日识别，快捷键操作等常规功能外，还拥有更多趋近完美的解决方案。
+&lt;/br&gt;
+科学的接口设计1&lt;/br&gt;
+她并不提倡API的数量性，而是尽可能呈现最人性合理的接口，减少使用成本。&lt;/br&gt;
+一流的代码驱动2&lt;/br&gt;
+layDate完全用原生JavaScript实现，代码采用自由灵活风格，内部封装了众多轻量级的方法引擎，保证了良好的速度体验和接近于零的代码冗余.&lt;/br&gt;
+人性的皮肤体系3&lt;/br&gt;
+她非常注重外观设计，因此她提供了非常强大的皮肤选择支持，不仅官方会提供海量的皮肤下载，&lt;/br&gt;您还可以很方便地按照喜好去自定义皮肤，我们非常欢迎您能够贡献皮肤包，具体操作事宜请查看皮肤库页面。&lt;/br&gt;
+&lt;/br&gt;
+功能演示&lt;/br&gt;
+外部js调用：&lt;/br&gt;
+【外部js调用】&lt;/br&gt;
+&lt;input id="hello" class="laydate-icon"&gt;
+&lt;script&gt;
+laydate({
+    elem: '#hello', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+    event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+});
+&lt;/script&gt;
+&lt;/br&gt;
+图标触发日期：&lt;/br&gt;
+
+【图标触发日期】&lt;/br&gt;
+&lt;input id="hello1"&gt;
+&lt;span class="laydate-icon" onclick="laydate({elem: '#hello1'});"&gt;&lt;/span&gt;
+&lt;/br&gt;
+自定义日期格式：&lt;/br&gt;
+【自定义日期格式】&lt;/br&gt;
+&lt;div id="test1" class="laydate-icon"&gt;&lt;/div&gt;
+&lt;script&gt;
+laydate({
+    elem: '#test1',
+    format: 'YYYY/MM', // 分隔符可以任意定义，该例子表示只显示年月
+    festival: true, //显示节日
+    choose: function(datas){ //选择日期完毕的回调
+        alert('得到：'+datas);
+    }
+});
+&lt;/script&gt;&lt;/br&gt;
+日期范围限定在昨天到明天：&lt;/br&gt;
+【日期范围限定在昨天到明天】&lt;/br&gt;
+&lt;div id="hello3" class="laydate-icon"&gt;&lt;/div&gt;
+&lt;script&gt;
+laydate({
+    elem: '#hello3',
+    min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
+    max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
+});
+&lt;/script&gt;
+ &lt;/br&gt;       
+日期范围限制： 开始日： 结束日：&lt;/br&gt;
+
+开始日：&lt;li class="laydate-icon" id="start" style="width:200px; margin-right:10px;"&gt;&lt;/li&gt;&lt;/br&gt;
+结束日：&lt;li class="laydate-icon" id="end" style="width:200px;"&gt;&lt;/li&gt;
+&lt;script&gt;
+var start = {
+    elem: '#start',
+    format: 'YYYY/MM/DD hh:mm:ss',
+    min: laydate.now(), //设定最小日期为当前日期
+    max: '2099-06-16 23:59:59', //最大日期
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+         end.min = datas; //开始日选好后，重置结束日的最小日期
+         end.start = datas //将结束日的初始值设定为开始日
+    }
+};
+var end = {
+    elem: '#end',
+    format: 'YYYY/MM/DD hh:mm:ss',
+    min: laydate.now(),
+    max: '2099-06-16 23:59:59',
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+        start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+};
+laydate(start);
+laydate(end);
+&lt;/script&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+;!function(){
+
+//laydate.skin('molv');
+
+laydate({
+   elem: '#demo'
+})
+
+}();
+&lt;/script&gt;
+	&lt;b&gt;API文档临时版，后面会陆续整理详细资料：&lt;/b&gt;&lt;br/&gt;
+	一、核心方法：laydate(options);&lt;br/&gt;
+    options是一个对象，它包含了以下key: '默认值'&lt;br/&gt;
+        elem: '#id', //需显示日期的元素选择器&lt;br/&gt;
+        event: 'click', //触发事件&lt;br/&gt;
+        format: 'YYYY-MM-DD hh:mm:ss', //日期格式&lt;br/&gt;
+        istime: false, //是否开启时间选择&lt;br/&gt;
+        isclear: true, //是否显示清空&lt;br/&gt;
+        istoday: true, //是否显示今天&lt;br/&gt;
+        issure: true, 是否显示确认&lt;br/&gt;
+        festival: true //是否显示节日&lt;br/&gt;&lt;br/&gt;
+        min: '1900-01-01 00:00:00', //最小日期&lt;br/&gt;
+        max: '2099-12-31 23:59:59', //最大日期&lt;br/&gt;
+        start: '2014-6-15 23:00:00',    //开始日期&lt;br/&gt;
+        fixed: false, //是否固定在可视区域&lt;br/&gt;
+        zIndex: 99999999, //css z-index&lt;br/&gt;
+        choose: function(dates){ //选择好日期的回调&lt;br/&gt;
+
+        }&lt;br/&gt;
+    
+	二、其它方法/属性&lt;br/&gt;
+
+    laydate.v   //获取laydate版本号&lt;br/&gt;
+    laydate.skin(lib);  //加载皮肤，参数lib为皮肤名 &lt;br/&gt;
+    
+    /*&lt;br/&gt;
+        layer.now支持多类型参数。timestamp可以是前后若干天，也可以是一个时间戳。format为日期格式，为空时则采用默认的“-”分割。&lt;br/&gt;
+        如laydate.now(-2)将返回前天，laydate.now(3999634079890)将返回2096-09-28&lt;br/&gt;
+    */&lt;br/&gt;
+    layer.now(timestamp, format);   //该方法提供了丰富的功能，推荐灵活使用。&lt;br/&gt;
+    
+    laydate.reset();    //重设日历控件坐标，一般用于页面dom结构改变时。无参&lt;br/&gt;
+	
+	皮肤使用说明&lt;br/&gt;
+	下载皮肤包解压后，把整个文件夹存放在laydate/skins目录下，不要改动文件名。&lt;br/&gt;
+	比如您下载了雅兰（yalan），那么您只需要在您的js初始的时候执行：&lt;br/&gt;
+	laydate.skin('yalan')即可使用皮肤[雅兰]了。&lt;br/&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><span style="font-size:24px; color:#ff0000">laydate 代码下载网址：<a target="_blank" href="https://github.com/1290800466/mac_win/tree/master/laydate">https://github.com/1290800466/mac_win/tree/master/laydate</a></span>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;?php
+//PHP时间比较和时间差计算:
+//(1).比较两个绝对时间的大小
+header("Content-type: text/html; charset=utf-8"); 
+date_default_timezone_set('PRC');   
+$zero1=date("Y-m-d h:i:s");
+//$zero1="2010-11-29 21:07:00";   
+$zero2="2010-11-29 21:07:00";   
+echo "zero1的时间为：".$zero1."&lt;br&gt;";   
+echo "zero2的时间为：".$zero2."&lt;br&gt;";   
+// strtotime — 将任何英文文本的日期时间描述解析为 Unix 时间戳
+if(strtotime($zero1)&lt;strtotime($zero2)){   
+    echo "zero1早于zero2";   
+}else if(strtotime($zero1)&gt;strtotime($zero2)){   
+    echo "zero2早于zero1";   
+}else{   
+    echo "zero2等于zero1";   
+}
+echo "&lt;br/&gt;&lt;br/&gt;";      
+?&gt;
+&lt;?php   
+//(2).倒计时小程序
+$zero1=strtotime (date("y-m-d h:i:s")); //当前时间  ,注意H 是24小时 h是12小时 
+$zero2=strtotime ("2016-1-1 00:00:00");  //过年时间
+//float ceil ( float $value )
+//返回不小于 value 的下一个整数，value 如果有小数部分则进一位。
+$guonian=ceil(($zero2-$zero1)/86400); //60s*60min*24h   
+echo "离过年还有&lt;strong&gt;$guonian&lt;/strong&gt;天！";  
+echo "&lt;br/&gt;&lt;br/&gt;"; 
+?&gt;  
+&lt;?php
+//(3).PHP计算两个时间差的方法 
+$startdate=date("y-m-d H:i:s");
+$enddate="2015-7-30 18:00:00";
+// floor — 舍去法取整
+// float floor ( float $value )
+// 返回不大于 value 的最接近的整数，舍去小数部分取整。
+$date=floor((strtotime($enddate)-strtotime($startdate))/86400);
+$hour=floor((strtotime($enddate)-strtotime($startdate))%86400/3600);
+$minute=floor((strtotime($enddate)-strtotime($startdate))%86400/60);
+$second=floor((strtotime($enddate)-strtotime($startdate))%86400%60);
+echo "现在距结束时间还有".$date."天".$hour."小时".$minute."分钟".$second."秒";
+echo "&lt;br/&gt;&lt;br/&gt;";
+?&gt;</pre><br/></div>  </body>
+            </html>

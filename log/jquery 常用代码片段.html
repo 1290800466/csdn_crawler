@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>检测IE浏览器</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+
+      <span class="hljs-keyword">if</span> (navigator.userAgent.match(<span class="hljs-regexp">/msie/i</span>) ){ 
+
+        alert(<span class="hljs-string">'I am an old fashioned Internet Explorer'</span>); 
+
+      } 
+
+}); </code></pre>
+
+<p><strong>平滑滚动至页面顶部</strong></p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-string">"a[href='#top']"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+
+  $(<span class="hljs-string">"html, body"</span>).animate({ scrollTop: <span class="hljs-number">0</span> }, <span class="hljs-string">"slow"</span>); 
+
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; 
+
+}); </code></pre>
+
+<p><strong>保持始终处于顶部</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">$(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+    <span class="hljs-keyword">var</span> <span class="hljs-variable">$win</span> = $(window) 
+
+    <span class="hljs-keyword">var</span> <span class="hljs-variable">$nav</span> = $(<span class="hljs-string">'.mytoolbar'</span>); 
+
+    <span class="hljs-keyword">var</span> navTop = $(<span class="hljs-string">'.mytoolbar'</span>).length &amp;&amp; $(<span class="hljs-string">'.mytoolbar'</span>).offset().top; 
+
+    <span class="hljs-keyword">var</span> isFixed=<span class="hljs-number">0</span>; 
+
+    processScroll() 
+
+    <span class="hljs-variable">$win</span>.on(<span class="hljs-string">'scroll'</span>, processScroll) 
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processScroll</span><span class="hljs-params">()</span> {</span> 
+
+        <span class="hljs-keyword">var</span> i, scrollTop = <span class="hljs-variable">$win</span>.scrollTop() 
+
+        <span class="hljs-keyword">if</span> (scrollTop &gt;= navTop &amp;&amp; !isFixed) { 
+
+            isFixed = <span class="hljs-number">1</span> 
+
+            <span class="hljs-variable">$nav</span>.addClass(<span class="hljs-string">'subnav-fixed'</span>) 
+
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (scrollTop &lt;= navTop &amp;&amp; isFixed) { 
+
+            isFixed = <span class="hljs-number">0</span> 
+
+            <span class="hljs-variable">$nav</span>.removeClass(<span class="hljs-string">'subnav-fixed'</span>) 
+
+    } 
+
+} </code></pre>
+
+<p><strong>替换html标签</strong></p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-string">'li'</span>).replaceWith(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+  <span class="hljs-keyword">return</span> $(<span class="hljs-string">"&lt;div /&gt;"</span>).append($(<span class="hljs-keyword">this</span>).contents()); 
+
+}); </code></pre>
+
+<p><strong>检测屏幕宽度</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-keyword">var</span> responsive_viewport = $(window).width(); 
+
+<span class="hljs-comment">/* if is below 481px */</span> 
+
+<span class="hljs-keyword">if</span> (responsive_viewport &lt; <span class="hljs-number">481</span>) { 
+
+    alert(<span class="hljs-string">'Viewport is smaller than 481px.'</span>); 
+
+} <span class="hljs-comment">/* end smallest screen */</span> </code></pre>
+
+<p><strong>自动修复损坏图片</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-string">'img'</span>).error(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+$(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'src'</span>, <span class="hljs-string">'img/broken.png'</span>); 
+
+}); </code></pre>
+
+<p><strong>检测复制、粘贴与剪切操作</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-string">"#textA"</span>).bind(<span class="hljs-string">'copy'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+
+    $(<span class="hljs-string">'span'</span>).text(<span class="hljs-string">'copy behaviour detected!'</span>) 
+
+}); 
+
+$(<span class="hljs-string">"#textA"</span>).bind(<span class="hljs-string">'paste'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+
+    $(<span class="hljs-string">'span'</span>).text(<span class="hljs-string">'paste behaviour detected!'</span>) 
+
+}); 
+
+$(<span class="hljs-string">"#textA"</span>).bind(<span class="hljs-string">'cut'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span> 
+
+    $(<span class="hljs-string">'span'</span>).text(<span class="hljs-string">'cut behaviour detected!'</span>) 
+
+}); </code></pre>
+
+<p><strong>自动为外部链接添加target=“blank”属性</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript"><span class="hljs-keyword">var</span> root = location.protocol + <span class="hljs-string">'//'</span> + location.host; 
+
+$(<span class="hljs-string">'a'</span>).not(<span class="hljs-string">':contains(root)'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+    <span class="hljs-keyword">this</span>.target = <span class="hljs-string">"_blank"</span>; 
+
+}); </code></pre>
+
+<p><strong>悬停时淡入/淡出</strong></p>
+
+<pre class="prettyprint"><code class=" hljs javascript">$(document).ready(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+    $(<span class="hljs-string">".thumbs img"</span>).fadeTo(<span class="hljs-string">"slow"</span>, <span class="hljs-number">0.6</span>); <span class="hljs-comment">// This sets the opacity of the thumbs to fade down to 60% when the page loads </span>
+
+    $(<span class="hljs-string">".thumbs img"</span>).hover(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+        $(<span class="hljs-keyword">this</span>).fadeTo(<span class="hljs-string">"slow"</span>, <span class="hljs-number">1.0</span>); <span class="hljs-comment">// This should set the opacity to 100% on hover </span>
+
+    },<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span> 
+
+        $(<span class="hljs-keyword">this</span>).fadeTo(<span class="hljs-string">"slow"</span>, <span class="hljs-number">0.6</span>); <span class="hljs-comment">// This should set the opacity back to 60% on mouseout </span>
+
+    }); 
+
+}); </code></pre>
+
+<p><strong>禁用文本/密码输入中的空格</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs javascript">$(<span class="hljs-string">'input.nospace'</span>).keydown(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span> {</span> 
+
+<span class="hljs-keyword">if</span> (e.keyCode == <span class="hljs-number">32</span>) { 
+
+<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>; 
+
+} 
+
+}); </code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

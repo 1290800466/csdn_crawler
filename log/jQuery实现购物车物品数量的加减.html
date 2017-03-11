@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8" /&gt;
+&lt;title&gt;jQuery实现购物车物品数量的加减&lt;/title&gt;
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(function(){
+	var t = $("#text_box");
+	$("#add").click(function(){		
+		t.val(parseInt(t.val())+1)
+		setTotal();
+	})
+	$("#min").click(function(){
+		t.val(parseInt(t.val())-1)
+		if(parseInt(t.val())&lt;0){ 
+			t.val(0); 
+		} 
+		setTotal();
+	})
+	function setTotal(){
+	//toFixed(2) 表示保留两位小数
+		$("#total").html((parseInt(t.val())*4).toFixed(2));
+	}
+	setTotal();
+})
+&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;单价：4&lt;/p&gt;
+&lt;input id="min" name="" type="button" value="-" 
+	style="width:20px;height:20px;margin-top:12px;background:#468CD4;text-align:center;color:#ffffff;"/&gt;
+&lt;input id="text_box" name="" type="text" value="4" readonly= "true" 
+	style="width:30px;height:19px; margin-top:12px; border:1px solid #ccc; text-align:center; color:#000;"/&gt;
+&lt;input id="add" name="" type="button" value="+" 
+	style="width:20px;height:20px; margin-top:12px; background:#468CD4; text-align:center;color:#ffffff;"/&gt;
+&lt;p&gt;总价：&lt;label id="total"&gt;&lt;/label&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+&#13;
+                      </div>  </body>
+            </html>

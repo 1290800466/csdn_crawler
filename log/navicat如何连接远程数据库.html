@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>navicat装在机器A上，ip地址为ipa。mysql数据库装在机器B上，ip地址为ipb。</p>
+
+<p>1、进入机器B中mysql数据库的命令行，输入</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">grant</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">on</span> *.*  <span class="hljs-keyword">to</span> <span class="hljs-string">'root'</span>@<span class="hljs-string">'ipa'</span>  identified <span class="hljs-keyword">by</span> <span class="hljs-string">'password'</span>;</span></code></pre>
+
+<p>其中ipa为被授权机器A的ip地址，password为机器B中mysql数据库的密码。</p>
+
+<p>2、在机器A的navicat中，建立新的连接，输入机器B的ip地址，机器B中mysql数据库的port，username，password，然后test connection，成功则可。若仍不成功，检查机器B中mysql数据库的配置，包括端口是否匹配，服务是否开启等等。 </p>
+
+<p><img src="http://img.blog.csdn.net/20160818182655886" alt="这里写图片描述" title=""/></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

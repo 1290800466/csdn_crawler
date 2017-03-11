@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="line-height:1.8em; color:rgb(51,51,51)"><span style="font-size:18px">文档就绪事件</span></span></h1>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+所有 jQuery 函数位于一个 document ready 函数中：</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+$(document).ready(function(){<br/><br/>&#13;
+   <em>// 此处填写页面加载完成后要执行的操作</em><br/><br/>&#13;
+});</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+这是为了防止文档在完全加载（就绪）之前运行 jQuery 代码。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如果在文档没有完全加载之前就运行函数，操作可能失败。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<strong>提示：</strong>简洁写法（与以上写法效果相同）:</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+$(function(){<br/><br/>&#13;
+   <em><span style="color:rgb(68,68,68); font-family:'courier new'; font-size:13.2px; background-color:rgb(246,244,240)"><em>// 此处填写页面加载完成后要执行的操作</em></span></em><br/><br/>&#13;
+});</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+以上两种方式你可以选择你喜欢的方式实现文档就绪后执行jQuery方法。</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

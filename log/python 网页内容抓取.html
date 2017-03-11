@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>使用模块： <br/>
+import urllib2 <br/>
+import urllib</p>
+
+<p><strong>普通抓取实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+<span class="hljs-keyword">import</span> urllib2
+
+url = <span class="hljs-string">'http://www.baidu.com'</span>
+
+<span class="hljs-comment">#创建request对象</span>
+request = urllib2.Request(url)
+
+<span class="hljs-comment">#发送请求，获取结果</span>
+<span class="hljs-keyword">try</span>:
+    response = urllib2.urlopen(request)
+<span class="hljs-keyword">except</span> BaseException, err:
+    <span class="hljs-keyword">print</span> err
+    exit()
+
+<span class="hljs-comment">#获取状态码，如果是200表示获取成功</span>
+code = response.getcode()
+<span class="hljs-keyword">print</span> code
+<span class="hljs-comment">#读取内容</span>
+<span class="hljs-keyword">if</span> <span class="hljs-number">200</span> == code:
+    content = response.read() 
+    <span class="hljs-keyword">print</span> content</code></pre>
+
+<p><strong>Get请求抓取实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+<span class="hljs-keyword">import</span> urllib2
+<span class="hljs-keyword">import</span> urllib
+
+<span class="hljs-comment">#urllib2使用GET方式的请求</span>
+url = <span class="hljs-string">'http://www.baidu.com/s'</span>
+values = {<span class="hljs-string">'wd'</span> : <span class="hljs-string">'车云'</span>}    
+
+<span class="hljs-comment"># 必须编码  </span>
+data = urllib.urlencode(values) 
+url = url + <span class="hljs-string">'?'</span> + data 
+<span class="hljs-keyword">print</span> url
+<span class="hljs-comment">#url == http://www.baidu.com/s?wd=%E8%BD%A6%E4%BA%91</span>
+<span class="hljs-comment">#创建request对象</span>
+request = urllib2.Request(url)
+
+<span class="hljs-comment">#发送请求，获取结果</span>
+<span class="hljs-keyword">try</span>:
+    response = urllib2.urlopen(request)
+<span class="hljs-keyword">except</span> BaseException, err:
+    <span class="hljs-keyword">print</span> err
+    exit()
+
+<span class="hljs-comment">#获取状态码，如果是200表示获取成功</span>
+code = response.getcode()
+<span class="hljs-keyword">print</span> code
+
+<span class="hljs-comment">#读取内容</span>
+<span class="hljs-keyword">if</span> <span class="hljs-number">200</span> == code:
+    content = response.read() 
+    <span class="hljs-keyword">print</span> content
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

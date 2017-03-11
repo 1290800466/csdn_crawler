@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>grep 是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs rsl">grep [-acinv] [--<span class="hljs-keyword">color</span>=auto] <span class="hljs-string">'查找字符串'</span> filename  </code></pre>
+
+<p>参数：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby">a ：将binary文件以text文件的方式查找数据
+</span>-<span class="ruby">c ：计算找到‘查找字符串’的次数
+</span>-<span class="ruby">i ：忽略大小写的区别，即把大小写视为相同
+</span>-<span class="ruby">n ：顺便输出行号
+</span>-<span class="ruby">v ：反向选择，即显示出没有‘查找字符串’内容的那一行
+</span>-<span class="ruby">l ：只显示匹配的文件，不显示具体内容
+</span>-<span class="ruby">f&lt;规则文件&gt; <span class="hljs-symbol">:</span> 指定规则文件，其内容含有一个或多个规则样式，让grep查找符合规则条件的文件内容，格式为每行一个规则样式。   </span></code></pre>
+
+<p>实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-shell hljs perl"><span class="hljs-comment">#取出文件/etc/man.config中包含MANPATH关键词的行，并把找到的关键字加上颜色</span>
+<span class="hljs-keyword">grep</span> --color=auto MANPATH /etc/man.config
+
+<span class="hljs-comment">#把ls -l的输出中包含字母file（不区分大小写）的内容输出</span>
+ls -l | <span class="hljs-keyword">grep</span> -i file
+
+<span class="hljs-comment">#在文件 '/var/log/messages'中查找关键词"Aug" </span>
+<span class="hljs-keyword">grep</span> Aug /var/<span class="hljs-keyword">log</span>/messages 
+
+<span class="hljs-comment">#在文件 '/var/log/messages'中查找以"Aug"开始的行</span>
+<span class="hljs-keyword">grep</span> ^Aug /var/<span class="hljs-keyword">log</span>/messages 
+
+<span class="hljs-comment">#选择 '/var/log/messages' 文件中所有包含数字的行 </span>
+<span class="hljs-keyword">grep</span> [<span class="hljs-number">0</span>-<span class="hljs-number">9</span>] /var/<span class="hljs-keyword">log</span>/messages 
+
+<span class="hljs-comment">#在目录 '/var/log' 及随后的目录中搜索字符串"Aug" (递归查找)</span>
+<span class="hljs-keyword">grep</span> Aug -R /var/<span class="hljs-keyword">log</span>/* 
+
+<span class="hljs-comment">#在当前目录搜索带'energywise'行的文件</span>
+<span class="hljs-keyword">grep</span> <span class="hljs-string">'energywise'</span> *           
+
+<span class="hljs-comment">#在当前目录及其子目录下搜索'energywise'行的文件</span>
+<span class="hljs-keyword">grep</span> -r <span class="hljs-string">'energywise'</span> *   
+
+<span class="hljs-comment">#查找指定进程</span>
+ps -ef|<span class="hljs-keyword">grep</span> svn
+
+<span class="hljs-comment">#从文件中读取关键词进行搜索,输出test.txt文件中含有从test2.txt文件中读取出的关键词的内容行</span>
+cat test.txt | <span class="hljs-keyword">grep</span> -f test2.txt
+</code></pre>
+
+<p><strong>grep与正规表达式：</strong></p>
+
+<p>字符类的搜索：如果我想要搜寻 test 或 taste 这两个单字时，可以发现到，其实她们有共通的 ‘t?st’ 存在～这个时候，我可以这样来搜寻：</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'t[ae]st'</span> regular_express.txt</code></pre>
+
+<p>其实 [] 里面不论有几个字节，他都谨代表某『一个』字节， 所以，上面的例子说明了，我需要的字串是『tast』或『test』两个字串而已！</p>
+
+<p>字符类的反向选择 [^] ：如果想要搜索到有 oo 的行，但不想要 oo 前面有 g，如下</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'[^g]oo'</span> regular_express.txt</code></pre>
+
+<p>字符类的连续：再来，假设我 oo 前面不想要有小写字节，</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'[^a-z]oo'</span> regular_express.txt</code></pre>
+
+<p>当我们在一组集合字节中，如果该字节组是连续的，例如大写英文/小写英文/数字等等， 就可以使用[a-z],[A-Z],[0-9]等方式来书写，那么如果我们的要求字串是数字与英文呢？ 呵呵！就将他全部写在一起，变成：[a-zA-Z0-9]。</p>
+
+<p>我们要取得有数字的那一行，就这样：</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'[0-9]'</span> regular_express.txt</code></pre>
+
+<p>行首与行尾字节 ^ $ <br/>
+行首字符：如果我想要让 the 只在行首列出呢？ 这个时候就得要使用定位字节了！我们可以这样做：</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'^the'</span> regular_express.txt</code></pre>
+
+<p>开头是小写字节的那一行就列出呢？可以这样：</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'^[a-z]'</span> regular_express.txt</code></pre>
+
+<p>我不想要开头是英文字母，则可以是这样：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'^[^a-zA-Z]'</span> regular_express.txt</code></pre>
+
+<p>^ 符号，在字符类符号(括号[])之内与之外是不同的！ 在 [] 内代表『反向选择』，在 [] 之外则代表定位在行首的意义！</p>
+
+<p>行尾结束为小数点 (.) 的那一行：</p>
+
+<pre class="prettyprint"><code class=" hljs perl"><span class="hljs-keyword">grep</span> -n <span class="hljs-string">'\.$'</span> regular_express.txt</code></pre>
+
+<p>特别注意到，因为小数点具有其他意义(底下会介绍)，所以必须要使用转义字符()来加以解除其特殊意义！</p>
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor">#找出空白行</span>
+grep -n <span class="hljs-string">'^$'</span> regular_express.txt</code></pre>
+
+<p>任意一个字节 . 与重复字节 *</p>
+
+<p>. (小数点)：代表『一定有一个任意字节』的意思； <br/>
+* (星号)：代表『重复前一个字符， 0 到无穷多次』的意思，为组合形态</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">#需要找出 g??d 的字串，亦即共有四个字节， 起头是 g 而结束是 d ，我可以这样做：</span>
+grep -n <span class="hljs-string">'g..d'</span> regular_express.txt
+
+<span class="hljs-comment">#查找至少两个 o 以上的字串,『o*』代表的是：『拥有空字节或一个 o 以上的字节』</span>
+grep -n <span class="hljs-string">'ooo*'</span> regular_express.txt
+
+<span class="hljs-comment">#想要字串开头与结尾都是 g，但是两个 g 之间仅能存在至少一个 o ，亦即是 gog, goog, gooog.... 等等</span>
+grep -n <span class="hljs-string">'goo*g'</span> regular_express.txt
+
+<span class="hljs-comment">#找出 g 开头与 g 结尾的行，当中的字符可有可无</span>
+grep -n <span class="hljs-string">'g.*g'</span> regular_express.txt
+
+<span class="hljs-comment">#找到两个 o 的字串，可以是：</span>
+grep -n <span class="hljs-string">'o\{2\}'</span> regular_express.txt
+
+<span class="hljs-comment">#找出 g 后面接 2 到 5 个 o ，然后再接一个 g 的字串，他会是这样：</span>
+grep -n <span class="hljs-string">'go\{2,5\}g'</span> regular_express.txt
+
+<span class="hljs-comment">#2 个 o 以上的 goooo....g 呢？除了可以是 goo*g ，也可以</span>
+grep -n <span class="hljs-string">'go\{2,\}g'</span> regular_express.txt
+
+<span class="hljs-comment">#从多个文件中查找关键词</span>
+grep <span class="hljs-string">'linux'</span> test.txt test2.txt </code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

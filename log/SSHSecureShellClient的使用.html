@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>windows系统SSHSecureShellClient与VMware Workstation虚拟机中Linux系统的连接步骤：</strong></span></p>&#13;
+<p><span style="font-size:18px">1、在windows系统中安装VMware Workstation虚拟机和SSHSecureShellClient客户端</span></p>&#13;
+<p><span style="font-size:18px">2、在VMware Workstation虚拟机中安装Linux操作系统</span></p>&#13;
+<p><span style="font-size:18px">3、打开Linux系统，将虚拟机“网络适配器”设置为 “NAT模式” （在此模式下，Linux系统IP网段和windows系统IP网段一致（要保证一致）），设备状态 勾选“已连接”和“启动时连接”，如下图所示：</span></p>&#13;
+<p><img src="http://img.blog.csdn.net/20150610113020471?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="900" height="600" alt=""/><br/></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">4、打开Linux命令窗口，输入命令 ifconfig  查看系统 IP（Linux自动获取IP）</span></p>&#13;
+<p><span style="font-size:18px">注意：若输入ifconfig  后没有显示IP，可关闭Linux系统，点击 “编辑”--&gt;”虚拟网络编辑器“ --&gt;点击”恢复默认设置“， 如下图所示     </span><span style="font-size:18px">等恢复完成后，重新打开Linux操作系统，执行第3步</span></p>&#13;
+<p><img src="http://img.blog.csdn.net/20150610114222760?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="900" height="600" alt=""/><br/></p>&#13;
+<p><span style="font-size:18px">5、在windows平台下打开SSH Secure Shell Client客户端，点击”Quick Connect“  ，弹出”Connect to Remote Host“窗口，将获得的Linux系统IP、Linux账户输入下图输入框中，点击"Connect",</span><span style="font-size:18px">弹出密码输入框，输入Linux密码，即可连接Linux系统。连接完成后即可将该客户端作为Linux命令窗口使用。</span></p>&#13;
+<p><img src="http://img.blog.csdn.net/20150610114914765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="400" alt=""/><br/></p>&#13;
+<p><span style="font-size:18px">注意：若SSH Secure Shell Client客户端与Linux连接失败，打开Linux命令窗口，输入  service sshd restart     回车，重启sshd服务。</span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">6、在windows平台下打开SSH Secure File Transfer Client客户端，点击”Quick Connect“  ，弹出”Connect to Remote Host“窗口，将获得的Linux系统IP、Linux账户输入下图输入框中，点击"Connect", 弹出密码输入框，输入Linux密码，即可连接Linux系统。连接完成后即可将该客户端作Linux系统与windows系统文件互传使用。</span></p>&#13;
+<p><img src="http://img.blog.csdn.net/20150610133128818?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="450" alt=""/><br/></p>&#13;
+<br/><br/><p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>在多表查询中，一些SQL开发人员更喜欢使用WHERE来做join，比如：</p>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> a.ID, b.Name, b.<span class="hljs-keyword">Date</span> <span class="hljs-keyword">FROM</span> Customers a, Sales b <span class="hljs-keyword">WHERE</span> a.ID = b.ID;</span></code></pre>
+
+<p>缺点：在上面语句中，实际上是创建了两张表的笛卡尔积，所有可能的组合都会被创建出来。在笛卡尔连接中，在上面的例子中，如果有1000顾客和1000条销售记录，这个查询会先产生1000000个结果，然后通过正确的 ID过滤出1000条记录。 这是一种低效利用数据库资源，数据库多做100倍的工作。 在大型数据库中，笛卡尔连接是一个大问题，对两个大表的笛卡尔积会创建数10亿或万亿的记录。 </p>
+
+<p><font color="red"><strong>为了避免创建笛卡尔积，应该使用INNER JOIN ：</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class="language-sql hljs "><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> a.ID, b.Name, b.<span class="hljs-keyword">Date</span> <span class="hljs-keyword">FROM</span> Customers a <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> Sales b <span class="hljs-keyword">ON</span> a.ID = b.ID;</span></code></pre>
+
+<p>优点：如上面语句，使用inner  join 这样数据库就只产生等于ID 的1000条目标结果。增加了查询效率。</p>
+
+<p>有些数据库系统会识别出 WHERE连接并自动转换为 INNER JOIN。在这些数据库系统中，WHERE 连接与INNER JOIN 就没有性能差异。但是， INNER JOIN 是所有数据库都能识别的，因此DBA会建议在你的环境中使用它。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbscript">INNER <span class="hljs-built_in">JOIN</span>（内连接,或等值连接）：获取两个表中字段匹配关系的记录。
+<span class="hljs-built_in">LEFT</span> <span class="hljs-built_in">JOIN</span>（左连接）：获取左表所有记录，即使右表没有对应匹配的记录。
+<span class="hljs-built_in">RIGHT</span> <span class="hljs-built_in">JOIN</span>（右连接）： 与 <span class="hljs-built_in">LEFT</span> <span class="hljs-built_in">JOIN</span> 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。</code></pre>
+
+<p>注意： <br/>
+1、INNER JOIN  等同于  JOIN； <br/>
+2、示意图： <br/><img src="http://img.blog.csdn.net/20160922141254574" alt="这里写图片描述" title=""/><img src="http://img.blog.csdn.net/20160922141308449" alt="这里写图片描述" title=""/><img src="http://img.blog.csdn.net/20160922141317481" alt="这里写图片描述" title=""/></p>
+
+<p><img src="http://img.blog.csdn.net/20160923101208087" alt="这里写图片描述" title=""/></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

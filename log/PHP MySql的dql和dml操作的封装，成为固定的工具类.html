@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<p><span style="font-size:18px">mysql_class.php:</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+    class SqlTool{
+        private $conn;
+        private $host="localhost";
+        private $user="root";
+        private $password="111111";
+        private $db="test";
+        function SqlTool(){
+            $this-&gt;conn=mysql_connect($this-&gt;host,$this-&gt;user,$this-&gt;password);
+            if(!$this-&gt;conn){
+                die("对不起，连接数据库失败&lt;br/&gt;错误原因:".mysql_error());
+            }
+            mysql_select_db($this-&gt;db,$this-&gt;conn);//选择数据库
+            mysql_query("set names utf8");
+        }
+        //实现对 dql语句：select  的封装
+        public function execute_dql($sql){
+            //执行数据库dql语句，即查询操作
+            $res=mysql_query($sql,$this-&gt;conn) or die("查询失败，失败原因".mysql_error());
+            return $res;
+        }
+        //实现对 dml语句：update,delete ,insert 的封装
+        public function execute_dml($sql){
+            $b=mysql_query($sql,$this-&gt;conn);
+            if(!$b){
+                //return 0; //运行失败
+                echo "对不起，操作失败";
+            }else{
+                //受影响，返回行数；不受影响，返回-1
+                if(mysql_affected_rows($this-&gt;conn)&gt;0){
+                    //return 1; //运行成功
+                    echo "操作成功！";
+                }else{
+                    //return 2; //成功，但没有影响行数
+                    echo "操作成功，但是行数没有受到影响";
+                }
+            }
+            //关闭连接
+            mysql_close($this-&gt;conn);
+        }   
+    }
+?&gt;
+&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">调用上面文件生成的类，实现数据库的增删改查操作：</span></p>&#13;
+<pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+    require_once "mysql_class.php";//引入SqlTool的类文件
+     
+    /************************dml操作******************************/
+    /*//添加数据
+    $sql="insert into test (name,id,class,age) values('xuning_a',md5('78989'),'xiaohei@qq.com',18)";//Sql语句
+    $SqlTool=new SqlTool();
+    $res=$SqlTool-&gt;execute_dml($sql);
+    */
+    //删除数据
+    /*
+    $sql="delete from test1 where id = 21";//Sql语句
+    $SqlTool=new SqlTool();
+    $res=$SqlTool-&gt;execute_dml($sql);
+    */
+    //修改数据
+    //$sql="update test set age=1000 where id=2";//Sql语句
+    //$SqlTool=new SqlTool();
+    //$res=$SqlTool-&gt;execute_dml($sql);
+    //dml操作，不需要再释放资源，只要最后关闭链接即可
+    /**********************dql操作*********************************/
+    //查询操作
+    $sql="select * from test";
+    $SqlTool=new SqlTool();
+    $res=$SqlTool-&gt;execute_dql($sql);     
+    while($row=mysql_fetch_row($res)){  //显示所有的用户数据
+        foreach($row as $key =&gt;$val){
+            echo "$key=&gt;"."$val"."    ";
+        }
+        echo "&lt;br/&gt;";
+    }
+    //dql操作要释放资源，并关闭链接
+    mysql_free_result($res);
+?&gt;
+&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/></span><br/></div>  </body>
+            </html>

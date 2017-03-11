@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong><span style="color:#00ff"><span style="color:#000000">1、</span></span>安装Apache</strong></span></p>&#13;
+<p><span style="font-size:18px"><strong>2、下载PHP包，解压到某文件夹。</strong></span></p>&#13;
+<p><span style="font-size:18px"><strong>注意：PHP<span style="font-family:宋体">包不需安装，解压即可</span>，注意Windows下安装的PHP包内部一定包含<span style="color:#333333; background:rgb(255,255,255)">php5apache</span><span style="color:#333333; background:rgb(255,255,255)">2_4</span><span style="color:#333333; background:rgb(255,255,255)">.dll文件，若没有说明下载错误，重新查找下载。</span><br/></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong>3、PHP与Apache的整合：<br/></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">         首先</span><span style="color:#333333; background:rgb(255,255,255)">，</span><span style="color:#333333; background:rgb(255,255,255)">修改Apache的配置文件，让Apache支持解析PHP文件，Apache配置文件在Apache安装目录的conf目录下的httpd.conf，打开此文件，找到#LoadModule，在这个下面添加</span><span style="color:#333333; background:rgb(255,255,255)">：（让</span><span style="color:#333333; background:rgb(255,255,255)">Apache载入PHP 处理模块</span><span style="color:#333333; background:rgb(255,255,255)">）</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">LoadModule</span><span style="color:#333333; background:rgb(255,255,255)"> </span><span style="color:#333333; background:rgb(255,255,255)">php5_module "</span><span style="color:#333333; background:rgb(255,255,255)">PHP安装路径</span><span style="color:#333333; background:rgb(255,255,255)">/</span><span style="color:#333333; background:rgb(255,255,255)">php5apache</span><span style="color:#333333; background:rgb(255,255,255)">x_x</span><span style="color:#333333; background:rgb(255,255,255)">.dll"</span><span style="color:#333333; background:rgb(255,255,255)">(示Apache版本而定)</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">PHPIniDir "</span><span style="color:#333333; background:rgb(255,255,255)">PHP安装路径</span><span style="color:#333333; background:rgb(255,255,255)">"</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">AddType application/x-httpd-php .php .phtml</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">        然后</span><span style="color:#333333; background:rgb(255,255,255)">，</span><span style="color:#333333; background:rgb(255,255,255)">在httpd.conf这个配置文件中找到</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">　　　　　DirectoryIndex index.html</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">　　　　　 改为</span></strong></span></p>&#13;
+<p style="background:rgb(255,255,255)"><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">　　　　　DirectoryIndex </span><span style="color:#333333; background:rgb(255,255,255)">index.php</span><span style="color:#333333; background:rgb(255,255,255)"> index.html（设置默认访问地址，可有可无）</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">        最后，</span><span style="color:#333333; background:rgb(255,255,255)">配置php，将php.ini-development改名为php.ini，作为PHP的配置文件，打开这个配置文件设置PHP扩展包的具体目录，找到</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">; On windows:　　　　　　　　</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">; extension_dir = "ext"</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">改为 (值是ext文件夹的目录)</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">; On windows:　　　　　　　　 </span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">extension_dir = "</span><span style="color:#333333; background:rgb(255,255,255)">PHP安装目录</span><span style="color:#333333; background:rgb(255,255,255)">/ext"</span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)"> </span></strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><span style="color:#333333; background:rgb(255,255,255)">之后测试，成功！ .PHP 仍放在Apache文件的htdocs 目录下！<br/></span></strong></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2><span style="font-size:14px">1、行内元素：</span></h2>&#13;
+<p><span style="font-size:14px">又叫内联元素；只能容纳文本或者其他内联元素，常见内联元素&lt;span&gt;、</span></p>&#13;
+<p><span style="font-size:14px">&lt;a&gt;、&lt;input type=””&gt;</span></p>&#13;
+<h2><span style="font-size:14px">2、块元素：</span></h2>&#13;
+<p><span style="font-size:14px">         块元素一般都从新行打开，可以容纳文本，其他内联元素和其他块元素，即使内容不能占满一行，块元素也要把整行占满。常见块元素&lt;div&gt;、&lt;p&gt;、&lt;<span style="background:rgb(249,249,249)">h1&gt;</span></span></p>&#13;
+<h2><span style="font-size:14px">3、块元素和行内元素的区别：</span></h2>&#13;
+<p><span style="font-size:14px">行内元素只占内容的宽度，而且他不会占据整行； 块元素不管内容多少都要占据整行，而且会换行显示 。</span></p>&#13;
+<p><span style="font-size:14px">一些css属性对行内元素不生效，比如：margin,left,right,width,height. 建议尽可能使用块元素定位。（与浏览器类型版本有关）</span></p>&#13;
+<h2><span style="font-size:14px">4、块元素和行内元素相互转换：</span></h2>&#13;
+<p><span style="font-size:14px">         Display:inline;       将块元素转化为行内元素</span></p>&#13;
+<p><span style="font-size:14px">         Display:block;       将行内元素转化为块元素</span></p>&#13;
+<h2><span style="font-size:14px">5、css文件的相互引用：</span></h2>&#13;
+<p><span style="font-size:14px">如果希望在a.css文件中使用到b.css c.css文件的选择器，可以通过@import指令来完成。         例：@import url(new.css);</span></p>&#13;
+<p><span style="font-size:14px">如果希望在html或者PHP文件中引用某个xxx.css文件，也可以在&lt;style&gt;标签中通过@import指令来完成。例：</span></p>&#13;
+<p><span style="font-size:14px">&lt;style&gt;@import url(第3讲.css); &lt;/style&gt;</span></p>&#13;
+<h2><span style="font-size:14px">6、标准流和非标准流：</span></h2>&#13;
+<p><span style="font-size:14px">         流：HTML元素在网页中显示的顺序。</span></p>&#13;
+<p><span style="font-size:14px">         标准流：在html文件中，写在前面的元素在前面显示，写在后面的html元素在后面显示。</span></p>&#13;
+<p align="left"><span style="font-size:14px">         非标准流:在html文件中，当某个元素脱离标准流（比如相对定位）,那么他就处于非标准流。</span></p>&#13;
+<p><span style="font-size:14px"> <img src="http://img.blog.csdn.net/20150518105800910?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="340" height="400" alt=""/></span></p>&#13;
+<p><span style="font-size:14px"> 实例：</span></p>&#13;
+<p><span style="font-size:14px"/></p><pre name="code" class="html">&lt;!DOCTYPE html&gt; 
+&lt;!-- &lt;!DOCTYPE&gt; 声明是文档中的第一个成分，位于 &lt;html&gt; 标签之前。该标签告知浏览器文档所使用的 HTML 规范。此处为HTML 5 规范 --&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;第三讲代码：&lt;/title&gt;
+&lt;style&gt;@import url(第3讲.css); &lt;/style&gt;  &lt;!-- 和下句意义相同，可替换下句 --&gt;
+&lt;!-- &lt;link rel="stylesheet" type="text/css" href="第3讲.css" &gt; --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;span&gt;行内元素1&lt;/span&gt;
+&lt;span&gt;行内元素2&lt;/span&gt;
+&lt;span&gt;行内元素3&lt;/span&gt;
+
+&lt;div class="s1"&gt;块元素1&lt;/div&gt;
+&lt;div class="s1"&gt;块元素2&lt;/div&gt;
+&lt;div class="s1"&gt;块元素3&lt;/div&gt;
+&lt;div &gt;块元素4&lt;/div&gt;
+&lt;br&gt;
+
+&lt;!-- div在布局中起到控制整个内容显示位置的作用，也就是用来定位的！
+ --&gt;
+&lt;b&gt;2、盒子模型的浮动&lt;/b&gt;&lt;br&gt;
+&lt;div class="s2"&gt;
+
+&lt;!--ul在布局中的作用是可以控制显示内容的多少--&gt;
+&lt;ul class="s3"&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;li&gt;&lt;img src="asd.png"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>&#13;
+<p><span style="background-color:rgb(255,255,255)"><strong>第3讲.css</strong></span></p>&#13;
+<p><span style="background-color:rgb(255,255,255)"><strong/></span></p><pre name="code" class="css">@import url(new.css);  /* 如果希望在a.css文件中使用到b.css  c.css文件的选择器，可以通过@import指令来完成 */
+
+.s3{
+	width:500px;
+	height:400px;
+	border:2px solid yellow;  
+	list-style-type:none;  /* 设置列表项所使用的预设标记，none表示无标记 */
+	/* padding-left:-500px; */
+	padding-left:2px;
+	margin-top:5px;
+	margin-left:5px;
+}</pre>new.css&#13;
+<p><span style="background-color:rgb(255,255,255)"><strong/></span></p><pre name="code" class="css">span{
+	border:2px solid red;
+	display:block;   /* 将行内元素转化为块元素 */
+
+}
+
+div{
+	border:2px solid green;
+	/* display:inline;  */ /* 将块元素转化为行内元素 */
+}
+.s1{
+	border:2px solid green;
+	display:inline;  /* 将块元素转化为行内元素 */
+}
+
+
+body{
+	border:3px solid yellow;
+	width:50%;
+	height:50%;
+	margin:0 auto;  /*  第一个用于上下，第二个用于左右，auto表示自动居中。  水平居中 */
+ 	text-align:center; /*  body中所有元素居中 */
+}
+
+.s2{
+	border:2px solid red;
+
+}
+
+img{
+	border:2px solid  red;
+
+}
+
+li img{
+	width:50px;
+	height:50px;
+	padding:1px;	
+	margin:2px;
+}
+li{
+	
+ float:left; /* 左浮动 */
+ width:60px;
+ height:60px;
+ border:3px solid #600000;
+ padding:1px;
+ margin:2px;
+ margin-top:5px;
+
+ }</pre>&#13;
+<br/></div>  </body>
+            </html>

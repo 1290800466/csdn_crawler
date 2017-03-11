@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+1、设置redis.conf中daemonize为yes,确保守护进程开启。</p>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+2、编写开机自启动脚本</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">vi /etc/init.d/redis</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+脚本内容如下：</p>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+</p><pre code_snippet_id="1697741" snippet_file_name="blog_20160526_1_3312712" name="code" class="cpp"># chkconfig: 2345 10 90  
+# description: Start and Stop redis   
+  
+PATH=/usr/local/bin:/sbin:/usr/bin:/bin   
+# redis端口号
+REDISPORT=6379  
+# redis-server所在目录的绝对路径
+EXEC=/usr/apk/redis-2.8.17/redis-server   
+# redis-cli所在目录的绝对路径
+REDIS_CLI=/usr/apk/redis-2.8.17/redis-cli   
+ 
+PIDFILE=/var/run/redis.pid   
+# redis.conf所在目录的绝对路径
+CONF="/usr/apk/redis-2.8.17/redis.conf"  
+AUTH="nginx"  
+
+case "$1" in   
+        start)   
+                if [ -f $PIDFILE ]   
+                then   
+                        echo "$PIDFILE exists, process is already running or crashed."  
+                else  
+                        echo "Starting Redis server..."  
+                        $EXEC $CONF   
+                fi   
+                if [ "$?"="0" ]   
+                then   
+                        echo "Redis is running..."  
+                fi   
+                ;;   
+        stop)   
+                if [ ! -f $PIDFILE ]   
+                then   
+                        echo "$PIDFILE exists, process is not running."  
+                else  
+                        PID=$(cat $PIDFILE)   
+                        echo "Stopping..."  
+                       $REDIS_CLI -p $REDISPORT  SHUTDOWN    
+                        sleep 2  
+                       while [ -x $PIDFILE ]   
+                       do  
+                                echo "Waiting for Redis to shutdown..."  
+                               sleep 1  
+                        done   
+                        echo "Redis stopped"  
+                fi   
+                ;;   
+        restart|force-reload)   
+                ${0} stop   
+                ${0} start   
+                ;;   
+        *)   
+               echo "Usage: /etc/init.d/redis {start|stop|restart|force-reload}" &gt;&amp;2  
+                exit 1  
+esac
+</pre><br/><p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+3、写完后保存退出VI</p>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+4、设置权限</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">chmod <span style="color:rgb(128,0,128); line-height:1.5!important">755</span> redis</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+5、启动测试</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">/etc/init.d/redis start</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+启动成功会提示如下信息：</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important"><span style="line-height:1.5!important">Starting Redis server...
+Redis </span><span style="color:rgb(0,0,255); line-height:1.5!important">is</span> running...</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+使用redis-cli测试：</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">[root@rk ~]# /usr/redisbin/redis-<span style="line-height:1.5!important">cli
+</span><span style="color:rgb(128,0,128); line-height:1.5!important">127.0</span>.<span style="color:rgb(128,0,128); line-height:1.5!important">0.1</span>:<span style="color:rgb(128,0,128); line-height:1.5!important">6379</span>&gt; <span style="color:rgb(0,0,255); line-height:1.5!important">set</span><span style="line-height:1.5!important"> foo bar
+OK
+</span><span style="color:rgb(128,0,128); line-height:1.5!important">127.0</span>.<span style="color:rgb(128,0,128); line-height:1.5!important">0.1</span>:<span style="color:rgb(128,0,128); line-height:1.5!important">6379</span>&gt; <span style="color:rgb(0,0,255); line-height:1.5!important">get</span><span style="line-height:1.5!important"> foo
+</span><span style="color:rgb(128,0,0); line-height:1.5!important">"</span><span style="color:rgb(128,0,0); line-height:1.5!important">bar</span><span style="color:rgb(128,0,0); line-height:1.5!important">"</span>
+<span style="color:rgb(128,0,128); line-height:1.5!important">127.0</span>.<span style="color:rgb(128,0,128); line-height:1.5!important">0.1</span>:<span style="color:rgb(128,0,128); line-height:1.5!important">6379</span>&gt; exit</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+6、设置开机自启动</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">chkconfig redis on</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+7、关机重启测试</p>&#13;
+<div class="cnblogs_code" style="word-wrap:break-word; border:1px solid rgb(204,204,204); padding:5px; overflow:auto; margin:5px 0px; font-family:'Courier New'!important; background-color:rgb(245,245,245)">&#13;
+<pre style="margin-top:0px; margin-bottom:0px; white-space:pre-wrap; word-wrap:break-word; font-family:'Courier New'!important">reboot</pre>&#13;
+</div>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+然后在用redis-cli测试即可。</p>&#13;
+<p style="margin:10px auto; font-family:'black Verdana',Arial,Helvetica,sans-serif; font-size:14px; line-height:21px">&#13;
+<br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

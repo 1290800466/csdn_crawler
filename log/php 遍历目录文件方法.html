@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">/**********************
+一个简单的目录递归函数
+第一种实现办法：用dir返回对象
+***********************/</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">tree</span><span class="hljs-params">(<span class="hljs-variable">$directory</span>)</span> {</span> 
+    <span class="hljs-keyword">if</span>(is_dir(<span class="hljs-variable">$directory</span>)) {
+        <span class="hljs-comment">//返回一个 Directory 类实例</span>
+        <span class="hljs-variable">$mydir</span> = dir(<span class="hljs-variable">$directory</span>);
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;ul&gt;\n"</span>;
+        <span class="hljs-comment">//从目录句柄中读取条目</span>
+        <span class="hljs-keyword">while</span>(<span class="hljs-variable">$file</span> = <span class="hljs-variable">$mydir</span>-&gt;read()) {
+            <span class="hljs-keyword">if</span>(is_dir(<span class="hljs-string">"$directory/$file"</span>) &amp;&amp; <span class="hljs-variable">$file</span> != <span class="hljs-string">"."</span> &amp;&amp; <span class="hljs-variable">$file</span> != <span class="hljs-string">".."</span>) {
+                <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;li&gt;&lt;font color=\"#ff00cc\"&gt;&lt;b&gt;$file&lt;/b&gt;&lt;/font&gt;&lt;/li&gt;\n"</span>;
+                <span class="hljs-comment">//递归读取目录 </span>
+                tree(<span class="hljs-string">"$directory/$file"</span>);
+            } <span class="hljs-keyword">elseif</span> (<span class="hljs-variable">$file</span> != <span class="hljs-string">"."</span> &amp;&amp; <span class="hljs-variable">$file</span> != <span class="hljs-string">".."</span>) {
+                <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;li&gt;$file&lt;/li&gt;\n"</span>;
+            }
+
+        }
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;/ul&gt;\n"</span>;
+        <span class="hljs-comment">// 释放目录句柄</span>
+        <span class="hljs-variable">$mydir</span>-&gt;close();
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$directory</span> . <span class="hljs-string">'&lt;br&gt;'</span>;
+    }
+
+} 
+<span class="hljs-comment">//开始运行</span>
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;h2&gt;目录为粉红色&lt;/h2&gt;&lt;br&gt;\n"</span>; 
+tree(<span class="hljs-string">"../www.test.com"</span>); </span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-preprocessor">&lt;?php</span> 
+<span class="hljs-comment">/***********************
+第二种实现办法：用readdir()函数
+************************/</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listDir</span><span class="hljs-params">(<span class="hljs-variable">$dir</span>)</span> {</span>
+    <span class="hljs-keyword">if</span>(is_dir(<span class="hljs-variable">$dir</span>)) {
+        <span class="hljs-comment">//打开目录句柄</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$dh</span> = opendir(<span class="hljs-variable">$dir</span>)) {
+            <span class="hljs-comment">//从目录句柄中读取条目</span>
+            <span class="hljs-keyword">while</span> ((<span class="hljs-variable">$file</span> = readdir(<span class="hljs-variable">$dh</span>)) !== <span class="hljs-keyword">false</span>) {
+                <span class="hljs-keyword">if</span>(is_dir(<span class="hljs-variable">$dir</span>.<span class="hljs-string">"/"</span>.<span class="hljs-variable">$file</span>) &amp;&amp; <span class="hljs-variable">$file</span>!=<span class="hljs-string">"."</span> &amp;&amp; <span class="hljs-variable">$file</span>!=<span class="hljs-string">".."</span>) {
+                    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;b&gt;&lt;font color='red'&gt;文件名：&lt;/font&gt;&lt;/b&gt;"</span>,<span class="hljs-variable">$file</span>,<span class="hljs-string">"&lt;br&gt;&lt;hr&gt;"</span>;
+                    listDir(<span class="hljs-variable">$dir</span>.<span class="hljs-string">"/"</span>.<span class="hljs-variable">$file</span>.<span class="hljs-string">"/"</span>);
+                }
+                <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$file</span> != <span class="hljs-string">"."</span> &amp;&amp; <span class="hljs-variable">$file</span> != <span class="hljs-string">".."</span>) {
+                        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$file</span>.<span class="hljs-string">"&lt;br&gt;"</span>;
+                    }
+                }
+            }
+            closedir(<span class="hljs-variable">$dh</span>);
+        }
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$dir</span> . <span class="hljs-string">'&lt;br&gt;'</span>;
+    }
+}
+<span class="hljs-comment">//开始运行</span>
+listDir(<span class="hljs-string">"../www.test.com"</span>);
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p>以数组形式返回整个文件夹中多重文件</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">/**
+     * Create a Directory Map
+     *
+     * Reads the specified directory and builds an array
+     * representation of it. Sub-folders contained with the
+     * directory will be mapped as well.
+     *
+     *<span class="hljs-phpdoc"> @param</span>   string  $source_dir        Path to source
+     *<span class="hljs-phpdoc"> @param</span>   int $directory_depth   Depth of directories to traverse
+     *                      (0 = fully recursive, 1 = current dir, etc)
+     *<span class="hljs-phpdoc"> @param</span>   bool    $hidden            Whether to show hidden files
+     *<span class="hljs-phpdoc"> @return</span>  array
+     */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">directory_map</span><span class="hljs-params">(<span class="hljs-variable">$source_dir</span>, <span class="hljs-variable">$directory_depth</span> = <span class="hljs-number">0</span>, <span class="hljs-variable">$hidden</span> = FALSE)</span>
+    {</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$fp</span> = @opendir(<span class="hljs-variable">$source_dir</span>))
+        {
+            <span class="hljs-variable">$filedata</span>  = <span class="hljs-keyword">array</span>();
+            <span class="hljs-variable">$new_depth</span>	= <span class="hljs-variable">$directory_depth</span> - <span class="hljs-number">1</span>;
+            <span class="hljs-variable">$source_dir</span>	= rtrim(<span class="hljs-variable">$source_dir</span>, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+            <span class="hljs-keyword">while</span> (<span class="hljs-keyword">FALSE</span> !== (<span class="hljs-variable">$file</span> = readdir(<span class="hljs-variable">$fp</span>)))
+            {
+                <span class="hljs-comment">// Remove '.', '..', and hidden files [optional]</span>
+                <span class="hljs-keyword">if</span> (<span class="hljs-variable">$file</span> === <span class="hljs-string">'.'</span> <span class="hljs-keyword">OR</span> <span class="hljs-variable">$file</span> === <span class="hljs-string">'..'</span> <span class="hljs-keyword">OR</span> (<span class="hljs-variable">$hidden</span> === <span class="hljs-keyword">FALSE</span> &amp;&amp; <span class="hljs-variable">$file</span>[<span class="hljs-number">0</span>] === <span class="hljs-string">'.'</span>))
+                {
+                    <span class="hljs-keyword">continue</span>;
+                }
+
+                is_dir(<span class="hljs-variable">$source_dir</span>.<span class="hljs-variable">$file</span>) &amp;&amp; <span class="hljs-variable">$file</span> .= DIRECTORY_SEPARATOR;
+
+                <span class="hljs-keyword">if</span> ((<span class="hljs-variable">$directory_depth</span> &lt; <span class="hljs-number">1</span> <span class="hljs-keyword">OR</span> <span class="hljs-variable">$new_depth</span> &gt; <span class="hljs-number">0</span>) &amp;&amp; is_dir(<span class="hljs-variable">$source_dir</span>.<span class="hljs-variable">$file</span>))
+                {
+                    <span class="hljs-variable">$filedata</span>[<span class="hljs-variable">$file</span>] = directory_map(<span class="hljs-variable">$source_dir</span>.<span class="hljs-variable">$file</span>, <span class="hljs-variable">$new_depth</span>, <span class="hljs-variable">$hidden</span>);
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-variable">$filedata</span>[] = <span class="hljs-variable">$file</span>;
+                }
+            }
+
+            closedir(<span class="hljs-variable">$fp</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$filedata</span>;
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">FALSE</span>;
+    }
+
+    <span class="hljs-variable">$aa</span> = directory_map(<span class="hljs-string">'../www.test.com'</span>);
+    var_dump(<span class="hljs-variable">$aa</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

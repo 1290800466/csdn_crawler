@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>方法一： </strong> <br/><strong>window.name 跨域：</strong> <br/><strong>原理：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs coffeescript">name 在浏览器环境中是一个全局<span class="hljs-built_in">window</span>对象的属性，在一个窗口中赋了<span class="hljs-built_in">window</span>.name之后，无论怎么刷新该窗口其<span class="hljs-built_in">window</span>.name属性都不会变。但<span class="hljs-built_in">window</span>.name 属性仅对相同域名的 iframe 可访问。
+
+因此我们可以在异域目标页面将要获取的数据赋值给<span class="hljs-built_in">window</span>.name ,此时对该窗口进行换域，换成本域url，此时本域即可访问赋值的<span class="hljs-built_in">window</span>.name值</code></pre>
+
+<p>实例：</p>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">//异域页面赋值：www.ueditor.com</span>
+window.name=<span class="hljs-string">''</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">select_list</span><span class="hljs-params">(modelid, id)</span> {</span>
+    <span class="hljs-keyword">var</span> modeid = modelid + <span class="hljs-string">'n'</span> + id;
+    <span class="hljs-keyword">var</span> result = window.name;
+        <span class="hljs-keyword">if</span>(result ==<span class="hljs-string">''</span> ) {
+            window.name = modeid;
+        }
+ }</code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-javascript hljs "><span class="hljs-comment">//本域对异域进行换域并取值</span>
+<span class="hljs-comment">//proxy_url 相当于代理页面，可以为空文件，放在本域任意目录下即可</span>
+<span class="hljs-keyword">var</span> proxy_url = <span class="hljs-string">'http://www.baidu.com/wzlist_example/proxy.html'</span>;
+<span class="hljs-comment">//换域</span>
+iframe.src = proxy_url;
+<span class="hljs-keyword">if</span> (iframe.attachEvent){
+    iframe.attachEvent(<span class="hljs-string">"onload"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-comment">//取值</span>
+        result = iframe.contentWindow.name;
+    });
+} <span class="hljs-keyword">else</span> {
+    iframe.onload = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-comment">////取值</span>
+        result = iframe.contentWindow.name;
+    };
+}
+
+
+</code></pre>
+
+<p><strong>window.name 的优势：</strong> <br/>
+数据量更大（2M） <br/>
+更安全 <br/>
+可传递多种数据格式 <br/>
+可跨所有域，主域、子域均可跨 <br/><strong>window.name 的劣势：</strong> <br/>
+只适用于隐藏iframe的情形（因中间过程需要换域，若换域后iframe仍显示则页面发生了变化，不在是原来页面）</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs "/></pre>
+
+<p><strong>方法二：</strong> <br/><strong>document.domain跨域：</strong></p>
+
+<p>document.domain方式只能跨主域相同的页面</p>
+
+<p>主域相同的页面只要 document.domain 相同即可互相访问 <br/>
+a页面： <br/>
+a.html (<a href="http://a.xxx.com/js/crossdomain/demo/a.htm">http://a.xxx.com/js/crossdomain/demo/a.htm</a>)</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://www.w3.org/1999/xhtml"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">http-equiv</span>=<span class="hljs-value">"Content-Type"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"text/html; charset=utf-8"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"message"</span>&gt;</span>这是高层的密码！<span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"test"</span>&gt;</span>看看员工在说什么<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>员工们：<span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">iframe</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"http://b.xxx.com/js/crossdomain/demo/b.htm"</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"500"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"300"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"iframe"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">iframe</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+   document.domain = <span class="hljs-string">"jiaju.com"</span>;
+   document.getElementByI d(<span class="hljs-string">"test"</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(document.getElementByI d(<span class="hljs-string">"iframe"</span>).contentWindow.document.getElementByI d(<span class="hljs-string">"message"</span>).value);
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+<p>b页面 <br/>
+b.html ((<a href="http://b.xxx.com/com/js/crossdomain/demo/b.htm">http://b.xxx.com/com/js/crossdomain/demo/b.htm</a> ))</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">xmlns</span>=<span class="hljs-value">"http://www.w3.org/1999/xhtml"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">http-equiv</span>=<span class="hljs-value">"Content-Type"</span> <span class="hljs-attribute">content</span>=<span class="hljs-value">"text/html; charset=utf-8"</span> /&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>JSONP方式<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"/js/jquery-1.5.1.min.js"</span>&gt;</span><span class="javascript"/><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">textarea</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"message"</span>&gt;</span>这是员工的密码！<span class="hljs-tag">&lt;/<span class="hljs-title">textarea</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"test"</span>&gt;</span>看看领导在说什么<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span>/&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    document.domain = <span class="hljs-string">"jiaju.com"</span>;
+    document.getElementByI d(<span class="hljs-string">"test"</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        alert(parent.document.getElementByI d(<span class="hljs-string">"message"</span>).value);
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+<p>两个域都设置：document.domain=‘jiaju.com’</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

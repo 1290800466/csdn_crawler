@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>Redis hash 是一个string类型的field和value的映射表，hash特别适合用于存储对象。 <br/>
+Redis 中每个 hash 可以存储 2的32次方 - 1 键值对（40多亿）。 <br/>
+实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs nginx"><span class="hljs-title">redis</span> <span class="hljs-number">127.0.0.1:6379</span>&gt; hmset  w3ckey  name <span class="hljs-string">"redis tutorial"</span> description <span class="hljs-string">"redis basic commands for caching"</span> likes <span class="hljs-number">20</span> visitors <span class="hljs-number">23000</span>
+OK
+redis <span class="hljs-number">127.0.0.1:6379</span>&gt; hgetall  w3ckey
+
+<span class="hljs-number">1</span>) <span class="hljs-string">"name"</span>
+<span class="hljs-number">2</span>) <span class="hljs-string">"redis tutorial"</span>
+<span class="hljs-number">3</span>) <span class="hljs-string">"description"</span>
+<span class="hljs-number">4</span>) <span class="hljs-string">"redis basic commands for caching"</span>
+<span class="hljs-number">5</span>) <span class="hljs-string">"likes"</span>
+<span class="hljs-number">6</span>) <span class="hljs-string">"20"</span>
+<span class="hljs-number">7</span>) <span class="hljs-string">"visitors"</span>
+<span class="hljs-number">8</span>) <span class="hljs-string">"23000"</span></code></pre>
+
+<p>在以上实例中，我们设置了 redis 的一些描述信息(name, description, likes, visitors) 到哈希表的 w3ckey 中。 <br/><strong>Redis hash 命令:</strong> <br/><em>1、 hdel key field2 [field2]</em>  <br/>
+删除一个或多个哈希表字段 <br/><em>2、 hexists  key  field</em>  <br/>
+查看哈希表 key 中，指定的字段是否存在。 <br/><em>3、 hget  key  field</em>  <br/>
+获取存储在哈希表中指定字段的值。 <br/><em>4、 hgetall  key</em>  <br/>
+获取在哈希表中指定 key 的所有字段和值 <br/><em>5、 hincrby  key  field  increment</em>  <br/>
+为哈希表 key 中的指定字段的整数值加上增量 increment 。 <br/><em>6、 hincrbyfloat  key  field  increment</em>  <br/>
+为哈希表 key 中的指定字段的浮点数值加上增量 increment 。 <br/><em>7、 hkeys  key</em>  <br/>
+获取所有哈希表中的字段 <br/><em>8、 hlen  key</em>  <br/>
+获取哈希表中字段的数量 <br/><em>9、 hmget  key  field1  [field2]</em>  <br/>
+获取所有给定字段的值 <br/><em>10、    hmset  key  field1  value1  [field2  value2 ]</em>  <br/>
+同时将多个 field-value (域-值)对设置到哈希表 key 中。 <br/><em>11、    hset  key  field  value</em>  <br/>
+将哈希表 key 中的字段 field 的值设为 value 。 <br/><em>12、    hsetnx  key  field  value</em>  <br/>
+只有在字段 field 不存在时，设置哈希表字段的值。 <br/><em>13、    hvals  key</em>  <br/>
+获取哈希表中所有值 <br/><em>14、    hscan  key  cursor  [MATCH pattern] [COUNT count]</em>  <br/>
+迭代哈希表中的键值对。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

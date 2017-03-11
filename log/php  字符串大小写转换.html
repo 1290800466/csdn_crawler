@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>mb_convert_case</strong></font></p>
+
+<p>mb_convert_case — <strong>对字符串进行大小写转换</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mel">mb_convert_case ( <span class="hljs-keyword">string</span> <span class="hljs-variable">$str</span> , <span class="hljs-keyword">int</span> <span class="hljs-variable">$mode</span> [, <span class="hljs-keyword">string</span> <span class="hljs-variable">$encoding</span> = mb_internal_encoding() ] )</code></pre>
+
+<p>对一个 string 进行大小写转换，转换模式由 mode 指定。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">参数 :
+str  要被转换的 <span class="hljs-keyword">string</span>。
+mode  转换的模式。它可以是 MB_CASE_UPPER、 MB_CASE_LOWER 和 MB_CASE_TITLE 的其中一个。
+ MB_CASE_UPPER : 字符串全部大写
+ MB_CASE_LOWER : 字符串全部小写
+ MB_CASE_TITLE : 字符串各单词首字母大写
+encoding  参数为字符编码。如果省略，则使用内部字符编码。
+
+返回值 :
+按 mode 指定的模式转换 <span class="hljs-keyword">string</span> 大小写后的版本。
+</code></pre>
+
+<p><font color="green"><strong>注意：</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs scss">和类似 <span class="hljs-function">strtolower()</span>、<span class="hljs-function">strtoupper()</span> 的标准大小写转换函数相比， 大小写转换的执行根据 Unicode 字符属性的基础。 因此此函数的行为不受语言环境（locale）设置的影响，能够转换任意具有“字母”属性的字符，例如元音变音<span class="hljs-tag">A</span>（Ä）。</code></pre>
+
+<p>范例:</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-variable">$str</span> = <span class="hljs-string">"mary had a Little lamb and she loved it so"</span>;
+    <span class="hljs-variable">$str</span> = mb_convert_case(<span class="hljs-variable">$str</span>, MB_CASE_UPPER, <span class="hljs-string">"UTF-8"</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>; <span class="hljs-comment">// 输出 MARY HAD A LITTLE LAMB AND SHE LOVED IT SO</span>
+    <span class="hljs-variable">$str</span> = mb_convert_case(<span class="hljs-variable">$str</span>, MB_CASE_TITLE, <span class="hljs-string">"UTF-8"</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$str</span>; <span class="hljs-comment">// 输出 Mary Had A Little Lamb And She Loved It So</span>
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

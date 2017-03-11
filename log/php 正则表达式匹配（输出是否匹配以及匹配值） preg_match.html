@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>preg_match — 执行一个正则表达式匹配</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">preg_match ( <span class="hljs-variable">$pattern</span> , <span class="hljs-variable">$subject</span> , <span class="hljs-variable">$matches</span> )</code></pre>
+
+<p>搜索subject与pattern给定的正则表达式的一个匹配.</p>
+
+<p>参数 ：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cmake">pattern : 要搜索的模式，字符串类型(正则表达式)。
+subject : 输入的字符串。
+<span class="hljs-operator">matches</span> :（可有可无）如果提供了参数<span class="hljs-operator">matches</span>，它将被填充为搜索结果。 $<span class="hljs-operator">matches</span>[<span class="hljs-number">0</span>]将包含完整模式匹配到的文本， $<span class="hljs-operator">matches</span>[<span class="hljs-number">1</span>] 将包含第一个捕获子组匹配到的文本，以此类推。
+</code></pre>
+
+<p>返回值 ：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-function"><span class="hljs-title">preg_match</span><span class="hljs-params">()</span>返回 <span class="hljs-title">pattern</span> 的匹配次数。 它的值将是0次（不匹配）或1次，因为<span class="hljs-title">preg_match</span><span class="hljs-params">()</span>在第一次匹配后 将会停止搜索。<span class="hljs-title">preg_match_all</span><span class="hljs-params">()</span>不同于此，它会一直搜索<span class="hljs-title">subject</span> 直到到达结尾。 如果发生错误<span class="hljs-title">preg_match</span><span class="hljs-params">()</span>返回 FALSE。</span></code></pre>
+
+<p>实例1：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$label</span> = <span class="hljs-string">'content/112'</span>;
+<span class="hljs-variable">$a</span> = preg_match(<span class="hljs-string">'#content/(\d+)#i'</span>, <span class="hljs-variable">$label</span>, <span class="hljs-variable">$mc</span>);
+var_dump(<span class="hljs-variable">$a</span>);
+var_dump(<span class="hljs-variable">$mc</span>);
+
+输出：
+int(<span class="hljs-number">1</span>)
+<span class="hljs-keyword">array</span>(<span class="hljs-number">2</span>) {
+  [<span class="hljs-number">0</span>]=&gt;
+  string(<span class="hljs-number">11</span>) <span class="hljs-string">"content/112"</span>
+  [<span class="hljs-number">1</span>]=&gt;
+  string(<span class="hljs-number">3</span>) <span class="hljs-string">"112"</span>
+}
+</code></pre>
+
+<p>实例2：</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$label</span> = <span class="hljs-string">'content/112'</span>;
+<span class="hljs-variable">$a</span> = preg_match(<span class="hljs-string">'#(\w+)/(\d+)#i'</span>, <span class="hljs-variable">$label</span>, <span class="hljs-variable">$mc</span>);
+var_dump(<span class="hljs-variable">$a</span>);
+var_dump(<span class="hljs-variable">$mc</span>);
+
+输出：
+int(<span class="hljs-number">1</span>)
+<span class="hljs-keyword">array</span>(<span class="hljs-number">3</span>) {
+  [<span class="hljs-number">0</span>]=&gt;
+  string(<span class="hljs-number">11</span>) <span class="hljs-string">"content/112"</span>
+  [<span class="hljs-number">1</span>]=&gt;
+  string(<span class="hljs-number">7</span>) <span class="hljs-string">"content"</span>
+  [<span class="hljs-number">2</span>]=&gt;
+  string(<span class="hljs-number">3</span>) <span class="hljs-string">"112"</span>
+}
+</code></pre>
+
+<p>实例3：</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$label</span> = <span class="hljs-string">'content/112'</span>;
+<span class="hljs-variable">$a</span> = preg_match(<span class="hljs-string">'#content1111111/(\d+)#i'</span>, <span class="hljs-variable">$label</span>, <span class="hljs-variable">$mc</span>);
+var_dump(<span class="hljs-variable">$a</span>);
+var_dump(<span class="hljs-variable">$mc</span>);
+
+输出：
+int(<span class="hljs-number">0</span>)
+<span class="hljs-keyword">array</span>(<span class="hljs-number">0</span>) {
+}</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

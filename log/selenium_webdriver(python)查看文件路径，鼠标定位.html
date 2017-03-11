@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="background-color:rgb(240,240,240)">#coding=utf-8</span></p>&#13;
+<p/><pre name="code" class="python">from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+import time
+import os
+
+driver = webdriver.Firefox()
+#获取aaa.html的绝对路径
+file_path = os.path.abspath('aaa.html')
+print file_path
+driver.get(file_path)
+#点击Link1链接（弹出下拉列表）
+driver.find_element_by_xpath("html/body/div[1]/div/div/a").click()
+#在下拉列表中找到如下xpath路径对应元素
+menu = driver.find_element_by_xpath("//*[@id='dropdown1']/li[1]/a")
+time.sleep(3)
+#鼠标定位到该元素上
+webdriver.ActionChains(driver).move_to_element(menu).perform()
+time.sleep(3)
+driver.quit()</pre><br/><br/><br/></div>  </body>
+            </html>

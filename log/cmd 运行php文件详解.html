@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="color:rgb(255,0,0)"><strong><span style="font-family:SimSun; font-size:18px">配置php环境变量：</span></strong></span></p>&#13;
+<p><span style="font-family:SimSun; font-size:18px">    1、找到php的路径比如"D:/php"，没有安装的可以到官网下载http://www.php.net/downloads.php。<br/>&#13;
+    2、需要保证该目录下php.ini的配置是正确的，如果是刚下载的php包，则可能需要修改相应的一些配置：将php目录下的“php.ini-development”修改名为：php.ini（php.ini具体的配置方法，就不赘述）。<br/>&#13;
+    3、右击"我的电脑"-&gt;"属性"-&gt;选择"高级"标签页-&gt;点击"环境变量"-&gt;点击下面"系统变量"列表内 的"Path"-&gt;点击下面的"编辑"-&gt;在"变量值"最前处加上"D:/php;D:/php/ext;"-&gt;确定。<br/>&#13;
+    4、点击系统变量"编辑"按钮前面的"新建"按钮-&gt;在"变量名"后输入"PHPRC"-&gt;"变量值"输入"D:phpP" -&gt;确定<br/>&#13;
+    5、重启<br/>&#13;
+    6、在windows命令行中用php -h 命令测试一下环境变量是否配置正确，php能成功运行。<br/></span></p>&#13;
+<p><span style="font-family:SimSun; font-size:18px"><br/></span></p>&#13;
+<p><span style="color:rgb(255,0,0)"><strong><span style="font-family:SimSun; font-size:18px">运行php文件：</span></strong></span></p>&#13;
+<p><span style="font-family:SimSun; font-size:18px"/></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px">1、配置好环境变量后，打开cmd，进入php文件所在目录</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px">　　下面就可以直接执行php 脚本了</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px">　　如：php  test.php</span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px"><br/></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px">&#13;
+<span style="font-family:SimSun; font-size:18px"><span style="color:#ff0000; background-color:rgb(255,255,255)"><strong>PHP脚本执行超时的解决办法：</strong></span><br/>&#13;
+PHP默认脚本执行超时是 30 秒，这是由 php.ini 中的 max_execution_time 变量指定，服务器会在 30 秒后强行中止正在执行的程序，如要执行完运行时间大于30秒的脚本，可通过以下几种方法来解决：<br/><span style="color:#454545">（1）修改php.ini的脚本执行时间限制</span><br/><span style="color:#454545">编辑php.ini，修改max_execution_time值：</span><br/><span style="color:#454545">max_execution_time=500</span><br/><span style="color:#454545">//此修改需要重新加载php.ini，需要重启web服务器生效。</span><br/><span style="color:#454545">（2）通过.htaccess 文件设置脚本执行时间</span><br/><span style="color:#454545">php_value max_execution_time 500</span><br/><span style="color:#454545">（3）在脚本中设置执行的最大时间</span><br/><span style="color:#454545">ini_set('max_execution_time', 500);</span><br/><span style="color:#454545">（4）用php的函数取消脚本的时间限制</span><br/><span style="color:#454545">set_time_limit(0);</span><br/><span style="color:#454545">set_time_limit用来设置脚本的超时时间，此函数规定从该句运行时起程序必须在指定秒数内运行结束，超时则程序出错退出。</span><br/><span style="color:#454545">用法：set_time_limit(秒数);</span><br/><span style="color:#454545">//秒数为0时，标示该脚本没有时间限制。</span><br/></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px">&#13;
+</p>&#13;
+<h1 style="color:rgb(255,255,255); margin:0px; line-height:24px; list-style:none; padding:0px; border:none; outline:none 0px; width:730px; word-break:break-all; word-wrap:break-word">&#13;
+<span class="title text_overflow" style=""><span style="font-family:SimSun; font-size:18px">cmd运行带参数的php文件</span></span></h1>&#13;
+<h1 style="margin:0px; line-height:24px; list-style:none; padding:0px; border:none; outline:none 0px; width:730px; word-break:break-all; word-wrap:break-word">&#13;
+<span style="color:rgb(255,0,0)"><span style="font-family:SimSun; font-size:18px">cmd运行带参数的php文件：</span></span></h1>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px">php文件后空格+参数<br/>&#13;
+程序里用$argv[]来读参数<br/></span></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px"><span style="color:rgb(69,69,69); font-family:SimSun; font-size:18px">$argv 是包括所有传参的数组，是php的预定义变量</span><br/></span></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px"><span style="color:rgb(69,69,69); font-family:SimSun; font-size:18px">程序里用$argc来读参数个数</span><br/></span></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px">例：</span></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px"><span style="color:rgb(51,51,51); line-height:24px; background-color:rgb(245,245,245)">php -q D:\php5_site\s.php http://www.baidu.com</span><br/></span></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px"><span style="color:rgb(51,51,51); line-height:24px; background-color:rgb(245,245,245)"/></span></span><pre code_snippet_id="1628626" snippet_file_name="blog_20160330_1_4677764" name="code" class="php">&lt;span style="font-family:SimSun;font-size:18px;"&gt;&lt;?php
+$url = $argv[1];
+echo $url;
+?&gt;
+&lt;/span&gt;</pre><span style="font-family:SimSun; font-size:18px"><br/><br/></span></div>&#13;
+<div style="color:rgb(69,69,69)"><span style="color:rgb(69,69,69)"><span style="font-family:SimSun; font-size:18px"><br/></span></span></div>&#13;
+<p/>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px"><br/></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:24px; color:rgb(69,69,69)">&#13;
+<span style="font-family:SimSun; font-size:18px"><br/></span></p>&#13;
+<br/></div>  </body>
+            </html>

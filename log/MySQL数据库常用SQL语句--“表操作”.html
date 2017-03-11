@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">1、创建表'admin';</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="sql">CREATE TABLE admin(
+id INT(4),
+usr VARCHAR(8)
+);</pre>&#13;
+<p><span style="font-size:18px">2、删除表'admin'：</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="sql">DROP TABLE IF EXISTS admin;</pre>&#13;
+<p><span style="font-size:18px">3、修改表属性：修改表'admin'中列'id'的属性为 整型、主键、自增长：</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="sql">ALTER TABLE admin MODIFY id INT PRIMARY KEY AUTO_INCREMENT;</pre>&#13;
+<p/>&#13;
+<span style="font-size:18px">4、添加列：给表格'admin1'添加列‘pass’<br/></span><pre name="code" class="sql">ALTER TABLE admin1 ADD pass CHAR(10);</pre><span style="font-size:18px">5、删除列：删除表格'admin1'中的列‘pass’<br/></span><pre name="code" class="sql">ALTER TABLE admin1 DROP COLUMN pass;</pre><span style="font-size:18px">6、修改列名：将表格'admin1'中的列‘usr’改名为‘usr1’且列类型改为‘int’型，此处必须有列类型值<br/></span><pre name="code" class="sql">ALTER TABLE admin1 CHANGE usr usr1 INT(20);</pre><span style="font-size:18px">7、修改表名：将表格'admin1'改名为‘admin2’<br/></span><pre name="code" class="sql">ALTER TABLE admin1 RENAME admin2;</pre><span style="font-size:18px">8、查看数据库中表格：<br/></span><pre name="code" class="sql">SHOW TABLES;</pre><span style="font-size:18px">9、查看表结构：查看agent表的表结构<br/></span><pre name="code" class="sql">DESC agent;
+--或
+SHOW COLUMNS from agent;</pre><span style="font-size:18px">10、查看表创建语句：查看agent表的创建语句<br/></span><pre name="code" class="sql">SHOW CREATE TABLE agent;</pre><span style="font-size:18px">11、插入：向agent表中插入数据<br/></span><pre name="code" class="sql">INSERT INTO agent (id,name) VALUES (1,'wml');
+INSERT INTO agent VALUES (1,'wml');</pre><span style="font-size:18px">12、更新：更新agent表中的数据<br/></span><pre name="code" class="sql">UPDATE agent SET name='www' WHERE id=1;</pre><span style="font-size:18px">13、删除表中数据：删除agent表中的数据<br/></span><pre name="code" class="sql">DELETE FROM agent; --删除表中所有数据
+DELETE FROM agent WHERE id=1;  --删除表中一行数据</pre><span style="font-size:18px">14、清空表：清空agent表中的所有数据<br/></span><pre name="code" class="sql">TRUNCATE TABLE agent; </pre><span style="font-size:18px">15、查询表中数据：<br/></span><pre name="code" class="sql">SELECT * FROM agent;
+SELECT name FROM agent  WHERE id=1;</pre>&#13;
+<p><br/></p>&#13;
+<p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

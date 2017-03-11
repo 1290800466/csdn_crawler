@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>第一步：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-variable">$ </span>php -m  命令查看php是否安装pcntl 和 posix扩展，若没有则安装</code></pre>
+
+<p>使用场景：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs markdown"><span class="hljs-bullet">1. </span>要进行大量的网络耗时的操作
+
+<span class="hljs-bullet">2. </span>要做大量的运算，并且，系统有多个cpu，为了让用户有更快的体验，把一个任务，分成几个小任务，最后合并。</code></pre>
+
+<p>多进程常用函数：</p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">pcntl_alarm — 为进程设置一个alarm闹钟信号
+pcntl_errno — 别名 pcntl_strerror
+pcntl_exec — 在当前进程空间执行指定程序
+pcntl_fork — 创建子进程，在当前进程当前位置产生分支（子进程）。译注：fork是创建了一个子进程，父进程和子进程 都从fork的位置开始向下继续执行，不同的是父进程执行过程中，得到的fork返回值为子进程 号，而子进程得到的是<span class="hljs-number">0</span>。
+pcntl_get_last_error — Retrieve <span class="hljs-operator">the</span> error <span class="hljs-built_in">number</span> <span class="hljs-built_in">set</span> <span class="hljs-keyword">by</span> <span class="hljs-operator">the</span> <span class="hljs-keyword">last</span> pcntl <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">which</span> <span class="hljs-title">failed</span></span>
+pcntl_getpriority — 获取任意进程的优先级
+pcntl_setpriority — 修改任意进程的优先级
+pcntl_signal_dispatch — 调用等待信号的处理器
+pcntl_signal — 安装一个信号处理器
+pcntl_sigprocmask — 设置或检索阻塞信号
+pcntl_sigtimedwait — 带超时机制的信号等待
+pcntl_sigwaitinfo — 等待信号
+pcntl_strerror — Retrieve <span class="hljs-operator">the</span> <span class="hljs-keyword">system</span> error message associated <span class="hljs-operator">with</span> <span class="hljs-operator">the</span> given errno
+pcntl_wait — 等待或返回fork的子进程状态
+pcntl_waitpid — 等待或返回fork的子进程状态
+pcntl_wexitstatus — 返回一个中断的子进程的返回代码
+pcntl_wifexited — 检查状态代码是否代表一个正常的退出。
+pcntl_wifsignaled — 检查子进程状态码是否代表由于某个信号而中断
+pcntl_wifstopped — 检查子进程当前是否已经停止
+pcntl_wstopsig — 返回导致子进程停止的信号
+pcntl_wtermsig — 返回导致子进程中断的信号</code></pre>
+
+<p>实例一：</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//最早的进程，也是父进程</span>
+<span class="hljs-variable">$parentPid</span> = getmypid();
+<span class="hljs-keyword">echo</span> <span class="hljs-string">'原始父进程：'</span> . <span class="hljs-variable">$parentPid</span> . PHP_EOL;
+<span class="hljs-comment">//创建子进程,返回子进程id</span>
+<span class="hljs-variable">$pid</span> = pcntl_fork();
+
+<span class="hljs-keyword">if</span>( <span class="hljs-variable">$pid</span> == -<span class="hljs-number">1</span> ){
+    <span class="hljs-keyword">exit</span>(<span class="hljs-string">"fork error"</span>);
+}
+<span class="hljs-comment">//pcntl_fork 后，父进程返回子进程id，子进程返回0</span>
+<span class="hljs-keyword">echo</span> <span class="hljs-string">'ID : '</span> . <span class="hljs-variable">$pid</span> . PHP_EOL;
+
+<span class="hljs-keyword">if</span>( <span class="hljs-variable">$pid</span> == <span class="hljs-number">0</span> ){
+    <span class="hljs-comment">//子进程执行pcntl_fork的时候，pid总是0，并且不会再fork出新的进程</span>
+    <span class="hljs-variable">$mypid</span> = getmypid(); <span class="hljs-comment">// 用getmypid()函数获取当前进程的PID</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'I am child process. My PID is '</span> . <span class="hljs-variable">$mypid</span> . <span class="hljs-string">' and my fathers PID is '</span> . <span class="hljs-variable">$parentPid</span> . PHP_EOL;
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">//父进程fork之后，返回的就是子进程的pid号，pid不为0</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'Oh my god! I am a father now! My childs PID is '</span> . <span class="hljs-variable">$pid</span> . <span class="hljs-string">' and mine is '</span> . <span class="hljs-variable">$parentPid</span> . PHP_EOL;
+}
+
+
+<span class="hljs-variable">$aa</span> = shell_exec(<span class="hljs-string">"ps -af | grep index.php"</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$aa</span>;
+</span></code></pre>
+
+<p><strong>实例二：开多个子进程，避免fork泛滥</strong></p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//最早的进程，也是父进程</span>
+<span class="hljs-variable">$parentPid</span> = getmypid();
+<span class="hljs-keyword">echo</span> <span class="hljs-string">'原始父进程：'</span> . <span class="hljs-variable">$parentPid</span> . PHP_EOL;
+
+<span class="hljs-comment">//开启十个子进程</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-variable">$i</span> = <span class="hljs-number">0</span>; <span class="hljs-variable">$i</span> &lt; <span class="hljs-number">10</span>; <span class="hljs-variable">$i</span>++) {
+    <span class="hljs-variable">$pid</span> = pcntl_fork();
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$pid</span>  == -<span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">"Could not fork!\n"</span>;
+        <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-comment">//子进程</span>
+    <span class="hljs-keyword">if</span>(!<span class="hljs-variable">$pid</span>) {
+        <span class="hljs-comment">//child process workspace</span>
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">'子进程：'</span> . getmypid() . PHP_EOL;
+        <span class="hljs-keyword">exit</span>(); <span class="hljs-comment">//子进程逻辑执行完后，马上退出，以免往下走再fork子进程，不好控制    </span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">'父进程：'</span> . getmypid() . PHP_EOL;
+    }
+}
+
+<span class="hljs-keyword">echo</span> getmypid() . PHP_EOL;
+<span class="hljs-variable">$aa</span> = shell_exec(<span class="hljs-string">"ps -af | grep index.php"</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$aa</span>;
+</span></code></pre>
+
+<p><font color="red"><strong>注意：</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">通过pcntl_XXX系列函数使用多进程功能。注意：pcntl_XXX只能运行在php <span class="hljs-keyword">CLI</span>（命令行）环境下，在web服务器环境下，会出现无法预期的结果，请慎用！</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

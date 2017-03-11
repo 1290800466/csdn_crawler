@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h3><span style="font-size:24px">Apache概述：</span></h3>&#13;
+<h3>&#13;
+</h3><p><span style="font-size:18px; font-weight:normal">（1）Apache是目前世界上使用最广泛的一种web server，它以跨平台，高效和稳定而闻名。</span></p>&#13;
+<p><span style="font-size:18px; font-weight:normal">（2）Apache缺点是变得越来越重，被普遍认为是重量级的web server。（<span style="color:rgb(34,34,34)">Apache</span><span style="color:rgb(34,34,34)">主要采用的是基于进程的</span><span style="color:rgb(34,34,34)">Prefork</span><span style="color:rgb(34,34,34)">模式（还有基于线程的</span><span style="color:rgb(34,34,34)">Worker</span><span style="color:rgb(34,34,34)">模式），也就是，对于每个请求会用一个进程去进行服务，进程非常占资源</span><span style="color:rgb(34,34,34)">，当并发量大的时候，就需要等额的进程，导致的是高内存占用和</span><span style="color:rgb(34,34,34)">CPU</span><span style="color:rgb(34,34,34)">占用</span><span style="color:rgb(34,34,34)">，这就是所谓的</span><span style="color:rgb(34,34,34)">“</span><span style="color:rgb(34,34,34)">重量级</span><span style="color:rgb(34,34,34)">”</span><span style="color:rgb(34,34,34)">。</span><span style="color:rgb(34,34,34)"> </span>）</span></p>&#13;
+<p><span style="font-size:18px; font-weight:normal">（3）Apache是基于模块化设计的，总体上看起来代码的可读性高于php代码，它的核心代码并不多，大多数的功能都被分割到各种模块中，各个模块在系统启动时按需载入。</span></p>&#13;
+<p><span style="font-size:18px; font-weight:normal">（4）Apache是用C语言写的。</span></p>&#13;
+&#13;
+<h3><span style="font-size:24px">Apache服务器的安装：</span></h3>&#13;
+<p><span style="font-size:18px">双击程序，一直下一步，直到出现以下界面：</span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"> <img src="http://img.blog.csdn.net/20150418144206536?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="300" alt=""/></span></p>&#13;
+<p><span style="font-size:18px">选择for all……——&gt;下一步——&gt;自定义安装——&gt;直至最后安装成功</span></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">测试是否安装成功：</span></p>&#13;
+<p><span style="font-size:18px">在浏览器中输入：http：//localhost    回车</span></p>&#13;
+<p><span style="font-size:18px">网页显示： It  Works！  表示安装成功！</span></p>&#13;
+<h2><span style="font-size:24px">apache安装成功后，操作系统是以服务的形式管理的；</span></h2>&#13;
+<h2><span style="font-size:18px; font-weight:normal">通过命令行管理Apache软件：</span></h2>&#13;
+<p><span style="font-size:18px">Httpd     启动Apache</span></p>&#13;
+<p><span style="font-size:18px">Httpd -k  start     启动Apache</span></p>&#13;
+<p><span style="font-size:18px">Httpd –k  shutdown     停止Apache</span></p>&#13;
+<p><span style="font-size:18px">Httpd –k  restart      重启Apache</span></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">要想使用以上命令，需要配置环境变量：</span></p>&#13;
+<p><span style="font-size:18px">在变量值Path的变量值中加上：Apache的bin目录</span></p>&#13;
+<p><span style="font-size:18px">C:\xampp\apache\bin</span></p>&#13;
+<h2><span style="font-size:24px">Apache服务器默认在80端口监听</span></h2>&#13;
+<p><span style="font-size:18px">一台机器可以有1到65535号端口，一个端口代表2个字节</span></p>&#13;
+<p><span style="font-size:18px">Netstat  -an   该命令用来查询本机器有哪些端口正在被监听</span></p>&#13;
+<p><span style="font-size:18px">Netstat  -anb  该命令用来查询本机器有哪些端口正在被监听及其对应的应用程序</span></p>&#13;
+<p><span style="font-size:18px">         端口中的1-1024号叫做有名端口，这些端口一般不要用，他们已经分配好了</span></p>&#13;
+<h2><span style="font-size:24px">Apache如何配置端口:</span></h2>&#13;
+<p><span style="font-size:18px">Apache软件的端口是在httpd.conf文件中配置的，该文件在Apache目录下的conf文件下。在该文件中可以修改端口，修改后重新启动Apache，就生效。</span></p>&#13;
+<p><span style="font-size:18px"><strong>Apache可以监听多个端口</strong>，如下图所示：</span></p>&#13;
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20150418144249857?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="300" alt=""/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<h2><span style="font-size:24px">Apache目录结构含义：</span></h2>&#13;
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20150418144315956?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="300" alt=""/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<h2><br/></h2>&#13;
+&#13;
+                      </div>  </body>
+            </html>

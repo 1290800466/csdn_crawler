@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>路由跟踪命令：用于确定 IP数据包访问目标所采取的路径，归属网络协议层 <br/>
+可用于对ping命令的补充，当无法ping通时，可用路由跟踪命令检测具体原因。</p>
+
+<p><strong>win：</strong></p>
+
+<p>tracert 的作用：从你的电脑到你的网站，中间经过了多少个网络节点。换句话说，从A这里到B家需要走多少条街～进而可以知道到底是哪条路出了问题。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss"><span class="hljs-comment">//命令格式：</span>
+tracert <span class="hljs-attr_selector">[-d]</span> <span class="hljs-attr_selector">[-h maximum_hops]</span> <span class="hljs-attr_selector">[-j computer-list]</span> <span class="hljs-attr_selector">[-w timeout]</span> target_name
+
+<span class="hljs-comment">//实例：</span>
+tracert www<span class="hljs-class">.baidu</span><span class="hljs-class">.com</span></code></pre>
+
+<p>参数介绍：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby">d 指定不将地址解析为计算机名.
+</span>-<span class="ruby">h maximum_hops 指定搜索目标的最大跃点数.
+</span>-<span class="ruby">j host-list 与主机列表一起的松散源路由（仅适用于<span class="hljs-constant">IPv4</span>），指定沿host-list的稀疏源路由列表序进行转发。
+</span>             host-list是以空格隔开的多个路由器IP地址，最多9个。
+-<span class="ruby">w timeout 等待每个回复的超时时间(以毫秒为单位).
+</span>-<span class="ruby"><span class="hljs-constant">R</span> 跟踪往返行程路径(仅适用于 <span class="hljs-constant">IPv6</span>).
+</span>-<span class="ruby"><span class="hljs-constant">S</span> srcaddr 要使用的源地址(仅适用于 <span class="hljs-constant">IPv6</span>).
+</span>-<span class="ruby"><span class="hljs-number">4</span> 强制使用 <span class="hljs-constant">IPv4</span>.
+</span>-<span class="ruby"><span class="hljs-number">6</span> 强制使用 <span class="hljs-constant">IPv6</span>.
+</span>target_name 目标计算机的名称.
+最简单的用法就是"tracert hostname",其中"hostname"是计算机名或想跟踪其路径的计算机的IP地址,tracert将返回他到达目的地的各种IP地址.</code></pre>
+
+<p><strong>linux：</strong></p>
+
+<p>traceroute 命令：显示数据包到主机间的路径。</p>
+
+<p>语　　法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs markdown">traceroute [<span class="hljs-link_label">-dFlnrvx</span>][<span class="hljs-link_reference">-f&lt;存活数值&gt;</span>][<span class="hljs-link_label">-g&lt;网关&gt;...</span>][<span class="hljs-link_reference">-i&lt;网络界面&gt;</span>][<span class="hljs-link_label">-m&lt;存活数值&gt;</span>][<span class="hljs-link_reference">-p&lt;通信端口&gt;</span>][<span class="hljs-link_label">-s&lt;来源地址&gt;</span>][<span class="hljs-link_reference">-t&lt;服务类型&gt;</span>][<span class="hljs-link_label">-w&lt;超时秒数&gt;</span>][<span class="hljs-link_reference">主机名称或IP地址</span>][<span class="hljs-link_label">数据包大小</span>]</code></pre>
+
+<p>补充说明：traceroute指令让你追踪网络数据包的路由途径，预设数据包大小是40Bytes，用户可另行设置。</p>
+
+<p>参　　数：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">  -<span class="ruby">d   使用<span class="hljs-constant">Socket</span>层级的排错功能。
+</span>  -<span class="ruby">f&lt;存活数值&gt;   设置第一个检测数据包的存活数值<span class="hljs-constant">TTL</span>的大小。
+</span>  -<span class="ruby"><span class="hljs-constant">F</span>   设置勿离断位。
+</span>  -<span class="ruby">g&lt;网关&gt;   设置来源路由网关，最多可设置<span class="hljs-number">8</span>个。
+</span>  -<span class="ruby">i&lt;网络界面&gt;   使用指定的网络界面送出数据包。
+</span>  -<span class="ruby"><span class="hljs-constant">I</span>   使用<span class="hljs-constant">ICMP</span>回应取代<span class="hljs-constant">UDP</span>资料信息。
+</span>  -<span class="ruby">m&lt;存活数值&gt;   设置检测数据包的最大存活数值<span class="hljs-constant">TTL</span>的大小。
+</span>  -<span class="ruby">n   直接使用<span class="hljs-constant">IP</span>地址而非主机名称。
+</span>  -<span class="ruby">p&lt;通信端口&gt;   设置<span class="hljs-constant">UDP</span>传输协议的通信端口。
+</span>  -<span class="ruby">r   忽略普通的<span class="hljs-constant">Routing</span> <span class="hljs-constant">Table</span>，直接将数据包送到远端主机上。
+</span>  -<span class="ruby">s&lt;来源地址&gt;   设置本地主机送出数据包的<span class="hljs-constant">IP</span>地址。
+</span>  -<span class="ruby">t&lt;服务类型&gt;   设置检测数据包的<span class="hljs-constant">TOS</span>数值。
+</span>  -<span class="ruby">v   详细显示指令的执行过程。
+</span>  -<span class="ruby">w&lt;超时秒数&gt;   设置等待远端主机回报的时间。
+</span>  -<span class="ruby">x   开启或关闭数据包的正确性检验。  </span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

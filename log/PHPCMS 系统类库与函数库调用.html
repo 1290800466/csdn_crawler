@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<ol style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px"><li style="padding:0px; margin:0px 0px 0px 25px; list-style:decimal"><span style="font-size:18px">系统类库位于系统的phpcms/libs/classes目录下面，函数库文件名为*.class.php。</span></li><li style="padding:0px; margin:0px 0px 0px 25px; list-style:decimal"><span style="font-size:18px">系统函数库位于系统的phpcms/libs/functions目录下面，函数库文件名为*.func.php，<span style="font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">其中global.func.php为框架中默认加载，global.func.php中函数可直接使用</span></span></li></ol><p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="padding:0px; margin:0px"><span style="font-size:18px; color:#ff0000"><strong>系统类库调用</strong></span></span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="padding:0px; margin:0px"><span style="font-size:18px"/></span></p><pre code_snippet_id="1631789" snippet_file_name="blog_20160401_1_5827875" name="code" class="php">/**
+ * 加载系统类方法
+ * @param string $classname 类名
+ * @param string $path 扩展地址
+ * @param intger $initialize 是否初始化
+ */
+ public static function load_sys_class($classname, $path = '', $initialize = 1) {
+ 　　return self::_load_class($classname, $path, $initialize);
+ }</pre>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="font-size:18px">$http = pc_base::load_sys_class('http'); //实例化http类</span></div>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="font-size:18px">pc_base::load_sys_class('format', '', 0); //调用form类，不进行实例化操作</span></div>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="font-size:18px"><span style="color:rgb(255,0,0); font-family:'tahoma,verdana,arial,sans-serif'; font-size:18px; line-height:25px"><strong>应用类库调用：</strong></span><br/></span></div>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="font-size:18px"><span style="color:rgb(255,0,0); font-family:'tahoma,verdana,arial,sans-serif'; font-size:18px; line-height:25px"/></span><pre code_snippet_id="1631789" snippet_file_name="blog_20160401_2_3908264" name="code" class="php">/**
+	 * 加载应用类方法
+	 * @param string $classname 类名
+	 * @param string $m 模块
+	 * @param intger $initialize 是否初始化
+	 */
+	public static function load_app_class($classname, $m = '', $initialize = 1) {
+		$m = empty($m) &amp;&amp; defined('ROUTE_M') ? ROUTE_M : $m;
+		if (empty($m)) return false;
+		return self::_load_class($classname, 'modules'.DIRECTORY_SEPARATOR.$m.DIRECTORY_SEPARATOR.'classes', $initialize);
+	}</pre></div>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="font-size:18px">pc_base::load_app_class('admin','admin',0);</span></div>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<span style="padding:0px; margin:0px"><span style="font-size:18px; color:#ff0000"><strong>系统函数库调用</strong></span></span></p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+</p><pre code_snippet_id="1631789" snippet_file_name="blog_20160401_3_2338101" name="code" class="php">&lt;span style="font-size:18px;"&gt;/**
+ * 加载系统的函数库
+ * @param string $func 函数库名
+ */
+ public static function load_sys_func($func) {
+ 　　return self::_load_func($func);
+ }&lt;/span&gt;</pre>&#13;
+<div style="padding:0px; margin:0px; font-family:'tahoma,verdana,arial,sans-serif'; line-height:25px">&#13;
+<div style="padding:0px; margin:0px"><span style="font-size:18px">pc_base::load_sys_func('mail'); 调用mail函数包</span></div>&#13;
+<div style="padding:0px; margin:0px"><span style="font-size:18px"><span style="color:rgb(255,0,0); font-family:'tahoma,verdana,arial,sans-serif'; font-size:18px; line-height:25px"><strong>应用函数库调用</strong></span><br/></span></div>&#13;
+<div style="padding:0px; margin:0px"><span style="font-size:18px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:18px; line-height:25px"/></span><pre code_snippet_id="1631789" snippet_file_name="blog_20160401_4_3787" name="code" class="php" style="color: rgb(255, 0, 0);">/**
+	 * 加载应用函数库
+	 * @param string $func 函数库名
+	 * @param string $m 模型名
+	 */
+	public static function load_app_func($func, $m = '') {
+		$m = empty($m) &amp;&amp; defined('ROUTE_M') ? ROUTE_M : $m;
+		if (empty($m)) return false;
+		return self::_load_func($func, 'modules'.DIRECTORY_SEPARATOR.$m.DIRECTORY_SEPARATOR.'functions');
+	}</pre><br/>&#13;
+pc_base::load_app_func('global');<br/></div>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

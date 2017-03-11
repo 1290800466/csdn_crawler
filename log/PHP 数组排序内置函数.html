@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 style="font-size:25.2000007629395px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:0px">&#13;
+<span style="color:rgb(64,64,64); font-size:14.3999996185303px; line-height:20.1599998474121px">数组中的元素可以按字母或数字顺序进行降序或升序排列。</span></h1>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(212,212,212)"/><h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+PHP - 数组排序函数（底层利用快速排序法）</h2>&#13;
+<ul style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif"><li style="padding:2px 0px">sort() - 对数组进行升序排列</li><li style="padding:2px 0px">rsort() - 对数组进行降序排列</li><li style="padding:2px 0px">asort() - 根据关联数组的值，对数组进行升序排列</li><li style="padding:2px 0px">ksort() - 根据关联数组的键，对数组进行升序排列</li><li style="padding:2px 0px">arsort() - 根据关联数组的值，对数组进行降序排列</li><li style="padding:2px 0px">krsort() - 根据关联数组的键，对数组进行降序排列</li></ul><h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+sort() - 对数组进行升序排列</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例将 $cars 数组中的元素按照字母升序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+sort($cars);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例将 $numbers 数组中的元素按照数字升序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$numbers=array(4,6,2,22,11);<br/>&#13;
+sort($numbers);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+rsort() - 对数组进行降序排列</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例将 $cars 数组中的元素按照字母降序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$cars=array("Volvo","BMW","Toyota");<br/>&#13;
+rsort($cars);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例将 $numbers 数组中的元素按照数字降序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$numbers=array(4,6,2,22,11);<br/>&#13;
+rsort($numbers);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+asort() - 根据数组的值，对数组进行升序排列</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例根据数组的值，对<strong><span style="font-size:14px">关联数组</span></strong>进行升序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/>&#13;
+asort($age);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+ksort() - 根据数组的键，对数组进行升序排列</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例根据数组的键，对<span style="font-size:14px"><strong>关联数组</strong></span>进行升序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/>&#13;
+ksort($age);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+arsort() - 根据数组的值，对数组进行降序排列</h2>&#13;
+<p style="line-height:16.7999992370605px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+下面的实例根据数组的值，对关联数组进行降序排列：</p>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/>&#13;
+arsort($age);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+<h2 style="font-size:21.6000003814697px; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; margin-top:10px; margin-bottom:10px">&#13;
+krsort() - 根据数组的键，对数组进行降序排列</h2>&#13;
+<div><span style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:16.7999992370605px">下面的实例根据数组的键，对<span style="font-size:14px"><strong>关联数组</strong></span>进行降序排列：</span><br/></div>&#13;
+<div class="example" style="width:711px; margin:0px; padding:5px; border:1px solid rgb(212,212,212); font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="font-size:14.3999996185303px; margin-top:0px; margin-bottom:10px; color:rgb(97,127,16); background-color:transparent">&#13;
+实例</h2>&#13;
+<div class="example_code notranslate" style="width:696.765625px; padding:5px; border:1px solid rgb(212,212,212); font-size:13.1999998092651px; font-family:'courier new'; background-color:rgb(255,255,255)">&#13;
+&lt;?php<br/>&#13;
+$age=array("Peter"=&gt;"35","Ben"=&gt;"37","Joe"=&gt;"43");<br/>&#13;
+krsort($age);<br/>&#13;
+?&gt;</div>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

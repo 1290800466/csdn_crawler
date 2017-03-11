@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="font-family:微软雅黑,Tahoma; widows:auto"><strong><span style="font-size:18px">js 定时器有以下两个方法：</span></strong></p>&#13;
+<ul style="list-style-position:inside; font-family:微软雅黑,Tahoma; font-size:14px; widows:auto"><li>setInterval() ：按照指定的周期（以毫秒计）来调用函数或计算表达式。方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。</li><li>setTimeout() ：在指定的毫秒数后调用函数或计算表达式。</li></ul><hr style="font-family:微软雅黑,Tahoma; font-size:14px; widows:auto"/><h2 style="font-family:微软雅黑,Tahoma; widows:auto">setInterval()</h2>&#13;
+<h3 style="font-family:微软雅黑,Tahoma; widows:auto">语法</h3>&#13;
+<pre style="font-size:14px; widows:auto; background-color:rgb(255,255,255)">setInterval(code,millisec,lang)
+</pre>&#13;
+<table class="reference notranslate   " style="font-family:微软雅黑,Tahoma; widows:auto"><tbody><tr><th align="left" width="20%">参数</th>&#13;
+<th align="left" width="80%">描述</th>&#13;
+</tr><tr><td>code</td>&#13;
+<td>必需。要调用的函数或要执行的代码串。</td>&#13;
+</tr><tr><td>millisec</td>&#13;
+<td>必须。周期性执行或调用 code 之间的时间间隔，以毫秒计。</td>&#13;
+</tr><tr><td>lang</td>&#13;
+<td>可选。 JScript | VBScript | JavaScript</td>&#13;
+</tr></tbody></table><p style="font-family:微软雅黑,Tahoma; font-size:14px; widows:auto">以下实例在每 1000 毫秒执行 clock() 函数。实例中也包含了停止执行的按钮:</p>&#13;
+<pre style="font-size:14px; widows:auto; background-color:rgb(255,255,255)"><pre code_snippet_id="1591906" snippet_file_name="blog_20160229_1_2972212" name="code" class="html">&lt;html&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt; 
+&lt;body&gt;
+&lt;input type="text" id="clock" /&gt;
+&lt;script type="text/javascript"&gt;
+	var int=self.setInterval("clock()",1000);
+	function clock()
+	{
+	var d=new Date();
+	var t=d.toLocaleTimeString();
+	document.getElementById("clock").value=t;
+	}
+&lt;/script&gt;
+&lt;button onclick="int=window.clearInterval(int)"&gt;停止&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/></pre>&#13;
+<pre style="font-size:14px; widows:auto; background-color:rgb(255,255,255)"><span style="font-family:Verdana,Arial,宋体; line-height:18px; background-color:rgb(249,249,249)">setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。</span>
+</pre>&#13;
+<h2 style="font-family:微软雅黑,Tahoma; widows:auto">setTimeout()</h2>&#13;
+<h3 style="font-family:微软雅黑,Tahoma; widows:auto">语法</h3>&#13;
+<pre style="font-size:14px; widows:auto; background-color:rgb(255,255,255)">setTimeout(code,millisec,lang)</pre>&#13;
+<table class="reference   " style="font-family:微软雅黑,Tahoma; widows:auto"><tbody><tr><th align="left" width="20%">参数</th>&#13;
+<th align="left" width="80%">描述</th>&#13;
+</tr><tr><td>code</td>&#13;
+<td>必需。要调用的函数后要执行的 JavaScript 代码串。</td>&#13;
+</tr><tr><td>millisec</td>&#13;
+<td>必需。在执行代码前需等待的毫秒数。</td>&#13;
+</tr><tr><td>lang</td>&#13;
+<td>可选。脚本语言可以是：JScript | VBScript | JavaScript</td>&#13;
+</tr></tbody></table><p style="font-family:微软雅黑,Tahoma; font-size:14px; widows:auto">实例演示如下：</p>&#13;
+<pre style="font-size:14px; widows:auto; background-color:rgb(255,255,255)"><pre code_snippet_id="1591906" snippet_file_name="blog_20160229_2_8020959" name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;菜鸟教程(runoob.com)&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;点击按钮，在等待 3 秒后弹出 "Hello"。&lt;/p&gt;
+&lt;button onclick="myFunction()"&gt;点我&lt;/button&gt;
+&lt;script&gt;
+	function myFunction()
+	{
+		setTimeout(function(){alert("Hello")},3000);
+	}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/><br/></pre>&#13;
+&#13;
+                      </div>  </body>
+            </html>

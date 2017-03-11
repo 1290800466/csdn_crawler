@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>代码位置：<a href="https://code.csdn.net/u013372487/app_api/tree/master">https://code.csdn.net/u013372487/app_api/tree/master</a></strong></p>
+
+<p>XML方式：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Xml</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Api</span> {</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">response</span><span class="hljs-params">(<span class="hljs-variable">$code</span>, <span class="hljs-variable">$message</span> = <span class="hljs-string">''</span>, <span class="hljs-variable">$data</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">if</span>(!is_numeric(<span class="hljs-variable">$code</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+        }
+
+        <span class="hljs-variable">$result</span> = <span class="hljs-keyword">array</span>(
+            <span class="hljs-string">'code'</span> =&gt; <span class="hljs-variable">$code</span>,
+            <span class="hljs-string">'message'</span> =&gt; <span class="hljs-variable">$message</span>,
+            <span class="hljs-string">'data'</span> =&gt; <span class="hljs-variable">$data</span>
+        );
+
+        header(<span class="hljs-string">'Content-Type:text/xml'</span>);
+        <span class="hljs-variable">$xml</span> = <span class="hljs-string">"&lt;?xml version='1.0' encoding='UTF-8'?&gt;\n"</span>;
+        <span class="hljs-variable">$xml</span> .= <span class="hljs-string">"&lt;root&gt;"</span>;
+        <span class="hljs-variable">$xml</span> .= <span class="hljs-keyword">self</span>::xmlToEncode(<span class="hljs-variable">$result</span>);
+        <span class="hljs-variable">$xml</span> .= <span class="hljs-string">"&lt;/root&gt;"</span>;
+        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$xml</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">xmlToEncode</span><span class="hljs-params">(<span class="hljs-variable">$result</span>)</span> {</span>
+        <span class="hljs-variable">$xml</span> = <span class="hljs-variable">$attr</span> = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$result</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span> =&gt; <span class="hljs-variable">$value</span>) {
+            <span class="hljs-keyword">if</span>(is_numeric(<span class="hljs-variable">$key</span>)) {
+                <span class="hljs-variable">$attr</span> = <span class="hljs-string">" id='"</span> . <span class="hljs-variable">$key</span> . <span class="hljs-string">"'"</span>;
+                <span class="hljs-variable">$key</span> = <span class="hljs-string">"item"</span>;
+            }
+            <span class="hljs-variable">$xml</span> .= <span class="hljs-string">"&lt;{$key}{$attr}&gt;"</span>;
+            <span class="hljs-variable">$xml</span> .= is_array(<span class="hljs-variable">$value</span>) ? <span class="hljs-keyword">self</span>::xmlToEncode(<span class="hljs-variable">$value</span>) : <span class="hljs-variable">$value</span>;
+            <span class="hljs-variable">$xml</span> .= <span class="hljs-string">"&lt;/{$key}&gt;\n"</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$xml</span>;
+    }
+}</code></pre>
+
+<p>JSON方式：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Json</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Api</span> {</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">response</span><span class="hljs-params">(<span class="hljs-variable">$code</span>, <span class="hljs-variable">$message</span> = <span class="hljs-string">''</span>, <span class="hljs-variable">$data</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">if</span>(!(is_numeric(<span class="hljs-variable">$code</span>))) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+        }
+
+        <span class="hljs-variable">$result</span> = <span class="hljs-keyword">array</span>(
+            <span class="hljs-string">'code'</span> =&gt; <span class="hljs-variable">$code</span>,
+            <span class="hljs-string">'message'</span> =&gt; <span class="hljs-variable">$message</span>,
+            <span class="hljs-string">'data'</span> =&gt; <span class="hljs-variable">$data</span>
+        );
+
+        <span class="hljs-keyword">echo</span> json_encode(<span class="hljs-variable">$result</span>);
+        <span class="hljs-keyword">exit</span>;
+    }
+}</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

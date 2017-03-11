@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">cookie基本操作：</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+// 什么是会话:
+// 打开浏览器，访问某个网站的很多页面(通过点击超连接), 当你关闭浏览器后，一个会话结束.
+// cookie是保存在客户端.
+
+header("Content-type: text/html; charset=utf-8"); 
+
+//演示如何创建cookie信息
+//把用户名和密码保存到客户端的cookie
+//setCookie()这个函数用于保存cookie
+//第一个参数表示cookie一个key 第二个参数表示 val,第三个参数表示cookie值在客户端中保存的时间,按秒计算
+// key &lt;--&gt;value
+// key &lt;---&gt;value
+//.....
+$time=date('Y-m-d H:i:s');
+setCookie("name","wml",time()+3600);
+setCookie("password","123456",time()+30);
+setCookie("address","北京",time()+300);
+setCookie("time","$time",time()+300000000);
+echo "保存成功!";
+// 对代码说明
+// ① 当浏览器访问  cookie.php页面的时候，我们的服务器就会以
+// Set-Cookie: name=wml; expires=Wed, 21-Sep-2011 07:53:25 GMT 回送http响应，当浏览器获取到该信息后，就会保存该cookie 的新到
+// 本机的  c:/xxx/admin/cookies文件.
+// ② 如果我们如果没有该时间(第三个参数)
+//   cookie不会保存到客户端，当浏览器的会话结束，我们的cookie就失效.
+// ③ cookie只能保存字符串信息.
+// ④ 客户端可以保存多个 key&lt;==&gt;value 对
+// ④ cookie也可以保存中文，默认将会对中文进行 urlencode编码
+// ⑥ cookie 可以有多个 键&lt;==&gt;值 对，可以给不同的键值 ，指定不同的有效时间.
+
+
+// 从客户端获取保存的cookie信息 (查询)
+//获取cookie信息
+echo "&lt;pre&gt;";
+print_r($_COOKIE);
+echo "&lt;/pre&gt;";
+//获取指定的key对应的值
+$name=$_COOKIE['name'];
+$password=$_COOKIE['password'];
+echo "name=".$name;
+echo "&lt;br&gt;";
+echo "password=".$password;
+echo "&lt;br&gt;";
+
+
+// 对代码说明:
+// ① 如果cookie有效时间到，则不能取出.
+// ② 客户端cookie信息是怎样传递给服务器
+//   通过 http协议的 
+//   Cookie: name=wml
+//   这个机制是http协议 规定
+
+
+// 更新cookie信息
+// 更新某个cookie key&lt;==&gt;val 实际上就是重新设置
+// setCookie();
+//更新
+setCookie("address","天津",time()+300);
+echo "把 键 address的值更新了";
+echo "&lt;br&gt;";
+
+
+// 删除cookie信息
+//删除某个key 只需要把 time()-秒数
+//setCookie("name","",time()-200);
+echo "删除name key成功!";
+echo "&lt;br&gt;";
+//删除所有的 key
+foreach($_COOKIE as $key=&gt;$val){
+    //setCookie($key,"",time()-100);
+}
+echo "删除所有cookie成功!";
+echo "&lt;br&gt;";
+
+
+// 如果你删除的 cookie的 key&lt;==&gt;value 没有删除完，则这个cookie在客户端保留，如果你把这个网站的所有cookie都删除，则浏览器会把 cookie文件删除.
+
+?&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">利用cookie实现显示上次登录时间：</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+error_reporting(E_ALL^E_NOTICE);
+//利用cookie实现显示上次登录时间
+header("Content-type: text/html; charset=utf-8");
+date_default_timezone_set('PRC');
+$time=$_COOKIE['login_time'];
+if ($time==''){
+    $now_time=date('Y-m-d H:i:s');
+    setCookie("login_time","$now_time",time()+300000000);
+}else{
+    echo "您上次登录时间是：".$time."&lt;br&gt;";
+    $now_time=date('Y-m-d H:i:s');
+    setCookie("login_time","$now_time",time()+300000000);
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+利用cookie实现自动填充用户名密码：</span>&#13;
+<p><span style="font-size:18px">登录界面：</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;  登录界面&lt;/h1&gt;
+&lt;div class="login" style="margin-top:50px;"&gt;
+    &lt;form action="login.php" name="loginform" accept-charset="utf-8" id="login_form" class="loginForm" method="post"&gt;
+        &lt;div class="uinArea" id="uinArea"&gt;
+            &lt;label class="input-tips" for="u"&gt;帐号：&lt;/label&gt;
+            &lt;div class="inputOuter" id="uArea"&gt;                   
+                &lt;input type="text" 
+                value="&lt;?php
+                error_reporting(E_ALL^E_NOTICE);
+                        
+                         //利用cookie实现自动填写用户名密码
+                         $username=$_COOKIE['username'];
+                         if ($username!=='')
+                         echo $username; 
+                       ?&gt;"
+                        name="username"/&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="pwdArea" id="pwdArea"&gt;
+            &lt;label class="input-tips" for="p"&gt;密码：&lt;/label&gt; 
+            &lt;div class="inputOuter" id="pArea"&gt;                   
+                &lt;input type="password" id="p" name="pwd" value="&lt;?php
+                error_reporting(E_ALL^E_NOTICE);
+                         //利用cookie实现自动填写用户名密码
+                         $password=$_COOKIE['password'];
+                         if (isset($password))
+                         echo $password; 
+                       ?&gt;"/&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;************************************************************************************&lt;/div&gt;
+        &lt;input type="radio" name="sex" value="yes"&gt;保存账号密码&lt;br&gt;
+               
+        &lt;div style="padding-left:50px;margin-top:20px;"&gt;&lt;input type="submit"  style="width:150px;"  value="登 录" /&gt;&lt;/div&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">login.php文件：<br/></span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$username1=$_POST['username'];
+$password1=$_POST['pwd'];
+$sex=$_POST['sex'];
+//$time=$_COOKIE['login_time'];
+if ($sex=='yes'){
+    setCookie("username","$username1",time()+300000000);
+    setCookie("password","$password1",time()+300000000);
+}else{
+    setCookie("username","",time()-200);
+    setCookie("password","",time()-200);
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

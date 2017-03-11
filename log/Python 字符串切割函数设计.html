@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="python">s="   fs.fes..23...43....tghf    "
+
+print "要切割的字符串为：",s ,"\n"
+
+s = s.strip()  #去掉字符串左右两边空格
+
+print "输出去掉空格的字符串：",s,"\n"
+
+# sep 为切割字符串的符号
+
+sep = '.'   
+
+def my_split(src, sep):  #自定义my_split()函数
+
+    a = s.find(sep)   #find返回查找字符开始的索引
+
+    w1 = s[:a]
+
+    print(w1)
+
+    b = a
+
+
+    n = len(sep)
+
+    while b &lt;= len(s) and b != -1:
+
+        while s[a:a + n] == sep:
+
+            a = a + n
+
+        b = s.find(sep, a)  #从a开始查找sep
+
+        if b != -1:
+
+            print(s[a:b])
+
+        else:
+
+            print(s[a:])
+
+        a = b
+
+print '调用 my_split函数,提取切割出的字符串：\n'
+
+my_split(s, sep)</pre><br/></div>  </body>
+            </html>

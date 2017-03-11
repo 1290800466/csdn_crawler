@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="vb">'一、UFT直接录制方法（利用对象识别）：
+Dialog("Login").WinEdit("Agent Name:").Set "wml111"
+Dialog("Login").WinEdit("Password:").SetSecure "5514daebeeea118b8a208fcb96ce79880347a908"
+Dialog("Login").WinButton("OK").Click</pre>&#13;
+<p><br/></p>&#13;
+<p/><pre name="code" class="vb">'二、直接描述性编程方法：
+Dialog("text:=Login").WinEdit("attached text:=Agent Name:").Set "wml111"
+Dialog("text:=Login").WinEdit("attached text:=Password:").SetSecure "5514daebeeea118b8a208fcb96ce79880347a908"
+Dialog("text:=Login").WinButton("text:=OK").Click</pre><br/><pre name="code" class="vb">'with语句表示方法：
+With Dialog("Login")
+	.WinEdit("Agent Name:").Set "wml111"
+	.WinEdit("Password:").SetSecure "5514daebeeea118b8a208fcb96ce79880347a908"
+	.WinButton("OK").Click
+End With</pre><br/><br/></div>  </body>
+            </html>

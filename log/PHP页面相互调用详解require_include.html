@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">php页面之间的相互调用可以使用如下指令：</span></span></h1>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">require()</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">require_once()</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">include()</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">include_once()</span></span></p>&#13;
+<p><span style="font-size:18px">各指令用法说明：</span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">1、require()的用法：</span></span></p>&#13;
+<pre style="width:580px; margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',monospace; background:rgb(245,245,245)">require("wrongFile.php");</pre>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">若被加载的文件和本身在一个层级则只写文件名即可。</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">require(“文件名称/路径”)； //也可不加括号</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">require $filePath //通过变量引入</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">例：</span></span></p>&#13;
+<p><span style="font-size:18px; color:#111111"><span style="line-height:21.0599994659424px; white-space:pre-wrap">$<span style="color:rgb(17,17,17); font-size:18px; line-height:21.0599994659424px; white-space:pre-wrap">filePath = "a.php"; //先定义一个变量，将php文件 赋给它</span></span></span></p>&#13;
+<p><span style="font-size:18px; color:#111111"><span style="line-height:21.0599994659424px; white-space:pre-wrap"><span style="color:rgb(17,17,17); font-size:18px; line-height:21.0599994659424px; white-space:pre-wrap"><span style="color:rgb(17,17,17); font-size:18px; line-height:21.0599994659424px; white-space:pre-wrap">require&#13;
+ $filePath; //在直接调用这个变量即可</span></span></span></span></p>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">require “文件（路径）”</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">2、require ()和require_once()区别</span></span></p>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">这两个区别为，前者一旦遇到即包含文件，后者会判断是否已经包含过了，如果包含过了，则不再包含文件。</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">一可以节省资源，二是可以避免重复定义的错误（比如被载入的文件内定义了一个函数，若require（）多次则会报错，函数名重复使用了）。</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">3、include()<span style="color:rgb(17,17,17); font-size:18px; line-height:21.0599994659424px; white-space:pre-wrap">用法</span>和include_once()的区别</span></span></p>&#13;
+<pre style="width:580px; margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',monospace; background:rgb(245,245,245)"><code style="font-family:'Courier New',monospace; color:rgb(0,0,255)">include("header.php");</code></pre>&#13;
+<pre style="width:580px; margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',monospace; background:rgb(245,245,245)"><code style="font-family:'Courier New',monospace; color:rgb(0,0,255)">include "header.php";</code></pre>&#13;
+<pre style="width:580px; margin-top:10px; margin-bottom:0px; padding:10px; border:1px dotted rgb(119,136,85); font-family:'Courier New',monospace; background:rgb(245,245,245)"><code style="font-family:'Courier New',monospace; color:rgb(0,0,255)">include </code><code style="font-family:'Courier New',monospace"><span style="font-size:18px; color:#111111"><span style="line-height:21.0599994659424px; white-space:pre-wrap">$filepath;</span></span></code></pre>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">共同点：他们的作用和功能都可以把一个页面，包含到另一个页面。</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">基本用法:</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">区别：前者一旦遇到即包含文件，后者会判断是否已经包含过了，如果包含过了，则不再包含文件。一可以节省资源，二是可以避免重复定义的错误。</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">4、require()和include()的区别</span></span></p>&#13;
+<span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">相同的地方：都是可以引入别的页面</span><br style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"/></span>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap">不同的地方：include()如果出现了错误会<span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(249,249,249)">生成一个警告</span>，但会继续执行下面代码；而require()出现错误，则会终止程序。</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(17,17,17); line-height:21.0599994659424px; white-space:pre-wrap"><span style="font-family:Verdana,Arial,Helvetica,sans-serif; line-height:18px; background-color:rgb(249,249,249)"><strong>正因为在文件不存在或被重命名后脚本不会继续执行，因此我们推荐使用&#13;
+ require() 而不是 include()。</strong></span><br/></span></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

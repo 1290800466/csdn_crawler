@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>在下面代码中  查找  setsize  参数即可</p>
+
+<p>将  height  属性默认添加改为自定义是否添加，勾选设置图高单选框才添加</p>
+
+<p>image.html</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="hljs-doctype">&lt;!doctype html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">meta</span> <span class="hljs-attribute">charset</span>=<span class="hljs-value">"UTF-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>ueditor图片对话框<span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"../internal.js"</span>&gt;</span><span class="javascript"/><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- jquery --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"../../third-party/jquery-1.10.2.min.js"</span>&gt;</span><span class="javascript"/><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- webuploader --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"../../third-party/webuploader/webuploader.min.js"</span>&gt;</span><span class="javascript"/><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/css"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"../../third-party/webuploader/webuploader.css"</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- image dialog --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">"stylesheet"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"image.css"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/css"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"wrapper"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"tabhead"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tabhead"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab"</span> <span class="hljs-attribute">data-content-id</span>=<span class="hljs-value">"remote"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_tab_remote"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab focus"</span> <span class="hljs-attribute">data-content-id</span>=<span class="hljs-value">"upload"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_tab_upload"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-comment">&lt;!--&lt;span class="tab" data-content-id="online"&gt;&lt;var id="lang_tab_online"&gt;&lt;/var&gt;&lt;/span&gt;
+            &lt;span class="tab" data-content-id="search"&gt;&lt;var id="lang_tab_search"&gt;&lt;/var&gt;&lt;/span&gt;--&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"alignBar"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"algnLabel"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_align"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"alignIcon"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"noneAlign"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"none-align focus"</span> <span class="hljs-attribute">data-align</span>=<span class="hljs-value">"none"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"leftAlign"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"left-align"</span> <span class="hljs-attribute">data-align</span>=<span class="hljs-value">"left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"rightAlign"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"right-align"</span> <span class="hljs-attribute">data-align</span>=<span class="hljs-value">"right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"centerAlign"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"center-align"</span> <span class="hljs-attribute">data-align</span>=<span class="hljs-value">"center"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"align"</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">"align"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"hidden"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"none"</span>/&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"tabbody"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tabbody"</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- 远程图片 --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"remote"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"panel"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"top"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span> <span class="hljs-attribute">for</span>=<span class="hljs-value">"url"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_url"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"url"</span> <span class="hljs-attribute">disabled</span>=<span class="hljs-value">"disabled"</span>  <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"left"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_size"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_width"</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"width"</span>/&gt;</span>px <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_height"</span>&gt;</span>&amp;nbsp;&amp;nbsp;<span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"height"</span>/&gt;</span>px <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lock"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">checked</span>=<span class="hljs-value">"checked"</span> &gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lockicon"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_border"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"border"</span>/&gt;</span>px <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_vhspace"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"vhSpace"</span>/&gt;</span>px <span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_input_title"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"title"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_show_caption"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"showCaption"</span> <span class="hljs-attribute">checked</span>=<span class="hljs-value">"checked"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"1"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"row"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_show_setsize"</span>&gt;</span>设置图高<span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">label</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"checkbox"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"setsize"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"0"</span>/&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">input</span>  <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"display:none"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"height_judge"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">""</span> /&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"right"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"preview"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- 上传图片 --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"upload"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"panel focus"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"queueList"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"queueList"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"statusBar element-invisible"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"progress"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"text"</span>&gt;</span>0%<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"percentage"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"info"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btns"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"filePickerBtn"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"uploadBtn"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_start_upload"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"dndArea"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"placeholder"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"filePickerContainer"</span>&gt;</span>
+                            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"filePickerReady"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"filelist element-invisible"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"filePickerBlock"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"filePickerBlock"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- 在线图片 --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"online"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"panel"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"imageList"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"lang_imgLoading"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+            <span class="hljs-comment">&lt;!-- 搜索图片 --&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"search"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"panel"</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"searchBar"</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchTxt"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"searchTxt text"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> /&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">select</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchType"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"searchType"</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"&amp;s=4&amp;z=0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"&amp;s=1&amp;z=19"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"&amp;s=2&amp;z=0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-title">option</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"&amp;s=3&amp;z=0"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">option</span>&gt;</span>
+                    <span class="hljs-tag">&lt;/<span class="hljs-title">select</span>&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchReset"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"button"</span>  /&gt;</span>
+                    <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchBtn"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"button"</span>  /&gt;</span>
+                <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchList"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"searchList"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"searchListUl"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"image.js"</span>&gt;</span><span class="javascript"/><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">script</span>&gt;</span><span class="javascript">
+    $(window).load(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> judge = document.getElementById(<span class="hljs-string">"height_judge"</span>).value;
+            <span class="hljs-keyword">var</span> setsize = document.getElementById(<span class="hljs-string">"setsize"</span>);
+            <span class="hljs-keyword">if</span>(judge) {
+                setsize.setAttribute(<span class="hljs-string">"checked"</span>,<span class="hljs-string">"checked"</span>);
+                setsize.value=<span class="hljs-string">"1"</span>;
+            }
+        });
+    </span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></code></pre>
+
+<p>ueditor.all.js</p>
+
+<pre class="prettyprint"><code class=" hljs coffeescript">UE.commands[<span class="hljs-string">'insertimage'</span>] = {
+    <span class="hljs-attribute">execCommand</span>:<span class="hljs-reserved">function</span> (cmd, opt) {
+
+        opt = utils.isArray(opt) ? opt : [opt];
+        <span class="hljs-keyword">if</span> (!opt.length) {
+            <span class="hljs-keyword">return</span>;
+        }
+        <span class="hljs-reserved">var</span> me = <span class="hljs-keyword">this</span>,
+            range = me.selection.getRange(),
+            img = range.getClosedNode();
+
+        <span class="hljs-keyword">if</span>(me.fireEvent(<span class="hljs-string">'beforeinsertimage'</span>, opt) === <span class="hljs-literal">true</span>){
+            <span class="hljs-keyword">return</span>;
+        }
+
+        <span class="hljs-keyword">if</span> (img &amp;&amp; <span class="hljs-regexp">/img/i</span>.test(img.tagName) &amp;&amp; (img.className != <span class="hljs-string">"edui-faked-video"</span> || img.className.indexOf(<span class="hljs-string">"edui-upload-video"</span>)!=-<span class="hljs-number">1</span>) &amp;&amp; !img.getAttribute(<span class="hljs-string">"word_img"</span>)) {
+            <span class="hljs-reserved">var</span> first = opt.shift();
+            <span class="hljs-reserved">var</span> floatStyle = first[<span class="hljs-string">'floatStyle'</span>];
+            <span class="hljs-reserved">var</span> showCaption = first[<span class="hljs-string">'showCaption'</span>];
+            <span class="hljs-reserved">var</span> setsize = first[<span class="hljs-string">'setsize'</span>];
+            <span class="hljs-keyword">if</span> (setsize == <span class="hljs-number">1</span>) {
+                <span class="hljs-reserved">var</span> height = first[<span class="hljs-string">'height'</span>];
+                <span class="hljs-reserved">var</span> height1 = first[<span class="hljs-string">'style.height'</span>];
+            }
+            <span class="hljs-keyword">delete</span> first[<span class="hljs-string">'floatStyle'</span>];
+<span class="hljs-regexp">////                img.style.border = (first.border||0) +"px solid <span class="hljs-comment">#000";</span>
+///</span>/                img.style.margin = (first.margin||<span class="hljs-number">0</span>) +<span class="hljs-string">"px"</span>;
+<span class="hljs-regexp">//</span>                img.style.cssText += <span class="hljs-string">';margin:'</span> + (first.margin||<span class="hljs-number">0</span>) +<span class="hljs-string">"px;"</span> + <span class="hljs-string">'border:'</span> + (first.border||<span class="hljs-number">0</span>) +<span class="hljs-string">"px solid #000"</span>;
+            <span class="hljs-keyword">delete</span> first[<span class="hljs-string">'showCaption'</span>];
+            <span class="hljs-keyword">delete</span> first[<span class="hljs-string">'setsize'</span>];
+            domUtils.setAttributes(img, first);
+
+            common = range.getCommonAncestor();
+            <span class="hljs-regexp">//</span><span class="hljs-built_in">console</span>.log(common);
+            <span class="hljs-reserved">var</span> childs = domUtils.getElementsByTagName(common,<span class="hljs-string">'span'</span>);
+            <span class="hljs-keyword">if</span> (childs.length &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-built_in">console</span>.log(childs[<span class="hljs-number">0</span>]);
+                domUtils.remove(childs[<span class="hljs-number">0</span>]);
+            }
+
+            <span class="hljs-keyword">if</span>(setsize == <span class="hljs-number">0</span>) {
+                <span class="hljs-reserved">var</span> childsimg = domUtils.getElementsByTagName(common,<span class="hljs-string">'img'</span>);
+                <span class="hljs-keyword">if</span> (childsimg[<span class="hljs-number">0</span>][<span class="hljs-string">'height'</span>] &gt; <span class="hljs-number">0</span>) {
+                    domUtils.removeAttributes( childsimg[<span class="hljs-number">0</span>], <span class="hljs-string">'height'</span> );
+                }
+                <span class="hljs-keyword">if</span> (childsimg[<span class="hljs-number">0</span>][<span class="hljs-string">'style'</span>][<span class="hljs-string">'height'</span>]) {
+                    domUtils.removeStyle(childsimg[<span class="hljs-number">0</span>],<span class="hljs-string">'height'</span>);
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (showCaption == <span class="hljs-number">1</span>) {
+                <span class="hljs-reserved">var</span> tempTitle = range.<span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'span'</span>);
+                domUtils.setAttributes(tempTitle, {<span class="hljs-string">'class'</span>:<span class="hljs-string">'m-pic-article'</span>});
+                tempTitle.innerHTML = first.title;
+                range.setCursor(<span class="hljs-string">'toEnd'</span>);
+                range.insertNode(tempTitle);
+            }
+
+            me.execCommand(<span class="hljs-string">'imagefloat'</span>, floatStyle);
+            <span class="hljs-keyword">if</span> (opt.length &gt; <span class="hljs-number">0</span>) {
+                range.setStartAfter(img).setCursor(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+                me.execCommand(<span class="hljs-string">'insertimage'</span>, opt);
+            }
+
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-reserved">var</span> html = [], str = <span class="hljs-string">''</span>, ci;
+            ci = opt[<span class="hljs-number">0</span>];
+            <span class="hljs-keyword">if</span> (opt.length == <span class="hljs-number">1</span>) {
+                str = <span class="hljs-string">'&lt;img src="'</span> + ci.src + <span class="hljs-string">'" '</span> + (ci._src ? <span class="hljs-string">' _src="'</span> + ci._src + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) +
+                    (ci.width ? <span class="hljs-string">'width="'</span> + ci.width + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) +
+                    (ci.height ? <span class="hljs-string">' height="'</span> + ci.height + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) +
+                    (ci[<span class="hljs-string">'floatStyle'</span>] == <span class="hljs-string">'left'</span> || ci[<span class="hljs-string">'floatStyle'</span>] == <span class="hljs-string">'right'</span> ? <span class="hljs-string">' style="float:'</span> + ci[<span class="hljs-string">'floatStyle'</span>] + <span class="hljs-string">';"'</span> : <span class="hljs-string">''</span>) +
+                    (ci.title &amp;&amp; ci.title != <span class="hljs-string">""</span> ? <span class="hljs-string">' title="'</span> + ci.title + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) +
+                    (ci.border &amp;&amp; ci.border != <span class="hljs-string">"0"</span> ? <span class="hljs-string">' border="'</span> + ci.border + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) +
+                    (ci.alt &amp;&amp; ci.alt != <span class="hljs-string">""</span> ? <span class="hljs-string">' alt="'</span> + ci.alt + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) +
+                    (ci.hspace &amp;&amp; ci.hspace != <span class="hljs-string">"0"</span> ? <span class="hljs-string">' hspace = "'</span> + ci.hspace + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) +
+                    (ci.vspace &amp;&amp; ci.vspace != <span class="hljs-string">"0"</span> ? <span class="hljs-string">' vspace = "'</span> + ci.vspace + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) + <span class="hljs-string">'/&gt;'</span>;
+                <span class="hljs-keyword">if</span> (ci[<span class="hljs-string">'floatStyle'</span>] == <span class="hljs-string">'center'</span>) {
+                    str = <span class="hljs-string">'&lt;p style="text-align: center"&gt;'</span> + str + <span class="hljs-string">'&lt;/p&gt;'</span>;
+                }
+                html.push(str);
+
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">for</span> (<span class="hljs-reserved">var</span> i = <span class="hljs-number">0</span>; ci = opt[i++];) {
+                    str = <span class="hljs-string">'&lt;p '</span> + (ci[<span class="hljs-string">'floatStyle'</span>] == <span class="hljs-string">'center'</span> ? <span class="hljs-string">'style="text-align: center" '</span> : <span class="hljs-string">''</span>) + <span class="hljs-string">'&gt;&lt;img src="'</span> + ci.src + <span class="hljs-string">'" '</span> +
+                        (ci.width ? <span class="hljs-string">'width="'</span> + ci.width + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) + (ci._src ? <span class="hljs-string">' _src="'</span> + ci._src + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) +
+                        (ci.height ? <span class="hljs-string">' height="'</span> + ci.height + <span class="hljs-string">'" '</span> : <span class="hljs-string">''</span>) +
+                        <span class="hljs-string">' style="'</span> + (ci[<span class="hljs-string">'floatStyle'</span>] &amp;&amp; ci[<span class="hljs-string">'floatStyle'</span>] != <span class="hljs-string">'center'</span> ? <span class="hljs-string">'float:'</span> + ci[<span class="hljs-string">'floatStyle'</span>] + <span class="hljs-string">';'</span> : <span class="hljs-string">''</span>) +
+                        (ci.border || <span class="hljs-string">''</span>) + <span class="hljs-string">'" '</span> +
+                        (ci.title ? <span class="hljs-string">' title="'</span> + ci.title + <span class="hljs-string">'"'</span> : <span class="hljs-string">''</span>) + <span class="hljs-string">' /&gt;&lt;/p&gt;'</span>;
+                    html.push(str);
+                }
+            }
+
+            me.execCommand(<span class="hljs-string">'insertHtml'</span>, html.join(<span class="hljs-string">''</span>));
+        }
+
+        me.fireEvent(<span class="hljs-string">'afterinsertimage'</span>, opt)
+    }
+};</code></pre>
+
+<p>image.js</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">    <span class="hljs-comment">/* 初始化onok事件 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initButtons</span><span class="hljs-params">()</span> {</span>
+
+        dialog.onok = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> remote = <span class="hljs-keyword">false</span>, <span class="hljs-keyword">list</span> = [], id, tabs = <span class="hljs-variable">$G</span>(<span class="hljs-string">'tabhead'</span>).children;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; tabs.length; i++) {
+                <span class="hljs-keyword">if</span> (domUtils.hasClass(tabs[i], <span class="hljs-string">'focus'</span>)) {
+                    id = tabs[i].getAttribute(<span class="hljs-string">'data-content-id'</span>);
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+
+            <span class="hljs-keyword">switch</span> (id) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'remote'</span>:
+                    <span class="hljs-keyword">list</span> = remoteImage.getInsertList();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'upload'</span>:
+                    <span class="hljs-keyword">list</span> = uploadImage.getInsertList();
+                    <span class="hljs-keyword">var</span> count = uploadImage.getQueueCount();
+                    <span class="hljs-keyword">if</span> (count) {
+                        $(<span class="hljs-string">'.info'</span>, <span class="hljs-string">'#queueList'</span>).html(<span class="hljs-string">'&lt;span style="color:red;"&gt;'</span> + <span class="hljs-string">'还有2个未上传文件'</span>.replace(/[\d]/, count) + <span class="hljs-string">'&lt;/span&gt;'</span>);
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+                    }
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'online'</span>:
+                    <span class="hljs-keyword">list</span> = onlineImage.getInsertList();
+                    <span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'search'</span>:
+                    <span class="hljs-keyword">list</span> = searchImage.getInsertList();
+                    remote = <span class="hljs-keyword">true</span>;
+                    <span class="hljs-keyword">break</span>;
+            }
+
+            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">list</span>) {
+                editor.execCommand(<span class="hljs-string">'insertimage'</span>, <span class="hljs-keyword">list</span>);
+                remote &amp;&amp; editor.fireEvent(<span class="hljs-string">"catchRemoteImage"</span>);
+            }
+        };
+    }
+
+
+    <span class="hljs-comment">/* 初始化对其方式的点击事件 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initAlign</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-comment">/* 点击align图标 */</span>
+        domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"alignIcon"</span>), <span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(e)</span>{</span>
+            <span class="hljs-keyword">var</span> target = e.target || e.srcElement;
+            <span class="hljs-keyword">if</span>(target.className &amp;&amp; target.className.indexOf(<span class="hljs-string">'-align'</span>) != -<span class="hljs-number">1</span>) {
+                setAlign(target.getAttribute(<span class="hljs-string">'data-align'</span>));
+            }
+        });
+    }
+
+    <span class="hljs-comment">/* 设置对齐方式 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setAlign</span><span class="hljs-params">(align)</span>{</span>
+        align = align || <span class="hljs-string">'none'</span>;
+        <span class="hljs-keyword">var</span> aligns = <span class="hljs-variable">$G</span>(<span class="hljs-string">"alignIcon"</span>).children;
+        <span class="hljs-keyword">for</span>(i = <span class="hljs-number">0</span>; i &lt; aligns.length; i++){
+            <span class="hljs-keyword">if</span>(aligns[i].getAttribute(<span class="hljs-string">'data-align'</span>) == align) {
+                domUtils.addClass(aligns[i], <span class="hljs-string">'focus'</span>);
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"align"</span>).value = aligns[i].getAttribute(<span class="hljs-string">'data-align'</span>);
+            } <span class="hljs-keyword">else</span> {
+                domUtils.removeClasses(aligns[i], <span class="hljs-string">'focus'</span>);
+            }
+        }
+    }
+    <span class="hljs-comment">/* 获取对齐方式 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAlign</span><span class="hljs-params">()</span>{</span>
+        <span class="hljs-keyword">var</span> align = <span class="hljs-variable">$G</span>(<span class="hljs-string">"align"</span>).value || <span class="hljs-string">'none'</span>;
+        <span class="hljs-keyword">return</span> align == <span class="hljs-string">'none'</span> ? <span class="hljs-string">''</span>:align;
+    }
+
+
+    <span class="hljs-comment">/* 在线图片 */</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">RemoteImage</span><span class="hljs-params">(target)</span> {</span>
+        this.container = utils.isString(target) ? document.getElementById(target) : target;
+        this.init();
+    }
+    RemoteImage.prototype = {
+        init: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            this.initContainer();
+            this.initEvents();
+        },
+        initContainer: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            this.dom = {
+                <span class="hljs-string">'url'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'url'</span>),
+                <span class="hljs-string">'width'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'width'</span>),
+                <span class="hljs-string">'height'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'height'</span>),
+                <span class="hljs-string">'border'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'border'</span>),
+                <span class="hljs-string">'vhSpace'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'vhSpace'</span>),
+                <span class="hljs-string">'title'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'title'</span>),
+                <span class="hljs-string">'align'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'align'</span>),
+                <span class="hljs-string">'showCaption'</span>: <span class="hljs-variable">$G</span>(<span class="hljs-string">'showCaption'</span>),
+                <span class="hljs-string">'setsize'</span> : <span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>)
+            };
+            <span class="hljs-keyword">var</span> img = editor.selection.getRange().getClosedNode();
+            <span class="hljs-keyword">if</span> (img) {
+                this.setImage(img);
+            }
+        },
+        initEvents: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> _this = this,
+                locker = <span class="hljs-variable">$G</span>(<span class="hljs-string">'lock'</span>);
+                showCaption = <span class="hljs-variable">$G</span>(<span class="hljs-string">'showCaption'</span>);
+                setsize = <span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>);
+
+                <span class="hljs-comment">//console.log($G('showCaption'));</span>
+
+            <span class="hljs-comment">/* 改变url */</span>
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"url"</span>), <span class="hljs-string">'keyup'</span>, updatePreview);
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"border"</span>), <span class="hljs-string">'keyup'</span>, updatePreview);
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"title"</span>), <span class="hljs-string">'keyup'</span>, updatePreview);
+
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"width"</span>), <span class="hljs-string">'keyup'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                updatePreview();
+                <span class="hljs-keyword">if</span>(locker.checked) {
+                    <span class="hljs-keyword">var</span> proportion =locker.getAttribute(<span class="hljs-string">'data-proportion'</span>);
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'height'</span>).value = Math.round(this.value / proportion);
+                } <span class="hljs-keyword">else</span> {
+                    _this.updateLocker();
+                }
+            });
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"height"</span>), <span class="hljs-string">'keyup'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                updatePreview();
+                <span class="hljs-keyword">if</span>(locker.checked) {
+                    <span class="hljs-keyword">var</span> proportion =locker.getAttribute(<span class="hljs-string">'data-proportion'</span>);
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'width'</span>).value = Math.round(this.value * proportion);
+                } <span class="hljs-keyword">else</span> {
+                    _this.updateLocker();
+                }
+            });
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">"lock"</span>), <span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                <span class="hljs-keyword">var</span> proportion = parseInt(<span class="hljs-variable">$G</span>(<span class="hljs-string">"width"</span>).value) /parseInt(<span class="hljs-variable">$G</span>(<span class="hljs-string">"height"</span>).value);
+                locker.setAttribute(<span class="hljs-string">'data-proportion'</span>, proportion);
+            });
+
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">'showCaption'</span>), <span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                <span class="hljs-keyword">if</span> (showCaption.checked) {
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'showCaption'</span>).value = <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'showCaption'</span>).value = <span class="hljs-number">0</span>;
+                }
+            });
+
+            domUtils.on(<span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>), <span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+                <span class="hljs-keyword">if</span> (<span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>).checked) {
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>).value = <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">'setsize'</span>).value = <span class="hljs-number">0</span>;
+                }
+
+            });
+
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updatePreview</span><span class="hljs-params">()</span>{</span>
+                _this.setPreview();
+            }
+        },
+        updateLocker: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> width = <span class="hljs-variable">$G</span>(<span class="hljs-string">'width'</span>).value,
+                height = <span class="hljs-variable">$G</span>(<span class="hljs-string">'height'</span>).value,
+                locker = <span class="hljs-variable">$G</span>(<span class="hljs-string">'lock'</span>);
+
+            <span class="hljs-keyword">if</span>(width &amp;&amp; height &amp;&amp; width == parseInt(width) &amp;&amp; height == parseInt(height)) {
+                locker.disabled = <span class="hljs-keyword">false</span>;
+                locker.title = <span class="hljs-string">''</span>;
+            } <span class="hljs-keyword">else</span> {
+                locker.checked = <span class="hljs-keyword">false</span>;
+                locker.disabled = <span class="hljs-string">'disabled'</span>;
+                locker.title = lang.remoteLockError;
+            }
+        },
+        setImage: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(img)</span>{</span>
+            <span class="hljs-comment">/* 不是正常的图片 */</span>
+            <span class="hljs-keyword">if</span> (!img.tagName || img.tagName.toLowerCase() != <span class="hljs-string">'img'</span> &amp;&amp; !img.getAttribute(<span class="hljs-string">"src"</span>) || !img.src) <span class="hljs-keyword">return</span>;
+
+            <span class="hljs-keyword">var</span> wordImgFlag = img.getAttribute(<span class="hljs-string">"word_img"</span>),
+                src = wordImgFlag ? wordImgFlag.replace(<span class="hljs-string">"&amp;amp;"</span>, <span class="hljs-string">"&amp;"</span>) : (img.getAttribute(<span class="hljs-string">'_src'</span>) || img.getAttribute(<span class="hljs-string">"src"</span>, <span class="hljs-number">2</span>).replace(<span class="hljs-string">"&amp;amp;"</span>, <span class="hljs-string">"&amp;"</span>)),
+                align = editor.queryCommandValue(<span class="hljs-string">"imageFloat"</span>);
+
+            <span class="hljs-comment">/* 防止onchange事件循环调用 */</span>
+            <span class="hljs-keyword">if</span> (src !== <span class="hljs-variable">$G</span>(<span class="hljs-string">"url"</span>).value) <span class="hljs-variable">$G</span>(<span class="hljs-string">"url"</span>).value = src;
+            <span class="hljs-keyword">if</span>(src) {
+                <span class="hljs-comment">/* 设置表单内容 */</span>
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"width"</span>).value = img.width || <span class="hljs-string">''</span>;
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"height"</span>).value = img.height || <span class="hljs-string">''</span>;
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"border"</span>).value = img.getAttribute(<span class="hljs-string">"border"</span>) || <span class="hljs-string">'0'</span>;
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"vhSpace"</span>).value = img.getAttribute(<span class="hljs-string">"vspace"</span>) || <span class="hljs-string">'0'</span>;
+                <span class="hljs-variable">$G</span>(<span class="hljs-string">"title"</span>).value = img.title || img.alt || <span class="hljs-string">''</span>;
+                <span class="hljs-keyword">if</span>(img.getAttribute(<span class="hljs-string">'height'</span>)) {
+                    <span class="hljs-variable">$G</span>(<span class="hljs-string">"height_judge"</span>).value = img.getAttribute(<span class="hljs-string">'height'</span>);
+                }
+                setAlign(align);
+                this.setPreview();
+                this.updateLocker();
+            }
+        },
+        getData: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> data = {};
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> k in this.dom){
+                data[k] = this.dom[k].value;
+            }
+            <span class="hljs-keyword">return</span> data;
+        },
+        setPreview: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+            <span class="hljs-keyword">var</span> url = <span class="hljs-variable">$G</span>(<span class="hljs-string">'url'</span>).value,
+                ow = <span class="hljs-variable">$G</span>(<span class="hljs-string">'width'</span>).value,
+                oh = <span class="hljs-variable">$G</span>(<span class="hljs-string">'height'</span>).value,
+                border = <span class="hljs-variable">$G</span>(<span class="hljs-string">'border'</span>).value,
+                title = <span class="hljs-variable">$G</span>(<span class="hljs-string">'title'</span>).value,
+                preview = <span class="hljs-variable">$G</span>(<span class="hljs-string">'preview'</span>),
+                width,
+                height;
+                <span class="hljs-comment">//setsize;</span>
+
+            width = ((!ow || !oh) ? preview.offsetWidth:Math.min(ow, preview.offsetWidth));
+            width = width+(border*<span class="hljs-number">2</span>) &gt; preview.offsetWidth ? width:(preview.offsetWidth - (border*<span class="hljs-number">2</span>));
+            height = (!ow || !oh) ? <span class="hljs-string">''</span>:width*oh/ow;
+
+            <span class="hljs-keyword">if</span>(url) {
+                preview.innerHTML = <span class="hljs-string">'&lt;img src="'</span> + url + <span class="hljs-string">'" width="'</span> + width + <span class="hljs-string">'" height="'</span> + height + <span class="hljs-string">'" border="'</span> + border + <span class="hljs-string">'px solid #000" title="'</span> + title + <span class="hljs-string">'" /&gt;'</span>;
+            }
+        },
+        getInsertList: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> data = this.getData();
+            <span class="hljs-comment">//console.log(data);</span>
+            <span class="hljs-keyword">if</span>(data[<span class="hljs-string">'url'</span>]) {
+                <span class="hljs-keyword">return</span> [{
+                    src: data[<span class="hljs-string">'url'</span>],
+                    _src: data[<span class="hljs-string">'url'</span>],
+                    width: data[<span class="hljs-string">'width'</span>] || <span class="hljs-string">''</span>,
+                    height: data[<span class="hljs-string">'height'</span>] || <span class="hljs-string">''</span>,
+                    border: data[<span class="hljs-string">'border'</span>] || <span class="hljs-string">''</span>,
+                    floatStyle: data[<span class="hljs-string">'align'</span>] || <span class="hljs-string">''</span>,
+                    vspace: data[<span class="hljs-string">'vhSpace'</span>] || <span class="hljs-string">''</span>,
+                    title: data[<span class="hljs-string">'title'</span>] || <span class="hljs-string">''</span>,
+                    alt: data[<span class="hljs-string">'title'</span>] || <span class="hljs-string">''</span>,
+                    showCaption: data[<span class="hljs-string">'showCaption'</span>] || <span class="hljs-string">''</span>,
+                    setsize: data[<span class="hljs-string">'setsize'</span>] || <span class="hljs-string">''</span>,
+                    <span class="hljs-comment">//控制图片style</span>
+                    style: <span class="hljs-string">"width:"</span> + data[<span class="hljs-string">'width'</span>] + <span class="hljs-string">"px;height:"</span> + data[<span class="hljs-string">'height'</span>] + <span class="hljs-string">"px;"</span>
+                }];
+            }  <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">return</span> [];
+            }
+
+
+        }
+    }</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

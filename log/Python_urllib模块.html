@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>urllib模块中的方法：</strong></p>
+
+<p><font color="red"><strong>urllib.urlopen(url[,data[,proxies]])</strong></font> <br/>
+打开一个url的方法，返回一个<strong>文件对象</strong>，然后可以进行类似文件对象的操作。本例试着打开google</p>
+
+<p>复制代码</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> urllib
+f = urllib.urlopen(<span class="hljs-string">'http://www.baidu.com/'</span>)
+firstLine = f.readline()   <span class="hljs-comment">#读取html页面的第一行</span></code></pre>
+
+<p>urlopen返回对象提供方法：</p>
+
+<ul><li><p>read() , readline() ,readlines() , fileno() , close() ：这些方法的使用方式与文件对象完全一样</p></li>
+<li><p>info()：返回一个httplib.HTTPMessage对象，表示远程服务器返回的头信息</p></li>
+<li><p>getcode()：返回Http状态码。如果是http请求，200请求成功完成;404网址未找到</p></li>
+<li><p>geturl()：返回请求的url</p></li>
+</ul><p>实例：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> urllib
+
+google = urllib.urlopen(<span class="hljs-string">'http://www.google.com'</span>)  
+<span class="hljs-keyword">print</span> <span class="hljs-string">'http header:\n'</span>, google.info()  
+<span class="hljs-keyword">print</span> <span class="hljs-string">'http status:'</span>, google.getcode()  
+<span class="hljs-keyword">print</span> <span class="hljs-string">'url:'</span>, google.geturl()  
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> google: <span class="hljs-comment"># 就像在操作本地文件  </span>
+    <span class="hljs-keyword">print</span> line,  
+google.close()  </code></pre>
+
+<p><font color="red"><strong>urllib.urlretrieve(url[,filename[,reporthook[,data]]])</strong></font> <br/>
+urlretrieve方法将url定位到的html文件下载到你本地的硬盘中。如果不指定filename，则会存为临时文件。</p>
+
+<p>urlretrieve()返回一个二元组(filename,mine_hdrs)</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-comment">#coding:utf-8</span>
+<span class="hljs-keyword">import</span> urllib
+
+<span class="hljs-comment">#下载 http://www.baidu.com html内容到c:/test.log文件</span>
+filename = urllib.urlretrieve(<span class="hljs-string">'http://www.baidu.com'</span>,<span class="hljs-string">'c:/test.log'</span>)
+
+<span class="hljs-comment">#下载 http://www.baidu.com/img/bd_logo1.png 图片到c:/下，并命名为1.png</span>
+img = urllib.urlretrieve(<span class="hljs-string">'http://www.baidu.com/img/bd_logo1.png'</span>,<span class="hljs-string">'c:/1.png'</span>)
+
+<span class="hljs-keyword">print</span> filename
+<span class="hljs-keyword">print</span> img
+</code></pre>
+
+<p>输出：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs clojure"><span class="hljs-list">(<span class="hljs-title">'c</span><span class="hljs-attribute">:/test.log'</span>, &lt;httplib.HTTPMessage instance at<span class="hljs-number"> 0</span>x024C81E8&gt;)</span>
+<span class="hljs-list">(<span class="hljs-title">'c</span><span class="hljs-attribute">:/1.png'</span>, &lt;httplib.HTTPMessage instance at<span class="hljs-number"> 0</span>x024A5378&gt;)</span></code></pre>
+
+<p><font color="red"><strong>urllib.urlcleanup()</strong></font> <br/>
+清除由于urllib.urlretrieve()所产生的缓存</p>
+
+<p><font color="red"><strong>urllib.quote(url)和urllib.quote_plus(url)</strong></font> <br/>
+将url数据获取之后，并将其编码，从而适用与URL字符串中，使其能被打印和被web服务器接受。</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> urllib
+
+url = urllib.quote(<span class="hljs-string">'http://www.baidu.com'</span>)
+<span class="hljs-keyword">print</span> url
+<span class="hljs-comment">#输出：'http%3A//www.baidu.com'</span>
+url = urllib.quote_plus(<span class="hljs-string">'http://www.baidu.com'</span>)
+<span class="hljs-keyword">print</span> url
+<span class="hljs-comment">#输出：'http%3A%2F%2Fwww.baidu.com'</span></code></pre>
+
+<p><font color="red"><strong>urllib.unquote(url)和urllib.unquote_plus(url)</strong></font> <br/>
+与urllib.quote(url)和urllib.quote_plus(url)相反。</p>
+
+<p><font color="red"><strong>urllib.urlencode(query)</strong></font> <br/>
+将URL中的键值对以连接符&amp;划分 <br/>
+注意该方法无法再转成键值对数据 <br/>
+这里可以与urlopen结合以实现post方法和get方法：</p>
+
+<p>GET方法：</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">import</span> urllib
+params=urllib.urlencode({<span class="hljs-string">'spam'</span>:<span class="hljs-number">1</span>,<span class="hljs-string">'eggs'</span>:<span class="hljs-number">2</span>,<span class="hljs-string">'bacon'</span>:<span class="hljs-number">0</span>})
+<span class="hljs-keyword">print</span> params
+<span class="hljs-comment"># 输出 'eggs=2&amp;bacon=0&amp;spam=1'</span>
+f=urllib.urlopen(<span class="hljs-string">"http://python.org/query?%s"</span> % params)
+<span class="hljs-keyword">print</span> f.read()</code></pre>
+
+<p>POST方法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">
+<span class="hljs-keyword">import</span> urllib
+parmas = urllib.urlencode({<span class="hljs-string">'spam'</span>:<span class="hljs-number">1</span>,<span class="hljs-string">'eggs'</span>:<span class="hljs-number">2</span>,<span class="hljs-string">'bacon'</span>:<span class="hljs-number">0</span>})
+f=urllib.urlopen(<span class="hljs-string">"http://python.org/query"</span>,parmas)
+f.read()
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

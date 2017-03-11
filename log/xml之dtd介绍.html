@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>为什么需要dtd：</strong></span></p>&#13;
+<p><span style="font-size:18px">dtd的主要用处是约束xml文件,也可去约束html、html...</span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>快速入门:</strong></span></p>&#13;
+<p><span style="font-size:18px">在xml文件中引入dtd约束文件</span></p>&#13;
+<p><span style="font-size:18px">classes2.xml</span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;?xmlversion="1.0" encoding="utf-8"?&gt;
+&lt;!--一定保证文件的保存的编码方式和 utf-8一致--&gt;
+&lt;!--引入dtd--&gt;
+&lt;!DOCTYPE班级 SYSTEM "classes2.dtd"&gt;
+&lt;班级&gt;
+       &lt;学生&gt;
+              &lt;名字&gt;周星驰&lt;/名字&gt;
+              &lt;年龄&gt;23&lt;/年龄&gt;
+              &lt;介绍&gt;学习刻苦&lt;/介绍&gt;
+              &lt;面积&gt;20&lt;/面积&gt;
+       &lt;/学生&gt;
+       &lt;学生&gt;
+              &lt;名字&gt;林青霞&lt;/名字&gt;
+               &lt;年龄&gt;32&lt;/年龄&gt;
+              &lt;介绍&gt;是一个好学生&lt;/介绍&gt;
+       &lt;/学生&gt;
+&lt;/班级&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px"> dtd文件如下：</span></p>&#13;
+<p><span style="font-size:18px">classes2.dtd</span></p>&#13;
+<p/><pre name="code" class="plain">&lt;span style="font-size:18px;"&gt;&lt;!ELEMENT 班级 (学生+)&gt;
+&lt;!ELEMENT 学生 (名字,年龄,介绍)&gt;
+&lt;!ELEMENT 名字 (#PCDATA)&gt;
+&lt;!ELEMENT 年龄 (#PCDATA)&gt;
+&lt;!ELEMENT 介绍 (#PCDATA)&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">☞ 在默认情况下，浏览器不会去检测dtd约束条件.，我们需要自己写代码测试(这里有点新知识js),自己写一个测试工具文件</span></p>&#13;
+<p><span style="font-size:18px"> checkDTD.html</span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;html&gt;
+&lt;head&gt;
+&lt;metahttp-equiv="content-type"content="text/html;charset=utf-8"/&gt;
+&lt;scriptlanguage="javascript"&gt;
+&lt;!--
+       //创建一个xml解析器
+       var xmldoc = newActiveXObject("Microsoft.XMLDOM");
+       //开启校验功能
+       xmldoc.validateOnParse =true;
+       //指定对哪个 xml文件校验
+       xmldoc.load("classes2.xml");
+       //如果有错误信息，则输出
+       document.write("错误信息="+xmldoc.parseError.reason+"&lt;br/&gt;"); 
+       document.write("错误的行号="+xmldoc.parseError.line+"&lt;br/&gt;");
+//--&gt;
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;/html&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px">上面是将外部dtd文件引入xml文件中，除此之外，还可以直接在xml文件中写入dtd文件内容，即内部dtd</span></p>&#13;
+<p><span style="font-size:18px">classes3.xml</span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;?xmlversion="1.0" encoding="utf-8"?&gt;
+&lt;!--一定保证文件的保存的编码方式和 utf-8一致--&gt;
+&lt;!--引入dtd--&gt;
+&lt;!DOCTYPE 班级 [
+       &lt;!ELEMENT 班级 (学生+)&gt;
+&lt;!ELEMENT 学生 (名字,年龄,介绍)&gt;
+&lt;!ELEMENT 名字 (#PCDATA)&gt;
+&lt;!ELEMENT 年龄 (#PCDATA)&gt;
+&lt;!ELEMENT 介绍 (#PCDATA)&gt;
+]&gt;
+&lt;班级&gt;
+       &lt;学生&gt;
+              &lt;名字&gt;周星驰&lt;/名字&gt;
+              &lt;年龄&gt;23&lt;/年龄&gt;
+              &lt;介绍&gt;学习刻苦&lt;/介绍&gt;
+       &lt;/学生&gt;
+       &lt;学生&gt;
+              &lt;名字&gt;林青霞&lt;/名字&gt;
+               &lt;年龄&gt;32&lt;/年龄&gt;
+              &lt;介绍&gt;是一个好学生&lt;/介绍&gt;
+       &lt;/学生&gt;
+&lt;/班级&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>在xml文件中引入dtd文件有两种方式：</strong></span></p>&#13;
+<p><span style="font-size:18px">①      本地引用</span></p>&#13;
+<p><span style="font-size:18px">&lt;!DOCTYPE 根元素名 SYSTEM  “被引入的dtd文件的路径”&gt;</span></p>&#13;
+<p><span style="font-size:18px">②      引入一个公开的dtd（网络中的dtd文件）</span></p>&#13;
+<p><span style="font-size:18px">&lt;!DOCTYPE 文档根结点 PUBLIC  "DTD名称"  "DTD文件的URL"&gt;</span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>dtd的元素说明</strong></span></p>&#13;
+<p><span style="font-size:18px">基本语法</span></p>&#13;
+<p><span style="font-size:18px">&lt;!ELEMENT  元素名  元素规范&gt;</span></p>&#13;
+<p><span style="font-size:18px">元素名有三个规范:</span></p>&#13;
+<p><strong><span style="font-size:18px">EMPTY－该元素不能包含子元素和文本，但可以有属性－（空元素）</span></strong></p>&#13;
+<p><strong><span style="font-size:18px">ANY－该元素可以包含任何在DTD中定义的元素内容</span></strong></p>&#13;
+<p><strong><span style="font-size:18px">#PCDATA－可以包含任何字符数据，但是不能在其中包含任何子元素</span></strong></p>&#13;
+<p><strong><span style="font-size:18px">其它类型(组合)</span></strong></p>&#13;
+<p><span style="font-size:18px">我们的元素的几个修饰符</span></p>&#13;
+<p><span style="font-size:18px"> ?   0到1 </span></p>&#13;
+<p><span style="font-size:18px"> +   1到多</span></p>&#13;
+<p><span style="font-size:18px"> *   0到多</span></p>&#13;
+<p><span style="font-size:18px"> |   表示选择</span></p>&#13;
+<p><span style="font-size:18px"><strong> ,</strong>   表示元素出现的顺序</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>dtd元素属性列表说明</strong></span></p>&#13;
+<p><span style="font-size:18px">基本语法</span></p>&#13;
+<p><span style="font-size:18px"><span style="color:blue">&lt;!ATTLIST  </span><span style="color:blue">元素名字</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:blue">属性名  </span><span style="color:blue">属性类型  </span><span style="color:blue">属性的特点</span></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:blue">属性名  </span><span style="color:blue">属性类型  </span><span style="color:blue">属性的特点</span></span></p>&#13;
+<p><span style="color:blue"><span style="font-size:18px">&gt; </span></span></p>&#13;
+<p><span style="font-size:18px">属性类型有:</span></p>&#13;
+<p><strong><span style="font-size:18px">CDATA           [表示属性值可以是字符或者数字]<br/>&#13;
+ID                 [属性值是唯一的，字母开头 ]<br/>&#13;
+IDREF/IDREFS      [id引用]<br/><em>Enumerated         [枚举]</em><br/>&#13;
+ENTITY/ENTITIES  [实体]</span></strong></p>&#13;
+<p><span style="font-size:18px">属性的特点</span></p>&#13;
+<p><span style="font-size:18px">#REQUIRED  【该属性必须有】</span></p>&#13;
+<p><span style="font-size:18px">#IMPLIED     【该属性可以有可以没有】</span></p>&#13;
+<p><span style="font-size:18px">#FIXED value    [该属性的值是固定值]</span></p>&#13;
+<p><span style="font-size:18px">DEFAULT value   [默认值]</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><strong><span style="font-size:18px">说明IDREF/ IDREFS的用法：</span></strong></p>&#13;
+<p><strong><span style="font-size:18px"> <span style="font-weight:bold">IDREF    <span style="font-weight:bold">引用一个</span></span></span></strong></p>&#13;
+<p><span style="font-weight:bold"><span style="font-weight:bold"><span style="font-weight:bold"><span style="font-size:18px"> <span style="font-weight:bold">IDREFS   <span style="font-weight:bold">引用多个</span></span></span></span></span></span></p>&#13;
+<p><strong><span style="font-size:18px">案例:</span></strong></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;学生 住址="香港" 大佬="a002 a003" 学号="a001"&gt;
+              &lt;名字&gt;周星驰&lt;/名字&gt;
+              &lt;年龄&gt;23&lt;/年龄&gt;
+              &lt;介绍&gt;学习刻苦&lt;/介绍&gt;
+&lt;/学生&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px">对应的dtd</span></p>&#13;
+<p/><pre name="code" class="plain">&lt;span style="font-size:18px;"&gt;&lt;!ATTLIST 学生
+       住址 CDATA#IMPLIED
+       学号 ID#REQUIRED
+       大佬 IDREFS#REQUIRED
+&gt; &lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>实体定义</strong></span></p>&#13;
+<p><span style="font-size:18px">分为两种</span></p>&#13;
+<p><span style="font-size:18px">1.      引用实体</span></p>&#13;
+<p><span style="font-size:18px"> <img src="http://img.blog.csdn.net/20151028140959176?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/></span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">举例说明:</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px">在dtd中定义：</span></p>&#13;
+<p><span style="font-size:18px">&lt;!ELEMENT 班级 (学生+,班长?)&gt;</span></p>&#13;
+<p><span style="font-size:18px">&lt;!--定义一个引用实体,建议大家把引用实体的定义放在前面--&gt;</span></p>&#13;
+<p><span style="font-size:18px">&lt;!ENTITY intro "这是一个介绍"&gt;</span></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">在xml文件中引用：</span></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">&lt;介绍&gt;&amp;intro;学习刻苦&lt;/介绍&gt;</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px">运行该xml文件时，此处显示：</span></p>&#13;
+<p><span style="font-size:18px">&lt;介绍&gt;这是一个介绍学习刻苦&lt;/介绍&gt;</span></p>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">2.      参数实体</span></p>&#13;
+<p><span style="font-size:18px"> <img src="http://img.blog.csdn.net/20151028141018267?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/></span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px">举例:</span></p>&#13;
+<p/><pre name="code" class="plain">&lt;span style="font-size:18px;"&gt;&lt;!ELEMENT 班级 (学生+,班长?)&gt;
+&lt;!--定义一个引用实体,建议大家把引用实体的定义放在前面--&gt;
+&lt;!ENTITY intro "这是一个介绍"&gt;
+&lt;!--定义一个参数实体--&gt;
+&lt;!ENTITY  %  sName  "名字"&gt;
+&lt;!ATTLIST 学生
+住址 CDATA #IMPLIED
+学号 ID #REQUIRED
+大佬 IDREFS #REQUIRED
+婚姻状态 (单身|结婚|离婚) #REQUIRED
+国籍 CDATA #FIXED "中国"
+&gt; 
+&lt;!—注意要带分号--&gt;
+&lt;!ELEMENT 学生(%sName;,年龄,介绍)&gt;
+&lt;!ELEMENT %sName; (#PCDATA)&gt;
+&lt;!ELEMENT 年龄(#PCDATA)&gt;
+&lt;!ELEMENT 介绍(#PCDATA)&gt;
+&lt;!ELEMENT 班长(#PCDATA)&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>综合练习:</strong></span></p>&#13;
+<p><span style="font-size:18px">假设项目经理，定义了一个dtd文件.要求我们程序员根据dtd来编写一个合法和符合dtd规范的xml.</span></p>&#13;
+<p><span style="font-size:18px">myDtd.dtd</span></p>&#13;
+<p/><pre name="code" class="plain">&lt;span style="font-size:18px;"&gt;&lt;!ENTITY AUTHOR"John Doe"&gt;
+&lt;!ENTITYCOMPANY "JD Power Tools, Inc."&gt;
+&lt;!ENTITY EMAIL"jd@jd-tools.com"&gt;
+ 
+&lt;!ELEMENTCATALOG (PRODUCT+)&gt;
+ 
+&lt;!ELEMENTPRODUCT
+(SPECIFICATIONS+,OPTIONS?,PRICE+,NOTES?)&gt;
+&lt;!ATTLISTPRODUCT
+NAME CDATA#IMPLIED
+CATEGORY(HandTool|Table|Shop-Professional) "HandTool"
+PARTNUM CDATA#IMPLIED
+PLANT (Pittsburgh|Milwaukee|Chicago)"Chicago"
+INVENTORY(InStock|Backordered|Discontinued) "InStock"&gt;
+ 
+&lt;!ELEMENTSPECIFICATIONS (#PCDATA)&gt;
+&lt;!ATTLISTSPECIFICATIONS
+WEIGHT CDATA#IMPLIED
+POWER CDATA#IMPLIED&gt;
+ 
+&lt;!ELEMENTOPTIONS (#PCDATA)&gt;
+&lt;!ATTLISTOPTIONS
+FINISH (Metal|Polished|Matte)"Matte"
+ADAPTER(Included|Optional|NotApplicable) "Included"
+CASE(HardShell|Soft|NotApplicable) "HardShell"&gt;
+ 
+&lt;!ELEMENT PRICE(#PCDATA)&gt;
+&lt;!ATTLIST PRICE
+MSRP CDATA#IMPLIED
+WHOLESALE CDATA#IMPLIED
+STREET CDATA#IMPLIED
+SHIPPING CDATA#IMPLIED&gt;
+ 
+&lt;!ELEMENT NOTES(#PCDATA)&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px">xml文件:<br/></span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;?xmlversion="1.0" encoding="utf-8"?&gt;
+&lt;!DOCTYPECATALOG SYSTEM "products.dtd"&gt;
+&lt;CATALOG&gt;
+&lt;PRODUCTNAME="冰箱" CATEGORY="HandTool"PLANT="Chicago" INVENTORY="Discontinued"&gt;
+&lt;SPECIFICATIONSWEIGHT="80kg" POWER="1000w"&gt;这是国产海尔冰箱&lt;/SPECIFICATIONS&gt;
+&lt;PRICE&gt;1000&lt;/PRICE&gt;
+&lt;NOTES&gt;轻拿轻放&lt;/NOTES&gt;
+&lt;/PRODUCT&gt;
+&lt;/CATALOG&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

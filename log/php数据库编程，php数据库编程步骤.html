@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px"><strong>php有三种方式来操作mysql数据库：</strong><br/><span style="white-space:pre"/>1.mysql扩展库<br/><span style="white-space:pre"/>2.mysqli扩展库<br/><span style="white-space:pre"/>3.pdo<br/><strong>mysql扩展库和mysql数据库的区别：</strong><br/><span style="white-space:pre"/>mysql数据库用于存放数据</span></p>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>mysql数据库的三层结构示意图:</span><br/></p>&#13;
+<p><span style="font-size:14px">        <img src="http://img.blog.csdn.net/20150531133219689?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="500" height="400" alt=""/><br/></span></p>&#13;
+<p><span style="white-space:pre"><span style="font-size:14px">mysql扩展库是一堆函数，是php设计者提供给程序员用于完成对mysql数据库的各种操作（CRUD）。</span></span></p>&#13;
+<p><span style="white-space:pre"><span style="font-size:14px"><strong>mysql数据库结构中char与varchar的区别：</strong><br/><span style="white-space:pre"/>char(n)：长度为n个字节的固定长度;<br/><span style="white-space:pre"/>varchar(n)：长度为n个字节的可变长度，最大为n.<br/><span style="white-space:pre"/>char和varchar都是字符串类型的字符</span></span></p>&#13;
+<p><span style="white-space:pre"><span style="font-size:14px"><strong>php程序密码加密方法：</strong><br/><span style="white-space:pre"/>创建密码时，在将密码插入数据库之前，加上这一句：<br/><span style="white-space:pre"/>$pass=md5($pass); 即可对密码进行加密，存入数据库的是密文；<br/><span style="white-space:pre"/>当登陆时，先把用户输入的的密码进行加密再和数据库里面的密码进行比较。</span></span></p>&#13;
+<p><span style="white-space:pre"><span style="font-size:14px"><span style="white-space:pre"/>获取用户输入密码语句改为：$pass=md5($_POST['pass']);<br/><span style="white-space:pre"/>若为了加大密码被破解难度，在创建密码时，可在加密后再加上这一句：<br/><span style="white-space:pre"/>$pass=substr($pass,5,20); //截取密文指定的一段字符串，存入数据库<br/><span style="white-space:pre"/>这时主要用了一个substr（）这个函数，将加密后的密码截取一段字符串，保存到数据库中，这样别人就很难知道你是截取的哪一段了，也不好破解了。在登录时也用此方法判断即可。<br/><br/><strong>mysql扩展库操作mysql数据库步骤实例：</strong><br/></span></span></p>&#13;
+<p/><pre name="code" class="php">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8" /&gt;
+&lt;title&gt;php数据库编程&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;?php
+
+//以下函数可查看当前php支持什么扩展库
+//phpinfo();
+
+//mysql扩展库操作mysql数据库步骤如下：
+//1.获取与数据库操作系统的链接：
+$conn = mysql_connect("localhost","root","111111");
+if(!$conn)
+{
+	die("连接数据库失败".mysql_error());
+}
+//mysql_error()函数作用是返回上一个 MySQL操作产生的文本错误信息 ，即错误原因
+
+//2.选择数据库：
+mysql_select_db("design") or die("数据库选择失败".mysql_error());
+//3.设置数据库操作编码：（可有可无，但建议有）
+mysql_query("set names 'uft8'");
+//4.发送指令sql（ddl 数据库定义语言，dml 数据库操作做语言 update insert delete等，dql select语句 ， dtl 数据事物语句 rollback commit等）
+$sql = "select * from tool_info";
+//5.获取执行sql语句的结果集：（就是一张表）
+//如果执行的是dml语句如insert、update等，返回的是布尔值，而不是结果集，不需要获取结果集
+//mysql_query() 向指定连接的数据库管理系统中发送一条sql语句
+//若无$conn参数，则使用mysql_connect()最近打开的连接
+$result = mysql_query($sql,$conn);
+if(!$result)
+{
+	echo '数据库查询失败！'.mysql_error();
+	exit;
+}
+//6.接收返回的结果集，并处理、显示：
+//mysql_fetch_row会依次取出$res结果集的下一行数据，赋值给$row
+//$row 是一个数组
+//mysql_fetch_row()从指定的结果集中取得一行数据作为数组返回，如果没有更多行则返回false
+while($row = mysql_fetch_row($result))
+{/*
+	echo $row[0]."--";
+	echo $row[1]."--";
+	echo $row[2];
+	echo "&lt;br&gt;";
+ */
+ //或使用如下方法：
+	foreach($row as $key=&gt;$key_val)
+	{
+		echo $key_val.'--';
+	}
+	echo "&lt;br/&gt;";
+}
+//7.释放资源,使用完$result结果集后，一定要尽快释放资源，有助于减轻内存压力：
+mysql_free_result($result);
+//8.关闭连接(这句话可有可无，就算没有这句话一段时间后连接也会自动关闭，即使有这句话连接也不会马上关闭，会有一段等待时间；但建议还是要使用)
+mysql_close($conn);
+
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/><br/><p><br/></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

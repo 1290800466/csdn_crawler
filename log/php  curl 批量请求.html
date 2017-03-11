@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>实例：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-variable">$ch</span> = <span class="hljs-keyword">array</span>();
+<span class="hljs-variable">$res</span> = <span class="hljs-keyword">array</span>();
+<span class="hljs-variable">$conn</span> = <span class="hljs-keyword">array</span>();
+
+<span class="hljs-variable">$urls</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'baidu'</span> =&gt; <span class="hljs-string">"http://www.baidu.com/"</span>,
+    <span class="hljs-string">'cheyun'</span> =&gt; <span class="hljs-string">"http://auto.jrj.com.cn/"</span>,
+    <span class="hljs-string">'w3c'</span> =&gt; <span class="hljs-string">"http://www.w3cschool.cc/"</span>,
+);
+
+<span class="hljs-comment">// 创建批处理cURL句柄</span>
+<span class="hljs-variable">$mh</span> = curl_multi_init();
+
+<span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$urls</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$i</span> =&gt; <span class="hljs-variable">$url</span>) {
+    <span class="hljs-comment">// 创建一对cURL资源</span>
+    <span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>] = curl_init();
+    <span class="hljs-comment">// 设置URL和相应的选项</span>
+    curl_setopt(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>], CURLOPT_URL, <span class="hljs-variable">$url</span>);
+    curl_setopt(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>], CURLOPT_HEADER, <span class="hljs-number">0</span>);
+    curl_setopt(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>], CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);
+    curl_setopt(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>], CURLOPT_TIMEOUT, <span class="hljs-number">10</span>);
+    <span class="hljs-comment">//302跳转</span>
+    curl_setopt(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>], CURLOPT_FOLLOWLOCATION, <span class="hljs-number">1</span>);
+
+    <span class="hljs-comment">// 增加句柄</span>
+    curl_multi_add_handle(<span class="hljs-variable">$mh</span>, <span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>]);
+}
+
+
+<span class="hljs-variable">$active</span> = <span class="hljs-keyword">null</span>;
+<span class="hljs-comment">//防卡死写法：执行批处理句柄</span>
+<span class="hljs-keyword">do</span> {
+    <span class="hljs-variable">$mrc</span> = curl_multi_exec(<span class="hljs-variable">$mh</span>, <span class="hljs-variable">$active</span>);
+
+} <span class="hljs-keyword">while</span> (<span class="hljs-variable">$mrc</span> == CURLM_CALL_MULTI_PERFORM);
+
+<span class="hljs-keyword">while</span> (<span class="hljs-variable">$active</span> &amp;&amp; <span class="hljs-variable">$mrc</span> == CURLM_OK) {
+    <span class="hljs-keyword">if</span> (curl_multi_select(<span class="hljs-variable">$mh</span>) != -<span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">do</span> {
+            <span class="hljs-variable">$mrc</span> = curl_multi_exec(<span class="hljs-variable">$mh</span>, <span class="hljs-variable">$active</span>);
+
+        } <span class="hljs-keyword">while</span> (<span class="hljs-variable">$mrc</span> == CURLM_CALL_MULTI_PERFORM);
+    }
+}
+
+<span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$urls</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$i</span> =&gt; <span class="hljs-variable">$url</span>) {
+    <span class="hljs-comment">//获取当前解析的cURL的相关传输信息</span>
+    <span class="hljs-variable">$info</span> = curl_multi_info_read(<span class="hljs-variable">$mh</span>);
+
+    <span class="hljs-comment">//获取请求头信息</span>
+    <span class="hljs-variable">$heards</span> = curl_getinfo(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>]);
+
+    var_dump(<span class="hljs-variable">$heards</span>);
+
+    <span class="hljs-comment">//获取输出的文本流</span>
+    <span class="hljs-variable">$res</span>[<span class="hljs-variable">$i</span>] = curl_multi_getcontent(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>]);
+
+    <span class="hljs-comment">// 移除curl批处理句柄资源中的某个句柄资源</span>
+    curl_multi_remove_handle(<span class="hljs-variable">$mh</span>, <span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>]);
+
+    <span class="hljs-comment">//关闭cURL会话</span>
+    curl_close(<span class="hljs-variable">$conn</span>[<span class="hljs-variable">$i</span>]);
+}
+
+<span class="hljs-comment">//关闭全部句柄</span>
+curl_multi_close(<span class="hljs-variable">$mh</span>);
+
+<span class="hljs-comment">//var_dump($res);</span>
+
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

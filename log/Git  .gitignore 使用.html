@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>.gitignore文件</strong></p>
+
+<p>1、使用说明</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">屏蔽文件 : <span class="hljs-preprocessor">.gitignore</span>文件是告诉Git哪些目录或者文件需要忽略, 这些文件将不被提交<span class="hljs-comment">; </span>
+常用场景 : 写完代码后会执行变异调试等操作, 使用 <span class="hljs-preprocessor">.gitignore</span> 文件将这些编译后的文件屏蔽, 这些文件不需要Git工具进行管理<span class="hljs-comment">;</span>
+Android中的<span class="hljs-preprocessor">.gitignore</span> : 在Android中 bin 和 gen 两个目录可以忽略<span class="hljs-comment">;</span>
+<span class="hljs-preprocessor">.gitignore</span>位置 : 项目根目录下<span class="hljs-comment">;</span></code></pre>
+
+<p>2、过滤模式</p>
+
+<pre class="prettyprint"><code class=" hljs haml">Git中的 .gitignore 中有两种模式,开放模式 和保守模式,保守模式的优先级要高于开放模式;
+
+开放模式 : 设置哪些文件 活 目录 被过滤, 凡是在文件中列出的文件或者目录都要被过滤掉;
+-<span class="ruby">- 过滤目录 <span class="hljs-symbol">:</span> /bin/ 就是将bin目录过滤, 该文件下的所有目录和文件都不被提交;
+</span>-<span class="ruby">- 过滤某个类型文件 <span class="hljs-symbol">:</span> *.zip *.<span class="hljs-keyword">class</span> 就是过滤zip 和 <span class="hljs-class"><span class="hljs-keyword">class</span> 后缀的文件, 这些文件不被提交;</span>
+</span>-<span class="ruby">- 过滤指定文件 <span class="hljs-symbol">:</span> /gen/<span class="hljs-constant">R</span>.<span class="hljs-constant">Java</span>, 过滤该文件, 该文件不被提交;
+</span>
+保守模式 : 设置哪些文件不被过滤, 凡是列在其中的文件都要完整的提交上去;
+-<span class="ruby">- 跟踪目录 <span class="hljs-symbol">:</span> !<span class="hljs-regexp">/src , 该目录下的所有文件都要被提交;
+</span></span>-<span class="ruby">- 跟踪某类文件 <span class="hljs-symbol">:</span> !*.java , 凡是java文件都要保留;
+</span>-<span class="ruby">- 跟踪指定文件 <span class="hljs-symbol">:</span> !<span class="hljs-regexp">/AndroidManifest.xml , 该文件需要保留, 提交上去;</span></span></code></pre>
+
+<p>3、配置原则</p>
+
+<pre class="prettyprint"><code class=" hljs scss">一般情况下采用开放模式与保守模式共同使用;
+eg <span class="hljs-value">: 一个目录下有很多目录和文件, 当我们只需要保留其中的一个文件的时候, 先用开放模式不保留这些文件, 然后用保守模式将这个文件留下来, 保守模式的优先级要高于开放模式;</span></code></pre>
+
+<p>4、实例： <br/>
+.gitignore</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">/node_modules
+/public/storage
+/<span class="hljs-preprocessor">.idea</span>
+Homestead<span class="hljs-preprocessor">.json</span>
+Homestead<span class="hljs-preprocessor">.yaml</span>
+<span class="hljs-preprocessor">.project</span>
+<span class="hljs-preprocessor">.buildpath</span>
+/<span class="hljs-preprocessor">.settings</span>
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

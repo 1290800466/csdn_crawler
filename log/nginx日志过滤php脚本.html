@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs bash">&lt;?php
+/**
+ * nginx日志过滤脚本
+ */
+
+<span class="hljs-variable">$file</span> = <span class="hljs-string">'access.log'</span>;
+
+<span class="hljs-variable">$access1</span> = <span class="hljs-string">'./access1.log'</span>;
+<span class="hljs-variable">$access2</span> = <span class="hljs-string">'./access2.log'</span>;
+<span class="hljs-variable">$access3</span> = <span class="hljs-string">'./access3.log'</span>;
+<span class="hljs-variable">$access4</span> = <span class="hljs-string">'./access4.log'</span>;
+<span class="hljs-variable">$access5</span> = <span class="hljs-string">'./access5.log'</span>;
+<span class="hljs-variable">$access_res</span> = <span class="hljs-string">'./access6.log'</span>;
+
+file_exists(<span class="hljs-variable">$access_res</span>) ? unlink (<span class="hljs-variable">$access_res</span>) : <span class="hljs-literal">false</span>;
+file_exists(<span class="hljs-variable">$access1</span>) ? unlink (<span class="hljs-variable">$access1</span>) : <span class="hljs-literal">false</span>;
+file_exists(<span class="hljs-variable">$access2</span>) ? unlink (<span class="hljs-variable">$access2</span>) : <span class="hljs-literal">false</span>;
+file_exists(<span class="hljs-variable">$access3</span>) ? unlink (<span class="hljs-variable">$access3</span>) : <span class="hljs-literal">false</span>;
+file_exists(<span class="hljs-variable">$access4</span>) ? unlink (<span class="hljs-variable">$access4</span>) : <span class="hljs-literal">false</span>;
+
+//过滤第一个元素为<span class="hljs-string">'-'</span> 的行
+<span class="hljs-variable">$command1</span> = <span class="hljs-string">'/bin/awk \'</span>{<span class="hljs-keyword">if</span>(<span class="hljs-variable">$1</span> !~ /-/) print <span class="hljs-variable">$0</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$file</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access1</span>;
+
+//以 <span class="hljs-string">'+0800]'</span>拆分行， 并输出后半部分
+<span class="hljs-variable">$command2</span> = <span class="hljs-string">'/bin/awk -F \'</span>+<span class="hljs-number">0800</span>]\<span class="hljs-string">' \'</span>{print <span class="hljs-variable">$2</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$access1</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access2</span>;
+
+//过滤符合正则的url
+<span class="hljs-variable">$command3</span> = <span class="hljs-string">'/bin/awk -F \'</span> \<span class="hljs-string">'  \'</span>{<span class="hljs-keyword">if</span>(<span class="hljs-variable">$2</span> ~ /content\/[<span class="hljs-number">0</span>-<span class="hljs-number">9</span>]+/) print <span class="hljs-variable">$0</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$access2</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access3</span>;
+
+//过滤掉爬虫、搜索引擎访问记录
+<span class="hljs-variable">$command4</span> = <span class="hljs-string">'/bin/awk \'</span>{<span class="hljs-keyword">if</span>(<span class="hljs-variable">$0</span> !~ <span class="hljs-string">' . 
+            '</span>/Googlebot|dotbot|spider|Baiduspider|python-requests|Sogou|bingbot|ToutiaoSpider|Spider|BLEXBot|MJ12bot|Yahoo|AhrefsBot|grapeshot|archive|seokicks|linkdex|SinaWeiboBot/<span class="hljs-string">' . 
+            '</span>) print <span class="hljs-variable">$0</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$access3</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access4</span>;
+
+//过滤掉请求失败记录
+<span class="hljs-variable">$command5</span> = <span class="hljs-string">'/bin/awk \'</span>{<span class="hljs-keyword">if</span>(<span class="hljs-variable">$4</span> ~ /<span class="hljs-number">200</span>/ ) print <span class="hljs-variable">$0</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$access4</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access5</span>;
+
+
+// <span class="hljs-variable">$command</span> = <span class="hljs-string">'/bin/awk -F \'</span>[ /]\<span class="hljs-string">'  \'</span>{print <span class="hljs-variable">$5</span>,<span class="hljs-string">"\t"</span>,<span class="hljs-variable">$0</span>}\<span class="hljs-string">' '</span> . <span class="hljs-variable">$access4</span> . <span class="hljs-string">' &gt; '</span> . <span class="hljs-variable">$access_res</span>;
+
+<span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command1</span>);
+<span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command2</span>);
+<span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command3</span>);
+<span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command4</span>);
+<span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command5</span>);
+// <span class="hljs-variable">$output</span> = shell_<span class="hljs-keyword">exec</span>(<span class="hljs-variable">$command</span>);
+
+//多条awk命令组合方式
+
+// <span class="hljs-variable">$command</span> = <span class="hljs-string">'/bin/awk -F\'</span><span class="hljs-string">"\' \'{if(<span class="hljs-variable">$6</span> !~ /Googlebot|Baiduspider|Sogou|bingbot|Yahoo|AhrefsBot|grapeshot|archive|seokicks|linkdex|SinaWeiboBot/) print <span class="hljs-variable">$0</span>}\' ' . <span class="hljs-variable">$access</span> . '| /bin/awk \'{if(<span class="hljs-variable">$9</span> == 200 || <span class="hljs-variable">$9</span> == 301 || <span class="hljs-variable">$9</span> == 302) print <span class="hljs-variable">$0</span>}\' | /bin/awk \'{if(<span class="hljs-variable">$7</span> ~ /content\/[0-9]+/) print <span class="hljs-variable">$1</span>,<span class="hljs-variable">$7</span>}\' &gt; ' . <span class="hljs-variable">$access6</span>;
+</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

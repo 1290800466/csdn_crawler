@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h3 style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="color:rgb(51,51,51); line-height:1.8em"><span style="font-size:18px">网页中添加 jQuery有两种方式：</span></span></h3>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+从 <a target="_blank" href="http://jquery.com/download/" style="border:0px; margin:0px; padding:0px; color:rgb(100,133,76); text-decoration:none">jquery.com</a> 下载 jQuery 库</li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+从 CDN 中载入 jQuery, 如从 Google 中加载 jQuery</li></ul><hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h4 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">下载 jQuery:</span></h4>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+有两个版本的 jQuery 可供下载：</p>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+Production version - 用于实际的网站中，已被精简和压缩。<span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; line-height:18px">jquery.min.js</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em; font-size:1em">&#13;
+Development version - 用于测试和开发（未压缩，是可读的代码）jquery.js</li></ul><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+以上两个版本都可以从 <a target="_blank" href="http://jquery.com/download/"><span style="color:#64854c"><span style="border-style:initial; border-color:initial">jquery.com</span></span> </a>中下载。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+jQuery 库是一个 JavaScript 文件，您可以使用 HTML 的 &lt;script&gt; 标签引用它：</p>&#13;
+<div class="code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:715.781px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.2px; font-family:'courier new'">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="jquery-1.10.2.min.js"&gt;&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<strong>提示：</strong> 将下载的文件放在网页的同一目录下，就可以使用jQuery。</p>&#13;
+<hr style="color:rgb(212,212,212); height:1px; border:0px; clear:both; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(212,212,212)"/><h4 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">替代方案:<span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; line-height:18px">从 CDN 中载入 jQuery:</span></span></h4>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如果您不希望下载并存放 jQuery，那么也可以通过 CDN（内容分发网络） 引用它。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+百度、又拍云、新浪、谷歌和微软的服务器都存有 jQuery 。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如果你的站点用户是国内的，建议使用百度、又拍云、新浪等国内CDN地址，如果你站点用户是国外的可以使用谷歌和微软。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="border:0px; margin:0px; padding:0px">注：</span>本站实例均采用百度 jQuery CDN库。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如需从百度、又拍云、新浪、谷歌或微软引用 jQuery，请使用以下代码之一：</p>&#13;
+<div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="border:0px; margin:0px 0px 2px; padding:0px; font-size:14.4px; line-height:1.8em; color:rgb(97,127,16); background-color:transparent">&#13;
+Baidu CDN:</h2>&#13;
+<div class="example_code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="border:0px; margin:0px 0px 2px; padding:0px; font-size:14.4px; line-height:1.8em; color:rgb(97,127,16); background-color:transparent">&#13;
+又拍云 CDN:</h2>&#13;
+<div class="example_code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="http://upcdn.b0.upaiyun.com/libs/jquery/jquery-2.0.2.min.js"&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="border:0px; margin:0px 0px 2px; padding:0px; font-size:14.4px; line-height:1.8em; color:rgb(97,127,16); background-color:transparent">&#13;
+新浪 CDN:</h2>&#13;
+<div class="example_code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="border:0px; margin:0px 0px 2px; padding:0px; font-size:14.4px; line-height:1.8em; color:rgb(97,127,16); background-color:transparent">&#13;
+Google CDN:</h2>&#13;
+<div class="example_code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><table class="lamp " style="border:1px solid rgb(212,212,212); margin:0px; padding:0px; width:728px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px"><th width="34" style="border:0px; margin:0px; padding:10px 5px 10px 10px; font-size:1em; color:rgb(0,0,0)">&#13;
+ </th>&#13;
+<td style="border:0px; margin:0px; padding:4px 10px 4px 0px; font-size:1em"><strong>通过 Google CDN 来获得最新可用的版本：</strong><br/><br/>&#13;
+不大推荐使用Google CDN来获取版本，因为Google产品在中国很不稳定。<br/>&#13;
+如果您观察上什么的 Google URL - 在 URL 中规定了 jQuery 版本 (1.8.0)。如果您希望使用最新版本的 jQuery，也可以从版本字符串的末尾（比如本例 1.8）删除一个数字，谷歌会返回 1.8 系列中最新的可用版本（1.8.0、1.8.1 等等），或者也可以只剩第一个数字，那么谷歌会返回 1 系列中最新的可用版本（从 1.1.0 到 1.9.9）。</td>&#13;
+</tr></tbody></table><br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><div class="example" style="border:1px solid rgb(212,212,212); margin:0px 0px 5px; padding:5px; width:715.781px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(229,238,204)">&#13;
+<h2 class="example" style="border:0px; margin:0px 0px 2px; padding:0px; font-size:14.4px; line-height:1.8em; color:rgb(97,127,16); background-color:transparent">&#13;
+Microsoft CDN:</h2>&#13;
+<div class="example_code" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:701.453px; font-size:13.2px; font-family:'courier new'; word-break:break-all; word-wrap:break-word; background-color:rgb(255,255,255)">&#13;
+&lt;head&gt;<br/>&#13;
+&lt;script src="http://ajax.htmlnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"&gt;<br/>&#13;
+&lt;/script&gt;<br/>&#13;
+&lt;/head&gt;</div>&#13;
+</div>&#13;
+<br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"/><table class="lamp " style="border:1px solid rgb(212,212,212); margin:0px; padding:0px; width:728px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px"><th width="34" style="border:0px; margin:0px; padding:10px 5px 10px 10px; font-size:1em; color:rgb(0,0,0)">&#13;
+<img src="http://www.runoob.com/images/lamp.jpg" width="32" height="32" alt="lamp" style="border:0px; margin:0px; padding:0px; max-width:100%; height:auto"/></th>&#13;
+<td style="border:0px; margin:0px; padding:4px 10px 4px 0px; font-size:1em"><strong>使用百度、又拍云、新浪、谷歌或微软的 jQuery，有一个很大的优势：</strong><br/><br/>&#13;
+许多用户在访问其他站点时，已经从百度、又拍云、新浪、谷歌或微软加载过 jQuery。所有结果是，当他们访问您的站点时，会从缓存中加载 jQuery，这样可以减少加载时间。同时，大多数 CDN 都可以确保当用户向其请求文件时，会从离用户最近的服务器上返回响应，这样也可以提高加载速度。</td>&#13;
+</tr></tbody></table></div>  </body>
+            </html>

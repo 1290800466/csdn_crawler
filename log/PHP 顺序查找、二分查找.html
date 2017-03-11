@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>1、查找的方法</strong>：</span></p>&#13;
+<p><span style="font-size:18px">      顺序查找 、  二分法<br/><strong>2、顺序查找：</strong></span></p>&#13;
+<p><span style="font-size:18px">      对某个数组，按照顺序，一个一个比较，找到你要的数据。</span></p>&#13;
+<p><span style="font-size:18px"><strong>3、顺序查找实例：</strong><br/></span><br/></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1985605" snippet_file_name="blog_20161115_1_795045" name="code" class="php">&lt;?php  
+//顺序查找数组中某个数
+//如从一个数组中找到一个数：34
+//$arr = array(23,45,67,34,9,34,6)如果查到则输出下标，否则输出查无此数
+
+$arr = array(23,45,67,34,9,34,6);
+//设一个标志位
+$flag = false;
+foreach($arr as $x =&gt; $x_val)
+{
+	
+	if ($x_val == 34)
+	{
+		echo 'arr['.$x.']=34'."&lt;br&gt;";
+		$flag = true;
+	}
+}
+if ($flag==false)
+{
+	echo "查无此数！";
+}	
+?&gt;</pre><br/><p/>&#13;
+<p><span style="font-size:18px"><strong>4、二分查找：</strong></span></p>&#13;
+<p><span style="font-size:18px">      首先找到数组中间这个数，然后与要查找的数比较，如果要查找的数大于中间这个数，则说明应该向后找，否则向前找，如果想等，则说明找到。<br/><strong>前提：</strong>该数组必须是有序数列，如果该数组无序，必须先排序后查找<br/></span><br/></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1985605" snippet_file_name="blog_20161115_2_3891944" name="code" class="php">&lt;?php  
+//二分查找数组中某个数
+//如从一个数组中找到一个数：134
+//$arr = array(23,45,67,89,90,134,236)如果查到则输出下标，否则输出查无此数
+
+function binarySearch(&amp;$arr,$val,$leftindex,$rightindex)
+{
+	if($rightindex &lt; $leftindex)
+	{
+		echo "查无此数！";
+		return 0;
+	}
+	//四舍五入取整数值
+	$middleindex = round(($leftindex + $rightindex)/2);
+	if($val &gt; $arr[$middleindex])
+	{
+		binarySearch($arr,$val,$middleindex + 1,$rightindex);
+	}
+	elseif($val &lt; $arr[$middleindex])
+	{
+		binarySearch($arr,$val,$leftindex,$middleindex - 1);
+	}
+	else
+	{
+		echo 'arr['."$middleindex".']=134'."&lt;br&gt;";
+	}
+}
+	$arr = array(23,45,67,89,90,134,236);
+//	$leftindex = 0;左下标
+//	$rightindex = count($arr)-1;右下标
+//      $val = 134;要找的值
+	binarySearch($arr,134,0,count($arr) - 1)
+?&gt; </pre><br/><br/><p/>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>iconv详解：</strong></font> <br/>
+iconv — 字符串按要求的字符<strong>编码</strong>来<strong>转换</strong> <br/>
+iconv有bug ，碰到一些生僻字就会无法转换，当然了配置第二个参数时，可以稍微弥补一下默认缺陷，不至于无法转换是截断，用法如下 <br/>
+iconv(“UTF-8″,”GB2312//IGNORE”,$data) ; <br/>
+这样碰到生僻字转换失败时，它就会忽略失败，继续转换下面的内容。</p>
+
+<pre class="prettyprint"><code class=" hljs lasso">iconv
+<span class="hljs-built_in">string</span> iconv ( <span class="hljs-built_in">string</span> <span class="hljs-variable">$in_charset</span> , <span class="hljs-built_in">string</span> <span class="hljs-variable">$out_charset</span> , <span class="hljs-built_in">string</span> <span class="hljs-variable">$str</span> )
+
+第一个参数：内容原的编码
+
+第二个参数：目标编码
+
+第三个参数：要转的字符串
+
+函数返回字符串
+
+<span class="hljs-subst">&lt;?</span>php
+
+<span class="hljs-variable">$instr</span> <span class="hljs-subst">=</span> ‘测试’;
+
+<span class="hljs-comment">// GBK转UTF-8</span>
+
+<span class="hljs-variable">$outstr</span> <span class="hljs-subst">=</span> iconv(‘GBK’,<span class="hljs-string">'UTF-8′,$instr);
+
+?&gt;</span></code></pre>
+
+<p>返回值  <br/>
+返回转换后的字符串， 或者在失败时返回 FALSE。</p>
+
+<p><font color="red"><strong>mb_convert_encoding详解：</strong></font> <br/>
+为了确保转换的成功率，我们可以用另一个<strong>转换</strong>函数  <br/>
+mb_convert_encoding，这个函数效率不是很高，另外这个函数还可以省略第三个参数，自动识别内容编码，不过最好不要用，影响效率，还需要注意的时，mb_convert_encoding和iconv参数顺序不一样，一定要注意。</p>
+
+<p>附两个函数简单的用法：</p>
+
+<pre class="prettyprint"><code class=" hljs php">mb_convert_encoding
+string mb_convert_encoding ( string <span class="hljs-variable">$str</span> , string <span class="hljs-variable">$to_encoding</span> [, mixed <span class="hljs-variable">$from_encoding</span> ] )
+第一个参数：要处理的字符串
+第二个参数：目标编码
+第三个参数：内容原编码，它可以是一个 <span class="hljs-keyword">array</span> 也可以是逗号分隔的枚举列表
+<span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-variable">$instr</span> = <span class="hljs-string">'测试'</span>;
+
+<span class="hljs-comment">// GBK转UTF-8</span>
+
+<span class="hljs-variable">$outstr</span> = mb_convert_encoding(<span class="hljs-variable">$instr</span>,<span class="hljs-string">'UTF-8'</span>,<span class="hljs-string">'GBK'</span>,);
+<span class="hljs-variable">$str</span> = mb_convert_encoding(<span class="hljs-variable">$instr</span>, <span class="hljs-string">"UCS-2LE"</span>, <span class="hljs-string">"JIS, eucjp-win, sjis-win"</span>);
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p>个人建议碰到转码问题时采用mb_convert_encoding比较保险。</p>
+
+<p><font color="red"><strong>mb_convert_variables</strong></font></p>
+
+<p>mb_convert_variables — <strong>转换一个或多个变量的字符编码</strong></p>
+
+<pre class="prettyprint"><code class=" hljs r">mb_convert_variables ( $to_encoding , $from_encoding , &amp;$vars [, mixed &amp;$<span class="hljs-keyword">...</span> ] )</code></pre>
+
+<p>将变量 vars 的编码从 from_encoding 转换成编码 to_encoding。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-function"><span class="hljs-title">mb_convert_variables</span><span class="hljs-params">()</span> 会拼接变量数组或对象中的字符串来检测编码，因为短字符串的检测往往会失败。因此，不能在一个数组或对象中混合使用编码。</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs delphi">to_encoding  将 <span class="hljs-keyword">string</span> 转换成这个编码。
+
+from_encoding 可以指定为一个 <span class="hljs-keyword">array</span> 或者逗号分隔的 <span class="hljs-keyword">string</span>，它将尝试根据 from-coding 来检测编码。 当省略了 from_encoding，将使用 detect_order。
+vars 是要转换的变量的引用。 参数可以接受 <span class="hljs-keyword">String</span>、<span class="hljs-keyword">Array</span> 和 <span class="hljs-keyword">Object</span> 的类型。 mb_convert_variables() 假设所有的参数都具有同样的编码。
+额外的 vars。</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">返回值 ：
+成功时返回转换前的字符编码，失败时返回 <span class="hljs-keyword">FALSE</span>。</code></pre>
+
+<pre class="prettyprint"><code class=" hljs xml">实例：
+<span class="php"><span class="hljs-comment"><span class="hljs-preprocessor">&lt;?php</span>
+/* 转换变量 $post1、$post2 编码为内部（internal）编码 */</span>
+<span class="hljs-variable">$interenc</span> = mb_internal_encoding();
+<span class="hljs-variable">$inputenc</span> = mb_convert_variables(<span class="hljs-variable">$interenc</span>, <span class="hljs-string">"ASCII,UTF-8,SJIS-win"</span>, <span class="hljs-variable">$post1</span>, <span class="hljs-variable">$post2</span>);
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p><font color="red"><strong>mb_internal_encoding</strong></font> <br/>
+mb_internal_encoding — <strong>设置/获取内部字符编码</strong></p>
+
+<pre class="prettyprint"><code class=" hljs mel">mixed mb_internal_encoding ([ <span class="hljs-keyword">string</span> <span class="hljs-variable">$encoding</span> = mb_internal_encoding() ] )</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">参数 ：
+encoding 字符编码名称使用于 HTTP 输入字符编码转换、HTTP 输出字符编码转换、mbstring 模块系列函数字符编码转换的默认编码。 
+返回值 ：
+如果设置了 encoding，则成功时返回 <span class="hljs-literal">TRUE</span>， 或者在失败时返回 <span class="hljs-literal">FALSE</span>。 <span class="hljs-keyword">In</span> this <span class="hljs-keyword">case</span>, the character encoding <span class="hljs-keyword">for</span> multibyte regex <span class="hljs-keyword">is</span> <span class="hljs-keyword">NOT</span> changed. 如果省略了 encoding，则返回当前的字符编码名称。</code></pre>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-comment"><span class="hljs-preprocessor">&lt;?php</span>
+/* 设置内部字符编码为 UTF-8 */</span>
+mb_internal_encoding(<span class="hljs-string">"UTF-8"</span>);
+
+<span class="hljs-comment">/* 显示当前的内部字符编码*/</span>
+<span class="hljs-keyword">echo</span> mb_internal_encoding();
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p><font color="red"><strong>mb_detect_encoding详解：</strong></font></p>
+
+<p>mb_detect_encoding — <strong>检测字符的编码</strong></p>
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-built_in">string</span> mb_detect_encoding ( <span class="hljs-built_in">string</span> <span class="hljs-variable">$str</span> <span class="hljs-preprocessor">[</span>, mixed <span class="hljs-variable">$encoding_list</span> <span class="hljs-subst">=</span> mb_detect_order() <span class="hljs-preprocessor">[</span>, bool <span class="hljs-variable">$strict</span> <span class="hljs-subst">=</span> <span class="hljs-literal">false</span> <span class="hljs-preprocessor">]</span><span class="hljs-markup">] )</span></code></pre>
+
+<p>检测字符串 str 的编码。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vbnet">参数 
+str    待检查的字符串。
+encoding_list   是一个字符编码列表。 编码顺序可以由数组或者逗号分隔的列表字符串指定。
+如果省略了 encoding_list 将会使用 detect_order。
+<span class="hljs-keyword">strict</span>    <span class="hljs-keyword">strict</span> 指定了是否严格地检测编码。 默认是 <span class="hljs-literal">FALSE</span>。
+返回值
+检测到的字符编码，或者无法检测指定字符串的编码时返回 <span class="hljs-literal">FALSE</span>。</code></pre>
+
+<p><font color="red"><strong>字符串编码未知的情况下对字符串进行编码：</strong></font> <br/>
+1、无论字符串编码是什么，均转换为gbk</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSafeStr</span><span class="hljs-params">(<span class="hljs-variable">$str</span>)</span>{</span>
+    <span class="hljs-variable">$s1</span> = iconv(<span class="hljs-string">'utf-8'</span>,<span class="hljs-string">'gbk//IGNORE'</span>,<span class="hljs-variable">$str</span>);
+    <span class="hljs-variable">$s0</span> = iconv(<span class="hljs-string">'gbk'</span>,<span class="hljs-string">'utf-8//IGNORE'</span>,<span class="hljs-variable">$s1</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$s0</span> == <span class="hljs-variable">$str</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$s1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;
+    }
+}</code></pre>
+
+<p>2、无论字符串编码是什么，均转换为utf-8</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSafeStr</span><span class="hljs-params">(<span class="hljs-variable">$str</span>)</span>{</span>
+    <span class="hljs-variable">$s1</span> = iconv(<span class="hljs-string">'gbk'</span>,<span class="hljs-string">'utf-8//IGNORE'</span>,<span class="hljs-variable">$str</span>);
+    <span class="hljs-variable">$s0</span> = iconv(<span class="hljs-string">'utf-8'</span>,<span class="hljs-string">'gbk//IGNORE'</span>,<span class="hljs-variable">$s1</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$s0</span> == <span class="hljs-variable">$str</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$s1</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$str</span>;
+    }
+}</code></pre>
+
+<p><font color="red"><strong>获取字符串编码方法：</strong></font></p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getcode</span><span class="hljs-params">(<span class="hljs-variable">$str</span>)</span>
+{</span>
+    <span class="hljs-variable">$s1</span> = iconv(<span class="hljs-string">'utf-8'</span>,<span class="hljs-string">'gbk//IGNORE'</span>,<span class="hljs-variable">$str</span>);
+    <span class="hljs-variable">$s0</span> = iconv(<span class="hljs-string">'gbk'</span>,<span class="hljs-string">'utf-8//IGNORE'</span>,<span class="hljs-variable">$s1</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$s0</span> == <span class="hljs-variable">$str</span>){
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'utf-8'</span>;
+    }<span class="hljs-keyword">else</span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'gbk'</span>;
+    }
+}</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

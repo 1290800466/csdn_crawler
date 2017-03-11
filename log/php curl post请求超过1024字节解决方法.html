@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>基础知识背景： <br/>
+“Expect: 100-continue”的来龙去脉： <br/>
+        HTTP/1.1 协议里设计 100 (Continue) HTTP 状态码的的目的是，在客户端发送 Request Message 之前，HTTP/1.1 协议允许客户端先判定服务器是否愿意接受客户端发来的消息主体（基于 Request Headers）。 <br/>
+    即， Client 和 Server 在 Post （较大）数据之前，允许双方“握手”，如果匹配上了，Client 才开始发送（较大）数据。 <br/>
+    这么做的原因是，如果客户端直接发送请求数据，但是服务器又将该请求拒绝的话，这种行为将带来很大的资源开销。</p>
+
+<p>libcurl 发送大于1024字节数据时启用“Expect:100-continue‘特性：</p>
+
+<pre class="prettyprint"><code class=" hljs vbscript">在使用 curl 做 POST 的时候，当要 POST 的数据大于 <span class="hljs-number">1024</span> 字节的时候，curl 并不会直接就发起 POST 请求，而是会分为两步：
+<span class="hljs-number">1.</span> 发送一个请求，包含一个 <span class="hljs-string">"Expect: 100-continue"</span> 头域，询问 <span class="hljs-built_in">Server</span> 是否愿意接收数据；
+<span class="hljs-number">2.</span> 接收到 <span class="hljs-built_in">Server</span> 返回的 <span class="hljs-number">100</span>-continue 应答以后，才把数据 POST 给 <span class="hljs-built_in">Server</span>；</code></pre>
+
+<p>PHP Curl-library 可以主动封禁此特性：</p>
+
+<p>PHP curl 遵从 libcurl 的特性。由于不是所有 web servers 都支持这个特性，所以会产生各种各样的错误。如果你遇到了，可以用下面的命令封禁”Expect”头域：    </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-comment">//添加如下head头就可传输大于1024字节请求</span>
+    curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_HTTPHEADER, <span class="hljs-keyword">array</span>(<span class="hljs-string">'Expect:'</span>));
+<span class="hljs-preprocessor">?&gt;</span></span>
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">// $_SERVER['HTTP_REFERER']的获取情况<br/>&#13;
+// 注意 $_SERVER['HTTP_REFERER'] 并不一定总能获取到，只有在以下情况下才能获取到：<br/>&#13;
+// 一、能够取到HTTP_REFERER的情况为以下几种：<br/>&#13;
+// 1．直接用&lt;a href&gt;<br/>&#13;
+// 2．用Submit或&lt;input type=image&gt;提交的表单(POST or GET)<br/>&#13;
+// 3．使用Jscript提交的表单(POST or GET)<br/><br/><br/>&#13;
+// 二、不能取到的情况有以下几种：<br/>&#13;
+// 1．从收藏夹链接<br/>&#13;
+// 2．单击”主页”或者自定义的地址<br/>&#13;
+// 3．利用Jscript的location.href or location.replace()<br/>&#13;
+// 4．在浏览器直接输入地址<br/>&#13;
+// 5．&lt;%Response.Redirect%&gt;<br/>&#13;
+// 6．&lt;%Response.AddHeader%&gt;或&lt;meta http-equiv=refresh&gt;转向<br/>&#13;
+// 7．用XML加载地址<br/><br/><br/>&#13;
+// strrpos函数讲解：<br/>&#13;
+// strrpos — 计算指定字符串在目标字符串中最后一次出现的位置<br/>&#13;
+// 说明<br/>&#13;
+// int strrpos ( string $haystack , string $needle [, int $offset = 0 ] )<br/>&#13;
+// 返回字符串 $haystack 中 needle 最后一次出现的数字位置。<br/>&#13;
+// $haystack<br/>&#13;
+// 在此字符串中进行查找。<br/>&#13;
+// needle<br/>&#13;
+// 如果 needle不是一个字符串，它将被转换为整型并被视为字符的顺序值。<br/>&#13;
+// 返回值<br/>&#13;
+// 返回 needle 存在的位置。如果没有找到，返回 FALSE。<br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">盗链判断代码：asd.php</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1996885" snippet_file_name="blog_20161121_1_5927248" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+//防盗链技术
+//先判断是否获取到 $_SERVER['HTTP_REFERER'] 变量
+if(isset($_SERVER['HTTP_REFERER'])){
+    //判断$_SERVER['HTTP_REFERER']是不是以http://localhost/开始的
+    if(strpos($_SERVER['HTTP_REFERER'],"http://localhost")==0){
+        echo '&lt;img src="a.png"/&gt;';
+    } 
+    else{  
+        header("Location:warning.php");//跳转页面到warning.php
+        //echo $_SERVER["HTTP_REFERER"];
+    }
+} 
+else {
+    header("Location:warning.php");
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+warning.php<br/></span>&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1996885" snippet_file_name="blog_20161121_2_4400512" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;html&gt;
+
+&lt;b&gt;倒链&lt;/b&gt;
+
+&lt;/html&gt;&lt;/span&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">防盗链验证代码  </span></p>&#13;
+<pre code_snippet_id="1996885" snippet_file_name="blog_20161121_3_3844887" name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a href="http://localhost/wml/asd.php"&gt;验证防盗链&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">上面是理解原理</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">一般通过配置服务器防盗链，如nginx配置访问</span></p>&#13;
+<pre class="prettyprint hljs nginx" style="padding:0.5em; font-family:Menlo,Monaco,Consolas,'Courier New',monospace; color:rgb(68,68,68); margin-top:0px; margin-bottom:1.5em; font-size:14px; line-height:1.5em; word-break:break-all; word-wrap:break-word; border:none; overflow-x:auto; background-color:rgb(246,246,246)"><span class="hljs-regexp" style="color:rgb(188,96,96)">(gif|jpg|jpeg|png|bmp|swf) 等文件的白名单</span></pre>&#13;
+<p/>&#13;
+<p>具体配置可百度搜索</p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

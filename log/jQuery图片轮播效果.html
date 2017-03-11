@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p>代码实例：</p><pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+&lt;title&gt;仿手机腾讯网图片轮播效果&lt;/title&gt;
+&lt;link type="text/css" rel="stylesheet" href="main.css" /&gt;
+&lt;style&gt;
+@charset "utf-8";
+* {padding:0;margin:0;border:none;text-decoration:none;list-style:none;overflow:hidden;}
+#main{width:960px;height:450px;position:relative;left:50%;margin-left:-480px;margin-top:100px;}
+#picbox{width:3840px;height:450px;position:absolute;top:0px;left:0px;}
+.pics{width:960px;height:450px;float:left;}
+#pic1{background:url(http://3gimg.qq.com/images/3gqq/ad_home.jpg);}
+#pic2{background:url(http://3gimg.qq.com/images/3gqq/ad_yuetu.jpg);}
+#pic3{background:url(http://3gimg.qq.com/images/3gqq/ad_nba.jpg);}
+#pic4{background:url(http://3gimg.qq.com/images/3gqq/ad_stock.jpg);}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="main"&gt;
+  &lt;div id="picbox"&gt;
+    &lt;div id="pic1" class="pics"&gt;&lt;/div&gt;
+    &lt;div id="pic2" class="pics"&gt;&lt;/div&gt;
+    &lt;div id="pic3" class="pics"&gt;&lt;/div&gt;
+    &lt;div id="pic4" class="pics"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src="http://h.qhimg.com/js/jquery-1.6.2.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+    var i=0;
+	var m;
+	$(document).ready(function(){
+		setInterval( function autodo(){
+			i++;
+			if(i&gt;4){i=1}
+			doit(i);
+		},1500);
+	});
+	function doit(i){
+		m = -960*(i-1);
+		$("#picbox").stop(true, true).animate({"left":m+"px"},500);
+	}
+&lt;/script&gt; 
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+
+
+</pre><br/></div>  </body>
+            </html>

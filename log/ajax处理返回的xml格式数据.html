@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px; color:#ff0000"><strong>以用户注册为例：</strong></span></p>&#13;
+<p><span style="font-size:18px">register.php<br/></span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;用户注册&lt;/title&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"/&gt;
+&lt;script type="text/javascript"&gt;
+
+	//创建ajax引擎
+	function getXmlHttpObject(){
+		
+		var xmlHttpRequest;
+		//不同的浏览器获取对象xmlhttprequest 对象方法不一样
+		if(window.ActiveXObject){
+			
+			xmlHttpRequest=new ActiveXObject("Microsoft.XMLHTTP");
+			
+		}else{
+
+			xmlHttpRequest=new XMLHttpRequest();
+		}
+
+		return xmlHttpRequest;
+
+	}
+	var myXmlHttpRequest="";
+
+	//验证用户名是否存在
+	function checkName(){
+		
+		myXmlHttpRequest=getXmlHttpObject();
+
+		//怎么判断创建ok
+		if(myXmlHttpRequest){
+			
+			//通过myXmlHttpRequest对象发送请求到服务器的某个页面
+			//第一个参数表示请求的方式, "get" / "post"
+			//第二个参数指定url,对哪个页面发出ajax请求(本质仍然是http请求)
+			//第三个参数表示 true表示使用异步机制,如果false表示不使用异步
+			var url="/ajax/registerProcess.php";
+			//这个是要发送的数据
+			var data="username="+$('username').value;
+			//打开请求.
+			myXmlHttpRequest.open("post",url,true);
+			//还有一句话，这句话必须.
+			myXmlHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+			//指定回调函数.chuli是函数名
+			myXmlHttpRequest.onreadystatechange=chuli;
+
+			//真的发送请求,如果是get请求则填入 null即可
+			//如果是post请求，则填入实际的数据
+			myXmlHttpRequest.send(data); 
+
+
+		}
+	}
+
+	//回调函数
+	function chuli(){
+		
+		//window.alert("处理函数被调回"+myXmlHttpRequest.readyState);
+		//我要取出从registerPro.php页面返回的数据
+		if(myXmlHttpRequest.readyState==4){
+			
+			//取出值,根据返回信息的格式定.text
+			//window.alert("服务器返回"+myXmlHttpRequest.responseText);
+
+			//$('myres').value=myXmlHttpRequest.responseText;
+
+			//看看如果取出 xml格式数据
+			//window.alert(myXmlHttpRequest.responseXML);
+		
+			//获取mes节点
+			&lt;span style="color:#ff0000;"&gt;var mes=myXmlHttpRequest.responseXML.getElementsByTagName("mes");
+
+			//取出mes节点值
+			//window.alert(mes.length);
+			//mes[0]-&gt;表示取出第一个mes节点
+			//mes[0].childNodes[0]-&gt;表示第一个mes节点的第一个子节点
+			var mes_val=mes[0].childNodes[0].nodeValue;
+
+			$('myres').value=mes_val;
+		}&lt;/span&gt;
+	}
+
+	//这里我们写一个函数
+	function $(id){
+		return document.getElementById(id);
+	}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;form action="???" method="post"&gt;
+    用户名字:&lt;input type="text"    name="username1" id="username"&gt;&lt;input type="button" onclick="checkName();"  value="验证用户名"&gt;
+    &lt;input style="border-width: 0;color: red" type="text" id="myres"&gt;
+    &lt;br/&gt;
+    用户密码:&lt;input type="password" name="password"&gt;&lt;br&gt;
+    电子邮件:&lt;input type="text" name="email"&gt;&lt;br/&gt;
+    &lt;input type="submit" value="用户注册"&gt;
+    &lt;/form&gt;
+     &lt;form action="???" method="post"&gt;
+    用户名字:&lt;input type="text" name="username2" &gt;
+   
+    &lt;br/&gt;
+    用户密码:&lt;input type="password" name="password"&gt;&lt;br&gt;
+    电子邮件:&lt;input type="text" name="email"&gt;&lt;br/&gt;
+    &lt;input type="submit" value="用户注册"&gt;
+    &lt;/form&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/>&#13;
+regisgerProcess.php<br/></span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+	
+	//这里两句话很重要,第一讲话告诉浏览器返回的数据是xml格式
+	header("Content-Type: text/xml;charset=utf-8");
+	//告诉浏览器不要缓存数据
+	header("Cache-Control: no-cache");
+
+	//接收数据(这里要和请求方式对于 _POST 还是 _GET)
+	$username=$_POST['username'];
+
+	//这里我们看看如何处理格式是xml
+	$info="";
+	if($username=="shunping"){
+		$info.="&lt;res&gt;&lt;mes&gt;用户名不可以用,对不起&lt;/mes&gt;&lt;/res&gt;";//注意，这里数据是返回给请求的页面.
+	}else{
+		$info.="&lt;res&gt;&lt;mes&gt;用户名可以用,恭喜&lt;/mes&gt;&lt;/res&gt;";
+	}
+	echo $info;
+?&gt;	&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px"><strong><span style="color:rgb(255,0,0); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">XML DOM - </span><span class="color_h1" style="color:rgb(255,0,0); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; border:0px; margin:0px; padding:0px">属性和方法：</span></strong></span></p>&#13;
+<p/>&#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">XML DOM 属性</span></h2>&#13;
+<p/>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">一些典型的 DOM 属性：</span></p>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.nodeName - x 的名称</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.nodeValue - x 的值</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.parentNode - x 的父节点</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.childNodes - x 的子节点</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.attributes - x 的属性节点</span></li></ul><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">注释：在上面的列表中，x 是一个节点对象。</span></p>&#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">XML DOM 方法</span></h2>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.getElementsByTagName(<em>name</em>) - 获取带有指定标签名称的所有元素</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.appendChild(<em>node</em>) - 向 x 插入子节点</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px">x.removeChild(<em>node</em>) - 从 x 删除子节点</span></li></ul><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">注释：在上面的列表中，x 是一个节点对象。</span></p>&#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">实例</span></h2>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">从 books.xml 中的 &lt;title&gt; 元素获取文本的 JavaScript 代码：</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">txt=xmlDoc.getElementsByTagName("title")[0].childNodes[0].nodeValue</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">在该语句执行后，txt 保存的值是 "Everyday Italian"。</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">解释：</span></p>&#13;
+<ul style="border:0px; margin:1em 0px; padding:0px; line-height:16.8px; list-style-type:none; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px"><strong>xmlDoc</strong> - 由解析器创建的 XML DOM 对象</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px"><strong>getElementsByTagName("title")[0]</strong> - 第一个 &lt;title&gt; 元素</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px"><strong>childNodes[0]</strong> - &lt;title&gt; 元素的第一个子节点（文本节点）</span></li><li style="border:0px; margin:0px 0px 1em 1em; padding:0px 0px 0px 1.5em; line-height:1.5em">&#13;
+<span style="font-size:18px"><strong>nodeValue</strong> - 节点的值（文本本身）</span></li></ul><br/></div>  </body>
+            </html>

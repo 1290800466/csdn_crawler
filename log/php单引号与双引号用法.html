@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin:0px; padding:0px; border:0px; list-style:none; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px"><strong>php单引号与双引号用法；引号嵌套方法</strong><br/><br/></span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">1、双引号内不能直接就再嵌套双引号</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">2、双引号与单引号互相嵌套使用</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">如：</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">双引号内直接嵌套单引号</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+</p><pre name="code" class="php">echo "&lt;script language='javascript'&gt; alert('插入成功');&lt;/script&gt;" ;
+echo"&lt;script language='javascript'&gt;history.go(-2);&lt;/script&gt;";</pre>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">3、php中单引号内的变量不能被解释</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">如</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px"/></span></p>&#13;
+<span style="font-family:FangSong_GB2312; font-size:18px"/><pre name="code" class="php">$c = 1;
+echo "$c";           //输出1
+$c = 1;
+echo '$c';           //输出$c</pre>但是当用在sql语句中时当引号内有变量需要被解释时<br/>&#13;
+如SQL语句可以写成：<br/><pre name="code" class="php">$sql = "select * from user where id = '$id'";
+$sql = "insert into user (`user`,`pwd`) values ('$a','$b')";
+$sql = "select * from user where id = {$id}";
+$sql = "insert into xadmin values ('','".$_POST['User']."','".$Pwd."','".$Xb."','".$Xydm."','".$_POST['Lxr']."','".$_POST['Lxdh']."','".$_POST['E_mail']."')";</pre>变量都是可以被解释的&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px">4、用\来转义实现双引号内嵌套双引号（尤其是有变量的时候，双引号内的变量能被解释）</span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:5px; padding-top:0px; padding-bottom:0px; border:0px; list-style:none; word-wrap:normal; word-break:normal; line-height:21px">&#13;
+<span style="background-color:rgb(255,255,255)"><span style="font-family:FangSong_GB2312; font-size:18px"/></span></p>&#13;
+<span style="font-family:FangSong_GB2312; font-size:18px"/><pre name="code" class="php">function error($str,$url="")       
+{
+   if($url!="")
+   {
+    echo"&lt;meta http-equiv=\"refresh\" content=\"0;URL=$url\"&gt;";
+    exit();
+   }
+   else
+   {
+    echo"&lt;script language=\"JavaScript\" type=\"text/JavaScript\"&gt; alert(\"$str\");history.back(-1);&lt;/script&gt;";
+   }
+   exit();
+}</pre>也可以写在这样<br/><pre name="code" class="php">echo "&lt;script language='javascript'&gt;alert(\"$str\")&lt;/script&gt;";</pre><br/><br/></div>  </body>
+            </html>

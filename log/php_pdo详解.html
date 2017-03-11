@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>PDO 类</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs ">PDO {
+     <span class="hljs-comment">//创建一个表示数据库连接的 PDO 实例</span>
+    __construct ( string <span class="hljs-variable">$dsn</span> [, string <span class="hljs-variable">$username</span> [, string <span class="hljs-variable">$password</span> [, <span class="hljs-keyword">array</span> <span class="hljs-variable">$driver_options</span> ]]] )
+    <span class="hljs-comment">//启动一个事务</span>
+    bool beginTransaction ( void )
+    <span class="hljs-comment">//提交一个事务</span>
+    bool commit ( void )
+    <span class="hljs-comment">//获取跟数据库句柄上一次操作的错误码</span>
+    mixed errorCode ( void )
+    <span class="hljs-comment">//获取跟数据库句柄上一次操作的错误信息</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">array</span> errorInfo ( void )
+    <span class="hljs-comment">//执行一条 SQL 语句，并返回受影响的行数</span>
+    int exec ( string <span class="hljs-variable">$statement</span> )
+    <span class="hljs-comment">//取回一个数据库连接的属性</span>
+    <span class="hljs-comment">//[getAttribute详解](http://www.runoob.com/php/pdo-getattribute.html)</span>
+    mixed getAttribute ( int <span class="hljs-variable">$attribute</span> )
+    <span class="hljs-comment">//返回一个可用驱动的数组</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">array</span> getAvailableDrivers ( void )
+    <span class="hljs-comment">//检查是否在一个事务内</span>
+    bool inTransaction ( void )
+    <span class="hljs-comment">//返回最后插入行的ID或序列值</span>
+    string lastInsertId ([ string <span class="hljs-variable">$name</span> = <span class="hljs-keyword">NULL</span> ] )
+    <span class="hljs-comment">//准备要执行的SQL语句并返回一个 PDOStatement 对象</span>
+    <span class="hljs-keyword">public</span> PDOStatement prepare ( string <span class="hljs-variable">$statement</span> [, <span class="hljs-keyword">array</span> <span class="hljs-variable">$driver_options</span> = <span class="hljs-keyword">array</span>() ] )
+    <span class="hljs-comment">//执行 SQL 语句，返回PDOStatement对象,可以理解为结果集</span>
+    <span class="hljs-keyword">public</span> PDOStatement query ( string <span class="hljs-variable">$statement</span> )
+    <span class="hljs-comment">//为SQL语句中的字符串添加引号</span>
+    <span class="hljs-keyword">public</span> string quote ( string <span class="hljs-variable">$string</span> [, int <span class="hljs-variable">$parameter_type</span> = PDO::PARAM_STR ] )
+    <span class="hljs-comment">//回滚一个事务</span>
+    bool rollBack ( void )
+    <span class="hljs-comment">//设置属性</span>
+    <span class="hljs-comment">//[setAttribute 详解](http://www.runoob.com/php/pdo-setattribute.html)</span>
+    bool setAttribute ( int <span class="hljs-variable">$attribute</span> , mixed <span class="hljs-variable">$value</span> )
+}</code></pre>
+
+<p><font color="blue"><strong>实例：</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//[pdo初始化传值有三种方式，其他两种自己写配置文件或在php.ini中配置，详细看php.net](http://php.net/manual/zh/pdo.construct.php)</span>
+<span class="hljs-variable">$dsn</span> = <span class="hljs-string">'mysql:dbname=testdb;host=127.0.0.1'</span>;
+<span class="hljs-variable">$user</span> = <span class="hljs-string">'dbuser'</span>;
+<span class="hljs-variable">$password</span> = <span class="hljs-string">'dbpass'</span>;
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'Connection failed: '</span> . <span class="hljs-variable">$e</span>-&gt;getMessage();
+}
+<span class="hljs-variable">$db</span>-&gt;exec(<span class="hljs-string">"set names utf8"</span>);
+<span class="hljs-comment">//注意下面三种方式区别，默认索引数组和关联数组均有</span>
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$db</span>-&gt;query(<span class="hljs-string">'SELECT * FROM `mytable` WHERE id = 1'</span>);
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll();
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$db</span>-&gt;query(<span class="hljs-string">'SELECT * FROM `mytable` WHERE id = 1'</span>, PDO::FETCH_NUM);
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll();
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$db</span>-&gt;query(<span class="hljs-string">'SELECT * FROM `mytable` WHERE id = 1'</span>, PDO::FETCH_ASSOC);
+<span class="hljs-comment">//[fetchAll详解](http://php.net/manual/zh/pdostatement.fetchall.php)</span>
+<span class="hljs-comment">//不仅可以在query中指定返回结果集形式，也可以在fetchAll中指定返回形式</span>
+<span class="hljs-comment">//fetchAll还可以将结果集传给指定类和方法，还可对结果集分组、取唯一值等</span>
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll();
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll(PDO::FETCH_ASSOC);
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll(PDO::FETCH_COLUMN);
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$res</span>-&gt;fetchAll(PDO::FETCH_GROUP | PDO::FETCH_UNIQUE);
+<span class="hljs-comment">//释放资源,pdo中没有像mysql_close这样的方法,需要手动释放</span>
+<span class="hljs-variable">$db</span> = <span class="hljs-keyword">null</span>;
+<span class="hljs-variable">$res</span> = <span class="hljs-keyword">null</span>;
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p>query()的快捷操作方式：</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFruit</span><span class="hljs-params">(<span class="hljs-variable">$conn</span>)</span> {</span>
+        <span class="hljs-variable">$sql</span> = <span class="hljs-string">'SELECT name, color, calories FROM fruit ORDER BY name'</span>;
+        <span class="hljs-comment">//省掉了fetchall操作，直接得到结果</span>
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$conn</span>-&gt;query(<span class="hljs-variable">$sql</span>) <span class="hljs-keyword">as</span> <span class="hljs-variable">$row</span>) {
+            <span class="hljs-keyword">print</span> <span class="hljs-variable">$row</span>[<span class="hljs-string">'name'</span>] . <span class="hljs-string">"\t"</span>;
+            <span class="hljs-keyword">print</span> <span class="hljs-variable">$row</span>[<span class="hljs-string">'color'</span>] . <span class="hljs-string">"\t"</span>;
+            <span class="hljs-keyword">print</span> <span class="hljs-variable">$row</span>[<span class="hljs-string">'calories'</span>] . <span class="hljs-string">"\n"</span>;
+        }
+    }
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>exec(<span class="hljs-string">"set names utf8"</span>);
+<span class="hljs-variable">$sql_link</span> <span class="hljs-subst">=</span> <span class="hljs-string">"select name, url from link where passed = 1"</span>;
+<span class="hljs-variable">$res_link</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>query(<span class="hljs-variable">$sql_link</span>);
+<span class="hljs-keyword">while</span> (<span class="hljs-variable">$row_link</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$res_link</span><span class="hljs-subst">-&gt;</span>fetch(PDO<span class="hljs-tag">::FETCH_ASSOC</span>)) {
+    <span class="hljs-variable">$name</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$row_link</span><span class="hljs-preprocessor">[</span><span class="hljs-string">'name'</span><span class="hljs-preprocessor">]</span><span class="hljs-markup">;
+    $url = $row_link</span><span class="hljs-preprocessor">[</span><span class="hljs-string">'url'</span><span class="hljs-preprocessor">]</span><span class="hljs-markup">;
+}</span></code></pre>
+
+<p>exec()使用：</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$dsn</span> = <span class="hljs-string">'mysql:dbname=testdb;host=127.0.0.1'</span>;
+<span class="hljs-variable">$user</span> = <span class="hljs-string">'dbuser'</span>;
+<span class="hljs-variable">$password</span> = <span class="hljs-string">'dbpass'</span>;
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'Connection failed: '</span> . <span class="hljs-variable">$e</span>-&gt;getMessage();
+}
+<span class="hljs-variable">$db</span>-&gt;exec(<span class="hljs-string">"set names utf8"</span>);
+<span class="hljs-comment">/*  删除 FRUIT 数据表中满足条件的所有行 */</span>
+<span class="hljs-variable">$count</span> = <span class="hljs-variable">$db</span>-&gt;exec(<span class="hljs-string">"DELETE FROM fruit WHERE colour = 'red'"</span>);
+
+<span class="hljs-comment">/* 返回被删除的行数 */</span>
+<span class="hljs-keyword">print</span>(<span class="hljs-string">"Deleted $count rows.\n"</span>);
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p><font color="green"><strong>注意：</strong></font>对于数据库的查询操作的执行最好用query()，而对于数据库的增删改操作最好用exec()方法！</p>
+
+<p><font color="red"><strong>PDOStatement 类</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs ">PDOStatement implements Traversable {
+    <span class="hljs-comment">/* 属性 */</span>
+    <span class="hljs-comment">//所用的查询字符串</span>
+    readonly string <span class="hljs-variable">$queryString</span>;
+    <span class="hljs-comment">/* 方法 */</span>
+    <span class="hljs-comment">//绑定一列到一个 PHP 变量</span>
+    bool bindColumn ( mixed <span class="hljs-variable">$column</span> , mixed &amp;<span class="hljs-variable">$param</span> [, int <span class="hljs-variable">$type</span> [, int <span class="hljs-variable">$maxlen</span> [, mixed <span class="hljs-variable">$driverdata</span> ]]] )
+    <span class="hljs-comment">// 绑定一个参数到指定的变量名</span>
+    bool bindParam ( mixed <span class="hljs-variable">$parameter</span> , mixed &amp;<span class="hljs-variable">$variable</span> [, int <span class="hljs-variable">$data_type</span> = PDO::PARAM_STR [, int <span class="hljs-variable">$length</span> [, mixed <span class="hljs-variable">$driver_options</span> ]]] )
+    <span class="hljs-comment">//把一个值绑定到一个参数</span>
+    bool bindValue ( mixed <span class="hljs-variable">$parameter</span> , mixed <span class="hljs-variable">$value</span> [, int <span class="hljs-variable">$data_type</span> = PDO::PARAM_STR ] )
+    <span class="hljs-comment">//关闭游标，使语句能再次被执行。</span>
+    bool closeCursor ( void )
+    <span class="hljs-comment">//返回结果集中的列数</span>
+    int columnCount ( void )
+    <span class="hljs-comment">//打印一条 SQL 预处理命令</span>
+    bool debugDumpParams ( void )
+    <span class="hljs-comment">//获取跟上一次语句句柄操作相关的 SQLSTATE</span>
+    string errorCode ( void )
+    <span class="hljs-comment">// 获取跟上一次语句句柄操作相关的扩展错误信息</span>
+    <span class="hljs-keyword">array</span> errorInfo ( void )
+    <span class="hljs-comment">//执行一条预处理语句</span>
+    bool execute ([ <span class="hljs-keyword">array</span> <span class="hljs-variable">$input_parameters</span> ] )
+    <span class="hljs-comment">//从结果集中获取下一行</span>
+    mixed fetch ([ int <span class="hljs-variable">$fetch_style</span> [, int <span class="hljs-variable">$cursor_orientation</span> = PDO::FETCH_ORI_NEXT [, int <span class="hljs-variable">$cursor_offset</span> = <span class="hljs-number">0</span> ]]] )
+    <span class="hljs-comment">//返回一个包含结果集中所有行的数组</span>
+    <span class="hljs-keyword">array</span> fetchAll ([ int <span class="hljs-variable">$fetch_style</span> [, mixed <span class="hljs-variable">$fetch_argument</span> [, <span class="hljs-keyword">array</span> <span class="hljs-variable">$ctor_args</span> = <span class="hljs-keyword">array</span>() ]]] )
+    <span class="hljs-comment">//从结果集中的下一行返回单独的一列。</span>
+    string fetchColumn ([ int <span class="hljs-variable">$column_number</span> = <span class="hljs-number">0</span> ] )
+    <span class="hljs-comment">//获取下一行并作为一个对象返回。</span>
+    mixed fetchObject ([ string <span class="hljs-variable">$class_name</span> = <span class="hljs-string">"stdClass"</span> [, <span class="hljs-keyword">array</span> <span class="hljs-variable">$ctor_args</span> ]] )
+    <span class="hljs-comment">//检索一个语句属性</span>
+    mixed getAttribute ( int <span class="hljs-variable">$attribute</span> )
+    <span class="hljs-comment">// 返回结果集中一列的元数据</span>
+    <span class="hljs-keyword">array</span> getColumnMeta ( int <span class="hljs-variable">$column</span> )
+    <span class="hljs-comment">//在一个多行集语句句柄中推进到下一个行集</span>
+    bool nextRowset ( void )
+    <span class="hljs-comment">//返回受上一个 SQL 语句影响的行数</span>
+    int rowCount ( void )
+    <span class="hljs-comment">//设置一个语句属性</span>
+    bool setAttribute ( int <span class="hljs-variable">$attribute</span> , mixed <span class="hljs-variable">$value</span> )
+    <span class="hljs-comment">//为语句设置默认的获取模式。</span>
+    bool setFetchMode ( int <span class="hljs-variable">$mode</span> )
+}</code></pre>
+
+<p><font color="red"><strong>PDOException 异常类</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs ">PDOException extends RuntimeException {
+    <span class="hljs-comment">/* 属性 */</span>
+    <span class="hljs-comment">//获取跟上一次语句句柄操作相关的扩展错误信息</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">array</span> <span class="hljs-variable">$errorInfo</span> ;
+    <span class="hljs-comment">//文本错误信息。</span>
+    <span class="hljs-keyword">protected</span> string <span class="hljs-variable">$message</span> ;
+    <span class="hljs-comment">//SQLSTATE 错误码</span>
+    <span class="hljs-keyword">protected</span> string <span class="hljs-variable">$code</span> ;
+    <span class="hljs-comment">/* 继承的方法 */</span>
+    <span class="hljs-comment">//获取异常消息内容</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> string <span class="hljs-keyword">Exception</span>::getMessage ( void )
+    <span class="hljs-comment">//返回异常链中的前一个异常，否则返回NULL。</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">Exception</span> <span class="hljs-keyword">Exception</span>::getPrevious ( void )
+    <span class="hljs-comment">//获取异常代码</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> int <span class="hljs-keyword">Exception</span>::getCode ( void )
+    <span class="hljs-comment">//获取发生异常的程序文件名称</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> string <span class="hljs-keyword">Exception</span>::getFile ( void )
+    <span class="hljs-comment">//获取发生异常的代码在文件中的行号</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> int <span class="hljs-keyword">Exception</span>::getLine ( void )
+    <span class="hljs-comment">// 获取异常追踪信息</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> <span class="hljs-keyword">array</span> <span class="hljs-keyword">Exception</span>::getTrace ( void )
+    <span class="hljs-comment">//获取字符串类型的异常追踪信息</span>
+    <span class="hljs-keyword">final</span> <span class="hljs-keyword">public</span> string <span class="hljs-keyword">Exception</span>::getTraceAsString ( void )
+    <span class="hljs-comment">//将异常对象转换为字符串</span>
+    <span class="hljs-keyword">public</span> string <span class="hljs-keyword">Exception</span>::__toString ( void )
+}</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

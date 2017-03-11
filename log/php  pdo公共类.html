@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>db.class.php ：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">db</span> <span class="hljs-keyword">extends</span> \<span class="hljs-title">PDO</span> {</span>
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-variable">$_instance</span> = <span class="hljs-keyword">null</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$dbName</span> = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$dsn</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-variable">$dbh</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">(<span class="hljs-variable">$dbHost</span>, <span class="hljs-variable">$dbUser</span>, <span class="hljs-variable">$dbPasswd</span>, <span class="hljs-variable">$dbName</span>, <span class="hljs-variable">$dbCharset</span>=<span class="hljs-string">'utf8'</span>)</span> {</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$this</span>-&gt;dsn = <span class="hljs-string">'mysql:host='</span> . <span class="hljs-variable">$dbHost</span> . <span class="hljs-string">';dbname='</span> . <span class="hljs-variable">$dbName</span>;
+            <span class="hljs-variable">$this</span>-&gt;dbh = <span class="hljs-keyword">new</span> \PDO(<span class="hljs-variable">$this</span>-&gt;dsn, <span class="hljs-variable">$dbUser</span>, <span class="hljs-variable">$dbPasswd</span>);
+            <span class="hljs-variable">$this</span>-&gt;dbh-&gt;setAttribute(\PDO::ATTR_EMULATE_PREPARES, <span class="hljs-keyword">false</span>);
+            <span class="hljs-variable">$this</span>-&gt;dbh-&gt;setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            <span class="hljs-variable">$this</span>-&gt;dbh-&gt;exec(<span class="hljs-string">'SET character_set_connection='</span>.<span class="hljs-variable">$dbCharset</span>.<span class="hljs-string">';SET character_set_client='</span>.<span class="hljs-variable">$dbCharset</span>.<span class="hljs-string">';SET character_set_results='</span>.<span class="hljs-variable">$dbCharset</span>);
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());  
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getInstance</span><span class="hljs-params">(<span class="hljs-variable">$dbHost</span>, <span class="hljs-variable">$dbUser</span>, <span class="hljs-variable">$dbPasswd</span>, <span class="hljs-variable">$dbName</span>, <span class="hljs-variable">$dbCharset</span>=<span class="hljs-string">'utf8'</span>)</span> {</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">self</span>::<span class="hljs-variable">$_instance</span> === <span class="hljs-keyword">null</span>) {
+            <span class="hljs-keyword">self</span>::<span class="hljs-variable">$_instance</span> = <span class="hljs-keyword">new</span> <span class="hljs-keyword">self</span>(<span class="hljs-variable">$dbHost</span>, <span class="hljs-variable">$dbUser</span>, <span class="hljs-variable">$dbPasswd</span>, <span class="hljs-variable">$dbName</span>, <span class="hljs-variable">$dbCharset</span>);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">self</span>::<span class="hljs-variable">$_instance</span>;
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchAll</span><span class="hljs-params">(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$stm</span> &amp;&amp; <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>)) {
+                <span class="hljs-keyword">return</span> <span class="hljs-variable">$stm</span>-&gt;fetchAll(\PDO::FETCH_ASSOC);
+            }
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchOne</span><span class="hljs-params">(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$result</span> = <span class="hljs-keyword">false</span>;
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$stm</span> &amp;&amp; <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>)) {
+                <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;fetch(\PDO::FETCH_ASSOC);
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchColumn</span><span class="hljs-params">(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-variable">$result</span> = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable">$stm</span> &amp;&amp; <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>)) {
+                <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;fetchColumn();
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-variable">$table</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>, <span class="hljs-variable">$returnLastId</span> = true)</span> {</span>
+        <span class="hljs-variable">$_implode_field</span> = <span class="hljs-string">''</span>;
+        <span class="hljs-variable">$fields</span> = array_keys(<span class="hljs-variable">$params</span>);
+        <span class="hljs-variable">$_implode_field</span> = implode(<span class="hljs-string">','</span>, <span class="hljs-variable">$fields</span>);
+
+        <span class="hljs-variable">$_implode_value</span> = <span class="hljs-string">''</span>;
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$fields</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$value</span>) {
+            <span class="hljs-variable">$_implode_value</span> .= <span class="hljs-string">':'</span>. <span class="hljs-variable">$value</span>.<span class="hljs-string">','</span>;
+        }
+        <span class="hljs-variable">$_implode_value</span> = trim(<span class="hljs-variable">$_implode_value</span>, <span class="hljs-string">','</span>);
+
+        <span class="hljs-variable">$sql</span> = <span class="hljs-string">'INSERT INTO '</span> . <span class="hljs-variable">$table</span> . <span class="hljs-string">'('</span> . <span class="hljs-variable">$_implode_field</span> . <span class="hljs-string">') VALUES ('</span>.<span class="hljs-variable">$_implode_value</span>.<span class="hljs-string">')'</span>;
+
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>);
+            <span class="hljs-keyword">if</span> ( <span class="hljs-variable">$returnLastId</span> ) {
+                <span class="hljs-variable">$result</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;lastInsertId();
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-variable">$table</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>, <span class="hljs-variable">$where</span> = null)</span> {</span>
+        <span class="hljs-variable">$_implode_field</span> = <span class="hljs-string">''</span>;
+        <span class="hljs-variable">$_implode_field_arr</span> = <span class="hljs-keyword">array</span>();
+
+        <span class="hljs-keyword">if</span> ( <span class="hljs-keyword">empty</span>(<span class="hljs-variable">$where</span>) ) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        }
+
+        <span class="hljs-variable">$fields</span> = array_keys(<span class="hljs-variable">$params</span>);
+
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$fields</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>) {
+            <span class="hljs-variable">$_implode_field_arr</span>[] = <span class="hljs-variable">$key</span> . <span class="hljs-string">'='</span> . <span class="hljs-string">':'</span>.<span class="hljs-variable">$key</span>;
+        }
+
+        <span class="hljs-variable">$_implode_field</span> = implode(<span class="hljs-string">','</span>, <span class="hljs-variable">$_implode_field_arr</span>);
+        <span class="hljs-variable">$sql</span> = <span class="hljs-string">'UPDATE '</span> . <span class="hljs-variable">$table</span> . <span class="hljs-string">' SET '</span> . <span class="hljs-variable">$_implode_field</span> . <span class="hljs-string">' WHERE '</span> . <span class="hljs-variable">$where</span>;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">delete</span><span class="hljs-params">(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+    }
+
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">exec</span><span class="hljs-params">(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$params</span> = array<span class="hljs-params">()</span>)</span> {</span>
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-variable">$stm</span> = <span class="hljs-variable">$this</span>-&gt;dbh-&gt;prepare(<span class="hljs-variable">$sql</span>);
+            <span class="hljs-variable">$result</span> = <span class="hljs-variable">$stm</span>-&gt;execute(<span class="hljs-variable">$params</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable">$result</span>;
+        } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+            <span class="hljs-variable">$this</span>-&gt;outputError(<span class="hljs-variable">$e</span>-&gt;getMessage());
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">outputError</span><span class="hljs-params">(<span class="hljs-variable">$strErrMsg</span>)</span> {</span>
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">Exception</span>(<span class="hljs-string">"MySQL Error: "</span> . <span class="hljs-variable">$strErrMsg</span>);
+    }
+
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-variable">$this</span>-&gt;dbh = <span class="hljs-keyword">null</span>;
+    }
+}</span></code></pre>
+
+<p><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">require_once</span> <span class="hljs-string">'./db.class.php'</span>;
+
+<span class="hljs-variable">$pdo</span> = db::getInstance(<span class="hljs-string">'127.0.0.1'</span>, <span class="hljs-string">'root'</span>, <span class="hljs-string">'111111'</span>, <span class="hljs-string">'php_cms'</span>);
+
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"select id, title1 from cms_wz where id = :id limit 1"</span>;
+<span class="hljs-variable">$parame</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">'id'</span> =&gt; <span class="hljs-number">12</span>,);
+
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$pdo</span>-&gt;fetchOne(<span class="hljs-variable">$sql</span>, <span class="hljs-variable">$parame</span>);
+var_dump(<span class="hljs-variable">$res</span>);
+
+
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">'SELECT * FROM cms_link'</span>;
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$db</span>-&gt;fetchAll(<span class="hljs-variable">$sql</span>);
+print_r(<span class="hljs-variable">$result</span>);
+
+<span class="hljs-comment">//查询记录数量</span>
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">'SELECT COUNT(*) FROM cms_link'</span>;
+<span class="hljs-variable">$count</span> = <span class="hljs-variable">$db</span>-&gt;fetchColumn(<span class="hljs-variable">$sql</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$count</span>;
+
+
+<span class="hljs-variable">$data</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'siteid'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'linktype'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'google'</span>,
+    <span class="hljs-string">'url'</span> =&gt; <span class="hljs-string">'http://www.google.com'</span>,
+    <span class="hljs-string">'listorder'</span> =&gt; <span class="hljs-number">0</span>,
+    <span class="hljs-string">'elite'</span> =&gt; <span class="hljs-number">0</span>,
+    <span class="hljs-string">'passed'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'addtime'</span> =&gt; time()
+    );
+<span class="hljs-variable">$lastInsertId</span> = <span class="hljs-variable">$db</span>-&gt;insert(<span class="hljs-string">'cms_link'</span>, <span class="hljs-variable">$data</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$lastInsertId</span>;
+<span class="hljs-comment">//用 try</span>
+ <span class="hljs-keyword">try</span> {
+         <span class="hljs-variable">$result</span> = <span class="hljs-variable">$pdo</span>-&gt;insert(<span class="hljs-string">'news'</span>, <span class="hljs-variable">$essay</span>);
+     } <span class="hljs-keyword">catch</span> (<span class="hljs-keyword">Exception</span> <span class="hljs-variable">$e</span>) {
+         error_log(<span class="hljs-variable">$e</span>-&gt;getMessage());
+         error_log(<span class="hljs-variable">$e</span>-&gt;getMessage() . <span class="hljs-string">' in '</span> . <span class="hljs-keyword">__FILE__</span> . <span class="hljs-string">' on line '</span> . <span class="hljs-keyword">__LINE__</span>);
+         saveLog(<span class="hljs-string">'url文章 :  '</span> . <span class="hljs-variable">$essay</span>[<span class="hljs-string">'link'</span>] . <span class="hljs-string">'   数据插入失败&lt;br&gt;'</span>);
+         <span class="hljs-keyword">continue</span>;
+     }
+
+<span class="hljs-variable">$data</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-string">'siteid'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'linktype'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'name'</span> =&gt; <span class="hljs-string">'google'</span>,
+    <span class="hljs-string">'url'</span> =&gt; <span class="hljs-string">'http://www.google.com'</span>,
+    <span class="hljs-string">'listorder'</span> =&gt; <span class="hljs-number">0</span>,
+    <span class="hljs-string">'elite'</span> =&gt; <span class="hljs-number">0</span>,
+    <span class="hljs-string">'passed'</span> =&gt; <span class="hljs-number">1</span>,
+    <span class="hljs-string">'addtime'</span> =&gt; time()
+    );
+<span class="hljs-variable">$db</span>-&gt;insert(<span class="hljs-string">'cms_link'</span>, <span class="hljs-variable">$data</span>);
+
+
+
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">'DELETE FROM cms_link WHERE linkid=4'</span>;
+
+<span class="hljs-variable">$result</span> = <span class="hljs-variable">$db</span>-&gt;delete(<span class="hljs-variable">$sql</span>);
+var_dump(<span class="hljs-variable">$result</span>);
+
+
+
+
+</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

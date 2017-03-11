@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">array_test.php：<br/></span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+//对于同一个界面中有多个表单要提交的情况，可以利用隐藏控件对所提交的表单进行判断；
+//此处我只写一个表单为例，可以扩展到多个表单；
+//隐藏控件还可以将一些不希望在前台看到的值传递给服务器；隐含传值
+$arr=array(67,80,59,96,95);
+//接受doing值，判断该用户所要做的操作
+$doing=$_REQUEST['doing'];
+if($doing=='seegrade') //如果要做的操作是查询学生成绩
+{
+	$stuno=$_REQUEST['stuno']; //获取学生学号
+	if($stuno&gt;=0 &amp;&amp; $stuno&lt;5) 
+	{
+		//调用输出学生成绩函数
+		showgrade($stuno,$arr);
+	}
+	else
+		echo '查无此数';
+}
+function showgrade($stuno,&amp;$arr)
+{
+	//return $arr[$stuno];
+	echo $arr[$stuno];
+}
+?&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"/&gt;
+&lt;/head&gt;
+&lt;form action="array_test.php" method="post"&gt;
+请输入学生学号：&lt;input type="text" name="stuno"/&gt;&lt;br&gt;
+&lt;!--隐藏控件--作用见上面--&gt;
+&lt;input type="hidden" name="doing" value="seegrade"/&gt;
+&lt;input type="submit" value="查询成绩"/&gt;&lt;br&gt;
+&lt;/form&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><br/></div>  </body>
+            </html>

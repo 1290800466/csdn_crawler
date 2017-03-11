@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>Java 语言中提供的数组是用来存储固定大小的同类型元素。 <br/>
+你可以声明一个数组变量，如 numbers[100] 来代替直接声明 100 个独立变量 number0，number1，….，number99。</p>
+
+<p><strong>声明数组变量的语法：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss">dataType<span class="hljs-attr_selector">[]</span> arrayRefVar;   <span class="hljs-comment">// 首选的方法</span>
+
+或
+
+dataType arrayRefVar<span class="hljs-attr_selector">[]</span>;  <span class="hljs-comment">// 效果相同，但不是首选方法</span></code></pre>
+
+<p>实例</p>
+
+<p>下面是这两种语法的代码示例：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs scss"><span class="hljs-value">double</span><span class="hljs-attr_selector">[]</span> myList;         <span class="hljs-comment">// 首选的方法</span>
+
+或
+
+<span class="hljs-value">double</span> myList<span class="hljs-attr_selector">[]</span>;         <span class="hljs-comment">//  效果相同，但不是首选方法</span></code></pre>
+
+<p><strong>创建数组</strong></p>
+
+<pre class="prettyprint"><code class=" hljs r">dataType[] arrayRefVar = new dataType[arraySize];
+或
+dataType[] arrayRefVar = {value0, value1, <span class="hljs-keyword">...</span>, valuek};</code></pre>
+
+<p>数组的元素是通过索引访问的。数组索引从 0 开始，所以索引值从 0 到 arrayRefVar.length-1。</p>
+
+<p>实例</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+      <span class="hljs-comment">// 数组大小</span>
+      <span class="hljs-keyword">int</span> size = <span class="hljs-number">10</span>;
+      <span class="hljs-comment">// 定义数组</span>
+      <span class="hljs-keyword">double</span>[] myList = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[size];
+      myList[<span class="hljs-number">0</span>] = <span class="hljs-number">5.6</span>;
+      myList[<span class="hljs-number">1</span>] = <span class="hljs-number">4.5</span>;
+      myList[<span class="hljs-number">2</span>] = <span class="hljs-number">3.3</span>;
+      myList[<span class="hljs-number">3</span>] = <span class="hljs-number">13.2</span>;
+      myList[<span class="hljs-number">4</span>] = <span class="hljs-number">4.0</span>;
+      myList[<span class="hljs-number">5</span>] = <span class="hljs-number">34.33</span>;
+      myList[<span class="hljs-number">6</span>] = <span class="hljs-number">34.0</span>;
+      myList[<span class="hljs-number">7</span>] = <span class="hljs-number">45.45</span>;
+      myList[<span class="hljs-number">8</span>] = <span class="hljs-number">99.993</span>;
+      myList[<span class="hljs-number">9</span>] = <span class="hljs-number">11123</span>;
+      <span class="hljs-comment">// 计算所有元素的总和</span>
+      <span class="hljs-keyword">double</span> total = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; size; i++) {
+         total += myList[i];
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"总和为： "</span> + total);
+   }
+}</code></pre>
+
+<p><strong>处理数组</strong></p>
+
+<p>数组的元素类型和数组的大小都是确定的，所以当处理数组元素时候，我们通常使用基本循环或者 foreach 循环。</p>
+
+<p>示例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+      <span class="hljs-keyword">double</span>[] myList = {<span class="hljs-number">1.9</span>, <span class="hljs-number">2.9</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">3.5</span>};
+
+      <span class="hljs-comment">// 打印所有数组元素</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; myList.length; i++) {
+         System.<span class="hljs-keyword">out</span>.println(myList[i] + <span class="hljs-string">" "</span>);
+      }
+      <span class="hljs-comment">// 计算所有元素的总和</span>
+      <span class="hljs-keyword">double</span> total = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; myList.length; i++) {
+         total += myList[i];
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Total is "</span> + total);
+      <span class="hljs-comment">// 查找最大元素</span>
+      <span class="hljs-keyword">double</span> max = myList[<span class="hljs-number">0</span>];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; myList.length; i++) {
+         <span class="hljs-keyword">if</span> (myList[i] &gt; max) max = myList[i];
+      }
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"Max is "</span> + max);
+   }
+}</code></pre>
+
+<p>foreach 循环</p>
+
+<p>JDK 1.5 引进了一种新的循环类型，被称为 foreach 循环或者加强型循环，它能在不使用下标的情况下遍历数组。</p>
+
+<p>示例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> TestArray {
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String[] args) {
+      <span class="hljs-keyword">double</span>[] myList = {<span class="hljs-number">1.9</span>, <span class="hljs-number">2.9</span>, <span class="hljs-number">3.4</span>, <span class="hljs-number">3.5</span>};
+
+      <span class="hljs-comment">// 打印所有数组元素</span>
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">double</span> element: myList) {
+         System.<span class="hljs-keyword">out</span>.println(element);
+      }
+   }
+}</code></pre>
+
+<p><strong>数组作为函数的参数</strong></p>
+
+<p>数组可以作为参数传递给方法。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">printArray</span>(<span class="hljs-keyword">int</span>[] array) {
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; array.length; i++) {
+    System.<span class="hljs-keyword">out</span>.print(array[i] + <span class="hljs-string">" "</span>);
+  }
+}</code></pre>
+
+<p><strong>数组作为函数的返回值</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs applescript">public static int[] <span class="hljs-property">reverse</span>(int[] <span class="hljs-type">list</span>) {
+  int[] <span class="hljs-constant">result</span> = new int[<span class="hljs-type">list</span>.<span class="hljs-property">length</span>];
+
+  <span class="hljs-keyword">for</span> (int i = <span class="hljs-number">0</span>, j = <span class="hljs-constant">result</span>.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>; i &lt; <span class="hljs-type">list</span>.<span class="hljs-property">length</span>; i++, j<span class="hljs-comment">--) {</span>
+    <span class="hljs-constant">result</span>[j] = <span class="hljs-type">list</span>[i];
+  }
+<span class="hljs-command">  return</span> <span class="hljs-constant">result</span>;
+}</code></pre>
+
+<p><strong>多维数组</strong></p>
+
+<p>多维数组可以看成是数组的数组，比如二维数组就是一个特殊的一维数组，其每一个元素都是一个一维数组，例如：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs markdown">String str[<span class="hljs-link_label"/>][<span class="hljs-link_reference"/>] = new String[<span class="hljs-link_label">3</span>][<span class="hljs-link_reference">4</span>];</code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs markdown">String s[][] = new String[2][];
+s[0] = new String[2];
+s[1] = new String[3];
+s[<span class="hljs-link_label">0</span>][<span class="hljs-link_reference">0</span>] = new String("Good");
+s[<span class="hljs-link_label">0</span>][<span class="hljs-link_reference">1</span>] = new String("Luck");
+s[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">0</span>] = new String("to");
+s[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">1</span>] = new String("you");
+s[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">2</span>] = new String("!");</code></pre>
+
+<p>解析： <br/>
+s[0]=new String[2] 和 s[1]=new String[3] 是为最高维分配引用空间，也就是为最高维限制其能保存数据的最长的长度，然后再为其每个数组元素单独分配空间 s0=new String(“Good”) 等操作。</p>
+
+<p>多维数组的引用（以二维数组为例） <br/>
+对二维数组中的每个元素，引用方式为 arrayName[index1][index2]，例如：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs markdown">num[<span class="hljs-link_label">1</span>][<span class="hljs-link_reference">0</span>];</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

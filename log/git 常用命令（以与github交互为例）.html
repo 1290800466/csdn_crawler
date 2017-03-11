@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>修改github上的代码：</strong></p>
+
+<p>（1）git clone已存在GitHub上的Repository。（在新建的~/MyTestFolder目录中）</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">git <span class="hljs-keyword">clone</span> https:<span class="hljs-comment">//github.com/zhchnchn/ZhchnchnTest.git</span></code></pre>
+
+<p>（2）修改一个文件，然后提交</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">vim README<span class="hljs-preprocessor">.md</span>
+git status
+git <span class="hljs-keyword">add</span> README<span class="hljs-preprocessor">.md</span>      或直接     git <span class="hljs-keyword">add</span> .
+git status
+git commit -m <span class="hljs-string">"Edit by WorkUbuntu 1204"</span>
+git status
+git remote <span class="hljs-keyword">add</span> origin https://github<span class="hljs-preprocessor">.com</span>/zhchnchn/ZhchnchnTest<span class="hljs-preprocessor">.git</span></code></pre>
+
+<p>这时可能会报错误： <br/>
+fatal: remote origin already exists. <br/>
+解决办法【3】：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-variable">$ </span>git remote rm origin
+<span class="hljs-variable">$ </span>git remote add origin <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/github.com/zhchnchn</span><span class="hljs-regexp">/ZhchnchnTest.git</span></code></pre>
+
+<p>（3）之后，需要将修改push到GitHub上</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl">git <span class="hljs-keyword">push</span> -u origin master 或
+git <span class="hljs-keyword">push</span></code></pre>
+
+<p>（4）提交完成后，查看GitHub上的Repository，会发现内容修改成功。</p>
+
+<p><strong>git 配置基本信息 ：</strong></p>
+
+<pre class="prettyprint"><code class=" hljs lasso">配置用户名
+git config <span class="hljs-subst">--</span><span class="hljs-built_in">global</span> user<span class="hljs-built_in">.</span>name T<span class="hljs-attribute">-bagwell</span>
+配置用户email
+git config <span class="hljs-subst">--</span><span class="hljs-built_in">global</span> user<span class="hljs-built_in">.</span>email T<span class="hljs-attribute">-bagwell</span>@chinaunix<span class="hljs-built_in">.</span>net
+配置默认的编辑器为vim
+git config <span class="hljs-subst">--</span><span class="hljs-built_in">global</span> core<span class="hljs-built_in">.</span>editor vim
+查看git配置
+git config <span class="hljs-attribute">-l</span></code></pre>
+
+<p><strong>其他常用命令：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">
+<span class="hljs-string">'''查看、添加、提交、删除、找回，重置修改文件'''</span>
+git help <span class="hljs-comment"># 显示command的help</span>
+git show <span class="hljs-comment"># 显示某次提交的内容 git show $id</span>
+git checkout -- <span class="hljs-comment"># 抛弃工作区修改</span>
+git checkout . <span class="hljs-comment"># 抛弃工作区修改</span>
+git add <span class="hljs-comment"># 将工作文件修改提交到本地暂存区</span>
+git add . <span class="hljs-comment"># 将所有修改过的工作文件提交暂存区</span>
+git rm <span class="hljs-comment"># 从版本库中删除文件</span>
+git rm --cached <span class="hljs-comment"># 从版本库中删除文件，但不删除文件</span>
+git reset <span class="hljs-comment"># 从暂存区恢复到工作文件</span>
+git reset -- . <span class="hljs-comment"># 从暂存区恢复到工作文件</span>
+git reset --hard <span class="hljs-comment"># 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改</span>
+git commit git commit . git commit -a <span class="hljs-comment"># 将git add, git rm和git ci等操作都合并在一起做 git commit -am "some comments"</span>
+git commit --amend <span class="hljs-comment"># 修改最后一次提交记录</span>
+git revert &lt;$id&gt; <span class="hljs-comment"># 恢复某次提交的状态，恢复动作本身也创建次提交对象</span>
+git revert HEAD <span class="hljs-comment"># 恢复最后一次提交的状态</span>
+
+<span class="hljs-string">'''查看文件diff'''</span>
+git diff <span class="hljs-comment"># 比较当前文件和暂存区文件差异 git diff</span>
+git diff <span class="hljs-comment"># 比较两次提交之间的差异</span>
+git diff .. <span class="hljs-comment"># 在两个分支之间比较</span>
+git diff --staged <span class="hljs-comment"># 比较暂存区和版本库差异</span>
+git diff --cached <span class="hljs-comment"># 比较暂存区和版本库差异</span>
+git diff --stat <span class="hljs-comment"># 仅仅比较统计信息</span>
+
+<span class="hljs-string">'''查看提交记录'''</span>
+git log git log <span class="hljs-comment"># 查看该文件每次提交记录</span>
+git log -p <span class="hljs-comment"># 查看每次详细修改内容的diff</span>
+git log -p -<span class="hljs-number">2</span> <span class="hljs-comment"># 查看最近两次详细修改内容的diff</span>
+git log --stat <span class="hljs-comment">#查看提交统计信息</span>
+
+<span class="hljs-string">'''Git 本地分支管理
+查看、切换、创建和删除分支'''</span>
+git branch -r <span class="hljs-comment"># 查看远程分支</span>
+git branch &lt;new_branch&gt; <span class="hljs-comment"># 创建新的分支</span>
+git branch -v <span class="hljs-comment"># 查看各个分支最后提交信息</span>
+git branch --merged <span class="hljs-comment"># 查看已经被合并到当前分支的分支</span>
+git branch --no-merged <span class="hljs-comment"># 查看尚未被合并到当前分支的分支</span>
+git checkout <span class="hljs-comment"># 切换到某个分支</span>
+git checkout -b &lt;new_branch&gt; <span class="hljs-comment"># 创建新的分支，并且切换过去</span>
+git checkout -b &lt;new_branch&gt; <span class="hljs-comment"># 基于branch创建新的new_branch</span>
+git checkout $id <span class="hljs-comment"># 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除</span>
+git checkout $id -b &lt;new_branch&gt; <span class="hljs-comment"># 把某次历史提交记录checkout出来，创建成一个分支</span>
+git branch -d <span class="hljs-comment"># 删除某个分支</span>
+git branch -D <span class="hljs-comment"># 强制删除某个分支 (未被合并的分支被删除的时候需要强制)</span>
+
+<span class="hljs-string">'''分支合并和rebase'''</span>
+git merge <span class="hljs-comment"># 将branch分支合并到当前分支</span>
+git merge origin/master --no-ff <span class="hljs-comment"># 不要Fast-Foward合并，这样可以生成merge提交</span>
+git rebase master <span class="hljs-comment"># 将master rebase到branch，相当于： git co &amp;&amp; git rebase master &amp;&amp; git checkout master &amp;&amp; git merge</span>
+
+<span class="hljs-string">'''Git补丁管理(方便在多台机器上开发同步时用)'''</span>
+git diff &gt; ../sync.patch <span class="hljs-comment"># 生成补丁</span>
+git apply ../sync.patch <span class="hljs-comment"># 打补丁</span>
+git apply --check ../sync.patch <span class="hljs-comment">#测试补丁能否成功</span>
+
+<span class="hljs-string">'''Git暂存管理'''</span>
+git stash <span class="hljs-comment"># 暂存</span>
+git stash list <span class="hljs-comment"># 列所有stash</span>
+git stash apply <span class="hljs-comment"># 恢复暂存的内容</span>
+git stash drop <span class="hljs-comment"># 删除暂存区</span>
+
+<span class="hljs-string">'''Git远程分支管理'''</span>
+git pull <span class="hljs-comment"># 抓取远程仓库所有分支更新并合并到本地</span>
+git pull --no-ff <span class="hljs-comment"># 抓取远程仓库所有分支更新并合并到本地，不要快进合并</span>
+git fetch origin <span class="hljs-comment"># 抓取远程仓库更新</span>
+git merge origin/master <span class="hljs-comment"># 将远程主分支合并到本地当前分支</span>
+git checkout --track origin/branch <span class="hljs-comment"># 跟踪某个远程分支创建相应的本地分支</span>
+git checkout -b &lt;local_branch&gt; origin/&lt;remote_branch&gt; <span class="hljs-comment"># 基于远程分支创建本地分支，功能同上</span>
+git push <span class="hljs-comment"># push所有分支</span>
+git push origin master <span class="hljs-comment"># 将本地主分支推到远程主分支</span>
+git push -u origin master <span class="hljs-comment"># 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)</span>
+git push origin &lt;local_branch&gt; <span class="hljs-comment"># 创建远程分支， origin是远程仓库名</span>
+git push origin &lt;local_branch&gt;:&lt;remote_branch&gt; <span class="hljs-comment"># 创建远程分支</span>
+git push origin :&lt;remote_branch&gt; <span class="hljs-comment">#先删除本地分支(git br -d )，然后再push删除远程分支</span>
+
+<span class="hljs-string">'''Git远程仓库管理'''</span>
+git remote -v <span class="hljs-comment"># 查看远程服务器地址和仓库名称</span>
+git remote show origin <span class="hljs-comment"># 查看远程服务器仓库状态</span>
+git remote add origin git<span class="hljs-decorator">@ github:robbin/robbin_site.git # 添加远程仓库地址</span>
+git remote set-url origin git<span class="hljs-decorator">@ github.com:robbin/robbin_site.git # 设置远程仓库地址(用于修改远程仓库地址) git remote rm # 删除远程仓库</span>
+
+<span class="hljs-string">'''创建远程仓库'''</span>
+git clone --bare robbin_site robbin_site.git <span class="hljs-comment"># 用带版本的项目创建纯版本仓库</span>
+scp -r my_project.git git<span class="hljs-decorator">@ git.csdn.net:~ # 将纯仓库上传到服务器上</span>
+mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git --bare init <span class="hljs-comment"># 在服务器创建纯仓库</span>
+git remote add origin git<span class="hljs-decorator">@ github.com:robbin/robbin_site.git # 设置远程仓库地址</span>
+git push -u origin master <span class="hljs-comment"># 客户端首次提交</span>
+git push -u origin develop <span class="hljs-comment"># 首次将本地develop分支提交到远程develop分支，并且track</span>
+git remote set-head origin master <span class="hljs-comment"># 设置远程仓库的HEAD指向master分支</span>
+
+<span class="hljs-string">'''也可以命令设置跟踪远程库和本地库'''</span>
+git branch --set-upstream master origin/master
+git branch --set-upstream develop origin/develop</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

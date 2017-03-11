@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>rss订阅生成的xml文件样式：</p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-pi">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">rss</span> <span class="hljs-attribute">version</span>=<span class="hljs-value">"2.0"</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">channel</span>&gt;</span> 
+<span class="hljs-comment">&lt;!-- title,link,description为必有项 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[网站名称]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">link</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[http://www.mysite.com/]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[网站描述-网站描述-网站描述网站描述]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">language</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[ zh-cn ]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">language</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">copyright</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[Copyright 2005 MySite.COM]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">copyright</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">webMaster</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[abc@163.com]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">webMaster</span>&gt;</span> 
+<span class="hljs-tag">&lt;<span class="hljs-title">image</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span>
+        <span class="hljs-cdata">&lt;![CDATA[ 图片title ]]&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">url</span>&gt;</span>
+        <span class="hljs-cdata">&lt;![CDATA[
+            http://www.MySite.com/images/logo.jpg
+        ]]&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">url</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span>&gt;</span>
+        <span class="hljs-cdata">&lt;![CDATA[ http://www.MySite.com ]]&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">image</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">lastBuildDate</span>&gt;</span>Thu, 27 Apr 2006<span class="hljs-tag">&lt;/<span class="hljs-title">lastBuildDate</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- 文章开始 ，每个item代表一片文章，title,link,description为必有项--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">item</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[Ajax CalendarExtender的应用]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span>&gt;</span>定义指向此项目的超链接<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[ 作者]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">category</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[类别]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">category</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">pubDate</span>&gt;</span>4/5/2009定义此项目的最后发布日期。<span class="hljs-tag">&lt;/<span class="hljs-title">pubDate</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">guid</span>&gt;</span>http://www.abc.com/article.asp?id=1文章唯一的标识符<span class="hljs-tag">&lt;/<span class="hljs-title">guid</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[文章内容]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">enclosure</span> <span class="hljs-attribute">url</span>=<span class="hljs-value">"http://www.w3cschool.cc/media/3d.wmv媒体文件"</span> <span class="hljs-attribute">length</span>=<span class="hljs-value">"78645"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"video/wmv"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">comments</span>&gt;</span>http://www.w3schools.com/comments项目注释<span class="hljs-tag">&lt;/<span class="hljs-title">comments</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">item</span>&gt;</span> 
+
+<span class="hljs-tag">&lt;<span class="hljs-title">item</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[在C#中使用Cecil实现代码注入]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span>&gt;</span>http://www.abc.com/article.asp?id=2<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span>Jim<span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">category</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[.NET技术]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">category</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">pubDate</span>&gt;</span>4/6/2009<span class="hljs-tag">&lt;/<span class="hljs-title">pubDate</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">guid</span>&gt;</span>http://www.abc.com/article.asp?id=2<span class="hljs-tag">&lt;/<span class="hljs-title">guid</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[……此时，我们往往希望能够直接修改assembly中的IL代码……]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">enclosure</span> <span class="hljs-attribute">url</span>=<span class="hljs-value">"http://www.w3cschool.cc/media/3d.wmv"</span> <span class="hljs-attribute">length</span>=<span class="hljs-value">"78645"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"video/wmv"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">comments</span>&gt;</span>http://www.w3schools.com/comments<span class="hljs-tag">&lt;/<span class="hljs-title">comments</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">item</span>&gt;</span> 
+
+<span class="hljs-tag">&lt;<span class="hljs-title">item</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">link</span>&gt;</span>http://www.abc.com/article.asp?id=3<span class="hljs-tag">&lt;/<span class="hljs-title">link</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">title</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[Adaptive Console Framework]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">title</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">author</span>&gt;</span>Jim<span class="hljs-tag">&lt;/<span class="hljs-title">author</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">category</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[我的小作]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">category</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">pubDate</span>&gt;</span>4/7/2009<span class="hljs-tag">&lt;/<span class="hljs-title">pubDate</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">guid</span>&gt;</span>http://www.abc.com/article.asp?id=3<span class="hljs-tag">&lt;/<span class="hljs-title">guid</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">description</span>&gt;</span><span class="hljs-cdata">&lt;![CDATA[……ACF能够为您解决开发上的下列问题……]]&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">description</span>&gt;</span> 
+    <span class="hljs-tag">&lt;<span class="hljs-title">enclosure</span> <span class="hljs-attribute">url</span>=<span class="hljs-value">"http://www.w3cschool.cc/media/3d.wmv"</span> <span class="hljs-attribute">length</span>=<span class="hljs-value">"78645"</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"video/wmv"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">comments</span>&gt;</span>http://www.w3schools.com/comments<span class="hljs-tag">&lt;/<span class="hljs-title">comments</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">item</span>&gt;</span> 
+
+<span class="hljs-tag">&lt;/<span class="hljs-title">channel</span>&gt;</span> 
+<span class="hljs-tag">&lt;/<span class="hljs-title">rss</span>&gt;</span></code></pre>
+
+<p>rss订阅就是把要被订阅的文章生成如上所示的xml代码。</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">//特殊字符，直接复制，不要自己写</span>
+<span class="hljs-variable">$guolv</span> = <span class="hljs-keyword">array</span>(
+            <span class="hljs-string">''</span>,
+            <span class="hljs-string">''</span>,
+        );
+<span class="hljs-variable">$description</span> = str_replace(<span class="hljs-variable">$guolv</span>, <span class="hljs-string">''</span>, <span class="hljs-variable">$description</span> );</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

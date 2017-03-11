@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<div class="newsTitleBox YaHei" style="margin:0px; padding:0px 0px 10px; position:relative; width:670px; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(229,229,229)">&#13;
+<p style="font-family:'Microsoft YaHei'; line-height:18px; margin:0px; padding:0px">&#13;
+<span style="font-size:18px">1、</span><a target="_blank" href="http://www.chinaz.com/search/index.shtml?s=13215756937974215344&amp;entry=1&amp;q=UNIX%E6%97%B6%E9%97%B4%E6%88%B3" class="bdcs-inlinelink" style="font-size:18px; line-height:28px; text-indent:2em; font-family:tahoma,arial,宋体; color:rgb(30,62,116); text-decoration:none">UNIX时间戳</a><span style="font-size:18px; color:rgb(37,37,37); line-height:28px; text-indent:2em; font-family:tahoma,arial,宋体">转换为日期用函数： </span><a target="_blank" href="http://www.chinaz.com/search/index.shtml?s=13215756937974215344&amp;entry=1&amp;q=FROM_UNIXTIME" class="bdcs-inlinelink" style="font-size:18px; line-height:28px; text-indent:2em; font-family:tahoma,arial,宋体; color:rgb(30,62,116); text-decoration:none">FROM_UNIXTIME</a><span style="font-size:18px; color:rgb(37,37,37); line-height:28px; text-indent:2em; font-family:tahoma,arial,宋体">()</span></p>&#13;
+<p style="font-family:'Microsoft YaHei'; line-height:18px; margin:0px; padding:0px">&#13;
+<span style="font-size:18px"><span style="color:rgb(37,37,37); line-height:28px; text-indent:2em; font-family:tahoma,arial,宋体"/></span></p>&#13;
+<pre name="code" class="sql">select FROM_UNIXTIME(1156219870);</pre>     输出：2006-08-22 12:11:10<br/><br/><p/>&#13;
+<p style="margin:0px; padding:0px"><span style="line-height:18px"><span style="font-size:18px"/></span></p>&#13;
+<p style="font-family:'Microsoft YaHei'; margin:0px; padding:0px"><span style="line-height:18px; font-family:'Microsoft YaHei'"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px">2、日期转换为UNIX时间戳用函数： UNIX_TIMESTAMP()</span><br/></span></p>&#13;
+<p style="margin:0px; padding:0px"><span style="line-height:18px"/></p>&#13;
+<pre name="code" class="sql" style="font-family: 'Microsoft YaHei';">    Select UNIX_TIMESTAMP('2006-11-04 12:23:00');</pre><br/><p/>&#13;
+<pre/>&#13;
+<pre name="code" class="sql" style="font-family: 'Microsoft YaHei';">输出：1162614180</pre><pre name="code" class="sql">
+    Select UNIX_TIMESTAMP(NOW());</pre><pre name="code" class="sql" style="font-family: 'Microsoft YaHei';">   </pre><pre name="code" class="sql" style="font-family: 'Microsoft YaHei';">      输出当前时间戳</pre>&#13;
+<pre/>&#13;
+<p/>&#13;
+<p style="font-family:'Microsoft YaHei'; margin:0px; padding:0px"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px"/></p>&#13;
+<p style="font-family:'Microsoft YaHei'; margin:0px; padding:0px"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px">例：mysql查询当天的记录数：</span></p>&#13;
+<p style="font-family:'Microsoft YaHei'; margin:0px; padding:0px"/>&#13;
+<pre name="code" class="sql">$sql=”select * from message Where DATE_FORMAT(FROM_UNIXTIME(chattime),’%Y-%m-%d’) = DATE_FORMAT(NOW(),’%Y-%m-%d’) order by id desc”;</pre><br/><br/><p/>&#13;
+<p style="margin:0px; padding:0px"><span style="line-height:18px; font-family:'Microsoft YaHei'"><span style="font-size:18px">PHP方式转换：</span></span></p>&#13;
+<p style="margin:0px; padding:0px"><span style="font-family:Microsoft YaHei; font-size:18px"><span style="line-height:18px"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px">UNIX时间戳转换为日期用函数： date()</span></span></span></p>&#13;
+<p style="margin:0px; padding:0px"/>&#13;
+<div style="text-indent:28px"><span style="font-family:tahoma,arial,宋体; font-size:18px; color:#252525"><span style="line-height:28px"><span style="font-family:tahoma,arial,宋体; line-height:21px; background-color:rgb(221,237,251)">date('Y-m-d H:i:s', 1156219870);</span><br/></span></span></div>&#13;
+<p/>&#13;
+<p style="margin:0px; padding:0px"><span style="font-size:18px"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px">日期转换为UNIX时间戳用函数：</span><a target="_blank" href="http://www.chinaz.com/search/index.shtml?s=13215756937974215344&amp;entry=1&amp;q=strtotime" class="bdcs-inlinelink" style="color:rgb(30,62,116); text-decoration:none; font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px">strtotime</a><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px">()</span><br/></span></p>&#13;
+<p style="margin:0px; padding:0px"><span style="color:rgb(37,37,37); font-family:tahoma,arial,宋体; line-height:28px; text-indent:28px"><span style="font-family:tahoma,arial,宋体; line-height:21px; background-color:rgb(221,237,251)"><span style="font-size:18px"> &#13;
+    strtotime('2010-03-24 08:15:42');</span></span></span></p>&#13;
+</div>&#13;
+<div class="newsMainBox" style="margin:0px; padding:20px 10px 10px; font-size:14px; width:650px; overflow:hidden; font-family:tahoma,arial,宋体">&#13;
+<div id="ctrlfscont" style="margin:0px; padding:0px">&#13;
+<p style="margin-top:0px; margin-bottom:15px; padding-top:0px; padding-bottom:0px; color:rgb(37,37,37); line-height:28px; text-indent:2em">&#13;
+</p>&#13;
+</div>&#13;
+</div>&#13;
+&#13;
+                      </div>  </body>
+            </html>

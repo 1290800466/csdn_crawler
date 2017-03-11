@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs php">set_time_limit(<span class="hljs-number">0</span>); 
+<span class="hljs-comment">// Supports all file types </span>
+<span class="hljs-comment">// URL Here: </span>
+<span class="hljs-variable">$url</span> = <span class="hljs-string">'http://somsite.com/some_video.flv'</span>; 
+<span class="hljs-variable">$pi</span> = pathinfo(<span class="hljs-variable">$url</span>); 
+<span class="hljs-variable">$ext</span> = <span class="hljs-variable">$pi</span>[<span class="hljs-string">'extension'</span>]; 
+<span class="hljs-variable">$name</span> = <span class="hljs-variable">$pi</span>[<span class="hljs-string">'filename'</span>]; 
+
+<span class="hljs-comment">// create a new cURL resource </span>
+<span class="hljs-variable">$ch</span> = curl_init(); 
+
+<span class="hljs-comment">// set URL and other appropriate options </span>
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_URL, <span class="hljs-variable">$url</span>); 
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_HEADER, <span class="hljs-keyword">false</span>); 
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_BINARYTRANSFER, <span class="hljs-keyword">true</span>); 
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_AUTOREFERER, <span class="hljs-keyword">true</span>); 
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_FOLLOWLOCATION, <span class="hljs-keyword">true</span>); 
+curl_setopt(<span class="hljs-variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-keyword">true</span>); 
+
+<span class="hljs-comment">// grab URL and pass it to the browser </span>
+<span class="hljs-variable">$opt</span> = curl_exec(<span class="hljs-variable">$ch</span>); 
+
+<span class="hljs-comment">// close cURL resource, and free up system resources </span>
+curl_close(<span class="hljs-variable">$ch</span>); 
+
+<span class="hljs-variable">$saveFile</span> = <span class="hljs-variable">$name</span>.<span class="hljs-string">'.'</span>.<span class="hljs-variable">$ext</span>; 
+<span class="hljs-keyword">if</span>(preg_match(<span class="hljs-string">"/[^0-9a-z._-]/i"</span>, <span class="hljs-variable">$saveFile</span>)) 
+    <span class="hljs-variable">$saveFile</span> = md5(microtime(<span class="hljs-keyword">true</span>)).<span class="hljs-string">'.'</span>.<span class="hljs-variable">$ext</span>; 
+
+<span class="hljs-variable">$handle</span> = fopen(<span class="hljs-variable">$saveFile</span>, <span class="hljs-string">'wb'</span>); 
+fwrite(<span class="hljs-variable">$handle</span>, <span class="hljs-variable">$opt</span>); 
+fclose(<span class="hljs-variable">$handle</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

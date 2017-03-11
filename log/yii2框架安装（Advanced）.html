@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>一、通过 Composer 安装：</strong></font></p>
+
+<p><strong>1、安装Composer</strong> </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">curl <span class="hljs-attribute">-sS</span> https:<span class="hljs-comment">//getcomposer.org/installer | php</span>
+mv composer<span class="hljs-built_in">.</span>phar /usr/<span class="hljs-built_in">local</span>/bin/composer</code></pre>
+
+<p>如果你已经安装有 Composer 请确保使用的是最新版本</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">composer <span class="hljs-built_in">self</span><span class="hljs-attribute">-update</span> </code></pre>
+
+<p><strong>2、安装 yii2-Advanced</strong></p>
+
+<p>Composer 安装后，切换到一个可通过 Web 访问的目录，执行如下命令即可安装 Yii ：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">composer <span class="hljs-built_in">global</span> <span class="hljs-keyword">require</span> <span class="hljs-string">"fxp/composer-asset-plugin:~1.1.1"</span>
+composer create<span class="hljs-attribute">-project</span> yiisoft/yii2<span class="hljs-attribute">-app</span><span class="hljs-attribute">-advanced</span> advanced <span class="hljs-number">2.0</span><span class="hljs-number">.11</span></code></pre>
+
+<p><strong>3、模板初始化</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">安装好模板之后，需要对模板进行初始化操作，<span class="hljs-built_in">cd</span> 进入yii2项目目录，输入php ini 命令，再选择开发环境<span class="hljs-number">0</span>，y，all即进行初始化， </code></pre>
+
+<p><font color="red"><strong>二、通过归档文件安装：</strong></font></p>
+
+<p><strong>1、从 <a href="http://www.yiiframework.com/download/">yiiframework.com</a> 下载归档文件。</strong></p>
+
+<p><strong>2、将下载的文件解压缩到 Web 目录中。</strong></p>
+
+<p><strong>3、模板初始化</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">安装好模板之后，需要对模板进行初始化操作，<span class="hljs-built_in">cd</span> 进入yii2项目目录，输入php ini 命令，再选择开发环境<span class="hljs-number">0</span>，y,all即进行初始化， </code></pre>
+
+<p><font color="red"><strong>三、配置 Web 服务器</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs http"><span class="hljs-attribute">Info</span>: <span class="hljs-string">将 basic/web 设置为文档根目录，可以防止终端用户访问 basic/web 相邻目录中 的私有应用代码和敏感数据文件。 禁止对其他目录的访问是一个不错的安全改进。</span></code></pre>
+
+<p><strong>1、推荐使用的 Apache 配置</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs apache"><span class="hljs-tag">&lt;Directory "/mnt/hgfs/htdocs/study.yii2.ccc/advanced/frontend/web"&gt;</span>
+    <span class="hljs-comment"># 开启 mod_rewrite 用于美化 URL 功能的支持（译注：对应 pretty URL 选项）</span>
+    <span class="hljs-keyword"><span class="hljs-common">RewriteEngine</span></span> <span class="hljs-literal">on</span>
+    <span class="hljs-comment"># 如果请求的是真实存在的文件或目录，直接访问</span>
+    <span class="hljs-keyword"><span class="hljs-common">RewriteCond</span></span> <span class="hljs-cbracket">%{REQUEST_FILENAME}</span> !-f
+    <span class="hljs-keyword"><span class="hljs-common">RewriteCond</span></span> <span class="hljs-cbracket">%{REQUEST_FILENAME}</span> !-d
+    <span class="hljs-comment"># 如果请求的不是真实文件或目录，分发请求至 index.php</span>
+    <span class="hljs-keyword"><span class="hljs-common">RewriteRule</span></span> . index.php
+
+    <span class="hljs-comment"># ...其它设置...</span>
+<span class="hljs-tag">&lt;/Directory&gt;</span></code></pre>
+
+<p><strong>2、推荐使用的 Nginx 配置</strong></p>
+
+<pre class="prettyprint"><code class=" hljs nginx"><span class="hljs-title">server</span> {
+    <span class="hljs-title">charset</span> utf-<span class="hljs-number">8</span>;
+    <span class="hljs-title">client_max_body_size</span> <span class="hljs-number">128M</span>;
+
+    <span class="hljs-title">listen</span> <span class="hljs-number">80</span>; <span class="hljs-comment">## listen for ipv4</span>
+    <span class="hljs-comment">#listen [::]:80 default_server ipv6only=on; ## listen for ipv6</span>
+
+    <span class="hljs-title">server_name</span> mysite.local;
+    <span class="hljs-title">root</span>        /mnt/hgfs/htdocs/study.yii2.ccc/advanced/frontend/web;
+    <span class="hljs-title">index</span>       index.php;
+
+    <span class="hljs-title">access_log</span>  /path/to/basic/log/access.log;
+    <span class="hljs-title">error_log</span>   /path/to/basic/log/error.log;
+
+    <span class="hljs-title">location</span> / {
+        <span class="hljs-comment"># Redirect everything that isn't a real file to index.php</span>
+        <span class="hljs-title">try_files</span> <span class="hljs-variable">$uri</span> <span class="hljs-variable">$uri</span>/ /index.php<span class="hljs-variable">$is_args</span><span class="hljs-variable">$args</span>;
+    }
+
+    <span class="hljs-comment"># uncomment to avoid processing of calls to non-existing static files by Yii</span>
+    <span class="hljs-comment">#location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {</span>
+    <span class="hljs-comment">#    try_files $uri =404;</span>
+    <span class="hljs-comment">#}</span>
+    <span class="hljs-comment">#error_page 404 /404.html;</span>
+
+    <span class="hljs-title">location</span> <span class="hljs-regexp">~ \.php$</span> {
+        <span class="hljs-title">include</span> fastcgi_params;
+        <span class="hljs-title">fastcgi_param</span> SCRIPT_FILENAME <span class="hljs-variable">$document_root</span><span class="hljs-variable">$fastcgi_script_name</span>;
+        <span class="hljs-title">fastcgi_pass</span>   <span class="hljs-number">127.0.0.1:9000</span>;
+        <span class="hljs-comment">#fastcgi_pass   unix:/tmp/php-cgi.sock;</span>
+        <span class="hljs-comment">#fastcgi_pass unix:/var/run/php5-fpm.sock;</span>
+        <span class="hljs-title">try_files</span> <span class="hljs-variable">$uri</span> =<span class="hljs-number">404</span>;
+    }
+
+    <span class="hljs-title">location</span> <span class="hljs-regexp">~ /\.(ht|svn|git)</span> {
+        <span class="hljs-title">deny</span> all;
+    }
+}</code></pre>
+
+<p>使用该配置时，你还应该在 php.ini 文件中设置 cgi.fix_pathinfo=0 ， 能避免掉很多不必要的 stat() 系统调用。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

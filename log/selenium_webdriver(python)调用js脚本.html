@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p/><pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import time
+driver = webdriver.Firefox()
+driver.get("https://www.baidu.com/")
+#给搜索输入框标红javascript脚本
+js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"
+#调用给搜索输入框标红js脚本
+driver.execute_script(js)
+time.sleep(3)
+#单独执行js脚本
+driver.execute_script('alert("输入框标红了!")')
+time.sleep(3)
+#接受提示信息 
+driver.switch_to_alert().accept()
+time.sleep(3)
+#js隐藏元素,将获取的图片元素隐藏
+img1 = driver.find_element_by_xpath("//*[@id='lg']/img")
+driver.execute_script('$(arguments[0]).fadeOut()',img1)
+time.sleep(3)
+driver.find_element_by_xpath("//*[@id='kw']").send_keys("selenium")
+driver.find_element_by_xpath("//*[@id='su']").click()
+time.sleep(3)
+driver.quit()</pre><br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h1 align="center"><br/></h1>&#13;
+<p> </p>&#13;
+<p>    安装完的MySQL的默认字符集为 latin1 ，为了要将其字符集改为用户所需要的(比如utf8)，就必须改其相关的配置文件；由于linux下MySQL的默认安装目录分布在不同的文件下；不像windows一样放在同一目录下，只需修改其中的my.ini文件，重启后就生效了；所以先来看看linux下MySQL的数据库文件、配置文件和命令文件分别在不同的目录：&#13;
+</p>&#13;
+<p> </p>&#13;
+<p>1、数据库目录，其所创建的数据库文件都在该目录下 </p>&#13;
+<p>/var/lib/mysql/ </p>&#13;
+<p> </p>&#13;
+<p>2、配置文件 （mysql.server命令及配置文件所在地） </p>&#13;
+<p>/usr/share/mysql </p>&#13;
+<p> </p>&#13;
+<p>3、相关命令（如mysql mysqladmin等） </p>&#13;
+<p>/usr/bin </p>&#13;
+<p> </p>&#13;
+<p>4、启动脚本（如mysql启动命令） </p>&#13;
+<p>/etc/rc.d/init.d/  或  service mysqld start</p>&#13;
+<p> </p>&#13;
+<p>查看默认字符集 </p>&#13;
+<p>#mysql -u root - p </p>&#13;
+<p>#(输入密码) </p>&#13;
+<p>mysql&gt; show variables like'character_set%';</p>&#13;
+<p>+--------------------------+----------------------------+</p>&#13;
+<p>| Variable_name | Value | </p>&#13;
+<p>+--------------------------+----------------------------+</p>&#13;
+<p>| character_set_client |latin1 | </p>&#13;
+<p>| character_set_connection |latin1 | </p>&#13;
+<p>| character_set_database |latin1 | </p>&#13;
+<p>| character_set_filesystem |binary | </p>&#13;
+<p>| character_set_results |latin1 | </p>&#13;
+<p>| character_set_server |latin1 | </p>&#13;
+<p>| character_set_system | utf8| </p>&#13;
+<p>| character_sets_dir |/usr/share/mysql/charsets/ | </p>&#13;
+<p>+--------------------------+----------------------------+</p>&#13;
+<p> </p>&#13;
+<p>修改字符集 <strong>修改 /etc/my.cnf文件</strong>:</p>&#13;
+<p> </p>&#13;
+<p><strong><span style="color:red">#/etc/my.cnf</span></strong></p>&#13;
+<p><strong><span style="color:red"> </span></strong></p>&#13;
+<p><strong><span style="color:red">[client]</span></strong></p>&#13;
+<p><strong><span style="color:red">default-character-set=utf8</span></strong></p>&#13;
+<p><strong><span style="color:red"> </span></strong></p>&#13;
+<p><strong><span style="color:red">[mysqld]</span></strong></p>&#13;
+<p><strong><span style="color:red">datadir=/var/lib/mysql</span></strong></p>&#13;
+<p><strong><span style="color:red">socket=/var/lib/mysql/mysql.sock</span></strong></p>&#13;
+<p><strong><span style="color:red">user=mysql</span></strong></p>&#13;
+<p><strong><span style="color:red"># Disabling symbolic-links is recommended to preventassorted security risks</span></strong></p>&#13;
+<p><strong><span style="color:red">symbolic-links=0</span></strong></p>&#13;
+<p><strong><span style="color:red">#default-character-set=utf8</span></strong></p>&#13;
+<p><strong><span style="color:red">character-set-server=utf8</span></strong></p>&#13;
+<p><strong><span style="color:red">init_connect='SET NAMES utf8'</span></strong></p>&#13;
+<p><strong><span style="color:red"> </span></strong></p>&#13;
+<p><strong><span style="color:red">[mysql]</span></strong></p>&#13;
+<p><strong><span style="color:red">no-auto-rehash</span></strong></p>&#13;
+<p><strong><span style="color:red">default-character-set=utf8</span></strong></p>&#13;
+<p><strong><span style="color:red"> </span></strong></p>&#13;
+<p><strong><span style="color:red">[mysqld_safe]</span></strong></p>&#13;
+<p><strong><span style="color:red">log-error=/var/log/mysqld.log</span></strong></p>&#13;
+<p><strong><span style="color:red">pid-file=/var/run/mysqld/mysqld.pid</span></strong></p>&#13;
+<p> </p>&#13;
+<p> </p>&#13;
+<p>切记：在mysqld中加入的是 character-set-server=utf8 而不是default-character-set=utf8 </p>&#13;
+<p>否则会报：Starting MySQL...Theserver quit without updating PID file [失败]lib/mysql/localhost.localdomain.pid).异常</p>&#13;
+<p> </p>&#13;
+<p>重起MySQL服务器，使其设置的内容生效</p>&#13;
+<p>#/etc/init.d/mysql restart   或 service mysqld restart</p>&#13;
+<p> </p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">短信验证码是随机生成的几位数字，将此数字保存到数据库中，发送短信时将该数字 取出来放到下面代码填写短信内容处，即可发送。</span></p>&#13;
+<p><span style="font-size:18px">注意要发送的手机号，短信宝账号、密码，短信发送内容等都要提前存放到数据库中，下面代码中从数据库中查询。</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1723584" snippet_file_name="blog_20160621_1_7611285" name="code" class="php">&lt;?php
+header("Content-type: text/html; charset=utf-8");
+$statusStr = array(
+"0" =&gt; "短信发送成功",
+"-1" =&gt; "参数不全",
+"-2" =&gt; "服务器空间不支持,请确认支持curl或者fsocket，联系您的空间商解决或者更换空间！",
+"30" =&gt; "密码错误",
+"40" =&gt; "账号不存在",
+"41" =&gt; "余额不足",
+"42" =&gt; "帐户已过期",
+"43" =&gt; "IP地址限制",
+"50" =&gt; "内容含有敏感词"
+);
+$smsapi = "http://api.smsbao.com/"; //短信网关
+$user = "xxxxxx"; //短信平台帐号
+$pass = md5("xxxxxxx"); //短信平台密码
+$content="此处填写短信内容";//要发送的短信内容
+$phone = "18612446985";//要发送短信的手机号码
+$sendurl = $smsapi."sms?u=".$user."&amp;p=".$pass."&amp;m=".$phone."&amp;c=".urlencode($content);
+$result =file_get_contents($sendurl) ;
+//短信发送后，可以将发送内容等记录到数据库中
+// echo $statusStr[$result];
+if($result=='0')
+{
+    //输出，短信发送成功
+    echo "$statusStr[$result]";  
+    //此时可以更新发送状态
+}else{
+    //输出  短信发送失败原因
+    echo "$statusStr[$result]";
+}
+?&gt;</pre><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

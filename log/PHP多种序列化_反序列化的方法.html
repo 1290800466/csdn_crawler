@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1. serialize和unserialize函数</strong></p>
+
+<p><strong><em>serialize()</em></strong> 函数，把复杂的数据类型压缩到一个字符串中，把变量和它们的值编码成文本形式，这有利于存储或传递 PHP 的值，同时不丢失其类型和结构 <br/><strong><em>unserialize()</em></strong> 函数对单一的已序列化的变量进行操作，将其转换回 PHP 的值 <br/>
+例:</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$stooges</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">'Moe'</span>,<span class="hljs-string">'Larry'</span>,<span class="hljs-string">'Curly'</span>);
+<span class="hljs-variable">$new</span> = serialize(<span class="hljs-variable">$stooges</span>);
+print_r(<span class="hljs-variable">$new</span>);<span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br /&gt;"</span>;
+print_r(unserialize(<span class="hljs-variable">$new</span>));</code></pre>
+
+<p>结果：a:3:{i:0;s:3:”Moe”;i:1;s:5:”Larry”;i:2;s:5:”Curly”;} <br/>
+              Array ( [0] =&gt; Moe [1] =&gt; Larry [2] =&gt; Curly ) <br/>
+例：</p>
+
+<pre class="prettyprint"><code class=" hljs handlebars"><span class="xml"><span class="php"><span class="hljs-string">&lt;?php
+    $asd='a:3{s:7:"</span>app_key<span class="hljs-string">";s:9:"</span><span class="hljs-number">101246651</span><span class="hljs-string">";s:10:"</span>app_secret<span class="hljs-string">";s:32:"</span>d0bf4565ed029bcd7f979f0c56321a10<span class="hljs-string">";s:7:"</span>app_url<span class="hljs-string">";s:48:"</span>http:<span class="hljs-comment">//www.5188zc.com/api_callback.php?c=Tencent";}';</span>
+    print_r(<span class="hljs-variable">$asd</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-variable">$asd</span>=unserialize(<span class="hljs-variable">$asd</span>);
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$asd</span>[<span class="hljs-string">'app_key'</span>];
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$asd</span>[<span class="hljs-string">'app_secret'</span>];
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$asd</span>[<span class="hljs-string">'app_url'</span>];
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"&lt;br/&gt;"</span>;
+    <span class="hljs-variable">$asd</span>=serialize(<span class="hljs-variable">$asd</span>);
+    print_r(<span class="hljs-variable">$asd</span>);
+<span class="hljs-preprocessor">?&gt;</span></span></span></code></pre>
+
+<p><strong>注意：</strong> <br/>
+当数组值包含如双引号、单引号或冒号等字符时，它们被反序列化后，可能会出现问题。为了克服这个问题，一个巧妙的技巧是使用base64_encode和base64_decode。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$obj</span> = <span class="hljs-keyword">array</span>();
+<span class="hljs-comment">//序列化</span>
+<span class="hljs-variable">$s</span> = base64_encode(serialize(<span class="hljs-variable">$obj</span>));
+<span class="hljs-comment">//反序列化</span>
+<span class="hljs-variable">$original</span> = unserialize(base64_decode(<span class="hljs-variable">$s</span>));</code></pre>
+
+<p>但是base64编码将增加字符串的长度。为了克服这个问题，可以和gzcompress一起使用。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">//定义一个用来序列化对象的函数</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_serialize</span><span class="hljs-params">(<span class="hljs-variable">$obj</span>)</span> {</span>
+  <span class="hljs-keyword">return</span> base64_encode(gzcompress(serialize(<span class="hljs-variable">$obj</span>)));
+}
+<span class="hljs-comment">//反序列化</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">my_unserialize</span><span class="hljs-params">(<span class="hljs-variable">$txt</span>)</span> {</span>
+   <span class="hljs-keyword">return</span> unserialize(gzuncompress(base64_decode(<span class="hljs-variable">$txt</span>)));
+}</code></pre>
+
+<p><strong>2. json_encode 和 json_decode函数</strong></p>
+
+<p>使用JSON格式序列化和反序列化是一个不错的选择： </p>
+
+<p>使用json_encode和json_decode格式输出要serialize和unserialize格式快得多。 <br/>
+JSON格式是可读的。 <br/>
+JSON格式比serialize返回数据结果小。 <br/>
+JSON格式是开放的、可移植的。其他语言也可以使用它。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby"><span class="hljs-variable">$a</span> = array(<span class="hljs-string">'a'</span> =&gt; <span class="hljs-string">'Apple'</span> ,<span class="hljs-string">'b'</span> =&gt; <span class="hljs-string">'banana'</span> , <span class="hljs-string">'c'</span> =&gt; <span class="hljs-string">'Coconut'</span>);
+
+<span class="hljs-regexp">//</span>序列化数组
+
+<span class="hljs-variable">$s</span> = json_encode(<span class="hljs-variable">$a</span>);
+
+echo <span class="hljs-variable">$s</span>;
+
+<span class="hljs-regexp">//</span>输出结果：{<span class="hljs-string">"a"</span><span class="hljs-symbol">:<span class="hljs-string">"Apple"</span></span>,<span class="hljs-string">"b"</span><span class="hljs-symbol">:<span class="hljs-string">"banana"</span></span>,<span class="hljs-string">"c"</span><span class="hljs-symbol">:<span class="hljs-string">"Coconut"</span></span>}
+
+echo <span class="hljs-string">'&lt;br /&gt;&lt;br /&gt;'</span>;
+
+<span class="hljs-regexp">//</span>反序列化
+
+<span class="hljs-variable">$o</span> = json_decode(<span class="hljs-variable">$s</span>);</code></pre>
+
+<p>在上面的例子中，json_encode输出长度比上个例子中serialize输出长度显然要短。 <br/><strong><em>在做序列化和反序列化操作时，最好用json格式！</em></strong></p>
+
+<p><strong>3. var_export 和 eval</strong></p>
+
+<p>var_export 函数把变量作为一个字符串输出；eval把字符串当成PHP代码来执行，反序列化得到最初变量的内容。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-variable">$a</span> = array(<span class="hljs-string">'a'</span> =&gt; <span class="hljs-string">'Apple'</span> ,<span class="hljs-string">'b'</span> =&gt; <span class="hljs-string">'banana'</span> , <span class="hljs-string">'c'</span> =&gt; <span class="hljs-string">'Coconut'</span>);
+
+//序列化数组
+
+<span class="hljs-variable">$s</span> = var_<span class="hljs-keyword">export</span>(<span class="hljs-variable">$a</span> , <span class="hljs-literal">true</span>);
+
+<span class="hljs-built_in">echo</span> <span class="hljs-variable">$s</span>;
+
+//输出结果： array ( <span class="hljs-string">'a'</span> =&gt; <span class="hljs-string">'Apple'</span>, <span class="hljs-string">'b'</span> =&gt; <span class="hljs-string">'banana'</span>, <span class="hljs-string">'c'</span> =&gt; <span class="hljs-string">'Coconut'</span>, )
+
+<span class="hljs-built_in">echo</span> <span class="hljs-string">'&lt;br /&gt;&lt;br /&gt;'</span>;
+
+//反序列化
+
+<span class="hljs-built_in">eval</span>(<span class="hljs-string">'$my_var='</span> . <span class="hljs-variable">$s</span> . <span class="hljs-string">';'</span>);
+
+print_r(<span class="hljs-variable">$my_var</span>);</code></pre>
+
+<p><strong>4. wddx_serialize_value 和 wddx deserialize</strong></p>
+
+<p>wddx_serialize_value函数可以序列化数组变量，并以XML字符串形式输出。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml">$a = array('a' =&gt; 'Apple' ,'b' =&gt; 'banana' , 'c' =&gt; 'Coconut');
+
+//序列化数组
+
+$s = wddx_serialize_value($a);
+
+echo $s;
+
+//输出结果（查看输出字符串的源码）：<span class="hljs-tag">&lt;<span class="hljs-title">wddxPacket</span> <span class="hljs-attribute">version</span>=<span class="hljs-value">'1.0'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">header</span>/&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">data</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">struct</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">'a'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">string</span>&gt;</span>Apple<span class="hljs-tag">&lt;/<span class="hljs-title">string</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">'b'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">string</span>&gt;</span>banana<span class="hljs-tag">&lt;/<span class="hljs-title">string</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">var</span> <span class="hljs-attribute">name</span>=<span class="hljs-value">'c'</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">string</span>&gt;</span>Coconut<span class="hljs-tag">&lt;/<span class="hljs-title">string</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">var</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">struct</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">data</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">wddxPacket</span>&gt;</span>
+
+echo '<span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>';
+
+//反序列化
+
+$o = wddx_deserialize($s);
+
+print_r($o);
+
+//输出结果：Array ( [a] =&gt; Apple [b] =&gt; banana 1 =&gt; Coconut )</code></pre>
+
+<p>可以看出，XML标签字符较多，导致这种格式的序列化还是占了很多空间。</p>
+
+<p><strong>小结：</strong></p>
+
+<p>上述所有的函数在序列化数组变量时都能正常执行，但运用到对象就不同了。例如json_encode序列化对象就会失败。反序列化对象时，unserialize和eval将有不同的效果。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

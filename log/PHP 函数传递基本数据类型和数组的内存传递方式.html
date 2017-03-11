@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;?php
+//屏蔽程序 notice 级错误
+error_reporting(E_ALL^E_NOTICE);
+//如果给函数传递的是基本数据类型，如整数、小数、布尔、字符等时,在默认的情况下是传递的值；
+//如果你希望传入地址,则可以用一下方法：
+function test(&amp;$n) 
+//加上&amp;符号表示传入的是地址，若改变此值则所对应地址的值也会改变；
+//若没有&amp;符号，仅仅是传值，若在函数中对该值进行改变，仅仅是这个值改变，其所对应地址的值没有改变，即该值的改变仅仅能影响函数内部，出了此函数，该值将保持原值不变
+{
+	echo "传入地址对应值为：".$n."&lt;br/&gt;";
+	$n+=1;
+}
+//调用以上函数
+$a=100;
+test($a);
+echo $a."&lt;br/&gt;"; //有&amp;符号打印101，没有&amp;符号打印100
+//在php中如果，给一个函数传递的是数组，则默认情况下是传值(拷贝了新的数组),如果希望传入地址，则应当，&amp;$数组名
+$a1=array(1,3,900);
+$a2=array(56,90,100);
+$arr=array($a1,$a2,6);
+ foreach($arr as $k=&gt;$k_v)
+{
+	echo "$k=&gt;$k_v";
+	echo "&lt;br&gt;";
+} 
+
+print_r($arr); 
+echo "&lt;br&gt;";
+?&gt;</pre><br/></div>  </body>
+            </html>

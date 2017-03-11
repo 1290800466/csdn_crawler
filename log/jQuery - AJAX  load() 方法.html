@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><br/>&#13;
+load() 方法从服务器加载数据，并把返回的数据放入被选元素中。<br/>&#13;
+语法:<br/></span>&#13;
+<p><span style="font-size:18px">$(selector).load(URL,data,callback);</span></p>&#13;
+<p><span style="font-size:18px">参数说明：</span></p>&#13;
+<span style="font-size:18px">必需的 URL 参数规定您希望加载的 URL。<br/>&#13;
+可选的 data 参数规定与请求一同发送的查询字符串键/值对集合。<br/>&#13;
+可选的 callback 参数是 load() 方法完成后所执行的函数名称。<br/></span>&#13;
+<p><span style="font-size:18px">实例：</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre code_snippet_id="1627385" snippet_file_name="blog_20160329_1_7359115" name="code" class="html">&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#div1").load("/try/ajax/demo_test.txt",function(responseTxt,statusTxt,xhr){
+      if(statusTxt=="success")
+        alert("外部内容加载成功!");
+      if(statusTxt=="error")
+        alert("Error: "+xhr.status+": "+xhr.statusText);
+    });
+  });
+});
+&lt;/script&gt;</pre><br/><span style="font-size:18px">demo_test.txt内容：<br/>&#13;
+&lt;h2&gt;jQuery and AJAX is FUN!!!&lt;/h2&gt;<br/>&#13;
+&lt;p id="p1"&gt;This is some text in a paragraph.&lt;/p&gt;<br/><br/>&#13;
+知识点：<br/>&#13;
+（1）可以把 jQuery 选择器添加到 URL 参数中，与url之间用空格隔开。<br/>&#13;
+如：<br/><span style="white-space:pre"/>下面把 "demo_test.txt" 文件中 id="p1" 的元素的内容，加载到指定的 &lt;div&gt; 元素中：<br/>&#13;
+实例<br/>&#13;
+$("#div1").load("demo_test.txt #p1");<br/><br/>&#13;
+如上所示只有id = p1 的元素才加载 <br/><br/>&#13;
+（2） load() 方法默认为get请求<br/>&#13;
+get方式提交：data参数为空，url添加所要提交的值<br/>&#13;
+若data不为空则为以post方式提交：<br/></span><pre code_snippet_id="1627385" snippet_file_name="blog_20160329_2_8340634" name="code" class="javascript">//无回调函数
+$("#showload").load("load.htm", { "para": "para-value" });
+$("#showload").load("load.htm", { "para": "para-value" },
+    function() {
+        //处理
+    })</pre><br/>&#13;
+（3）回调函数讲解：<br/>&#13;
+可选的 callback 参数规定当 load() 方法完成后所要允许的回调函数。回调函数可以设置不同的参数：<br/>&#13;
+responseTxt - 包含调用成功时的结果内容<br/>&#13;
+statusTXT - 包含调用的状态（"success",  "error", "notmodified","timeout" 或 "parsererror"），主要用success和error<br/><p><span style="font-size:18px">xhr - 包含 XMLHttpRequest 对象</span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<span style="font-size:18px">xhr对象包括以下几部分：<br/>&#13;
+responseText    作为响应主体被返回的文本<br/>&#13;
+responseXML    如果响应主体内容类型是"text/xml"或"application/xml"，则返回包含响应数据的XML DOM文档<br/>&#13;
+atatus    响应的HTTP状态<br/>&#13;
+statusText    http状态说明<br/><br/><br/></span><img src="http://img.blog.csdn.net/20160329103215849?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><span style="font-size:18px"><br/><br/></span><br/></div>  </body>
+            </html>

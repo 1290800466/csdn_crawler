@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:14px"><br/><strong>一、ThinkPHP 的输出  </strong><br/><span style="white-space:pre"/>a、通过 echo 等PHP原生的输出方式在页面中输出<br/><span style="white-space:pre"/>b、通过display方法输出（利用C对V的控制）<br/></span>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>想分配变量可以使用assign方法</span></p>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>具体方法如下：</span></p>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>C调用V中内容显示：</span></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<p><span style="white-space:pre"/>C:</p>&#13;
+<p><img src="http://img.blog.csdn.net/20150507143732581?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="350" alt=""/><br/></p>&#13;
+<p/>&#13;
+<p>V:</p>&#13;
+<p><img src="http://img.blog.csdn.net/20150507143604001?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="300" alt=""/><br/></p>&#13;
+<p/>&#13;
+<p>V:</p>&#13;
+<p><img src="http://img.blog.csdn.net/20150507143646932?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="300" alt=""/><br/></p>&#13;
+<p><br/></p>&#13;
+<p/>&#13;
+<p> <span style="font-size:14px; white-space:pre"> </span>c、最好修改左右定界符（默认为{}，修改成&lt;{}&gt;最好）</p>&#13;
+<br/><p><span style="font-size:14px"><strong>二、修改配置文件中的配置项</strong></span></p>&#13;
+<p><span style="font-size:14px"><strong><br/></strong></span></p>&#13;
+<span style="font-size:14px"><span style="white-space:pre"/>'TMPL_L_DELIM'=&gt;'&lt;{', //修改左定界符<br/><span style="white-space:pre"/>'TMPL_R_DELIM'=&gt;'}&gt;', //修改右定界符<br/><br/><br/><strong>三、ThinkPHP 3 的M模型使用</strong>  <br/><span style="white-space:pre"/>需要在方法中通过new Model（表名）的形式操作数据库<br/><span style="white-space:pre"/>$m=new Model('User');<br/><span style="white-space:pre"/>$arr=$m-&gt;select(); <br/></span>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>具体使用方法：</span></p>&#13;
+<p><span style="font-size:14px"/></p>&#13;
+<p>C调用M中数据显示：</p>&#13;
+<p>C：</p>&#13;
+<p><img src="http://img.blog.csdn.net/20150507143716260?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="350" alt=""/><br/></p>&#13;
+<p/>&#13;
+<p>‘User’ 是数据库名</p>&#13;
+<p>结果：</p>&#13;
+<p><img src="http://img.blog.csdn.net/20150507143937444?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" width="600" height="350" alt=""/><br/></p>&#13;
+<span style="font-size:14px">config.php文件配置数据库信息：<span style="white-space:pre"/><br/><span style="white-space:pre"/>'DB_TYPE'=&gt;'mysql',   //设置数据库类型<br/><span style="white-space:pre"/>'DB_HOST'=&gt;'localhost',//设置主机<br/><span style="white-space:pre"/>'DB_NAME'=&gt;'thinkphp',//设置数据库名<br/><span style="white-space:pre"/>'DB_USER'=&gt;'root',    //设置用户名<br/><span style="white-space:pre"/>'DB_PWD'=&gt;'111111',        //设置密码<br/><span style="white-space:pre"/>'DB_PORT'=&gt;'3306',   //设置端口号<br/></span>&#13;
+<p><span style="font-size:14px"><span style="white-space:pre"/>'DB_PREFIX'=&gt;'tp_',  //设置表前缀</span></p>&#13;
+<p><span style="font-size:14px"><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

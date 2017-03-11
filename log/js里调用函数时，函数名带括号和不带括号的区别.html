@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>示例代码：</strong></span></p>&#13;
+<p/><pre name="code" class="javascript">&lt;span style="font-size:18px;"&gt;function hi(){  
+  var a = 1;  
+  return function(){
+   console.log(a++);
+  };  
+};         
+var aaa = hi();
+var bbb = hi;&#13;
+&lt;/span&gt;</pre><span style="font-size:18px"><br/><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">如以上代码：</code></span>&#13;
+<p><span style="font-size:18px"><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">aaa</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 是将 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">hi()</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 的运行结果赋值给它，即 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">return</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 返回的匿名函数，此时有一个闭包，则每次调用 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">aaa</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 时都访问的同一个 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">a</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px">，</span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">aaa()</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 第一次运行结果为 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">1</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px">，第二次为</span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">2</code><br style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"/><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px">而 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">bbb</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 将是将 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">hi</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 这个函数名赋值给它，则调用 </span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">bbb()</code><span style="color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',SimSun,sans-serif; line-height:18.6667px"> 后返回一个函数表达式，即</span><code style="font-family:Consolas,Menlo,Monaco,'Courier New',monospace; padding:2px 4px; color:rgb(199,37,78); background-color:rgb(246,246,246)">function(){console.log(a++)};</code></span><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

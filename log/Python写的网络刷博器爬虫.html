@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2>while网络刷博器爬虫：</h2>&#13;
+<p>        </p>&#13;
+<pre code_snippet_id="1714363" snippet_file_name="blog_20160612_1_4325312" name="code" class="python">#!/usr/bin/python
+#coding:UFT-8
+import webbrowser
+import os
+import time  #导入的Python函数模块
+i=0
+n=0
+#whiletrue：  #添加while true：将一直执行下去
+while i&lt;1000:  
+     i=i+1
+     n=n+1
+     webbrowser.open_new_tab("http://lifestyle.blog.sohu.com/308521633.html")      #用浏览器打开要访问的网址
+     time.sleep(1)   #每打开一个网页延迟1秒
+     if n==10:    #每打开10个网页关闭浏览器，防止内存占用有太多
+     n=0
+     os.system("taskkill/f /im 360chrome.exe")   #关闭程序命令
+     else:
+        print"已访问1000次"</pre><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

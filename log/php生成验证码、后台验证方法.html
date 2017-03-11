@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px">1、yanzheng.class.php:</span></p>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+header('content-type:text/html;charset=utf-8');
+session_start();
+class Chptcha{
+    //画布宽度
+	private $width=60;
+	//画布高度
+	private $height=28;
+	//验证码字符长度
+	private $chars=4;
+	//干扰线数目
+	private $lines=1;
+	//干扰点数目
+	private $spots=200;
+	
+	public function generate(){
+		//制作画布
+		$img=imagecreatetruecolor($this-&gt;width,$this-&gt;height);
+		//在画布资源下分配颜色，经验，画布颜色要明亮点
+		$bg=imagecolorallocate($img,mt_rand(200,255),mt_rand(200,255),mt_rand(200,255));
+		//给画布填充颜色
+		imagefill($img,0,0,$bg);
+		//增加验证码（获取验证码）
+		$captcha=$this-&gt;getCaptcha();
+		//将获取的验证码字符存放在session文件中，用作以后和登陆页面输入的验证码做比较
+		$_SESSION["SafeCode"] = $captcha;
+		//为验证码字符串设定为随机颜色		
+		$str=imagecolorallocate($img,mt_rand(50,100),mt_rand(50,100),mt_rand(50,100));
+		//获取随机位置
+		//宽度: 使用图片宽度减去文件宽度
+		$e_width = $this-&gt;width - $this-&gt;chars * 10 - 5;
+		$e_height = $this-&gt;height/3;
+		//5，代表的是字体的大小
+		imagestring($img,5,mt_rand(10,$e_width),mt_rand($e_height-1,$e_height),$captcha,$str);
+		$this-&gt;getLines($img);
+		$this-&gt;getPixels($img);
+		header('content-type:image/png');		
+		imagepng($img);
+		//释放资源
+		imagedestroy($img);
+	}
+	private function getCaptcha(){
+        //产生随机字符串
+        $str = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        $captcha = '';
+        for($i = 0;$i &lt; $this-&gt;chars;$i++){
+            //每次循环产生一个字符， $captcha. 加"."号表示这几个字符是连接在一起的
+            $captcha.= $str[mt_rand(0,strlen($str) - 1)];
+        }
+        //返回
+        return $captcha;
+	}
+	private function getLines($img){
+        //增加干扰线
+        for($i = 0;$i &lt; $this-&gt;lines;$i++){
+        //分配颜色
+        $line= imagecolorallocate($img,mt_rand(100,200),mt_rand(100,200),mt_rand(100,200));
+        //制作线段
+        imageline($img,mt_rand(0,$this-&gt;width),mt_rand(0,$this-&gt;height),mt_rand(0,$this-&gt;width),mt_rand(0,$this-&gt;height),$line);
+        }
+    }
+    private function getPixels($img){
+        //增加干扰点
+        for($i = 0;$i &lt; $this-&gt;spots;$i++){
+            //分配颜色
+            $pixel= imagecolorallocate($img,mt_rand(100,200),mt_rand(100,200),mt_rand(100,200));
+            //制作
+            imagesetpixel($img,mt_rand(0,$this-&gt;width),mt_rand(0,$this-&gt;height),$pixel);
+        }
+    }
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/>&#13;
+2、yanzhengma.php:</span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+//设定文件编码格式
+header('content-type:text/html;charset=utf-8');
+//引用 yanzheng.class.php 类文件
+include_once "yanzheng.class.php";
+//创建对象
+$chptcha=new Chptcha();
+//调用方法，生成验证码
+$chptcha-&gt;generate();
+?&gt;
+&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<span style="font-size:18px">3、login.html:</span>&#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;b&gt;验证码：&lt;/b&gt;
+&lt;input type="text" name="auth" class="textbox"&gt;
+&lt;!-- 利用src链接，调用生成的图片 --&gt;
+&lt;img src=yanzhengma.php&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/></span>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

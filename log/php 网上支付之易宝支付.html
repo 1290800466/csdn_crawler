@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><strong><span style="font-size:18px; color:#ff0000">目前有两种网上支付方式：</span></strong></p>&#13;
+<p><span style="font-size:18px">1、直接和银行对接</span></p>&#13;
+<p><span style="font-size:18px">* 缺点是工作量大，而且需要资格审核</span></p>&#13;
+<p><span style="font-size:18px">* 优点安全</span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">2、和中间公司对接</span></p>&#13;
+<p><span style="font-size:18px">* 缺点就是安全隐患</span></p>&#13;
+<p><span style="font-size:18px">* 优点就是开发维护方便</span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px"><span style="color:#ff0000"><strong>易宝支付实现过程：</strong></span><br/></span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+<p><span style="font-size:18px; background-color:rgb(255,255,102)">1、前提: 需要我们商家到易宝公司去注册账号</span></p>&#13;
+<p><span style="font-size:18px">目前我们使用yeebay公司提供了用于测试的账号和密钥</span></p>&#13;
+<p><span style="font-size:18px">账号 ：$p1_MerId ="10001126856";</span></p>&#13;
+<p><span style="font-size:18px">密钥： $merchantKey ="69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl";</span></p>&#13;
+<p><span style="font-size:18px; background-color:rgb(255,255,102)">2、开发界面</span></p>&#13;
+<p/><pre name="code" class="html">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="content-type"content="text/html;charset=gb2312"/&gt;
+&lt;/head&gt;
+&lt;form action="payConfirm.php"method="post"&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td colspan="4"&gt;
+订单号:&lt;inputtype="text" name="p2_Order"/&gt;
+支付金额:&lt;inputtype="text" name="p3_Amt"/&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan="4"&gt;请选择支付银行&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;input type="radio"name="pd_FrpId" value="CMBCHINA-NET"/&gt;招商银行&lt;/td&gt;
+&lt;td&gt;&lt;input type="radio"name="pd_FrpId" value="ICBC-NET"/&gt;工商银行&lt;/td&gt;
+&lt;td&gt;&lt;input type="radio"name="pd_FrpId" value="ABC-NET"/&gt;农业银行&lt;/td&gt;
+&lt;td&gt;&lt;input type="radio"name="pd_FrpId" value="CCB-NET"/&gt;建设银行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="4"&gt;&lt;inputtype="submit" value="确认支付"/&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/form&gt;
+&lt;/html&gt;</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px; background-color:rgb(255,255,102)">3、</span><span style="font-size:18px"><span style="background-color:rgb(255,255,102)">生成一个hmac签名串</span>.</span></p>&#13;
+<p><span style="font-size:18px">关键代码:</span></p>&#13;
+<p/><pre name="code" class="php">function HmacMd5($data,$key){
+	// RFC 2104 HMAC implementation for php.
+	// Creates an md5 HMAC.
+	// Eliminates the need to install mhash tocompute a HMAC
+	// Hacked by Lance Rushing(NOTE: Hackedmeans written)
+	//需要配置环境支持iconv，否则中文参数不能正常处理
+	$key =iconv("GB2312","UTF-8",$key);
+	$data =iconv("GB2312","UTF-8",$data);
+	$b = 64; // byte length for md5
+	if (strlen($key) &gt; $b) {
+	$key = pack("H*",md5($key));
+	}
+	$key = str_pad($key, $b, chr(0x00));
+	$ipad = str_pad('', $b, chr(0x36));
+	$opad = str_pad('', $b, chr(0x5c));
+	$k_ipad = $key ^ $ipad ;
+	$k_opad = $key ^ $opad;
+	return md5($k_opad .pack("H*",md5($k_ipad . $data)));
+}</pre><br/><p><span style="font-size:18px; background-color:rgb(255,255,102)">4、开发确认支付页面</span></p>&#13;
+<p/><pre name="code" class="php">&lt;html&gt;
+&lt;head&gt;
+&lt;metahttp-equiv="content-type"content="text/html;charset=gb2312"/&gt;
+&lt;/head&gt;
+&lt;?php
+       include_once'Common.php';
+       //这里我们获取用户提交的信息
+ 
+       //1.获取订单号
+      
+       $p0_Cmd="Buy";
+       $p1_MerId="10001126856";
+       $p2_Order=$_REQUEST['p2_Order'];
+       $p3_Amt=$_REQUEST['p3_Amt'];
+       $p4_Cur="CNY";
+       //商品名称
+       $p5_Pid="";
+       $p6_Pcat="";//种类
+       $p7_Pdesc="";//商品介绍
+       //这是易宝支付成功后，给url返回信息
+       $p8_Url="http://localhost:80/myNetPayment/res.php";
+       $p9_SAF="0";
+       $pa_MP="";
+       $pd_FrpId=$_REQUEST['pd_FrpId'];
+       $pr_NeedResponse="1";
+ 
+ 
+      
+ 
+       //我们把请求参数一个一个拼接(拼接的时候，顺序很重要!!!!)
+       $data="";
+       $data=$data.$p0_Cmd;
+       $data=$data.$p1_MerId;
+       $data=$data.$p2_Order;
+       $data=$data.$p3_Amt;
+       $data=$data.$p4_Cur;
+       $data=$data.$p5_Pid;
+       $data=$data.$p6_Pcat;
+       $data=$data.$p7_Pdesc;
+       $data=$data.$p8_Url;
+       $data=$data.$p9_SAF;
+       $data=$data.$pa_MP;
+       $data=$data.$pd_FrpId;
+       $data=$data.$pr_NeedResponse;
+      
+       $merchantKey ="69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl";
+ 
+       //hmac是签名串，是用于易宝和商家互相确认的关键字
+       //这里我们需要使用算法来生成( md5-hmac算法)
+       $hmac=HmacMd5($data,$merchantKey);
+ 
+ 
+?&gt;
+你的订单号是&lt;?phpecho $p2_Order; ?&gt; 支付的金额是&lt;?php echo $p3_Amt;?&gt;
+&lt;!--把要提交的数据用隐藏域表示--&gt;
+&lt;formaction="https://www.yeepay.com/app-merchant-proxy/node"method="post"&gt;
+&lt;input type="hidden"name="p0_Cmd" value="&lt;?php echo $p0_Cmd;?&gt;"/&gt;
+&lt;input type="hidden"name="p1_MerId" value="&lt;?php echo $p1_MerId; ?&gt;"/&gt;
+&lt;input type="hidden"name="p2_Order" value="&lt;?php echo $p2_Order; ?&gt;"/&gt;
+&lt;input type="hidden"name="p3_Amt" value="&lt;?php echo $p3_Amt; ?&gt;"/&gt;
+&lt;input type="hidden"name="p4_Cur" value="&lt;?php echo $p4_Cur;?&gt;"/&gt;
+&lt;input type="hidden"name="p5_Pid" value="&lt;?php echo $p5_Pid?&gt;"/&gt;
+&lt;input type="hidden"name="p6_Pcat" value="&lt;?php echo $p6_Pcat;?&gt;"/&gt;
+&lt;input type="hidden"name="p7_Pdesc" value="&lt;?php echo $p7_Pdesc;?&gt;"/&gt;
+&lt;input type="hidden" name="p8_Url"value="&lt;?php echo $p8_Url;?&gt;"/&gt;
+&lt;input type="hidden"name="p9_SAF" value="&lt;?php echo $p9_SAF;?&gt;"/&gt;
+&lt;input type="hidden"name="pa_MP" value="&lt;?php echo $pa_MP;?&gt;"/&gt;
+&lt;input type="hidden"name="pd_FrpId" value="&lt;?php echo $pd_FrpId;?&gt;"/&gt;
+&lt;input type="hidden"name="pr_NeedResponse" value="&lt;?php echo$pr_NeedResponse;?&gt;"/&gt;
+&lt;input type="hidden"name="hmac" value="&lt;?php echo $hmac;?&gt;"/&gt;
+&lt;input type="submit"value="确认网上支付"/&gt;
+&lt;/form&gt;
+&lt;/html&gt;</pre><br/><span style="font-size:18px; background-color:rgb(255,255,102)">5、供易宝回调的页面</span>&#13;
+<p/><pre name="code" class="php">&lt;?php
+       //echo"支付成功!";
+ 
+       include_once'Common.php';
+       //获取从易宝支付网关返回的信息
+       //$p1_MerId=
+ 
+       $p1_MerId="10001126856";//就是自己的商号.
+        
+       $r0_Cmd=$_REQUEST['r0_Cmd'];
+       $r1_Code=$_REQUEST['r1_Code'];
+       $r2_TrxId=$_REQUEST['r2_TrxId'];
+       $r3_Amt=$_REQUEST['r3_Amt'];
+       $r4_Cur=$_REQUEST['r4_Cur'];
+       $r5_Pid=$_REQUEST['r5_Pid'];
+       $r6_Order=$_REQUEST['r6_Order'];
+       $r7_Uid=$_REQUEST['r7_Uid'];
+       $r8_MP=$_REQUEST['r8_MP'];
+       $r9_BType=$_REQUEST['r9_BType'];
+       $hmac=$_REQUEST['hmac'];
+ 
+       //拼接
+       $res_src="";
+       $res_src=$res_src.$p1_MerId;
+       $res_src=$res_src.$r0_Cmd;
+       $res_src=$res_src.$r1_Code;
+       $res_src=$res_src.$r2_TrxId;
+       $res_src=$res_src.$r3_Amt;
+       $res_src=$res_src.$r4_Cur;
+       $res_src=$res_src.$r5_Pid;
+       $res_src=$res_src.$r6_Order;
+       $res_src=$res_src.$r7_Uid;
+       $res_src=$res_src.$r8_MP;
+       $res_src=$res_src.$r9_BType;
+       $merchantKey = "69cl522AV6q613Ii4W6u8K6XuW8vM1N6bFgyv769220IuYe9u37N4y7rI4Pl";
+       //对返回的结果进行md5-hmac加密处理，和返回的hmac签名串比较
+       if(HmacMd5($res_src,$merchantKey)==$hmac){
+              if($r1_Code==1){
+                     if($r9_BType==1){
+                            echo'交易成功!';
+                            echo'订单号为'.$r6_Order.'支付成功!'.'所付金额是'.$r3_Amt."易宝支付订单号".$r2_TrxId;
+                            echo'&lt;br/&gt;浏览器重定向';
+                     }elseif($r9_BType==2){
+ 
+                            echo'success';
+                            echo'&lt;br/&gt;交易成功!';
+                            echo'&lt;br/&gt;服务器点对点通讯';
+                     }
+              }
+       }else{
+              echo"签名被篡改";
+       }
+?&gt;</pre>&#13;
+<p><span style="font-size:18px">强调:</span></p>&#13;
+<p><span style="font-size:18px">防止用户反复刷新回调页面</span></p>&#13;
+<p><span style="font-size:18px">方法很多，这里我就抛砖一个</span></p>&#13;
+<p/><pre name="code" class="php">/*//假设我们点卡充值
+                            //order表
+                            //id    status
+                              14567   未付款
+                            //----gameCard表
+                            //  id     pwd     balance余钱
+                            //  12345  ????    12
+                            $sql="updategameCard set banlance
+=balance+10 where id=12345";
+                            //更新数据库
+ 
+                            //1.根据订单的状态看看该订单是否付款
+                            if(订单付款否==false){
+                                   $sql="updategameCard set banlance
+=balance+10 where id=12345";
+                    $sql="update order setstatus=已付款 whereid=14567"
+                            }else{
+                                   //不搭理
+                            }*/</pre><br/><p><span style="font-size:18px">☞ 特别注意 易宝支付把各个银行用一个确定值，来表示(支付通道编码,具体如下)</span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"> <img src="http://img.blog.csdn.net/20151030150348059?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/></span></p>&#13;
+<p><span style="font-size:18px"> </span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

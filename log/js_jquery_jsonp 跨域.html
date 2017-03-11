@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">同源策略，它是由Netscape提出的一个著名的安全策略。现在所有支持JavaScript 的浏览器都会使用这个策略。所谓同源是指，域名，协议，端口相同。当一个浏览器的两个tab页中分别打开来 百度和谷歌的页面当一个百度浏览器执行一个脚本的时候会检查这个脚本是属于哪个页面的，即检查是否同源，只有和百度同源的脚本才会被执行。</span></p>&#13;
+<p><span style="font-size:18px">具体可以查看下表：</span></p>&#13;
+<p><span style="font-size:18px"><img src="http://img.blog.csdn.net/20160330171820930?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></p>&#13;
+<p><span style="font-size:18px">而解决这个问题的方法即为跨域。</span></p>&#13;
+<span style="font-size:18px">解决跨域问题的方法如下：<br/><span style="color:#ff0000">1、javascript_get(jsonp)方式跨域：</span><br/>&#13;
+原理：&lt;script&gt;标签的src属性并不被同源策略所约束，所以可以获取任何服务器上脚本并执行。<br/></span>&#13;
+<p><span style="font-size:18px">html页面添加以下js代码：</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1629242" snippet_file_name="blog_20160330_1_439637" name="code" class="html">    function result(data) {
+		//此处弹出返回值的message,若不需要返回值，result方法可不写
+        alert(data.message);
+    }
+    //添加&lt;script&gt;标签的方法
+    function addScriptTag(src){
+		var script = document.createElement('script');
+        script.setAttribute("type","text/javascript");
+        script.src = src;
+        document.body.appendChild(script);
+    }
+    
+    window.onload = function(){
+        addScriptTag("http://localhost/test.php?v=1.0&amp;q=apple&amp;callback=result");
+    }
+</pre><span style="font-size:18px"><br/>&#13;
+被请求的php文件，返回json字符串：<br/></span>&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1629242" snippet_file_name="blog_20160330_4_1583906" name="code" class="php">&lt;?php
+//获取回调函数名
+$result = $_POST['callback'];
+//返回json数据
+$json_data  = '{"status":1,"message":"success"}';
+echo result.'('.$json_data .')';
+?&gt;</pre><span style="font-size:18px"><br/><span style="color:#ff0000">2、javascript_post 方式跨域：</span><br/>&#13;
+post方法跨域有两种方案：<br/>&#13;
+一是，建立同源代理，通过代理发送请求获取返回值<br/></span>&#13;
+<p><span style="font-size:18px">二是，注入js脚本，插入iframe，在iframe中插入from，通过from提交数据，发送请求</span></p>&#13;
+<p><span style="font-size:18px"/></p><pre code_snippet_id="1629242" snippet_file_name="blog_20160920_3_14838" name="code" class="javascript">function funPostBack(srvMethod){
+        var contentNR=$(document.getElementById("reportFrame").contentWindow.document).find("#content-container div.pageContentDIV.contentDIV").html();
+        if(document.getElementById("SMAL")!=null)
+        {
+            document.getElementById("SMAL").remove();//首先删除
+        }
+        var form ="&lt;form action='"+postbackUrl+"' method='post'&gt;" +
+                "&lt;input type='hidden' name='parms' value=''/&gt; " +
+                "&lt;input type='hidden' name='srvMethod' value=''/&gt; " +
+                "&lt;/form&gt; ";
+        $("body").append("&lt;iframe id='SMAL' name='SMAL' style='display: none'&gt;&lt;/iframe&gt;");//载入iframe
+        $( "#SMAL" ).contents().find('body').html(form);//将form表单塞入iframe;
+        $( "#SMAL" ).contents().find("form input[name='parms']").val(contentNR);        
+        $( "#SMAL" ).contents().find("form input[name='method']").val(srvMethod);
+        $( "#SMAL" ).contents().find('form').submit();
+    }</pre><br/><span style="font-size:18px">注意：post方法跨域最好不要用<br/><span style="color:#ff0000">3、jquery_ajax_get 方法跨域：</span><br/>&#13;
+方法一：<span style="color:#ff0000">ajax法：</span><br/></span>&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1629242" snippet_file_name="blog_20160330_3_6742119" name="code" class="html">$.ajax({
+	//此处?表示person
+        url:"http://visit_log/target_log.php?callback=?&amp;category=vale1&amp;name=vale2&amp;action=value3&amp;value=value4",   
+        dataType:"jsonp",
+        jsonpCallback:"person",
+        success:function(data){
+            alert(data.status + " is a a" + data.message);
+        }
+});
+</pre><span style="font-size:18px"><br/>&#13;
+被请求的php文件，返回json字符串：<br/></span>&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1629242" snippet_file_name="blog_20160330_4_1583906" name="code" class="php">&lt;?php
+//获取回调函数名
+$result = $_POST['callback'];
+//返回json数据
+$json_data  = '{"status":1,"message":"success"}';
+echo result.'('.$json_data .')';
+?&gt;</pre><span style="font-size:18px"><br/>&#13;
+方法二：<span style="color:#ff0000">getjson法：</span>、<br/></span>&#13;
+<p/>&#13;
+<p/>&#13;
+<pre code_snippet_id="1629242" snippet_file_name="blog_20160330_5_4299121" name="code" class="html">&lt;script&gt;
+$.getJSON("http://visit_log/target_log.php?callback=?&amp;category=vale1&amp;name=vale2&amp;action=value3&amp;value=value4",function(data){
+        alert(data.status + " is a a" + data.message);
+});
+&lt;/script&gt;</pre><span style="font-size:18px"><br/><br/></span>&#13;
+<p/>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

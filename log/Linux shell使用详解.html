@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>shell 用于解释用户输入的命令，将命令解释为二进制代码，并将结果返回到命令终端上。</p>
+
+<p><strong>语法：</strong> <br/>
+文件 ： xxx.sh</p>
+
+
+
+<pre class="prettyprint"><code class="language-bash hljs "><span class="hljs-shebang">#!/bin/bash</span>
+<span class="hljs-comment">#comments,命令注释</span>
+
+具体命令
+...
+具体命令</code></pre>
+
+<p><strong>执行 .sh 文件方式：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># sh xxx.sh</span></code></pre>
+
+<p>当xxx.sh文件有可执行权限时，可以用命令：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># ./xxx.sh</span></code></pre>
+
+<p><strong>注意：</strong> <br/>
+编写 shell 脚本时，可以将命令构造成函数，这样可以多次调用，如：</p>
+
+<pre class="prettyprint"><code class="language-bash hljs "><span class="hljs-shebang">#!/bin/bash</span>
+function <span class="hljs-function"><span class="hljs-title">count</span></span>() {
+    ifconfig
+}
+count  <span class="hljs-comment">#可多次调用</span></code></pre>
+
+<p><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-bash hljs "><span class="hljs-shebang">#!/bin/bash</span>
+/usr/bin/php /analysis2.com/cron/log_to_db.php &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span>
+/usr/bin/php /analysis2.com/cron/log_day_url.php &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span>
+/usr/bin/php /analysis2.com/cron/log_bot_day.php &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span>
+/usr/bin/php /analysis2.com/cron/day_url_leave.php &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span>
+/usr/bin/python /analysis2.com/cron/log_day_jump.py &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span>
+/usr/bin/php /analysis2.com/cron/url_pv.php &gt;/dev/null <span class="hljs-number">2</span>&gt;&amp;<span class="hljs-number">1</span></code></pre>
+
+<p><font color="red">上面语句执行是按顺序执行的！</font></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

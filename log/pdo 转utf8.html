@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$dsn</span> = <span class="hljs-string">'mysql:dbname=testdb;host=127.0.0.1'</span>;
+<span class="hljs-variable">$user</span> = <span class="hljs-string">'dbuser'</span>;
+<span class="hljs-variable">$password</span> = <span class="hljs-string">'dbpass'</span>;
+
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$db</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'Connection failed: '</span> . <span class="hljs-variable">$e</span>-&gt;getMessage();
+}</code></pre>
+
+<p>设置utf8编码： <br/>
+方法一：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-string">"mysql:host=<span class="hljs-variable">$host</span>;dbname=<span class="hljs-variable">$db</span>;charset=utf8"</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">注意： 方法一在低版本php中不适应   php 5.3.6</code></pre>
+
+<p>方法二：</p>
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-variable">$dbh</span> = new PDO(<span class="hljs-string">"mysql:<span class="hljs-variable">$connstr</span>"</span>,  <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+<span class="hljs-variable">$dbh</span>-&gt;<span class="hljs-keyword">exec</span>(<span class="hljs-string">"set names utf8"</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

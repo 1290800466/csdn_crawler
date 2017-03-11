@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">/**
+ * 请求url页面信息
+ *<span class="hljs-phpdoc"> @param</span> str $url
+ *<span class="hljs-phpdoc"> @return</span>  str mixed|boolean
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">curl_get</span><span class="hljs-params">(<span class="hljs-variable">$url</span>)</span> {</span>
+    <span class="hljs-variable">$curl</span> = curl_init();
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_URL, <span class="hljs-variable">$url</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);
+    <span class="hljs-comment">//302跳转</span>
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_FOLLOWLOCATION, <span class="hljs-number">1</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_USERAGENT, <span class="hljs-string">'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0'</span>);
+    curl_setopt(<span class="hljs-variable">$curl</span>, CURLOPT_REFERER, <span class="hljs-variable">$url</span>);
+    <span class="hljs-variable">$data</span> = curl_exec(<span class="hljs-variable">$curl</span>);
+    <span class="hljs-variable">$code</span> = curl_getinfo(<span class="hljs-variable">$curl</span>,CURLINFO_HTTP_CODE); <span class="hljs-comment">//输出请求状态码</span>
+    curl_close(<span class="hljs-variable">$curl</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-number">200</span> == <span class="hljs-variable">$code</span>) {
+        <span class="hljs-comment">//解决乱码</span>
+        <span class="hljs-keyword">if</span> (preg_match(<span class="hljs-string">'#&lt;meta[^&gt;]*charset="?gb2312"[^&gt;]*&gt;#'</span>, <span class="hljs-variable">$data</span>)) {
+            <span class="hljs-variable">$data</span> = iconv(<span class="hljs-string">"gb2312"</span>,<span class="hljs-string">"utf-8//IGNORE"</span>,<span class="hljs-variable">$data</span>);
+            <span class="hljs-variable">$data</span> = preg_replace(<span class="hljs-string">'#&lt;meta[^&gt;]*charset="?gb2312"[^&gt;]*&gt;#is'</span>, <span class="hljs-string">'&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;'</span>, <span class="hljs-variable">$data</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (!preg_match(<span class="hljs-string">'#&lt;meta charset="utf-8"[^&gt;]*&gt;#is'</span>, <span class="hljs-variable">$data</span>)) {
+            <span class="hljs-variable">$data</span> = str_replace(<span class="hljs-string">'&lt;head&gt;'</span>, <span class="hljs-string">'&lt;head&gt;&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;'</span>, <span class="hljs-variable">$data</span>);
+        }
+
+        <span class="hljs-keyword">if</span> (preg_match(<span class="hljs-string">'#&lt;meta charset="utf-8"[^&gt;]*&gt;#is'</span>, <span class="hljs-variable">$data</span>)) {
+            <span class="hljs-variable">$data</span> = preg_replace(<span class="hljs-string">'#&lt;meta charset="utf-8"[^&gt;]*&gt;#is'</span>, <span class="hljs-string">'&lt;meta http-equiv="Content-Type" content="text/html;charset=UTF-8"&gt;'</span>, <span class="hljs-variable">$data</span>);
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable">$data</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+
+}</code></pre>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">/**
+ * 获取 DOMDocument 对象
+ *<span class="hljs-phpdoc"> @param</span> str $url
+ *<span class="hljs-phpdoc"> @return</span> boolean|DOM
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDom</span><span class="hljs-params">(<span class="hljs-variable">$url</span>)</span> {</span>
+    <span class="hljs-variable">$html_content</span> = curl_get(<span class="hljs-variable">$url</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$html_content</span>)) {
+        <span class="hljs-comment">//saveLog($url, '请求失败');</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+    <span class="hljs-variable">$dom</span> = <span class="hljs-keyword">new</span> DOMDocument(<span class="hljs-string">'1.0'</span>, <span class="hljs-string">'utf-8'</span>);
+    libxml_use_internal_errors(<span class="hljs-keyword">true</span>);
+    <span class="hljs-variable">$dom</span>-&gt;loadHTML(<span class="hljs-variable">$html_content</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$dom</span>;
+}</code></pre>
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-variable">$html_content</span> = mb_convert_encoding(<span class="hljs-variable">$html_content</span>, <span class="hljs-string">'UTF-8'</span>, <span class="hljs-string">'gb2312'</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

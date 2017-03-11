@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">设置静态ip地址：<br/></span>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">1、<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">在终端中输入：vi&#13;
+ /etc/sysconfig/network-scripts/ifcfg-eth0</span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">2、<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">开始编辑，填写ip地址、子网掩码、网关、DNS等。其中“红框内的信息”是必须得有的。</span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><img src="http://img.blog.csdn.net/20160413095610204?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">3、<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">编辑完后，保存退出。</span></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">4、<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">重启网络服务。service&#13;
+ network restart或/etc/init.d/network restart</span></span></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">5、<span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">ping网关，ping外网进行测试。都能ping通表示网络正常。</span></span></span></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><br/></span></span></span></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">linux其他设置</span></span></span></span></span></span></p>&#13;
+<p><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"><span style="color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify"/></span></span></span></span></span></p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+---修改ip地址---</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+即时生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+# ifconfig eth0 192.168.1.155 netmask 255.255.255.0</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+重启生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+修改/etc/sysconfig/network-scripts/ifcfg-eth0</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+---修改default gateway---</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+即时生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+# route add default gw 192.168.1.1</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+重启生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+修改/etc/sysconfig/network-scripts/ifcfg-eth0</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+---修改dns---</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+修改/etc/resolv.conf</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+修改后即时生效，重启同样有效</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+---修改host name---</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+即时生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+# hostname test1</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+重启生效:</p>&#13;
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; color:rgb(51,51,51); font-family:'Microsoft Yahei',微软雅黑,arial,宋体,sans-serif; font-size:16px; line-height:28px; text-align:justify">&#13;
+修改/etc/sysconfig/network</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

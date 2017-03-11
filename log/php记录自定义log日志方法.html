@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>php记录log日志方法：</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-comment">/**
+ * 记录错误日志
+ *<span class="hljs-phpdoc"> @param</span> 日志内容  $res
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">save_log</span><span class="hljs-params">(<span class="hljs-variable">$res</span>)</span> {</span>
+    <span class="hljs-variable">$err_date</span> = date(<span class="hljs-string">"Ym"</span>, time());
+    <span class="hljs-comment">//$address = '/var/log/error';</span>
+    <span class="hljs-variable">$address</span> = <span class="hljs-string">'./error'</span>;
+    <span class="hljs-keyword">if</span> (!is_dir(<span class="hljs-variable">$address</span>)) {
+        mkdir(<span class="hljs-variable">$address</span>, <span class="hljs-number">0700</span>, <span class="hljs-keyword">true</span>);
+    }
+    <span class="hljs-variable">$address</span> = <span class="hljs-variable">$address</span>.<span class="hljs-string">'/'</span>.<span class="hljs-variable">$err_date</span> . <span class="hljs-string">'_error.log'</span>;
+    <span class="hljs-variable">$error_date</span> = date(<span class="hljs-string">"Y-m-d H:i:s"</span>, time());
+    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">'HTTP_REFERER'</span>])) {
+        <span class="hljs-variable">$file</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">'HTTP_REFERER'</span>];
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-variable">$file</span> = <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">'REQUEST_URI'</span>];
+    }
+    <span class="hljs-keyword">if</span>(is_array(<span class="hljs-variable">$res</span>)) {
+        <span class="hljs-variable">$res_real</span> = <span class="hljs-string">"$error_date\t$file\n"</span>;
+        error_log(<span class="hljs-variable">$res_real</span>, <span class="hljs-number">3</span>, <span class="hljs-variable">$address</span>);
+        <span class="hljs-variable">$res</span> = var_export(<span class="hljs-variable">$res</span>,<span class="hljs-keyword">true</span>);
+        <span class="hljs-variable">$res</span> = <span class="hljs-variable">$res</span>.<span class="hljs-string">"\n"</span>;
+        error_log(<span class="hljs-variable">$res</span>, <span class="hljs-number">3</span>, <span class="hljs-variable">$address</span>);
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-variable">$res_real</span> = <span class="hljs-string">"$error_date\t$file\t$res\n"</span>;
+        error_log(<span class="hljs-variable">$res_real</span>, <span class="hljs-number">3</span>, <span class="hljs-variable">$address</span>);
+    }
+}</code></pre>
+
+<p>var_export()  方法详解： <br/>
+var_export – 输出或返回一个变量的字符串表示  <br/>
+描述 ： <br/>
+mixed var_export ( mixed expression , bool )  <br/>
+此函数返回关于传递给该函数的变量的结构信息，它和 var_dump() 类似，不同的是其返回的表示是合法的 PHP 代码。  <br/>
+您可以通过将函数的第二个参数设置为 TRUE，从而返回变量的表示。 </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">EG: 
+var_export(<span class="hljs-keyword">array</span>(<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">'aa'</span>,<span class="hljs-string">'bb'</span>,<span class="hljs-string">'cc'</span>))) 这种与VAR_DUMP没什么区别; 
+<span class="hljs-variable">$var</span> =var_export(<span class="hljs-keyword">array</span>(<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">'aa'</span>,<span class="hljs-string">'bb'</span>,<span class="hljs-string">'cc'</span>)),<span class="hljs-keyword">TRUE</span>)，加上<span class="hljs-keyword">TRUE</span>后，不会再打印出来，
+而是给了一个变量，这样就可以直接输出; 
+<span class="hljs-keyword">echo</span> <span class="hljs-variable">$var</span>;此时输出来的形式与var_dump()打印的相似。 </code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+　<img src="http://img.blog.csdn.net/20160527112755136?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">Redis的主从复制功能非常强大，一个master可以拥有多个slave，而一个slave又可以拥有多个slave，如此下去，形成了强大的多级服务器集群架构。下面楼主简单的进行一下配置。</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">　　1、上面安装好的一个Redis作为master（192.168.0.100），然后使用VirtualBox的虚拟机克隆功能将刚刚那个linux系统克隆一份作为slave，并修改其IP为192.168.0.110。</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">　　2、修改slave的redis配置文件：</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">　　　　slaveof   192.168.0.100   6379  (映射到主服务器上)</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">　　　　如果master设置了验证密码，还需配置masterauth。楼主的master设置了验证密码为admin，所以配置masterauth admin。</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="font-size:16px"><span style="white-space:pre"/>     slave默认是只读的，可以通过修改 slave-read-only 设置</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="font-size:16px"><span style="white-space:pre"/>配置完之后启动slave的Redis服务，OK，主从配置完成。下面测试一下：</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">　　在master和slave分别执行info命令，查看结果如下：</span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px"><img src="http://img.blog.csdn.net/20160527112327541?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""/><br/></span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px"/></p>&#13;
+<p style="margin:10px auto 10px 30px; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">然后在master执行set age 24</span></p>&#13;
+<p style="margin:10px auto 10px 30px; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px">在slave执行get age，看是否能得到24，如果能够得到值则说明配置成功。</span></p>&#13;
+<br/><p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px"><span style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px">利用主从服务器备份</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">可以利用主从服务器的方便性来备份，专门做一台从服务器用于备份功能，当需要备份的时候，在从服务器上执行下列命令：</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">redis-cli save</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">redis-cli shutdown</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">然后拷贝数据目录下的rdb文件即可。</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">另：</span><a target="_blank" rel="nofollow" href="http://code.google.com/p/redis/wiki/FAQ" style="line-height:28px; text-decoration:none; color:rgb(60,130,102); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px">官方文档</a><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">介绍不使用主从，直接在服务器上cp就可以，不过感觉利用从服务器备份对线上服务器影响更小些。</span><br style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px"/><span style="line-height:28px; color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px">总结<br/></span><span style="color:rgb(101,110,106); font-family:'Hiragino Sans GB W3','Hiragino Sans GB',Arial,Helvetica,simsun,u5b8bu4f53; font-size:16px; line-height:28px">如果你以前做过MySQL主从服务器的话，两相对比，你会发现Redis主从服务器不用做前期的数据同步，设置好了从服务器，简单启动就OK了。至于Redis主从怎么用，是备份也好，读写分离也好，就看你的想象力了。</span><br/></span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px"><br/></span></p>&#13;
+<p style="margin:10px auto; padding-top:0px; padding-bottom:0px; line-height:18px; color:rgb(68,68,68); font-family:tahoma,arial,sans-serif">&#13;
+<span style="margin:0px; padding:0px; font-size:16px"><br/></span></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

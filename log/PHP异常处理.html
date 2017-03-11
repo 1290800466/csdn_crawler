@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+//php5提供了基本的异常处理类，可直接使用 ,不需要自己再定义
+// class Exception 
+// { 
+// protected $message = 'Unknown exception'; // 异常信息 
+// protected $code = 0; // 用户自定义异常代码 
+// protected $file; // 发生异常的文件名 
+// protected $line; // 发生异常的代码行号 
+// function __construct($message = null, $code = 0); 
+// final function getMessage(); // 返回异常信息 
+// final function getCode(); // 返回异常代码 
+// final function getFile(); // 返回发生异常的文件名 
+// final function getLine(); // 返回发生异常的代码行号 
+// final function getTrace(); // backtrace() 数组 
+// final function getTraceAsString(); // 已格成化成字符串的 getTrace() 信息 
+// /* 可重载的方法 */ 
+// function __toString(); // 可输出的字符串 
+// } 
+?&gt; &lt;/span&gt;</pre><span style="font-size:18px"><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+//定义一个顶级异常处理
+function my_exception($e){
+    echo "我是顶级异常处理".$e-&gt;getMessage();
+}
+//修改默认的顶级异常处理函数（器）
+set_exception_handler("my_exception");
+//我们使用异常机制
+try{
+    addUser("shunping");
+    updateUser("xiaoming1");
+}
+//catch用来 捕获异常，  Exception 是异常类(是php定义好一个类)
+catch(Exception  $e){
+    //返回异常信息
+    echo "返回异常信息（失败信息） =".$e-&gt;getMessage()."&lt;br/&gt;";
+    echo "返回异常代码 =".$e-&gt;getCode()."&lt;br/&gt;";
+    echo "返回发生异常的文件名 =".$e-&gt;getFile()."&lt;br/&gt;";
+    echo "返回发生异常的代码行号 =".$e-&gt;getLine()."&lt;br/&gt;"; 
+    //echo " =".$e-&gt;getTrace()."&lt;br/&gt;"; // backtrace() 数组
+    //可以继续抛出，这时将会启动php默认的异常处理器来处理
+    //你也可以自己定义一个顶级异常处理器,对其进行处理
+    throw $e;
+}
+function addUser($username){
+    if($username=="shunping"){
+        //添加ok
+        echo "ok1";
+    }else{
+        //添加error
+        //抛出异常.
+        throw new Exception("添加失败");
+    }
+}
+function updateUser($username){
+    if($username=="xiaoming"){
+        //正常修改
+        echo "ok2";
+    }else{
+        //平抛出异常
+        throw new Exception("修改失败");
+    }
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">异常使用的注意事项 ：<br/>&#13;
+通过上面的案例，我们可以看出，使用<br/>&#13;
+try{<br/>&#13;
+       //代码<br/>&#13;
+}catch(Exception $e){<br/>&#13;
+       //对异常处理<br/>&#13;
+}<br/>&#13;
+这种方式，可以更有效的控制错误.所以在开发中大量的使用.<br/>&#13;
+1.当捕获到一个异常后，try{} 块里的后续代码不继续执行.<br/>&#13;
+2.如果有一个异常发生，但是你没有catch 捕获，则提示一个Uncaught Exception.(系统.)<br/>&#13;
+3.当catch一个异常，你可以处理，也可以不处理，不处理就可以<br/>&#13;
+throw new Exception(”信息”);<br/><br/>&#13;
+4.你可以自定义异常类<br/>&#13;
+class MyException extends Exception {<br/>&#13;
+      <br/>&#13;
+}<br/>&#13;
+5. 使用多个 catch 代码块可以捕获不同种类的异常<br/>&#13;
+try{<br/>&#13;
+       //代码....<br/>&#13;
+   //第一句话<br/>&#13;
+   //第二句话<br/>&#13;
+}catch(PDOException $e){<br/>&#13;
+       //<br/>&#13;
+}catch(Exception $e){<br/>&#13;
+|<br/>&#13;
+}<br/>&#13;
+6. 也可简单使用 Exception 捕获<br/>&#13;
+代码说明:<br/></span></p><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+      
+       //定义了一个异常
+       class MyException1 extends Exception{
+              
+       }
+       class MyException2 extends Exception{
+      
+       }
+       function A(){
+              
+              throw new MyException1("a");
+       }
+       function B(){
+              throw new MyException2("b")
+       }
+       function C(){
+              
+              try{
+                     A();//抛出MyException1
+                     B();//抛出MyException2
+              }catch(Exception1 $e1){
+                     $e1-&gt;getMessage();
+              }catch(Exception2 $e2){
+                     $e2-&gt;getMesage();
+              }
+       }
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/>&#13;
+异常的规则<br/>&#13;
+需要进行异常处理的代码应该放入 try 代码块内，以便捕获潜在的异常。<br/>&#13;
+每个 try 或 throw 代码块必须至少拥有一个对应的 catch 代码块。<br/>&#13;
+使用多个 catch 代码块可以捕获不同种类的异常。<br/>&#13;
+可以在 try 代码块内的 catch 代码块中抛出（再次抛出）异常。<br/>&#13;
+简而言之：如果抛出了异常，就必须捕获它。或者使用顶级异常处理器处理。<br/>&#13;
+如果不抛，即使有异常也不会捕获，不会处理<br/><br/><br/></span><br/></div>  </body>
+            </html>

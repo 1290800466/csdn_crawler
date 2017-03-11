@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><strong><span style="font-size:18px">一. POST传值</span></strong></p>&#13;
+<p><span style="font-size:18px">post传值是用于html的&lt;form&gt;表单跳转的方法，很方便使用。例如：</span></p>&#13;
+<pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;html&gt;
+ &lt;form action='' method=''&gt;
+ &lt;input type='text' name='name1'&gt;
+ &lt;input type='hidden' name='name2' value='value'&gt;
+ &lt;input type='submit' value='提交'&gt;
+ &lt;/form&gt;
+ &lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px">      form中的action填入的是跳转页面的url路径,method填入post方法。form表单中的提交按钮按下后，就会把form中有name的内容都传到填入的url中，可以通过$_POST['name']获取，例如:<br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$a=$_POST['name1'];
+$b=$_POST['name2'];
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px">      这里有个很方便的小技巧，在input标签中把type选为'hidden'时，这个input标签会隐藏起来，不在页面显示，但这input标签在form中，并且有name值和value值，同样会跟随提交按钮传递过去，这种隐藏标签可以传递一些不想显示出来的内容。<br/><br/></span>&#13;
+<p><strong><span style="font-size:18px">二.GET传值</span></strong></p>&#13;
+<span style="font-size:18px">GET传值是通过跟随url传递的，在页面跳转时，跟着url跳转。常用于&lt;a&gt;标签的使用。例如：<br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;a href='xxx.php?id=value'&gt;点我跳转&lt;/a&gt;&lt;/span&gt;</pre><span style="font-size:18px">     跳转进入xxx.php后，就能通过$_GET['id']获取传递的值。GET方法常用于URL的目的是删除或读取某个id的php文件。<br/><br/><strong>三.SESSION传值</strong><br/>&#13;
+   SESSION是全局变量的一种，经常用于用户登陆后保存用户id之类的常用数据。一旦保存到SESSION中，其他页面都可以通过SESSION获取,SESSION的使用要开启session：<br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+//session赋值
+   session_start();
+   $_SESSION['one']=value1;
+   $_SESSION['two']=value2;
+ 
+//session值的读取:
+   $one = $_SESSION['one'];
+    
+//session值的销毁
+   unset($_SESSION['one']);
+?&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/><span style="font-weight:bold">四.网址传值</span><br/><br/>&#13;
+代码实例：</span></p>&#13;
+<p/><pre name="code" class="html">&lt;span style="font-size:18px;"&gt;&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;a href="http://localhost/wml/chuanzhi.php?name=wml&amp;id=2"&gt;传值&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/></span><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$name=$_GET['name'];
+$id=$_GET['id'];
+echo $name."&lt;br/&gt;";
+echo $id;
+// echoname=wml&amp;id=2
+?&gt;&lt;/span&gt;</pre><br/></div>  </body>
+            </html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>实例1：</strong> <br/><em>try {} catch () {} 形式</em></p>
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-subst">&lt;?</span>php
+<span class="hljs-variable">$dsn</span> <span class="hljs-subst">=</span> <span class="hljs-string">'mysql:dbname=cheyun_cms;host=127.0.0.1'</span>;
+<span class="hljs-variable">$user</span> <span class="hljs-subst">=</span> <span class="hljs-string">'root'</span>;
+<span class="hljs-variable">$password</span> <span class="hljs-subst">=</span> <span class="hljs-string">'111111'</span>;
+<span class="hljs-comment">//采用预处理+事务处理执行SQL操作</span>
+<span class="hljs-comment">//1.连接数据库</span>
+try {
+    <span class="hljs-variable">$pdo</span> <span class="hljs-subst">=</span> <span class="hljs-literal">new</span> PDO(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+    <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>setAttribute(PDO<span class="hljs-tag">::ATTR_ERRMODE</span>,PDO<span class="hljs-tag">::ERRMODE_EXCEPTION</span>);
+} catch (PDOException <span class="hljs-variable">$e</span>) {
+    die(<span class="hljs-string">"数据库连接失败"</span><span class="hljs-built_in">.</span><span class="hljs-variable">$e</span><span class="hljs-subst">-&gt;</span>getMessage());
+}
+
+<span class="hljs-comment">//2.执行数据操作</span>
+try{
+    <span class="hljs-comment">//开启事物,此时会关闭自动提交 </span>
+    <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>beginTransaction();
+    <span class="hljs-variable">$sql</span> <span class="hljs-subst">=</span> <span class="hljs-string">"insert into cy_log (logid, value, action, file) values (?, ?, ?, ?)"</span>;
+    <span class="hljs-variable">$stmt</span> <span class="hljs-subst">=</span> <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>prepare(<span class="hljs-variable">$sql</span>);
+    <span class="hljs-comment">//传入参数</span>
+    <span class="hljs-variable">$stmt</span><span class="hljs-subst">-&gt;</span>execute(<span class="hljs-built_in">array</span>(<span class="hljs-built_in">null</span>,<span class="hljs-string">"test4"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>));
+    <span class="hljs-variable">$stmt</span><span class="hljs-subst">-&gt;</span>execute(<span class="hljs-built_in">array</span>(<span class="hljs-built_in">null</span>,<span class="hljs-string">"test5"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>));
+    <span class="hljs-variable">$stmt</span><span class="hljs-subst">-&gt;</span>execute(<span class="hljs-built_in">array</span>(<span class="hljs-built_in">null</span>,<span class="hljs-string">"test3"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>));
+    <span class="hljs-comment">//提交事物，并且 数据库连接返回到自动提交模式</span>
+    <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>commit();
+}catch(PDOException <span class="hljs-variable">$e</span>){
+    echo <span class="hljs-string">'执行失败'</span><span class="hljs-built_in">.</span><span class="hljs-variable">$e</span><span class="hljs-subst">-&gt;</span>getMessage();
+    <span class="hljs-comment">//如果数据库被设置成自动提交模式，rollback 在回滚事务之后将恢复自动提交模式。</span>
+    <span class="hljs-comment">//包括 MySQL 在内的一些数据库， 当在一个事务内有类似删除或创建数据表等 DLL 语句时，会自动导致一个隐式地提交。</span>
+    <span class="hljs-comment">//隐式地提交将无法回滚此事务范围内的任何更改。即 DDL 语句无法回滚</span>
+    <span class="hljs-variable">$pdo</span><span class="hljs-subst">-&gt;</span>rollback();
+}
+</code></pre>
+
+<p><strong>实例2：</strong> <br/><em>if…else…形式</em></p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$dsn</span> = <span class="hljs-string">'mysql:dbname=cheyun_cms;host=127.0.0.1'</span>;
+<span class="hljs-variable">$user</span> = <span class="hljs-string">'root'</span>;
+<span class="hljs-variable">$password</span> = <span class="hljs-string">'111111'</span>;
+<span class="hljs-comment">//采用预处理+事务处理执行SQL操作</span>
+<span class="hljs-comment">//1.连接数据库</span>
+<span class="hljs-keyword">try</span> {
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-variable">$dsn</span>, <span class="hljs-variable">$user</span>, <span class="hljs-variable">$password</span>);
+} <span class="hljs-keyword">catch</span> (PDOException <span class="hljs-variable">$e</span>) {
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+<span class="hljs-comment">//2.执行数据操作</span>
+<span class="hljs-comment">//开启事物</span>
+<span class="hljs-variable">$pdo</span>-&gt;beginTransaction();
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into cy_log (logid, value, action, file) values (?, ?, ?, ?)"</span>;
+<span class="hljs-variable">$stmt</span> = <span class="hljs-variable">$pdo</span>-&gt;prepare(<span class="hljs-variable">$sql</span>);
+<span class="hljs-variable">$datalist</span> = <span class="hljs-keyword">array</span>(
+    <span class="hljs-keyword">array</span>(<span class="hljs-keyword">null</span>,<span class="hljs-string">"test9"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>),
+    <span class="hljs-keyword">array</span>(<span class="hljs-keyword">null</span>,<span class="hljs-string">"test10"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>),
+    <span class="hljs-keyword">array</span>(<span class="hljs-keyword">null</span>,<span class="hljs-string">"test11"</span>,<span class="hljs-string">"w"</span>,<span class="hljs-number">11</span>)
+);
+<span class="hljs-comment">//是否提交标志位</span>
+<span class="hljs-variable">$isCommit</span> = <span class="hljs-keyword">true</span>;
+
+<span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$datalist</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$data</span>){
+    <span class="hljs-variable">$stmt</span>-&gt;execute(<span class="hljs-variable">$data</span>);
+    <span class="hljs-keyword">if</span>(<span class="hljs-variable">$stmt</span>-&gt;errorCode()&gt;<span class="hljs-number">0</span>){
+        <span class="hljs-comment">//回滚</span>
+        <span class="hljs-variable">$pdo</span>-&gt;rollback();
+        <span class="hljs-variable">$isCommit</span> = <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">break</span>;
+    }
+}
+
+<span class="hljs-keyword">if</span>(<span class="hljs-variable">$isCommit</span>){
+    <span class="hljs-comment">//提交事物</span>
+    <span class="hljs-variable">$pdo</span>-&gt;commit();
+}
+</span></code></pre>
+
+<p><font color="red"><strong>注意：</strong></font> <br/>
+     数据表需要  <strong>InnoDB</strong>  类型</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+PHP处理函数：<br/><pre name="code" class="php">//将用户名进行处理，中间用星号表示
+function substr_cut($user_name){
+
+
+        //获取字符串长度
+        $strlen = mb_strlen($user_name, 'utf-8');
+        //如果字符创长度小于2，不做任何处理
+        if($strlen&lt;2){
+        	return $user_name;
+        }else{
+            //mb_substr — 获取字符串的部分
+        	$firstStr = mb_substr($user_name, 0, 1, 'utf-8');
+        	$lastStr = mb_substr($user_name, -1, 1, 'utf-8');
+        	//str_repeat — 重复一个字符串
+        	return $strlen == 2 ? $firstStr . str_repeat('*', mb_strlen($user_name, 'utf-8') - 1) : $firstStr . str_repeat("*", $strlen - 2) . $lastStr;
+        }
+}</pre><br/>&#13;
+详细介绍：<br/>&#13;
+1、str_repeat() 函数：<br/>&#13;
+string str_repeat ( string $input , int $multiplier )<br/>&#13;
+返回 input 重复 multiplier 次后的结果。<br/><br/>&#13;
+2、mb_substr() 函数：<br/>&#13;
+中文截取：mb_substr() <br/><br/>&#13;
+mb_substr( $str, $start, $length, $encoding ) <br/>&#13;
+$str，需要截断的字符串 <br/>&#13;
+$start，截断开始处，起始处为0 <br/>&#13;
+$length，要截取的字数 <br/>&#13;
+$encoding，网页编码，如utf-8,GB2312,GBK <br/><br/><p>3、在PHP中，strlen与mb_strlen都是求字符串长度的函数，其区别如下：</p>&#13;
+<p><br/></p>&#13;
+先看例子：<br/><br/><pre name="code" class="php">&lt;?php  
+//测试时文件的编码方式要是UTF8  
+$str='中文a字1符';  
+echo strlen($str).'&lt;br&gt;';//输出14  
+echo mb_strlen($str,'utf8').'&lt;br&gt;';//输出6  
+echo mb_strlen($str,'gbk').'&lt;br&gt;';//输出8  
+echo mb_strlen($str,'gb2312').'&lt;br&gt;';//输出10  
+?&gt; </pre><br/>&#13;
+结果分析：在strlen计算时，对待一个UTF8的中文字符是3个长度，所以“中文a字1符”长度是3*4+2=14,<br/>&#13;
+在mb_strlen计算时，选定内码为UTF8，则会将一个中文字符当作长度1来计算，所以“中文a字1符”长度是6 .<br/>&#13;
+利用这两个函数则可以联合计算出一个中英文混排的串的占位是多少（一个中文字符的占位是2，英文字符是1）<br/>&#13;
+echo (strlen($str) + mb_strlen($str,'UTF8')) / 2; <br/>&#13;
+例如 “中文a字1符” 的strlen($str)值是14，mb_strlen($str)值是6，则可以计算出“中文a字1符”的占位是10.<br/>&#13;
+echo mb_internal_encoding(); <br/>&#13;
+PHP内置的字符串长度函数strlen无法正确处理中文字符串，它得 到的只是字符串所占的字节数。对于GB2312的中文编码，<br/>&#13;
+strlen得到的值是汉字个数的2倍，而对于UTF-8编码的中文，就是3倍的差异了（在 UTF-8编码下，一个汉字占3个字节）。<br/>&#13;
+采用mb_strlen函数可以较好地解决这个问题。mb_strlen的用法和 strlen类似，只不过它有第二个可选参数用于指定字符编码。<br/>&#13;
+例如得到UTF-8的字符串$str长度，可以用 mb_strlen($str,'UTF-8')。如果省略第二个参数，则会使用PHP的内部编码。<br/>&#13;
+内部编码可以通过 mb_internal_encoding()函数得到。<br/>&#13;
+需要注意的是，mb_strlen并不是PHP核心函数，使用前需要确保在php.ini中加载了php_mbstring.dll，<br/>&#13;
+即确保“extension=php_mbstring.dll”这一行存在并且没有被注释掉，否则会出现未定义函 数的问题。&#13;
+&#13;
+                      </div>  </body>
+            </html>

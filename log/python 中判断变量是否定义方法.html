@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>python中检测某个变量是否有定义</p>
+
+<p><strong>第一种方法使用内置函数locals()：</strong> <br/>
+locals()：获取已定义对象字典</p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver"><span class="hljs-string">'testvar'</span>   <span class="hljs-operator">in</span>   locals().<span class="hljs-built_in">keys</span>()</code></pre>
+
+<p><strong>第二种方法使用内置函数dir()：</strong> <br/>
+dir()：获取已定义对象列表</p>
+
+<pre class="prettyprint"><code class=" hljs bash"><span class="hljs-string">'testvar'</span>   <span class="hljs-keyword">in</span>   dir()</code></pre>
+
+<p><strong>第三种方法使用内置函数vars()：</strong> <br/>
+vars()：获取已定义对象字典</p>
+
+<pre class="prettyprint"><code class=" hljs erlang"><span class="hljs-function"><span class="hljs-title">vars</span><span class="hljs-params">()</span>.<span class="hljs-title">has_key</span><span class="hljs-params">('testvar')</span></span></code></pre>
+
+<p>测试如下:</p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#testvar未定义  </span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">'testvar'</span> <span class="hljs-keyword">in</span> locals().keys()  
+<span class="hljs-comment">#输出：False  </span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">'testvar'</span> <span class="hljs-keyword">in</span> dir()  
+<span class="hljs-comment">#输出：False  </span>
+
+<span class="hljs-keyword">print</span> vars().has_key(<span class="hljs-string">'testvar'</span>)  
+<span class="hljs-comment">#输出：False  </span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#定义testvar  </span>
+testvar=<span class="hljs-number">1</span>  
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">'testvar'</span> <span class="hljs-keyword">in</span> locals().keys()  
+<span class="hljs-comment">#输出：True  </span>
+
+<span class="hljs-keyword">print</span> <span class="hljs-string">'testvar'</span> <span class="hljs-keyword">in</span> dir()  
+<span class="hljs-comment">#输出：True  </span>
+
+<span class="hljs-keyword">print</span> vars().has_key(<span class="hljs-string">'testvar'</span>)  
+<span class="hljs-comment">#输出：True  </span></code></pre>
+
+<p>还有使用try…except…自己定义的,总之方法很多.</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

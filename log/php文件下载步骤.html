@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>代码实例：</strong></span></p>&#13;
+<p/><pre name="code" class="php">&lt;?php
+header("Content-type:text/html;charset=utf-8");
+//PHP文件下载过程，将下载过程封装成函数
+//对函数的说明
+//参数说明说明：
+//$file_name    文件名
+//$file_sub_dir:     下载文件的子路径 "/xxx/xxx/"
+function down_file($file_name,$file_sub_dir){
+    //如果文件名称是中文，需要进行转码.              
+    //原因 php文件函数，比较古老，需要对中文转码 gb2312,使用iconv()函数进行编码转换 
+    $file_name=iconv("utf-8","gb2312",$file_name);
+    //用相对路径表示      $file_sub_dir=./wml/
+    //$file_path=$file_sub_dir.$file_name;
+    //用绝对路径表示      $file_sub_dir=/wml/
+    // $_SERVER['DOCUMENT_ROOT']  表示当前运行脚本所在的文档根目录
+    $file_path=$_SERVER['DOCUMENT_ROOT'].$file_sub_dir.$file_name;
+    //绝对路径，执行效率要比相对路径高，建议使用绝对路径             
+    //1.判断文件是否存在
+    if(!file_exists($file_path)){
+        echo "文件不存在!";
+        return ;
+    }
+    //2.以只读的方式，打开文件
+    $fp=fopen($file_path,"r");
+              
+    //获取下载文件的大小
+    $file_size=filesize($file_path);
+    //防止下载大文件，括号中数字单位为字节
+    if($file_size&gt;30000000){                
+        echo "&lt;script&gt;window.alert('文件过大，不能下载！')&lt;/script&gt;";
+        return ;
+    }
+    //下载文件需要用到的头，以下四个Header()是必需的 
+    //通过这句代码客户端浏览器就能知道服务端返回的文件形式
+    header("Content-type: application/octet-stream");
+    //告诉客户端浏览器返回的文件大小是按照字节进行计算的
+    header("Accept-Ranges: bytes");
+    //告诉浏览器返回的文件大小 
+    header("Accept-Length: $file_size");
+    //告诉浏览器返回的文件的名称 
+    header("Content-Disposition: attachment; filename=".$file_name);
+    
+    //向客户端回送数据      
+    $buffer=1024;
+    //为了下载的安全，我们最好做一个文件字节读取计数器
+    $file_count=0;
+    //这句话用于判断文件是否结束
+    while(!feof($fp) &amp;&amp; ($file_size-$file_count&gt;0) ){
+        //每次读取1024字节
+        $file_data=fread($fp,$buffer);
+        //统计读了多少个字节
+        $file_count+=$buffer;
+        //把部分数据回送给浏览器;
+        echo $file_data;
+    }
+    //关闭文件,释放资源
+    fclose($fp);
+}
+//测试函数是否可用
+down_file("分单号给他人.png","/wml/");
+?&gt;</pre><br/><br/></div>  </body>
+            </html>

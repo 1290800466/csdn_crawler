@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><strong><span style="color:#ff0000">一、html的缺点:</span></strong><br/>&#13;
+1、标签是规定好，用户不能够自定义<br/></span><pre name="code" class="html">&lt;html&gt;
+&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;名字&lt;/th&gt;&lt;th&gt;电子邮件&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;宋江&lt;/td&gt;&lt;td&gt;songjiang@sou.com &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;表格&gt;
+&lt;/表格&gt;
+&lt;/html&gt;</pre>2、html文件的显示的样式和数据是绑定在一起,数据没有复用<br/>&#13;
+3、html标签是没有含义<br/><span style="color:#ff0000"><strong>二、xml定义：</strong></span><br/>&#13;
+XML 指可扩展标记语言（eXtensible Markup Language）。<br/>&#13;
+XML 被设计用来传输和存储数据。<br/>&#13;
+XML 标签没有被预定义。您需要自行定义标签。<br/>&#13;
+HTML 被设计用来显示数据。<br/>&#13;
+XML 是对 HTML 的补充。<br/><strong><span style="color:#ff0000">三、xml的用途：</span></strong><br/>&#13;
+1、可以作为程序间通讯的标准 (ajax text xml json)<br/>&#13;
+2、可以作为配置文件(php中 用的很多)<br/>&#13;
+如果我们在php中连接数据库<br/><pre name="code" class="php">&lt;?php
+	$conn=mysql_connect(“123.11.11.11”,”root”,”root”);
+	//php 可以操作xml
+?&gt;</pre>配置文件<br/><pre name="code" class="html">&lt;dbinfo&gt;
+&lt;host&gt;123.11.11.23&lt;/host&gt;
+&lt;user&gt;shunping&lt;/user&gt;
+&lt;type&gt;mysql&lt;/type&gt;
+&lt;password&gt;root&lt;/password&gt;
+&lt;/dbinfo&gt;</pre>3、可以当做小型数据库<br/>&#13;
+如果我们有这样的需求，有些数据，放在数据库代价高，这样可以考虑直接放入文件.<br/><strong><span style="color:#ff0000">四、xml的语法</span></strong><br/>&#13;
+用xml来描述一个班级信息<br/><pre name="code" class="html">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;班级&gt;
+&lt;stu&gt;
+&lt;name&gt;孙悟空&lt;/name&gt;
+&lt;sex&gt;男&lt;/sex&gt;
+&lt;age&gt;500&lt;/age&gt;
+&lt;/stu&gt;
+&lt;stu&gt;
+&lt;name&gt;白骨精&lt;/name&gt;
+&lt;sex&gt;女&lt;/sex&gt;
+&lt;age&gt;100&lt;/age&gt;
+&lt;/stu&gt;
+&lt;/班级&gt;</pre>1、所有的 XML 元素都必须有一个关闭标签<br/>&#13;
+2、XML 标签对大小写敏感<br/>&#13;
+3、XML 必须正确嵌套<br/>&#13;
+4、XML 文档必须有根元素，XML 文档必须有一个元素是所有其他元素的父元素。该元素称为根元素<br/>&#13;
+5、XML 属性值必须加引号，单引双引均可；<br/>&#13;
+6、如果我们属性值中有 双引号，单引号等,可以使用实体符号表示<br/><span style="white-space:pre"/>&lt;stu stuNo="a0&amp;apos;0&amp;quot;1"&gt;;<br/><span style="white-space:pre"/>在 XML 中，有 5 个预定义的实体引用：<br/><span style="white-space:pre"/>&amp;lt;<span style="white-space:pre"> </span>&lt;<span style="white-space:pre">&#13;
+</span>less than<br/><span style="white-space:pre"/>&amp;gt;<span style="white-space:pre"> </span>&gt;<span style="white-space:pre">&#13;
+</span>greater than<br/><span style="white-space:pre"/>&amp;amp;<span style="white-space:pre"> </span>&amp;<span style="white-space:pre">&#13;
+</span>ampersand<br/><span style="white-space:pre"/>&amp;apos;<span style="white-space:pre"> </span>&#13;
+'<span style="white-space:pre"> </span>apostrophe<br/><span style="white-space:pre"/>&amp;quot;<span style="white-space:pre"> </span>&#13;
+"<span style="white-space:pre"> </span>quotation mark<br/>&#13;
+7、XML 中的注释<br/><span style="white-space:pre"/>在 XML 中编写注释的语法与 HTML 的语法很相似。<br/><span style="white-space:pre"/>&lt;!-- This is a comment --&gt;<br/>&#13;
+8、在 XML 中，空格会被保留<br/><span style="white-space:pre"/>HTML 会把多个连续的空格字符裁减（合并）为一个：<br/><span style="white-space:pre"/>HTML:          Hello Tove<br/><span style="white-space:pre"/>Output: Hello Tove<br/><span style="white-space:pre"/>在 XML 中，文档中的空格不会被删减。<br/>&#13;
+9、XML 命名规则<br/><span style="white-space:pre"/>XML 元素必须遵循以下命名规则：<br/><span style="white-space:pre"/>名称可以包含字母、数字以及其他的字符<br/><span style="white-space:pre"/>名称不能以数字或者标点符号开始<br/><span style="white-space:pre"/>名称不能以字母 xml（或者 XML、Xml 等等）开始<br/><span style="white-space:pre"/>名称不能包含空格<br/><span style="white-space:pre"/>可使用任何名称，没有保留的字词。<br/>&#13;
+10、XML 元素是可扩展，以携带更多的信息。<br/><strong style="background-color:rgb(255,255,0)">注意1：</strong>在php中解析一个xml文件的时候，<br/>&#13;
+写法一：<br/>&#13;
+&lt;name&gt;<br/>&#13;
+宋江<br/>&#13;
+&lt;/name&gt;<br/>&#13;
+写法二：<br/>&#13;
+&lt;name&gt;宋江&lt;/name&gt;<br/>&#13;
+上面的写法不一样，php在解析的时候，可能会把换行符读取<br/><span style="background-color:rgb(255,255,0)"><strong>注意2：</strong></span>xml中属性使用需要注意的地方<br/>&#13;
+基本语法<br/>&#13;
+&lt;标签 属性名1=”属性值1” 属性名2=”属性值2” 属性名3=”属性值3”.. &gt;<br/>&#13;
+内容<br/>&#13;
+&lt;/标签&gt;<br/>&#13;
+① 在xml中尽量不要用属性，可用元素表示属性<br/>&#13;
+② 不要在同一个标签中有相同的属性名<br/><br/><br/></div>  </body>
+            </html>

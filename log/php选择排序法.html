@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:14px"><strong>1、选择排序法实例详解：</strong></span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1985600" snippet_file_name="blog_20161115_1_3447121" name="code" class="php">&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html;charset=utf-8" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;?php 
+//忽略notice级错误提示
+//error_reporting(E_ALL^E_NOTICE); 
+?&gt;
+&lt;?php 
+/* 选择排序法的思路：就是再第一次循环中，假设第一个数是最小的；然后跟第二个数比较，一直比到最后，找出最小值，然后把最小值跟第一个数的位置互换；再进行下一次循环，找出最小值跟第二个位置的数互换；一直循环数组的个数减去1次；数组就成了有序的了 */
+//用函数封装选择排序法
+function selectSort(&amp;$arr)  
+//注意此处要加地址传递符号；因为数组默认传递的是值，不是地址；若不地址传递，排序的是$arr而不是$asd。
+{
+	//$arr = array(1,5,3,9,4,8,12,3,0,7,7.6,3.4,6);
+	//定义一个中间变量
+	$temp = 0;
+	//升序排序
+	for($i=0;$i&lt;count($arr)-1;$i++)
+	{
+		//假设$i就是最小的数
+		$minVal=$arr[$i];
+		//记录我认为最小数的下标
+		$minIndex=$i;
+		for($j=$i+1;$j&lt;count($arr);$j++)
+		{	//如果我认为的最小值不是最小
+			if($minVal&gt;$arr[$j])
+			{
+				$minVal = $arr[$j];
+				$minIndex = $j;
+			}
+		}
+		//最后交换
+		$temp = $arr[$i];
+		$arr[$i] = $arr[$minIndex];
+		$arr[$minIndex] = $temp;
+	}	
+}
+$asd = array(1,0,2,9,3,8,4,7,5,6);
+//调用选择排序法的函数
+selectSort($asd);
+//输出排序后数组  升序显示
+foreach($asd as $key=&gt;$key_value)
+{
+	echo '$asd['.$key."]=".$key_value."&lt;br&gt;";
+}
+?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/><br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

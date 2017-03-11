@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=utf-8" /&gt;
+&lt;title&gt;jquery实现当页面滚动超过一屏时显示返回顶部按钮&lt;/title&gt;
+&lt;style&gt;
+	#go_top{position:fixed; LEFT: 85%;bottom:50px;}
+&lt;/style&gt;
+&lt;script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready(function(){
+	$("#go_top").hide();
+	$(function () {
+		//检测屏幕高度
+		var height=$(window).height();
+		//scroll() 方法为滚动事件
+		$(window).scroll(function(){
+			if ($(window).scrollTop()&gt;height){
+				$("#go_top").fadeIn(500);
+			}else{
+				$("#go_top").fadeOut(500);
+				}
+		});
+		$("#go_top").click(function(){
+			$('body,html').animate({scrollTop:0},100);
+			return false;
+		});
+	});
+});
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;1&lt;br/&gt;
+&lt;div id="go_top"&gt;
+	&lt;img src="./img/top.png"/ alt="回到顶部图片"&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre><br/></div>  </body>
+            </html>

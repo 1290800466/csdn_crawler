@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>1.首先看下 phpize命令 所在的目录  （ps：我的目录/usr/bin/phpize） <br/>
+如果没有找到的话 执行安装</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cmake">yum <span class="hljs-keyword">install</span> php_devel</code></pre>
+
+<p>安装完毕后。会生成phpize命令  </p>
+
+<p>2.去php.net下载相应版本的php源文件 <br/>
+咱们以php-5.4.45 为例吧，解压后，进入相应的模块下</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala">cd php-<span class="hljs-number">5.4</span><span class="hljs-number">.45</span>/ext/pcntl
+<span class="hljs-preprocessor">#先执行phpize</span>
+/usr/bin/phpize  ./configure --with-php-config=/usr/bin/php-config
+<span class="hljs-preprocessor">#编译、安装</span>
+./configure
+make &amp;&amp; make install</code></pre>
+
+<p>3.编译完毕后会生成了一个  pcntl.so的文件。在php的model目录里 <br/>
+编辑/etc/php.ini，加入</p>
+
+<pre class="prettyprint"><code class=" hljs fix"><span class="hljs-attribute">extension</span>=<span class="hljs-string">pcntl.so</span></code></pre>
+
+<p>4.重启apache</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">service httpd restart</code></pre>
+
+<p>5.测试是否安装成功</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+    <span class="hljs-keyword">echo</span> pcntl_fork();
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p>输出：23165（不一定是这个数，但一定是个数字）</p>
+
+<p><strong>注意：</strong> <br/>
+使用：/usr/bin/phpize  可能出现下面错误提示</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs vhdl">Can<span class="hljs-attribute">'t</span> find PHP headers <span class="hljs-keyword">in</span> /usr/include/php
+The php-devel <span class="hljs-keyword">package</span> <span class="hljs-keyword">is</span> required <span class="hljs-keyword">for</span> <span class="hljs-keyword">use</span> <span class="hljs-keyword">of</span> this command</code></pre>
+
+<p>解决方法：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cmake">yum <span class="hljs-keyword">install</span> php-devel</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

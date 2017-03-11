@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><font color="red"><strong>array_map():</strong></font> <br/>
+1、array_map() 函数将用户自定义函数作用到数组中的每个值上，并返回用户自定义函数作用后的带有新值的数组,若函数作用后无返回值，则对应的新值数组中为空。 <br/>
+2、回调函数接受的参数数目应该和传递给 array_map() 函数的数组数目一致。 <br/>
+3、<strong>提示：</strong>您可以向函数输入一个或者多个数组。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl">若相函数输入<span class="hljs-number">2</span>个数组，其函数接受参数也应该有两个,<span class="hljs-keyword">map</span>给函数传值时，是每次从两个数组中分别取一个传给函
+数。即多个数组之间是同步提交的，不是提交完一个数组再提交下一个
+提交几个数组，则函数也需要有几个参数</code></pre>
+
+<p>4、语法： array array_map ( callable <span class="MathJax_Preview"/><span class="MathJax" id="MathJax-Element-7-Frame" role="textbox" aria-readonly="true"><nobr><span class="math" id="MathJax-Span-97" style="width: 7.808em; display: inline-block;"><span style="display: inline-block; position: relative; width: 6.344em; height: 0px; font-size: 123%;"><span style="position: absolute; clip: rect(1.412em 1000em 2.659em -0.431em); top: -2.274em; left: 0.003em;"><span class="mrow" id="MathJax-Span-98"><span class="mi" id="MathJax-Span-99" style="font-family: MathJax_Math-italic;">c</span><span class="mi" id="MathJax-Span-100" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-101" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-102" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-103" style="font-family: MathJax_Math-italic;">b</span><span class="mi" id="MathJax-Span-104" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-105" style="font-family: MathJax_Math-italic;">c</span><span class="mi" id="MathJax-Span-106" style="font-family: MathJax_Math-italic;">k</span><span class="mo" id="MathJax-Span-107" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-108" style="font-family: MathJax_Math-italic; padding-left: 0.165em;">a</span><span class="mi" id="MathJax-Span-109" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-110" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-111" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-112" style="font-family: MathJax_Math-italic;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"/></span></span><span style="display: inline-block; width: 0px; height: 2.279em;"/></span></span><span style="border-left-width: 0.003em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.27em; vertical-align: -0.33em;"/></span></nobr></span><script type="math/tex" id="MathJax-Element-7"><![CDATA[callback , array ]]></script>arr1 [, array $… ] )</p>
+
+<p><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span> 
+<span class="hljs-comment">//单数组形式</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myfunction</span><span class="hljs-params">(<span class="hljs-variable">$v</span>)</span>
+{</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$v</span>===<span class="hljs-string">"Dog"</span>)
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Fido"</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$v</span>;
+}
+
+<span class="hljs-variable">$a</span>=<span class="hljs-keyword">array</span>(<span class="hljs-string">"Horse"</span>,<span class="hljs-string">"Dog"</span>,<span class="hljs-string">"Cat"</span>);
+print_r(array_map(<span class="hljs-string">"myfunction"</span>,<span class="hljs-variable">$a</span>));
+
+<span class="hljs-comment">//多数组形式</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myfunction1</span><span class="hljs-params">(<span class="hljs-variable">$v1</span>,<span class="hljs-variable">$v2</span>)</span>
+{</span>
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$v1</span>===<span class="hljs-variable">$v2</span>)
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"same"</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"different"</span>;
+}
+
+<span class="hljs-variable">$a1</span>=<span class="hljs-keyword">array</span>(<span class="hljs-string">"Horse"</span>,<span class="hljs-string">"Dog"</span>,<span class="hljs-string">"Cat"</span>);
+<span class="hljs-variable">$a2</span>=<span class="hljs-keyword">array</span>(<span class="hljs-string">"Cow"</span>,<span class="hljs-string">"Dog"</span>,<span class="hljs-string">"Rat"</span>);
+print_r(array_map(<span class="hljs-string">"myfunction1"</span>,<span class="hljs-variable">$a1</span>,<span class="hljs-variable">$a2</span>));
+<span class="hljs-preprocessor">?&gt;</span></code></pre>
+
+<p><font color="red"><strong>array_walk():</strong></font>  <br/>
+1、array_walk — 使用用户自定义函数对数组中的每个元素做回调处理 <br/>
+2、语法： bool array_walk ( array &amp;<span class="MathJax_Preview"/><span class="MathJax" id="MathJax-Element-2-Frame" role="textbox" aria-readonly="true"><nobr><span class="math" id="MathJax-Span-17" style="width: 7.537em; display: inline-block;"><span style="display: inline-block; position: relative; width: 6.127em; height: 0px; font-size: 123%;"><span style="position: absolute; clip: rect(1.412em 1000em 2.659em -0.431em); top: -2.274em; left: 0.003em;"><span class="mrow" id="MathJax-Span-18"><span class="mi" id="MathJax-Span-19" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-20" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-21" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-22" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-23" style="font-family: MathJax_Math-italic;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"/></span><span class="mo" id="MathJax-Span-24" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-25" style="font-family: MathJax_Math-italic; padding-left: 0.165em;">c</span><span class="mi" id="MathJax-Span-26" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-27" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-28" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-29" style="font-family: MathJax_Math-italic;">a</span><span class="mi" id="MathJax-Span-30" style="font-family: MathJax_Math-italic;">b</span><span class="mi" id="MathJax-Span-31" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-32" style="font-family: MathJax_Math-italic;">e</span></span><span style="display: inline-block; width: 0px; height: 2.279em;"/></span></span><span style="border-left-width: 0.003em; border-left-style: solid; display: inline-block; overflow: hidden; width: 0px; height: 1.27em; vertical-align: -0.33em;"/></span></nobr></span><script type="math/tex" id="MathJax-Element-2"><![CDATA[array , callable ]]></script>funcname [, mixed $userdata = NULL ] )</p>
+
+<p><strong>参数：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash"> <span class="hljs-variable">$array</span>     输入的数组。
+ <span class="hljs-variable">$funcname</span>  回调函数，典型情况下 <span class="hljs-variable">$funcname</span> 接受两个参数。<span class="hljs-variable">$array</span> 参数的值作为第一个， 键名作为第二个。
+ <span class="hljs-variable">$userdata</span>  如果提供了可选参数 <span class="hljs-variable">$userdata</span> ，将被作为第三个参数传递给 <span class="hljs-variable">$funcname</span>。</code></pre>
+
+<p><strong><em>注意:</em></strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs bash">如果 <span class="hljs-variable">$funcname</span> 需要直接作用于数组中的值，则给 funcname 的第一个参数指定为引用（添加&amp;符号）。这样
+任何对这些单元的改变也将会改变原始数组本身。</code></pre>
+
+<p><strong><em>返回值 :</em></strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php">成功时返回 <span class="hljs-keyword">TRUE</span>， 或者在失败时返回 <span class="hljs-keyword">FALSE</span>。</code></pre>
+
+<p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$fruits</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">"d"</span> =&gt; <span class="hljs-string">"lemon"</span>, <span class="hljs-string">"a"</span> =&gt; <span class="hljs-string">"orange"</span>, <span class="hljs-string">"b"</span> =&gt; <span class="hljs-string">"banana"</span>, <span class="hljs-string">"c"</span> =&gt; <span class="hljs-string">"apple"</span>);
+<span class="hljs-comment">//传引用，改变了所传参数组</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_alter</span><span class="hljs-params">(&amp;<span class="hljs-variable">$item1</span>, <span class="hljs-variable">$key</span>, <span class="hljs-variable">$prefix</span>)</span>
+{</span>
+    <span class="hljs-variable">$item1</span> = <span class="hljs-string">"$prefix: $item1"</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test_print</span><span class="hljs-params">(<span class="hljs-variable">$item2</span>, <span class="hljs-variable">$key</span>)</span>
+{</span>
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"$key. $item2&lt;br /&gt;\n"</span>;
+}
+
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"Before ...:\n"</span>;
+<span class="hljs-comment">//单数组</span>
+array_walk(<span class="hljs-variable">$fruits</span>, <span class="hljs-string">'test_print'</span>);
+
+<span class="hljs-comment">//带额外参数</span>
+array_walk(<span class="hljs-variable">$fruits</span>, <span class="hljs-string">'test_alter'</span>, <span class="hljs-string">'fruit'</span>);
+<span class="hljs-keyword">echo</span> <span class="hljs-string">"... and after:\n"</span>;
+
+array_walk(<span class="hljs-variable">$fruits</span>, <span class="hljs-string">'test_print'</span>);</code></pre>
+
+<p>以上例程会输出：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs r">Before <span class="hljs-keyword">...</span>:
+d. lemon
+a. orange
+b. banana
+c. apple
+ <span class="hljs-keyword">...</span> and after:
+d. fruit: lemon
+a. fruit: orange
+b. fruit: banana
+c. fruit: apple</code></pre>
+
+<p><font color="red"><strong>关键点：</strong></font></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs perl"> <span class="hljs-keyword">map</span>    主要是为了得到你的回调函数处理后的新数组，要的是结果。
+ walk   主要是对每个参数都使用一次你的回调函数，要的是处理的过程。
+ walk   可以认为提供额外参数给回调函数，<span class="hljs-keyword">map</span>不可以
+ walk   主要是要对数组内的每个值进行操作，操作结果影响原来的数组
+ <span class="hljs-keyword">map</span>    主要是对数组中的值进行操作后返回数组，以得到一个新数组
+ walk   可以没有返回值 <span class="hljs-keyword">map</span>要有，因为要填充数组
+</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

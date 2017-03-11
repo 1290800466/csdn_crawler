@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2>&#13;
+</h2><p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+在Android的开发调试过程中，特别是针对网络编程的情况，很多时候我们希望能够对Android的网络请求进行抓包，用来定位以及分析我们程序的问题。下面我介绍使用Fiddler对Android模拟器的网络请求进行抓包的方法。</p>&#13;
+<blockquote style="padding:10px 15px; margin:0px 0px 20px; border-left-width:4px; border-left-style:solid; border-left-color:rgb(153,153,153); word-break:break-word; font-size:15px; line-height:30px; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; background-color:rgb(245,245,245)">&#13;
+<p style="margin-top:0px; margin-bottom:0px; line-height:1.7; text-align:justify; word-break:break-word">&#13;
+Fiddler介绍<br/>&#13;
+Fiddler是一个<a target="_blank" href="http://baike.baidu.com/view/70545.htm" style="color:rgb(64,148,199); text-decoration:none">http协议</a>调试代理工具，它能够记录并检查所有你的电脑和互联网之间的http通讯，设置断点，查看所有的“进出”Fiddler的数据（指<a target="_blank" href="http://baike.baidu.com/subview/835/5062332.htm" style="color:rgb(64,148,199); text-decoration:none">cookie</a>,html,js,css等文件，这些都可以让你胡乱修改的意思）。&#13;
+ Fiddler 要比其他的网络调试器要更加简单，因为它不仅仅暴露http通讯还提供了一个用户友好的格式。</p>&#13;
+</blockquote>&#13;
+<h2 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:24px">&#13;
+安装使用Fiddler</h2>&#13;
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+下载安装Fiddler的方法这里就略过了，一路Next就行了。装好之后运行软件，正常情况这个时候我们已经可以对电脑的网络请求进行抓包了。Fiddler默认的代理地址是127.0.0.1，端口是8888。此时打开IE浏览器，默认是通过代理地址上网的，所以可以对所有网络访问抓包。</p>&#13;
+<h2 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:24px">&#13;
+对Android模拟器网络请求抓包</h2>&#13;
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+我使用的Android模拟器是Genymotion模拟器，使用Android原生模拟器的朋友，其使用方法大体相同，不同之处会标明。</p>&#13;
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">&#13;
+1.打开模拟器设置（Settings），点击Wi-Fi。</h3>&#13;
+<div>&#13;
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">&#13;
+<br/></h3>&#13;
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<img src="http://upload-images.jianshu.io/upload_images/518096-cec7852dff949712.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="imagebubble-image" width="270" height="480" alt="" style="max-width:100%; height:auto; vertical-align:middle; border:0px"/><br/><div class="image-caption" style="min-width:20%; min-height:22px; display:inline-block; padding:10px; margin:0px auto; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(217,217,217); font-size:13px; color:rgb(153,153,153); font-style:italic; line-height:1.7">&#13;
+模拟器设置界面</div>&#13;
+</div>&#13;
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">&#13;
+2.长按WiredSSID，选择Modify network（修改网络）</h3>&#13;
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<img src="http://upload-images.jianshu.io/upload_images/518096-c60491fa232a4e26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="imagebubble-image" alt="" style="max-width:100%; height:auto; vertical-align:middle; border:0px"/><br/><div class="image-caption" style="min-width:20%; min-height:22px; display:inline-block; padding:10px; margin:0px auto; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(217,217,217); font-size:13px; color:rgb(153,153,153); font-style:italic; line-height:1.7">&#13;
+修改网络设置</div>&#13;
+</div>&#13;
+<h3 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:22px">&#13;
+3.勾上Show advanced options，输入代理服务器地址和端口（关键）。</h3>&#13;
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<img src="http://upload-images.jianshu.io/upload_images/518096-a7fc9cc4a58f38fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="imagebubble-image" alt="" style="max-width:100%; height:auto; vertical-align:middle; border:0px"/><br/><div class="image-caption" style="min-width:20%; min-height:22px; display:inline-block; padding:10px; margin:0px auto; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(217,217,217); font-size:13px; color:rgb(153,153,153); font-style:italic; line-height:1.7">&#13;
+输入代理地址</div>&#13;
+</div>&#13;
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<br/>&#13;
+注意：代理地址和端口的设置是关键，Genymotion模拟器中ip为<strong>10.0.3.2</strong>，Android模拟器中ip为<strong>10.0.2.2</strong>，端口为FIddler监听的端口，默认为8888，最后保存确认。</p>&#13;
+<h2 style="margin:0px; font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; line-height:1.8; color:rgb(47,47,47); font-size:24px">&#13;
+Android模拟器网络请求抓包测试</h2>&#13;
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+经过以上的设置，Fiddler就可以抓包到Android模拟器的网络请求了。使用Android原生浏览器打开网页，测试通过。<br/></p>&#13;
+<div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<img src="http://upload-images.jianshu.io/upload_images/518096-9f3ecc32f9736da9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="imagebubble-image" alt="" style="max-width:100%; height:auto; vertical-align:middle; border:0px"/><br/><div class="image-caption" style="min-width:20%; min-height:22px; display:inline-block; padding:10px; margin:0px auto; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(217,217,217); font-size:13px; color:rgb(153,153,153); font-style:italic; line-height:1.7">&#13;
+测试Android网络访问</div>&#13;
+</div>&#13;
+<br style="color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px"/><div class="image-package imagebubble" style="margin:0px auto 20px; text-align:center; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<img src="http://upload-images.jianshu.io/upload_images/518096-849044bc940e76d0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" class="imagebubble-image" alt="" style="max-width:100%; height:auto; vertical-align:middle; border:0px"/><br/><div class="image-caption" style="min-width:20%; min-height:22px; display:inline-block; padding:10px; margin:0px auto; border-bottom-width:1px; border-bottom-style:solid; border-bottom-color:rgb(217,217,217); font-size:13px; color:rgb(153,153,153); font-style:italic; line-height:1.7">&#13;
+Fiddler抓包结果</div>&#13;
+</div>&#13;
+<p style="margin-top:0px; margin-bottom:25px; text-align:justify; word-break:break-word; color:rgb(47,47,47); font-family:'lucida grande','lucida sans unicode',lucida,helvetica,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif; font-size:16px; line-height:27.2px">&#13;
+<br/>&#13;
+今天的介绍就到此为止了，以上只是Fiddler的基本使用，其实还有域名过滤呀之类的，朋友们可以在使用的过程中自己摸索，我后面会再写一篇更加详细的Fiddler使用介绍，觉得有用的朋友请点个赞，谢谢！</p>&#13;
+</div>&#13;
+<div><a target="_blank" href="http://www.jianshu.com/p/7135afa4a828">转自：http://www.jianshu.com/p/7135afa4a828</a></div>&#13;
+&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>以a免密登陆b为例：</strong></p>
+
+<p><strong>b机操作：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-number">1</span>、验证ssh是否安装成功：ssh -version
+   若无安装，先安装ssh
+
+<span class="hljs-number">2</span>、在要登陆用户下生成公私钥：ssh-keygen -t dsa
+   此时在/home/当前用户/<span class="hljs-preprocessor">.ssh</span>下会生成公私钥文件
+   公钥 id_dsa<span class="hljs-preprocessor">.pub</span>
+   私钥 id_dsa
+
+<span class="hljs-number">3</span>、把公钥（id_dsa<span class="hljs-preprocessor">.pub</span>）追加到授权的key中去：cat ~/<span class="hljs-preprocessor">.ssh</span>/id_dsa<span class="hljs-preprocessor">.pub</span> &gt;&gt; ~/<span class="hljs-preprocessor">.ssh</span>/authorized_keys
+
+<span class="hljs-number">4</span>、把私钥拷贝出来，放到机器a中
+
+<span class="hljs-number">5</span>、修改文件权限：
+   authorized_keys 文件必须是<span class="hljs-number">600</span>权限(也就是-rw——-)或者<span class="hljs-number">644</span>
+   <span class="hljs-preprocessor">.ssh</span>目录必须是<span class="hljs-number">700</span>权限(也就是drwx——)
+   /home/work目录 必须是 <span class="hljs-number">755</span>权限 即drwxr-xr-<span class="hljs-built_in">x</span>
+
+<span class="hljs-number">6</span>、测试是否联通：ssh localhost
+   第一次执行，会提示一个确认,选择yes回车,结果不用输入密码，登录成功！</code></pre>
+
+<p><strong>a机操作：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver"><span class="hljs-number">1</span>、将b机生成的私钥文件导入<span class="hljs-operator">a</span>机中
+<span class="hljs-number">2</span>、若<span class="hljs-operator">a</span>机为windows系统，以xshell链接b机为例：</code></pre>
+
+<p><img src="http://img.blog.csdn.net/20170312000143078?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzM3MjQ4Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" title=""/></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">利用public_key登陆服务器，导入私钥文件
+点击登陆即可</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

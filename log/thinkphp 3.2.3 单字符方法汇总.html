@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>读取配置：</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs ">C(<span class="hljs-string">'参数名称'</span>)    读取配置信息
+<span class="hljs-comment">//读取当前的URL模式配置参数：</span>
+<span class="hljs-variable">$model</span> = C(<span class="hljs-string">'URL_MODEL'</span>);</code></pre>
+
+<p>动态配置：</p>
+
+
+
+<pre class="prettyprint"><code class="language-php hljs ">C(<span class="hljs-string">'参数名称'</span>,<span class="hljs-string">'新的参数值'</span>)    对某些参数进行动态配置（或者增加新的配置）
+<span class="hljs-comment">// 动态改变缓存有效期</span>
+C(<span class="hljs-string">'DATA_CACHE_TIME'</span>,<span class="hljs-number">60</span>);
+<span class="hljs-comment">/*动态配置赋值仅对当前请求有效，不会对以后的请求造成影响。*/</span></code></pre>
+
+<p>批量配置：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-variable">$config</span> = <span class="hljs-keyword">array</span>(<span class="hljs-string">'WEB_SITE_TITLE'</span>=&gt;<span class="hljs-string">'ThinkPHP'</span>,<span class="hljs-string">'WEB_SITE_DESCRIPTION'</span>=&gt;<span class="hljs-string">'开源PHP框架'</span>);
+
+C(<span class="hljs-variable">$config</span>);
+<span class="hljs-comment">//$config数组中的配置参数会合并到现有的全局配置中。</span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

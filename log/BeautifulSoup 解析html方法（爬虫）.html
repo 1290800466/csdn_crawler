@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>用BeautifulSoup 解析html和xml字符串</strong></p>
+
+<p><img src="http://img.blog.csdn.net/20160622142945461" alt="对象参数说明" title=""/><br/><strong>实例：</strong></p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+<span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup
+<span class="hljs-keyword">import</span> re
+
+<span class="hljs-comment">#待分析字符串</span>
+html_doc = <span class="hljs-string">"""
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;The Dormouse's story&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p class="title aq"&gt;
+    &lt;b&gt;
+        The Dormouse's story
+    &lt;/b&gt;
+&lt;/p&gt;
+
+&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were
+    &lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;Elsie&lt;/a&gt;,
+    &lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; 
+    and
+    &lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;
+    and they lived at the bottom of a well.
+&lt;/p&gt;
+
+&lt;p class="story"&gt;...&lt;/p&gt;
+"""</span>
+
+
+<span class="hljs-comment"># html字符串创建BeautifulSoup对象</span>
+soup = BeautifulSoup(html_doc, <span class="hljs-string">'html.parser'</span>, from_encoding=<span class="hljs-string">'utf-8'</span>)
+
+<span class="hljs-comment">#输出第一个 title 标签</span>
+<span class="hljs-keyword">print</span> soup.title
+
+<span class="hljs-comment">#输出第一个 title 标签的标签名称</span>
+<span class="hljs-keyword">print</span> soup.title.name
+
+<span class="hljs-comment">#输出第一个 title 标签的包含内容</span>
+<span class="hljs-keyword">print</span> soup.title.string
+
+<span class="hljs-comment">#输出第一个 title 标签的父标签的标签名称</span>
+<span class="hljs-keyword">print</span> soup.title.parent.name
+
+<span class="hljs-comment">#输出第一个  p 标签</span>
+<span class="hljs-keyword">print</span> soup.p
+
+<span class="hljs-comment">#输出第一个  p 标签的 class 属性内容</span>
+<span class="hljs-keyword">print</span> soup.p[<span class="hljs-string">'class'</span>]
+
+<span class="hljs-comment">#输出第一个  a 标签的  href 属性内容</span>
+<span class="hljs-keyword">print</span> soup.a[<span class="hljs-string">'href'</span>]
+<span class="hljs-string">'''
+soup的属性可以被添加,删除或修改. 再说一次, soup的属性操作方法与字典一样
+'''</span>
+<span class="hljs-comment">#修改第一个 a 标签的href属性为 http://www.baidu.com/</span>
+soup.a[<span class="hljs-string">'href'</span>] = <span class="hljs-string">'http://www.baidu.com/'</span>
+
+<span class="hljs-comment">#给第一个 a 标签添加 name 属性</span>
+soup.a[<span class="hljs-string">'name'</span>] = <span class="hljs-string">u'百度'</span>
+
+<span class="hljs-comment">#删除第一个 a 标签的 class 属性为</span>
+<span class="hljs-keyword">del</span> soup.a[<span class="hljs-string">'class'</span>]
+
+<span class="hljs-comment">##输出第一个  p 标签的所有子节点</span>
+<span class="hljs-keyword">print</span> soup.p.contents
+
+<span class="hljs-comment">#输出第一个  a 标签</span>
+<span class="hljs-keyword">print</span> soup.a
+
+<span class="hljs-comment">#输出所有的  a 标签，以列表形式显示</span>
+<span class="hljs-keyword">print</span> soup.find_all(<span class="hljs-string">'a'</span>)
+
+<span class="hljs-comment">#输出第一个 id 属性等于  link3 的  a 标签</span>
+<span class="hljs-keyword">print</span> soup.find(id=<span class="hljs-string">"link3"</span>)
+
+<span class="hljs-comment">#获取所有文字内容</span>
+print(soup.get_text())
+
+<span class="hljs-comment">#输出第一个  a 标签的所有属性信息</span>
+<span class="hljs-keyword">print</span> soup.a.attrs
+
+
+<span class="hljs-keyword">for</span> link <span class="hljs-keyword">in</span> soup.find_all(<span class="hljs-string">'a'</span>):
+    <span class="hljs-comment">#获取 link 的  href 属性内容</span>
+    print(link.get(<span class="hljs-string">'href'</span>))
+
+<span class="hljs-comment">#对soup.p的子节点进行循环输出    </span>
+<span class="hljs-keyword">for</span> child <span class="hljs-keyword">in</span> soup.p.children:
+    print(child)
+
+<span class="hljs-comment">#正则匹配，名字中带有b的标签</span>
+<span class="hljs-keyword">for</span> tag <span class="hljs-keyword">in</span> soup.find_all(re.compile(<span class="hljs-string">"b"</span>)):
+    print(tag.name)
+
+
+</code></pre>
+
+<p><strong>爬虫设计思路：</strong></p>
+
+<p><img src="http://img.blog.csdn.net/20160622143119499" alt="爬虫设计思路" title=""/></p>
+
+<p><strong>详细手册：</strong></p>
+
+<p><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/">https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

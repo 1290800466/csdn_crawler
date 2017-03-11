@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<pre name="code" class="php">&lt;?php
+function randomColor() { 
+    $str = '#'; 
+    for($i = 0 ; $i &lt; 6 ; $i++) { 
+        $randNum = rand(0 , 15); 
+        switch ($randNum) { 
+            case 10: $randNum = 'A'; break; 
+            case 11: $randNum = 'B'; break; 
+            case 12: $randNum = 'C'; break; 
+            case 13: $randNum = 'D'; break; 
+            case 14: $randNum = 'E'; break; 
+            case 15: $randNum = 'F'; break; 
+        } 
+        $str .= $randNum; 
+    } 
+    return $str; 
+} 
+$color = randomColor();
+echo $color;
+?&gt;</pre><br/></div>  </body>
+            </html>

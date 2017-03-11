@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px; color:#ff0000"><strong>1、文件创建：</strong></span></p>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">实例：</span></p>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+</p><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+    $file_path="aa.txt";
+    //对于创建文件，可用打开文件的方式创建，如下所示，用下面的标签打开文件时，若文件不存在则创建
+    //w 只写。打开并清空文件的内容；如果文件不存在，则创建新文件。
+    //w+ 读/写。打开并清空文件的内容；如果文件不存在，则创建新文件。
+    //a 追加。打开并向文件末尾进行写操作，如果文件不存在，则创建新文件。
+	$fp=fopen($file_path,"w+");
+	fwrite($fp,"hello,world");
+	fclose($fp);
+	echo "创文件ok";
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px; color:#ff0000"><strong>2、文件夹创建：</strong></span>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">mkdir() 函数创建目录。<br/>&#13;
+如果成功该函数返回 TRUE，如果失败则返回 FALSE。<br/>&#13;
+语法<br/>&#13;
+mkdir(path,mode,recursive,context)<br/>&#13;
+path<span style="white-space:pre"> </span>必需。规定要创建的目录的名称。<br/>&#13;
+mode<span style="white-space:pre"> </span>可选。规定权限。默认是 0777（允许全局访问）。<br/>&#13;
+mode 参数由四个数字组成：<br/>&#13;
+第一个数字通常是 0<br/>&#13;
+第二个数字规定所有者的权限<br/>&#13;
+第三个数字规定所有者所属的用户组的权限<br/>&#13;
+第四个数字规定其他所有人的权限<br/>&#13;
+可能的值（如需设置多个权限，请对下面的数字进行总计）：<br/>&#13;
+1 = 执行权限<br/>&#13;
+2 = 写权限<br/>&#13;
+4 = 读权限<br/>&#13;
+recursive<span style="white-space:pre"> </span>可选。规定是否设置递归模式。（PHP 5 中新增的）<br/>&#13;
+context<span style="white-space:pre"> </span>可选。规定文件句柄的环境。context 是一套可以修改流的行为的选项。<br/>&#13;
+注释：mode 参数在 Windows 平台上被忽略。<br/></span></p>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">实例1：</span></p>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+</p><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+//is_dir()函数检查指定的文件是否是一个目录。
+//如果目录存在，该函数返回 TRUE。
+if(!is_dir("d:/shunping2")){
+    //mkdir() 函数创建目录
+    if( mkdir("d:/shunping2")){
+        echo "创建文件夹ok";
+    }else{
+        echo "创建文件夹err";
+    }
+}else{
+    echo "该文件夹有了";	
+}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px">实例2：创建多层级目录</span>&#13;
+<p style="border:0px; margin:0px 0px 10px; padding:0px; font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+</p><pre name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php
+$path="d:/shunping3/aaa/bbb/cccc/ddd";
+	if(!is_dir($path)){
+		if( mkdir($path,0777,true)){
+			echo "创建文件夹ok";
+		}else{
+			echo "创建文件夹err";
+		}
+	}else{
+		echo "该文件夹有了";	
+	}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><strong><span style="color:#ff0000">3、文件复制：</span></strong></span>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">copy() 函数复制文件。</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">该函数如果成功则返回 TRUE，如果失败则返回 FALSE。</span></p>&#13;
+<h2 style="border:0px; margin:2px 0px; padding:0px; line-height:1.8em; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif">&#13;
+<span style="font-size:18px">语法</span></h2>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:716.106750488281px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-family:'courier new'"><span style="font-size:18px">copy(file,to_file)</span></div>&#13;
+</div>&#13;
+<table class="reference notranslate " style="border:0px; margin:4px 0px; padding:0px; border-collapse:collapse; width:729.166625976563px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><th align="left" valign="top" width="20%" style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; background-color:rgb(85,85,85)">&#13;
+<span style="font-size:18px">参数</span></th>&#13;
+<th align="left" valign="top" width="80%" style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; background-color:rgb(85,85,85)">&#13;
+<span style="font-size:18px">描述</span></th>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<span style="font-size:18px">file</span></td>&#13;
+<td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<span style="font-size:18px">必需。规定要复制的文件。</span></td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<span style="font-size:18px">to_file</span></td>&#13;
+<td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; vertical-align:top">&#13;
+<span style="font-size:18px">必需。规定复制文件的目的地。</span></td>&#13;
+</tr></tbody></table><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px"><strong>注释：</strong>如果目标文件已存在，将会被覆盖。</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">实例：</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+</p><pre name="code" class="php" style="color: rgb(51, 51, 51);">&lt;span style="font-size:18px;"&gt;&lt;?php
+	//拷贝图片
+	$file_path=iconv("utf-8","gb2312","test.css");
+	if(!copy($file_path,"123.txt")){
+		echo "error";
+	}else{
+		echo "ok";
+	}
+?&gt;&lt;/span&gt;</pre><span style="font-size:18px; color:#ff0000"><strong>4、文件删除：</strong></span>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px"/></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+unlink() 函数删除文件。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>&#13;
+<div class="code notranslate" style="border:1px solid rgb(212,212,212); margin:0px; padding:5px; width:716.106750488281px; color:rgb(68,68,68); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; background-color:rgb(246,244,240)">&#13;
+<div style="border:0px; margin:0px; padding:0px; font-size:13.1999998092651px; font-family:'courier new'">&#13;
+unlink(filename,context)</div>&#13;
+</div>&#13;
+<table class="reference notranslate " style="border:0px; margin:4px 0px; padding:0px; border-collapse:collapse; width:729.166625976563px; color:rgb(51,51,51); font-family:'Open Sans','Helvetica Neue',Helvetica,Arial,STHeiti,'Microsoft Yahei',sans-serif; font-size:12px"><tbody style="border:0px; margin:0px; padding:0px"><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><th align="left" valign="top" width="20%" style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; background-color:rgb(85,85,85)">&#13;
+参数</th>&#13;
+<th align="left" valign="top" width="80%" style="border:1px solid rgb(85,85,85); margin:0px; padding:3px; color:rgb(255,255,255); vertical-align:top; background-color:rgb(85,85,85)">&#13;
+描述</th>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px"><td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+filename</td>&#13;
+<td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+必需。规定要删除的文件。</td>&#13;
+</tr><tr style="border:0px; margin:0px; padding:0px; background-color:rgb(246,244,240)"><td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+context</td>&#13;
+<td valign="top" style="border:1px solid rgb(212,212,212); margin:0px; padding:7px 5px; font-size:1em; vertical-align:top">&#13;
+可选。规定文件句柄的环境。context 是一套可以修改流的行为的选项。</td>&#13;
+</tr></tbody></table><p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px">实例：</span></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif">&#13;
+<span style="font-size:18px"/></p><pre name="code" class="php" style="color: rgb(51, 51, 51);">&lt;?php
+    $file_path="123.txt";
+    //is_file() 函数检查指定的文件是否是常规的文件。
+	if(is_file($file_path)){
+		if(unlink($file_path)){
+			echo "删除ok";
+		}else{
+			echo "删除error";
+		}
+	}else{
+		echo "文件不存在";
+	}
+?&gt;</pre><strong><span style="color:#ff0000">5、文件夹删除：</span></strong>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px"/></p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+rmdir() 函数删除空的目录。</p>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+如果成功，该函数返回 TRUE。如果失败，则返回 FALSE。</p>&#13;
+实例：&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<span style="font-size:18px"/></p><pre name="code" class="php">&lt;?php
+if(rmdir("testing/a.css")){
+    echo "删除文件夹ok";
+}else{
+    echo "err";
+} 
+?&gt;</pre>&#13;
+<p style="border:0px; margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; line-height:2em; font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; color:rgb(51,51,51)">&#13;
+<br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

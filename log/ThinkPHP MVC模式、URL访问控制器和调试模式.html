@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>一、什么是MVC</strong>       </p>
+
+<p>M -Model 编写model类 对数据进行操作 <br/>
+V -View  编写html文件，页面呈现 <br/>
+C-Controller 编写类文件（UserAction.class.php）处理输入（写入数据库记录），确保M和V的同步，一旦M改变，V应该同步更新   </p>
+
+<p><strong>二、ThinkPHP的MVC对应的目录</strong>   </p>
+
+<p>M 项目目录/应用目录/Home/Model <br/>
+V 项目目录/应用目录/Home/View <br/>
+C 项目目录/应用目录/Home/Controller             </p>
+
+<p><strong>三、利用url访问C，url的4种访问C（控制器）的方式</strong>         </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs mathematica"><span class="hljs-keyword">URL</span>模式   URL_MODEL设置:
+普通模式        <span class="hljs-number">0</span>
+PATHINFO模式      <span class="hljs-number">1</span>
+REWRITE模式       <span class="hljs-number">2</span>
+兼容模式            <span class="hljs-number">3</span></code></pre>
+
+<p>1.PATHINFO 模式 – 重点！！！！！！ <br/>
+http://域名/项目名/入口文件/模块名（C下）/方法名/键1/值1/键2/值2</p>
+
+<p>2.普通模式 <br/>
+http://域名/项目名/入口文件?m=模块名&amp;a=方法名&amp;键1=值1&amp;键2=值2</p>
+
+<p>3.REWRITE模式 <br/>
+http://域名/项目名/模块名/方法名/键1/值1/键2/值2</p>
+
+<p>4.兼容模式 <br/>
+http://域名/项目名/入口文件？s=模块名/方法名/键1/值1/键2/值2</p>
+
+<p><strong>四、conf配置文件修改：</strong>  <br/>
+//格式：’配置项’=&gt;’配置值’, <br/>
+‘URL_PATHINFO_DEPR’=&gt;’-‘,//修改URL的分隔符为’-‘</p>
+
+<p><strong>五、php调试模式:</strong> <br/>
+（php默认情况下是关闭调试模式的，开启调试模式后，缓存将不再记录，文件的修改会即时生效。） <br/>
+开启方法： <br/>
+在htdocs下的文件夹thinkphp中的文件 index.php 中输入如下内容;</p>
+
+<pre class="prettyprint"><code class=" hljs lasso"><span class="hljs-subst">&lt;?</span>php     
+<span class="hljs-comment">//第一步：确定应用名称（前台应用一般用Application），后台一般用Admin  </span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_NAME"</span>,<span class="hljs-string">"Application"</span>);  
+<span class="hljs-comment">//第二步：确定应用路径  </span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_PATH"</span>,<span class="hljs-string">"./Application/"</span>);  
+<span class="hljs-comment">//引入ThinkPHP核心文件  </span>
+<span class="hljs-keyword">require</span>  <span class="hljs-string">"./ThinkPHP/ThinkPHP.php"</span>  
+<span class="hljs-comment">//开启调试模式:</span>
+<span class="hljs-class"><span class="hljs-keyword">define</span></span>(<span class="hljs-string">"APP_DEBUG"</span>,<span class="hljs-literal">true</span>);
+<span class="hljs-preprocessor">?&gt;</span><span class="hljs-markup"/></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

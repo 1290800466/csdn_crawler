@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px">方法一：调过JS脚本控制</span></p>&#13;
+<p/>&#13;
+<pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import time
+#访问百度
+driver=webdriver.Firefox()
+driver.get("http://www.baidu.com")
+#搜索
+driver.find_element_by_id("kw").send_keys("selenium")
+driver.find_element_by_id("su").click()
+time.sleep(3)
+#将页面滚动条拖到底部
+js="var q=document.documentElement.scrollTop=100000"
+driver.execute_script(js)
+time.sleep(3)
+#将滚动条移动到页面的顶部
+js="var q=document.documentElement.scrollTop=0"
+driver.execute_script(js)
+time.sleep(3)
+#将页面滚动条移动到页面任意位置，改变等于号后的数值即可
+js="var q=document.documentElement.scrollTop=50"
+driver.execute_script(js)
+time.sleep(999999)
+'''
+#若要对页面中的内嵌窗口中的滚动条进行操作，要先定位到该内嵌窗口，在进行滚动条操作
+js="var q=document.getElementById('id').scrollTop=100000"
+driver.execute_script(js)
+time.sleep(3)
+'''
+driver.quit()</pre>&#13;
+<p/>&#13;
+<p><span style="font-size:18px">方法二：通过键盘 按“DOWN”键，实现页面滚动条滚动到页面任意位置</span></p>&#13;
+<pre name="code" class="python">#coding=utf-8
+from selenium import webdriver
+import time
+from selenium.webdriver.common.keys import Keys
+#访问百度
+driver=webdriver.Firefox()
+driver.get("http://www.baidu.com")
+#搜索
+driver.find_element_by_id("kw").send_keys("selenium")
+driver.find_element_by_id("su").click()
+time.sleep(3)
+#通过按向下键将页面滚动条拖到底部
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(1)
+driver.find_element_by_xpath("//*[@id='wrapper_wrapper']").send_keys(Keys.DOWN)
+time.sleep(3)
+driver.quit()</pre><br/><br/><br/></div>  </body>
+            </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>类的私有属性：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">__private_attrs：两个下划线开头，声明该属性为私有，不能在类地外部被使用或直接访问。
+在类内部的方法中使用时  self.__private_attrs。</code></pre>
+
+<p>类的方法:</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ruby">在类地内部，使用<span class="hljs-function"><span class="hljs-keyword">def</span>关键字可以为类定义一个方法，与一般函数定义不同，类方法必须包含参数<span class="hljs-title">self</span>,且为第一个参数</span></code></pre>
+
+<p><strong>类的私有方法 :</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs ">__private_method：两个下划线开头，声明该方法为私有方法，不能在类地外部调用。
+在类的内部调用 self.__private_methods</code></pre>
+
+<p><strong>实例：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JustCounter</span>:</span>
+    __secretCount = <span class="hljs-number">0</span>  <span class="hljs-comment"># 私有变量</span>
+    publicCount = <span class="hljs-number">0</span>    <span class="hljs-comment"># 公开变量</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count</span><span class="hljs-params">(self)</span>:</span>
+        self.__secretCount += <span class="hljs-number">1</span>
+        self.publicCount += <span class="hljs-number">1</span>
+        <span class="hljs-keyword">print</span> self.__secretCount
+
+counter = JustCounter()
+counter.count()
+counter.count()
+<span class="hljs-keyword">print</span> counter.publicCount
+<span class="hljs-keyword">print</span> counter.__secretCount  <span class="hljs-comment"># 报错，实例不能访问私有变量</span></code></pre>
+
+<p>Python不允许实例化的类访问私有数据，但你可以使用 object._className__attrName 访问属性，将如下代码替换以上代码的最后一行代码： <br/>
+…………………….</p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-keyword">print</span> counter._JustCounter__secretCount</code></pre>
+
+<p>这样就可以访问私有属性了</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

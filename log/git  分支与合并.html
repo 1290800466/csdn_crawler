@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、查看现存分支</strong></p>
+
+<p>查看现存分支 : git branch命令;</p>
+
+<pre class="prettyprint"><code class=" hljs ">git branch  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026183720507" alt="这里写图片描述" title=""/></p>
+
+<p>从结果可以看出, 现在只有一个分支master;</p>
+
+<p><strong>2、创建分支</strong></p>
+
+<p>创建分支 : git branch 分之名称, 就可以创建一个分支, 创建完分支以后可以查看分支, 当前使用的分支会显示成为绿色, 前面带有 <code>"*"</code> , 如果不是当前使用的分支, 显示的是白色, 并且没有 <code>"*"</code> 前缀;</p>
+
+<pre class="prettyprint"><code class=" hljs ">git branch branch1  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026183915455" alt="这里写图片描述" title=""/></p>
+
+<p><strong>3、切换分支</strong></p>
+
+<p>切换分支 : git checkout 分支名称, 切换分支以后, 在分支进行操作,文件的改变不会体现在master主分支中, 主分支改变, 会体现在其它分支中;</p>
+
+<pre class="prettyprint"><code class=" hljs ">git checkout branch1  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026184021112" alt="这里写图片描述" title=""/></p>
+
+<p><strong>关于主分支和其它分支 :</strong> </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">-<span class="ruby">- 分支编辑 <span class="hljs-symbol">:</span> 现有两个分支 master 主分支, 和刚创建的branch1 分支, 切换到 branch1 分支, 在branch1 中创建一个文件 description_branch1.txt; 
+</span>-<span class="ruby">- 其它分支文件不会影响主分支 <span class="hljs-symbol">:</span> 然后在切换回 master 主分支, 发现没有description_branch1.txt文件, 创建一个文件 description_master.txt;
+</span>-<span class="ruby">- 主分支会影响其它分支 <span class="hljs-symbol">:</span> 在切换回 branch1 分支中, 发现存在 description_master.txt文件;</span></code></pre>
+
+<p>对比过程 : </p>
+
+<p>查看该工程项目分支情况 : </p>
+
+<pre class="prettyprint"><code class=" hljs ">git branch  </code></pre>
+
+<p>– 分支结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs ">branch1  
+master  </code></pre>
+
+<p>切换到 branch1 分支 : </p>
+
+<pre class="prettyprint"><code class=" hljs ">git checkout branch1  </code></pre>
+
+<p>– 切换结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">Switched <span class="hljs-built_in">to</span> branch <span class="hljs-string">'branch1'</span>  </code></pre>
+
+<p>查看 branch1 分支下的文件 : </p>
+
+<pre class="prettyprint"><code class=" hljs mel"><span class="hljs-keyword">ls</span>  </code></pre>
+
+<p>– 查看文件结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">AndroidManifest<span class="hljs-preprocessor">.xml</span>  ic_launcher-web<span class="hljs-preprocessor">.png</span>   res  
+assets               libs                  src  
+bin                  proguard-project<span class="hljs-preprocessor">.txt</span>  
+gen                  project<span class="hljs-preprocessor">.properties</span>  </code></pre>
+
+<p>创建一个文件 : </p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">touch description_branch1<span class="hljs-preprocessor">.txt</span>  </code></pre>
+
+<p>添加这个文件到本地缓存 :</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">git <span class="hljs-keyword">add</span> description_branch1<span class="hljs-preprocessor">.txt</span>  </code></pre>
+
+<p>提交本地缓存 : 注意, 这里必须提交, 如果不提交缓存, 这个文件在主分支也会出现;</p>
+
+<pre class="prettyprint"><code class=" hljs sql">git <span class="hljs-operator"><span class="hljs-keyword">commit</span> -m <span class="hljs-string">'add a description of branch1'</span>  </span></code></pre>
+
+<p>– 提交结果结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs oxygene">[branch1 <span class="hljs-number">7</span>f5785e] <span class="hljs-keyword">add</span> a description <span class="hljs-keyword">of</span> branch1  
+ <span class="hljs-number">1</span> file changed, <span class="hljs-number">0</span> insertions(+), <span class="hljs-number">0</span> deletions(-)  
+ <span class="hljs-keyword">create</span> mode <span class="hljs-number">100644</span> description_branch1.txt  </code></pre>
+
+<p>查看该分支下的文件 : </p>
+
+<pre class="prettyprint"><code class=" hljs mel"><span class="hljs-keyword">ls</span>  </code></pre>
+
+<p>– 查看文件结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">AndroidManifest<span class="hljs-preprocessor">.xml</span>      libs  
+assets                   proguard-project<span class="hljs-preprocessor">.txt</span>  
+bin                      project<span class="hljs-preprocessor">.properties</span>  
+&lt;strong&gt;description_branch1<span class="hljs-preprocessor">.txt</span>&lt;/strong&gt;  res  
+gen                      src  
+ic_launcher-web<span class="hljs-preprocessor">.png</span>  </code></pre>
+
+<p>切换回主分支 : </p>
+
+<pre class="prettyprint"><code class=" hljs ">git checkout master  </code></pre>
+
+<p>– 切换分支结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs vbnet">Switched <span class="hljs-keyword">to</span> branch <span class="hljs-comment">'master'  </span>
+Your branch <span class="hljs-keyword">is</span> up-<span class="hljs-keyword">to</span>-<span class="hljs-built_in">date</span> <span class="hljs-keyword">with</span> <span class="hljs-comment">'origin/master'.  </span></code></pre>
+
+<p>查看主分支文件 : </p>
+
+<pre class="prettyprint"><code class=" hljs mel"><span class="hljs-keyword">ls</span>  </code></pre>
+
+<p>– 查看文件结果 : 没有在 branch1 中添加的文件;</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm">AndroidManifest<span class="hljs-preprocessor">.xml</span>  ic_launcher-web<span class="hljs-preprocessor">.png</span>   res  
+assets               libs                  src  
+bin                  proguard-project<span class="hljs-preprocessor">.txt</span>  
+gen                  project<span class="hljs-preprocessor">.properties</span>  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026184627505" alt="这里写图片描述" title=""/></p>
+
+<p><strong>4、提交分支</strong> </p>
+
+<p>提交分支命令 : 将本地的分支提交到 GitHub中;</p>
+
+<pre class="prettyprint"><code class=" hljs perl">git <span class="hljs-keyword">push</span> origin experiment  </code></pre>
+
+<p><strong>5、分支合并</strong></p>
+
+<p>合并分支命令 : 合并分支之后, 分支中有的文件在 主分支中也会显示, 相当于将branch1 分支中的文件拷贝了一份到master分支中;</p>
+
+<pre class="prettyprint"><code class=" hljs sql">git <span class="hljs-operator"><span class="hljs-keyword">merge</span> branch1  </span></code></pre>
+
+<p>合并结果 : </p>
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">Updating f1bb97a.<span class="hljs-number">.7</span>f5785e  
+Fast-forward  
+ description_branch1.txt | <span class="hljs-number">0</span>  
+ <span class="hljs-number">1</span> <span class="hljs-built_in">file</span> changed, <span class="hljs-number">0</span> insertions(+), <span class="hljs-number">0</span> deletions(-)  
+ <span class="hljs-built_in">create</span> mode <span class="hljs-number">100644</span> description_branch1.txt  </code></pre>
+
+<p><img src="http://img.blog.csdn.net/20161026184902978" alt="这里写图片描述" title=""/></p>
+
+<p><strong>6、删除分支</strong></p>
+
+<p>删除分支命令 : </p>
+
+<pre class="prettyprint"><code class=" hljs bash">git branch <span class="hljs-operator">-d</span> branch1  </code></pre>
+
+<p>强制删除分支命令 : 如果branch1 分支还没有被合并的话, Git是不允许删除这个分支的, 此时要想删除该分支, 就只能使用下面的命令强制删除该分支 : </p>
+
+<pre class="prettyprint"><code class=" hljs mathematica">git branch -<span class="hljs-keyword">D</span> branch1  </code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

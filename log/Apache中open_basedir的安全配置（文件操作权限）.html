@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><pre class="prettyprint"><code class=" hljs ruby">open_basedir = .<span class="hljs-symbol">:/tmp/</span></code></pre>
+
+<p>这个设置表示允许访问当前目录(即PHP脚本文件所在之目录)和/tmp/目录，有效防止php木马跨站运行。</p>
+
+<p>在Apache服务器中，切忌一定要在虚拟主机配置文件中添加以下代码，否则PHP木马脚本可以浏览你服务器上的任意文件，这意味着你的服务器很快会被攻破。</p>
+
+<p>添加代码如下：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lua">php_admin_value open_basedir <span class="hljs-string">"/usr/local/apache/htdocs/www/:/tmp/"</span>
+注意：把/usr/<span class="hljs-keyword">local</span>/apache/htdocs/www/替换成你自己的网站目录</code></pre>
+
+<p>例如： <br/>
+编辑虚拟主机配置文件 <br/>
+vi /etc/httpd/conf.d/vhost.conf <br/>
+在你的网站配置中添加下面的代码</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs apache"><span class="hljs-tag">&lt;VirtualHost *:80&gt;</span>
+<span class="hljs-keyword">php_admin_value</span> open_basedir <span class="hljs-string">"/usr/local/apache/htdocs/www/:/tmp/"</span>
+<span class="hljs-tag">&lt;/VirtualHost&gt;</span></code></pre>
+
+<p>需要注意的是： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs avrasm">因为/etc/httpd/conf<span class="hljs-preprocessor">.d</span>/vhost<span class="hljs-preprocessor">.conf</span>中设置了open_basedir之后, 虚拟用户就不会再自动继承php<span class="hljs-preprocessor">.ini</span>中的open_basedir设置值了,这就难以达到灵活的配置措施, 所以建议您不要在/etc/httpd/conf<span class="hljs-preprocessor">.d</span>/vhost<span class="hljs-preprocessor">.conf</span>中设置此项限制。可以在php<span class="hljs-preprocessor">.ini</span>中设置open_basedir = .:/tmp/</code></pre>
+
+<p>转自：<a href="http://blog.csdn.net/toney520/article/details/25954387">http://blog.csdn.net/toney520/article/details/25954387</a></p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

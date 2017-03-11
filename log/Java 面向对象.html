@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、构造方法</strong></p>
+
+<p><font color="red">每个类都有构造方法</font>。如果没有显式地为类定义构造方法，Java编译器将会为该类提供一个默认构造方法。 <br/>
+在创建一个对象的时候，至少要调用一个构造方法。<font color="red">构造方法的名称必须与类同名，一个类可以有多个构造方法,根据传参不同，引用不同的构造方法</font>。</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+    <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(){
+
+    }
+    <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+        <span class="hljs-comment">// 这个构造器仅有一个参数：name</span>
+    }
+}</code></pre>
+
+<p><strong>2、创建对象：</strong></p>
+
+<p>对象是根据类创建的。在Java中，使用关键字new来创建一个新的对象。创建对象需要以下三步：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs">声明：声明一个对象，包括对象名称和对象类型。
+实例化：使用关键字<span class="hljs-keyword">new</span>来创建一个对象。
+初始化：使用<span class="hljs-keyword">new</span>创建对象时，会调用构造方法初始化对象。</code></pre>
+
+<p>下面是一个创建对象的例子：</p>
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+      <span class="hljs-comment">//这个构造器仅有一个参数：name</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"小狗的名字是 : "</span> + name ); 
+   }
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String []args){
+      <span class="hljs-comment">// 下面的语句将创建一个Puppy对象</span>
+      Puppy myPuppy = <span class="hljs-keyword">new</span> Puppy( <span class="hljs-string">"tommy"</span> );
+   }
+}</code></pre>
+
+<p><strong>3、访问实例变量和方法：</strong></p>
+
+<p>通过已创建的对象来访问成员变量和成员方法，如下所示：</p>
+
+<pre class="prettyprint"><code class=" hljs avrasm"><span class="hljs-comment">/* 实例化对象 */</span>
+ObjectReference = new Constructor()<span class="hljs-comment">;</span>
+<span class="hljs-comment">/* 访问其中的变量 */</span>
+ObjectReference<span class="hljs-preprocessor">.variableName</span><span class="hljs-comment">;</span>
+<span class="hljs-comment">/* 访问类中的方法 */</span>
+ObjectReference<span class="hljs-preprocessor">.MethodName</span>()<span class="hljs-comment">;</span></code></pre>
+
+<p>实例</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs cs"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> Puppy{
+   <span class="hljs-keyword">int</span> puppyAge;
+   <span class="hljs-keyword">public</span> <span class="hljs-title">Puppy</span>(String name){
+      <span class="hljs-comment">// 这个构造器仅有一个参数：name</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"小狗的名字是 : "</span> + name ); 
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAge</span>( <span class="hljs-keyword">int</span> age ){
+       puppyAge = age;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getAge</span>( ){
+       System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"小狗的年龄为 : "</span> + puppyAge ); 
+       <span class="hljs-keyword">return</span> puppyAge;
+   }
+
+   <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span>(String []args){
+      <span class="hljs-comment">/* 创建对象 */</span>
+      Puppy myPuppy = <span class="hljs-keyword">new</span> Puppy( <span class="hljs-string">"tommy"</span> );
+      <span class="hljs-comment">/* 通过方法来设定age */</span>
+      myPuppy.setAge( <span class="hljs-number">2</span> );
+      <span class="hljs-comment">/* 调用另一个方法获取age */</span>
+      myPuppy.getAge( );
+      <span class="hljs-comment">/*你也可以像下面这样访问成员变量 */</span>
+      System.<span class="hljs-keyword">out</span>.println(<span class="hljs-string">"变量值 : "</span> + myPuppy.puppyAge ); 
+   }
+}</code></pre>
+
+<p>编译并运行上面的程序，产生如下结果：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs ">小狗的名字是 : tommy
+小狗的年龄为 : 2
+变量值 : 2</code></pre>
+
+<p><strong>4、源文件声明规则：</strong></p>
+
+<p>当在一个源文件中定义多个类，并且还有import语句和package语句时，要特别注意这些规则。</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs java">一个源文件中只能有一个<span class="hljs-keyword">public</span>类
+
+一个源文件可以有多个非<span class="hljs-keyword">public</span>类
+
+源文件的名称应该和<span class="hljs-keyword">public</span>类的类名保持一致。例如：源文件中<span class="hljs-keyword">public</span>类的类名是Employee，那么源文件应该命名为Employee.java。
+
+如果一个类定义在某个包中，那么<span class="hljs-keyword">package</span>语句应该在源文件的首行。
+
+如果源文件包含<span class="hljs-keyword">import</span>语句，那么应该放在<span class="hljs-keyword">package</span>语句和类定义之间。如果没有<span class="hljs-keyword">package</span>语句，那么<span class="hljs-keyword">import</span>语句应该在源文件中最前面。
+
+<span class="hljs-keyword">import</span>语句和<span class="hljs-keyword">package</span>语句对源文件中定义的所有类都有效。在同一源文件中，不能给不同的类不同的包声明。
+
+类有若干种访问级别，并且类也分不同的类型：抽象类和<span class="hljs-keyword">final</span>类等。
+
+除了上面提到的几种类型，Java还有一些特殊的类，如：内部类、匿名类。</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

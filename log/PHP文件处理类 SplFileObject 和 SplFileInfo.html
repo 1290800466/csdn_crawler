@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<p><span style="font-size:18px"><strong>php对于大文件的处理除了用以下方法外还可以直接调用linux命令</strong></span></p>&#13;
+<p><span style="font-size:18px"><strong><br/></strong></span></p>&#13;
+<p><span style="font-size:18px">文件处理类：</span></p>&#13;
+<pre code_snippet_id="1676500" snippet_file_name="blog_20160510_1_5395193" name="code" class="php">SplFileInfo {
+/* 方法 */
+public __construct ( string $file_name )
+public int getATime ( void )     //获取文件的最后访问时间
+public string getBasename ([ string $suffix ] )  //获取文件的没有路径信息的基本名称，参数可以为文件后缀，若有参数则返回没有该后缀的文件基本名称。
+public int getCTime ( void )        //返回文章最后一次变更的时间戳。
+public string getExtension ( void )   //获取文件扩展名
+public SplFileInfo getFileInfo ([ string $class_name ] )  //以对象的形式返回文件路径和名称
+public string getFilename ( void )   //获取文件名称，不带路径
+public int getGroup ( void )   //获取文件所在组，返回组id
+public int getInode ( void )    //获取文件索引节点
+public string getLinkTarget ( void )  //获取文件链接目标
+public int getMTime ( void )  //获取最后修改时间
+public int getOwner ( void )     //获取文件的所有者
+public string getPath ( void )   //获取文件路径，不带文件名和最后的斜杠
+public SplFileInfo getPathInfo ([ string $class_name ] )   //返回路径对象
+public string getPathname ( void )   //获取文件路径
+public int getPerms ( void )   //获取文件权限
+public string getRealPath ( void )  //获取文件绝对路径，若文件不存在，返回false
+public int getSize ( void )   //返回文件大小，单位字节
+public string getType ( void )  //返回文件类型，可能是 file, link, dir
+public bool isDir ( void )  //判断是否是目录，是放回true否则返回false
+public bool isExecutable ( void )  //判断文件是否可执行，返回true，否则返回false
+public bool isFile ( void )   //如果文件存在且是一个普通文件（不是链接），返回true，否则返回false
+public bool isLink ( void )  //判断文件是否是连接，不是返回false
+public bool isReadable ( void )   //判断文件是否可读，可读返回true
+public bool isWritable ( void )    //判断文件是否可写，可写返回true
+public SplFileObject openFile ([ string $open_mode = "r" [, bool $use_include_path = false [, resource $context = NULL ]]] ) //获取文件对象信息
+public void setFileClass ([ string $class_name = "SplFileObject" ] )
+public void setInfoClass ([ string $class_name = "SplFileInfo" ] )
+public void __toString ( void )   //以字符串的形式返回文件路径及名称
+}</pre>&#13;
+<p><span style="font-size:18px">使用方法：</span></p>&#13;
+<p><span style="font-size:18px">$info = new SplFileInfo($file_name);<br/></span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre code_snippet_id="1676500" snippet_file_name="blog_20160510_2_6442915" name="code" class="php">SplFileObject {
+/* 常量 */
+const integer DROP_NEW_LINE = 1 ;
+const integer READ_AHEAD = 2 ;
+const integer SKIP_EMPTY = 4 ;
+const integer READ_CSV = 8 ;
+/* 方法 */
+public string|array current ( void )     //返回文件当前行内容
+public bool eof ( void )  //检测文件是否到末尾，如果到末尾返回true，否则返回false
+public bool fflush ( void )   //将缓冲内容输出到文件,成功时返回 TRUE， 或者在失败时返回 FALSE。
+public string fgetc ( void )   //按字符读取文件
+public array fgetcsv ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] )   //读取csv文件
+public string fgets ( void )   //按行读取文件
+public string fgetss ([ string $allowable_tags ] )  //按行读取文件，并去掉html标记
+public bool flock ( int $operation [, int &amp;$wouldblock ] )   //文件锁定或解锁，返回true或false
+/*参数：
+LOCK_SH 共享锁 (读).
+LOCK_EX 独占锁 (写).
+LOCK_UN 释放锁 (共享或独占).
+LOCK_NB (附加锁定) 如果不希望flock()在锁定时堵塞，则应在上述锁定后加上改锁（windows上不支持）
+flock(LOCK_EX+LOCK_NB);   // 独占锁定加上附加锁定   
+flock(LOCK_UN+LOCK_NB); */
+public int fpassthru ( void )   //输出文件指针之后的所有数据和字符数
+public int fputcsv (array $fields)  //将一维数组作为一行输入csv文件中，返回写入的字符串长度或false
+public string fread ( int $length )  //从文件中读取指定的字节数，返回读取的字符串或false
+public mixed fscanf ( string $format [, mixed &amp;$... ] )  //从文件中读取一行并按照指定模式解析
+/*例：
+$file = new SplFileObject("misc.txt");
+while ($userinfo = $file-&gt;fscanf("%s %s %s")) {
+    list ($name, $profession, $countrycode) = $userinfo;
+    // Do something with $name $profession $countrycode
+}*/
+public int fseek ( int $offset [, int $whence = SEEK_SET ] ) //按字节移动文件指针位置，
+/*SEEK_SET 设置文件指针到指定字节位置（默认为该模式）.
+SEEK_CUR 设置文件指针到当前位置加上指定字节位置.
+SEEK_END 设置文件指针到文件末尾加上指定字节位置（此时字节经常为负值）.
+public array fstat ( void )  //获取文件信息，以数组形式返回*/
+/*
+数字下标	关联键名（自 PHP 4.0.6）	说明
+0			dev	device number - 设备名
+1			ino	inode number - inode 号码
+2			mode	inode protection mode - inode 保护模式
+3			nlink	number of links - 被连接数目
+4			uid	userid of owner - 所有者的用户 id
+5			gid	groupid of owner- 所有者的组 id
+6			rdev	device type, if inode device * - 设备类型，如果是 inode 设备的话
+7			size	size in bytes - 文件大小的字节数
+8			atime	time of last access (unix timestamp) - 上次访问时间（Unix 时间戳）
+9			mtime	time of last modification (unix timestamp) - 上次修改时间（Unix 时间戳）
+10			ctime	time of last change (unix timestamp) - 上次改变时间（Unix 时间戳）
+11			blksize	blocksize of filesystem IO * - 文件系统 IO 的块大小
+12			blocks	number of blocks allocated - 所占据块的数目* Windows 下总是 0。
+* - 仅在支持 st_blksize 类型的系统下有效。其它系统（如 Windows）返回 -1。 */
+
+
+public int ftell ( void )  //返回当前文件位置，文件指针位置
+public bool ftruncate ( int $size )   //将文件截断到指定的长度，若长度大于文件长度用空补齐（文件打开方法对其有影响）
+public int fwrite ( string $str [, int $length ] )  //将$str字符串写入文件，只写$length长度。放回写入字节数或null
+public array getCsvControl ( void )  //Gets the delimiter and enclosure character used for parsing CSV fields.
+public int getFlags ( void )  //Gets the flags set for an instance of SplFileObject as an integer.
+public int getMaxLineLen ( void )  //返回一行读取的最大字节数（在已设置的前提下），若未设置，默认为0
+public int key ( void )  //获取当前行号。
+public void next ( void )  //移动到下一行
+public void rewind ( void ) //返回到第一行
+public void seek ( int $line_pos )  //定位到文件指定行
+public void setCsvControl ([ string $delimiter = "," [, string $enclosure = "\"" [, string $escape = "\\" ]]] )
+public void setFlags ( int $flags )
+public void setMaxLineLen ( int $max_len )  //设置文件读取一行的最大字节数，若文件每行有10个字符，但设置最大读取为
+public bool valid ( void )  //检查是否到达文件底部，未到达底部返回 TRUE ，抵达返回false.
+}</pre><br/><br/><p/>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<span style="font-size:18px"><br/></span>&#13;
+<p><span style="font-size:18px">用法：</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1676500" snippet_file_name="blog_20160927_3_2182391" name="code" class="php">$file = new SplFileObject("misc.txt", 'r+');
+while (!$file-&gt;eof()) {
+    echo $file-&gt;current();
+    $file-&gt;next();
+}
+//关闭文件对象
+$file = null;</pre><br/><br/><p/>&#13;
+<p><span style="font-size:18px">常用文件处理方法：</span></p>&#13;
+<p/>&#13;
+<pre code_snippet_id="1676500" snippet_file_name="blog_20160509_3_1530907" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;span style="font-size:18px;"&gt;/**
+ * 获取文件指定行数范围数据
+ * @param unknown $filename  文件名称
+ * @param number $startLine  开始行
+ * @param number $endLine    结束行
+ * @param string $method
+ * @return multitype:
+ */
+function getFileLines($filename, $startLine = 1, $endLine = 20, $method = 'rb'){
+    $content = array();
+    $count = $endLine - $startLine;
+    $fp = new SplFileObject($filename, $method);
+    $fp-&gt;seek($startLine - 1); // 转到第N行, seek方法参数从0开始计数
+    for ($i = 0; $i &lt;= $count; ++$i) {
+        $content[] = $fp-&gt;current(); // current()获取当前行内容
+        $fp-&gt;next(); // 下一行
+        if($fp-&gt;eof()) {
+            array_pop($content);
+            break;
+        }
+    }
+    return array_filter($content); // array_filter过滤：false,null,''
+}
+
+/**
+ * 获取文章最后一行内容
+ * @param string $res 文件路径/名
+ */
+function get_last_line($res) {
+    $fp = fopen($res, 'r');
+    if (false == $fp) {
+        return 'error';
+    }
+    fseek($fp,-1,SEEK_END);
+    $s = '';
+    while(($c = fgetc($fp)) !== false)
+    {
+        if($c == "\n" &amp;&amp; $s) break;
+        $s = $c . $s;
+        fseek($fp, -2, SEEK_CUR);
+    }
+    fclose($fp);
+    return $s;
+}&lt;/span&gt;&lt;/span&gt;</pre><span style="font-size:18px"><br/><br/></span>&#13;
+<p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>在数据库中，UNION和UNION ALL关键字都是将两个结果集合并为一个，但这两者从使用和效率上来说都有所不同。</p>
+
+<p><strong>MySQL中的UNION</strong></p>
+
+<p>UNION在进行表链接后会筛选掉重复的记录，所以在表链接后会对所产生的结果集进行排序运算，删除重复的记录再返回结果。实际大部分应用中是不会产生重复的记录，最常见的是过程表与历史表UNION。如：</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> gc_dfys <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> ls_jg_dfys</span></code></pre>
+
+<p>这个SQL在运行时先取出两个表的结果，再用排序空间进行排序删除重复的记录，最后返回结果集，如果表数据量大的话可能会导致用磁盘进行排序。 </p>
+
+<p><strong>MySQL中的UNION ALL</strong></p>
+
+<p>而UNION ALL只是简单的将两个结果合并后就返回。这样，如果返回的两个结果集中有重复的数据，那么返回的结果集就会包含重复的数据了。</p>
+
+<p>从效率上说，UNION ALL 要比UNION快很多，所以，如果可以确认合并的两个结果集中不包含重复的数据的话，那么就使用UNION ALL，如下：</p>
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> gc_dfys <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> ls_jg_dfys</span></code></pre>
+
+<p>使用Union，则所有返回的行都是唯一的，如同您已经对整个结果集合使用了DISTINCT  <br/>
+使用Union all，则不会排重，返回所有的行 </p>
+
+<p>如果您想使用ORDER BY或LIMIT子句来对全部UNION结果进行分类或限制，则应对单个地SELECT语句加圆括号，并把ORDER BY或LIMIT放到最后一个的后面： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql">(<span class="hljs-operator"><span class="hljs-keyword">SELECT</span> a <span class="hljs-keyword">FROM</span> tbl_name <span class="hljs-keyword">WHERE</span> a=<span class="hljs-number">10</span> <span class="hljs-keyword">AND</span> B=<span class="hljs-number">1</span>)   
+<span class="hljs-keyword">UNION</span> 
+(<span class="hljs-keyword">SELECT</span> a <span class="hljs-keyword">FROM</span> tbl_name <span class="hljs-keyword">WHERE</span> a=<span class="hljs-number">11</span> <span class="hljs-keyword">AND</span> B=<span class="hljs-number">2</span>) 
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> a LIMIT <span class="hljs-number">10</span>;</span> </code></pre>
+
+<p>麻烦一点也可以这么干： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> ( 
+<span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> testa <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> testb) t  
+<span class="hljs-keyword">order</span> <span class="hljs-keyword">by</span> userid limit <span class="hljs-number">0</span>,<span class="hljs-number">1</span>;</span> </code></pre>
+
+<p>如果你还想group by，而且还有条件，那么： </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> (<span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> testa <span class="hljs-keyword">union</span> <span class="hljs-keyword">all</span> <span class="hljs-keyword">select</span> userid <span class="hljs-keyword">from</span> testb) t <span class="hljs-keyword">group</span> <span class="hljs-keyword">by</span> userid <span class="hljs-keyword">having</span> <span class="hljs-aggregate">count</span>(userid) = <span class="hljs-number">2</span>;</span> </code></pre>
+
+<p>注意：在union的括号后面必须有个别名，否则会报错 </p>
+
+<p><strong>注意：</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver">如果当<span class="hljs-built_in">union</span>的几个表的数据量很大时，建议还是采用先导出文本，然后用脚本来执行 
+因为纯粹用sql，效率会比较低，而且它会写临时文件，如果你的磁盘空间不够大，就有可能会出错 
+Error writing <span class="hljs-built_in">file</span> <span class="hljs-string">'/tmp/MYLsivgK'</span> (Errcode: <span class="hljs-number">28</span>)</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p/>&#13;
+<pre code_snippet_id="1884761" snippet_file_name="blog_20160918_1_3275149" name="code" class="php">&lt;span style="font-size:18px;"&gt;&lt;?php 
+
+// php常量:分为以下四种
+//（1）、自定义常量：
+//     必须用函数define()定义
+//     define() 函数 - 它使用三个参数：
+//     首个参数定义常量的名称
+//     第二个参数定义常量的值
+//     可选的第三个参数规定常量名是否对大小写敏感。默认是 false，对大小写敏感。
+//     定义完后其值不能再改变了
+//     使用时直接用常量名，不能像变量一样在前面加$s
+//     实例代码：
+
+define("GREETING", "Welcome to W3School.com.cn!");
+echo "对大小写敏感：".GREETING."&lt;br/&gt;";
+
+//第三个参数为  true  ，对大小写不敏感
+define("GREETING", "Welcome to W3School.com.cn!", true);
+echo "对大小写不敏感：".greeting."&lt;br/&gt;";
+
+//（2）、系统常量：
+//     PHP_VERSION:当前解析器的版本号
+//     PHP_OS：执行当前PHP版本的操作系统名称
+//     可以直接拿来使用，例如要查看执行当前PHP版本的操作系统名称，就可以写成 echo PHP_OS 
+//     实例代码：
+
+echo "&lt;br/&gt;";
+//输出当前解析器的版本号
+echo "当前解析器的版本号是:  ".PHP_VERSION;
+echo "&lt;br/&gt;";
+//输出执行当前PHP版本的操作系统名称
+echo "当前操作系统是： ".PHP_OS;
+echo "&lt;br/&gt;";
+// 输出圆周率
+echo M_PI;
+echo "&lt;br/&gt;";
+// 输出科学常数e
+echo M_E;
+echo "&lt;br/&gt;";
+// 输出以2为底e的对数
+echo M_LOG2E;
+echo "&lt;br/&gt;";
+// 输出以10为底e的对数
+echo M_LOG10E;
+echo "&lt;br/&gt;";
+// 输出2的自然对数（常数e为底数的对数叫做自然对数）
+echo M_LN2;
+echo "&lt;br/&gt;";
+// 输出10的自然对数
+echo M_LN10;
+echo "&lt;br/&gt;";
+
+  
+//（3）、php类常量
+
+class MyClass{
+    //类常量，用constant修饰，不带
+    const cons1 = 'constant value';
+    function showCons1() {
+        echo self::cons1."&lt;br/&gt;";
+    }
+}
+//常量的表示形式：    类名::常量名
+echo "&lt;br/&gt;类常量值为：".MyClass::cons1."&lt;br/&gt;";
+
+// （4）、魔术常量
+//      见博客：http://blog.csdn.net/u013372487/article/details/46729965
+?&gt;
+&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px"><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap"><strong>1. 如果定义了两个相同的常量，前者和后者哪个起作用？</strong></span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap">前者起作用，因为常量一旦定义就不能被重新定义或者取消定义。</span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap"><strong>2. 常量和变量有哪些区别？</strong></span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap">1）常量前没有$符号；</span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap">2）常量只能通过define()定义，而不能通过赋值语句定义；</span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap">3）常量可以在任何地方定义和访问，而变量有全局和局部之分；</span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap"><span style="color:#3e3e3e">4）</span><strong><span style="color:#ff0000">常量一旦定义就不能被重新定义或者取消定义</span></strong><span style="color:#3e3e3e">，而变量而通过赋值方式重新定义；</span></span><br style="margin:0px; padding:0px; max-width:100%; color:rgb(62,62,62); font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap; word-wrap:break-word!important"/><span style="font-family:'Helvetica Neue',Helvetica,'Hiragino Sans GB','Microsoft YaHei',Arial,sans-serif; font-size:16px; line-height:25.6px; text-align:justify; white-space:pre-wrap"><span style="color:#3e3e3e">5）</span><strong><span style="color:#ff0000">常量的值只能是标量数据</span></strong><span style="color:#3e3e3e">，而变量的数据库类型有8种原始数据类型。</span></span><br/></span></p>&#13;
+<br/><p/>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><strong><span style="font-size:24px">PHPCMS配置文件路径：</span></strong></p>&#13;
+<p><span style="color:rgb(85,85,85); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">数据库配置文件位置：caches/configs/database.php</span><br/></p>&#13;
+<p><span style="color:rgb(85,85,85); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">路由配置文件位置：caches/configs/route.php</span><br/></span></p>&#13;
+<p><span style="color:rgb(85,85,85); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">系统配置文件位置：caches/configs/system.php</span><br/></span></span></p>&#13;
+<p><span style="color:rgb(85,85,85); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px"><span style="font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">。。。。。。</span></span></span></p>&#13;
+<p><br/></p>&#13;
+<p><strong><span style="font-size:24px">PHPCMS调用配置文件方法：</span></strong></p>&#13;
+<p/>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+配置文件配置在caches/configs/目录下。</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+配置文件调用：使用 load_config方法（该方法位于 base.php 文件中）</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+</p><pre code_snippet_id="1630856" snippet_file_name="blog_20160331_1_7001571" name="code" class="php">/**
+                  * 加载配置文件
+                  * @param string $file 配置文件
+                  * @param string $key  要获取的配置荐
+                  * @param string $default  默认配置。当获取配置项目失败时该值发生作用。
+                  * @param boolean $reload 强制重新加载。
+                  */
+                 public static function load_config($file, $key = '', $default = '', $reload = false) {
+                  　　static $configs = array();
+                　　  if (!$reload &amp;&amp; isset($configs[$file])) {
+                  　　　　 if (empty($key)) {
+                   　　　 　　return $configs[$file];
+                   　　　　} elseif (isset($configs[$file][$key])) {
+                   　　　 　　return $configs[$file][$key];
+                   　　　　} else {
+                    　　　　　return $default;
+                   　　　　}
+                  　　}
+                  　$path = CACHE_PATH.'configs'.DIRECTORY_SEPARATOR.$file.'.php';
+                  　if (file_exists($path)) {
+                  　　 $configs[$file] = include $path;
+                 　 }
+                 　 if (empty($key)) {
+                   　　return $configs[$file];
+                 　 } elseif (isset($configs[$file][$key])) {
+                   　　return $configs[$file][$key];
+                  　} else {
+                   　　return $default;
+                　  }
+                 }</pre>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+<br/></p>&#13;
+<p style="padding:10px; margin:10px; border:1px solid rgb(204,204,204); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px; background-color:rgb(247,247,247)">&#13;
+示例：</p>&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px; font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px">&#13;
+调用系统配置中的附件路径</p>&#13;
+<blockquote style="padding:10px; margin:10px; border:1px solid rgb(204,204,204); font-family:'tahoma,verdana,arial,sans-serif'; font-size:14px; line-height:25px; background-color:rgb(247,247,247)">&#13;
+<p style="padding-top:0px; padding-bottom:0px; margin-top:0px; margin-bottom:0px">&#13;
+<span class="pln" style="padding:0px; margin:0px">$upload_url </span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">=</span><span class="pln" style="padding:0px; margin:0px"> pc_base</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">::</span><span class="pln" style="padding:0px; margin:0px">load_config</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">(</span><span class="str" style="padding:0px; margin:0px; color:rgb(0,136,0)">'system'</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">,</span><span class="str" style="padding:0px; margin:0px; color:rgb(0,136,0)">'upload_url'</span><span class="pun" style="padding:0px; margin:0px; color:rgb(102,102,0)">);</span></p>&#13;
+</blockquote>&#13;
+<span style="white-space:pre"/>pc_base::load_config('route', SITE_URL)&#13;
+<p><span style="white-space:pre"/>pc_base::load_config('database');<br/><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

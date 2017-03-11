@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><br/></p>&#13;
+<p/><pre name="code" class="php">&lt;?php
+// echo(),print(),print_r()的区别
+// echo是PHP语句, print和print_r是函数,语句没有返回值,函数可以有返回值(即便没有用)
+// print只能打印出简单类型变量的值(如int,string)
+// print_r可以打印出复杂类型变量的值(如数组,对象)
+
+// echo -- 输出一个或者多个字符串
+// print --输出一个字符串
+// print_r -- 打印关于变量的易于理解的信息。
+// bool print_r ( mixed expression [, bool return] ) //返回值是布尔型的,参数是mix类型的,可以是字符串,整形,数组,对象类print_r() 显示关于一个变量的易于理解的信息。如果给出的是 string、integer 或 float，将打印变量值本身。如果给出的是 array，将会按照一定格式显示键和元素。object 与数组类似。
+// print_r() 将把数组的指针移到最后边。
+// 你可以
+// print_r(str);
+// print_r(int);
+// print_r(array);
+// print_r(obj);
+// 也可以用var_dump var_export
+
+$a=12;
+$b=13;
+echo $a;
+echo "&lt;br&gt;";
+print $a;
+echo "&lt;br&gt;";
+print_r($a);
+echo "&lt;br&gt;";
+var_dump($a);
+
+
+$asd="1234556";
+echo strlen($asd);
+for($i=0;$i&lt;strlen($asd);$i++){
+    echo "&lt;br/&gt;".$asd[$i]."&lt;br/&gt;";
+}
+//header("location:aaa.php");
+include 'aaa.php';
+?&gt;</pre><br/><br/></div>  </body>
+            </html>

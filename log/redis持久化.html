@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<span style="font-size:18px"><span style="white-space:pre"/>redis是一个支持持久化的内存数据库，也就是说redis需要经常将内存中的数据同步到磁盘来保证持久化。redis支持四种持久化方式，一是 Snapshotting（快照）也是默认方式；二是Appendonlyfile（缩写aof）的方式；三是虚拟内存方式；四是diskstore方式。主要用快照持久化和aof持久化，下面分别讲解：<br/><br/>&#13;
+（一）Snapshotting（快照持久化）<br/><br/><span style="white-space:pre"/>快照是默认的持久化方式。这种方式是就是将内存中数据以快照的方式写入到二进制文件中,默认的文件名为dump.rdb，文件位置可以通过修改配置文件redis.conf中的dir设置。我们可以配置redis在n秒内如果超过m个key被修改就自动做快照，下面是默认的快照保存配置：<br/></span><pre code_snippet_id="1698694" snippet_file_name="blog_20160527_1_9289519" name="code" class="cpp">save 900 1     #900秒内如果超过1个key被修改，则发起快照保存
+save 300 10    #300秒内容如超过10个key被修改，则发起快照保存
+save 60 10000  #60秒内容如超过10000个key被改变，则发起快照保存</pre>上面配置表明数据修改频率越高，备份频率越高<br/><strong><span style="color:#ff0000">快照保存过程：</span></strong><br/>&#13;
+1. redis调用fork,现在有了子进程和父进程。<br/>&#13;
+2. 父进程继续处理client请求，子进程负责将内存内容写入到临时文件。由于os的写时复制机制（copy on write)父子进程会共享相同的物理页面，当父进程处理写请求时os会为父进程要修改的页面创建副本，而不是写共享的页面。所以子进程的地址空间内的数据是fork时刻整个数据库的一个快照。<br/>&#13;
+3. 当子进程将快照写入临时文件完毕后，用临时文件替换原来的快照文件，然后子进程退出（fork一个进程入内在也被复制了，即内存会是原来的两倍）。<br/><strong><span style="color:#ff0000">手动发起快照持久化：</span></strong><br/>&#13;
+client也可以使用save或者bgsave命令通知redis做一次快照持久化。save操作是在主线程中保存快照的，由于redis是用一个主线程来处理所有client的请求，这种方式会阻塞所有client请求。所以不推荐使用。<br/><span style="color:#ff0000">注意：</span><br/>&#13;
+1、每次快照持久化都是将内存数据完整写入到磁盘一次，并不是增量的只同步新数据。如果数据量大的话，而且写操作比较多，必然会引起大量的磁盘io操作，可能会严重影响性能。<br/>&#13;
+2、由于快照方式是在一定间隔时间做一次的，所以如果redis意外down掉的话，就会丢失最后一次快照后的所有修改。如果应用要求不能丢失任何修改的话，可以采用aof持久化方式。下面介绍：<br/><br/>&#13;
+（二）Append-only file（aof持久化）<br/><br/><span style="white-space:pre"/>aof 比快照方式有更好的持久化性，是由于在使用aof持久化方式时，redis会将每一个收到的写命令都通过write函数追加到文件中(默认是appendonly.aof)。当redis重启时会通过重新执行文件中保存的写命令来在内存中重建整个数据库的内容。当然由于os会在内核中缓存 write做的修改，所以可能不是立即写到磁盘上。这样aof方式的持久化也还是有可能会丢失部分修改。不过我们可以通过配置文件告诉redis我们想要通过fsync函数强制os写入到磁盘的时机。有三种方式如下（默认是：每秒fsync一次）：<br/><pre code_snippet_id="1698694" snippet_file_name="blog_20160527_2_2386419" name="code" class="cpp">appendonly yes           #启用aof持久化方式
+# appendfsync always   #每次收到写命令就立即强制写入磁盘，最慢的，但是保证完全的持久化，不推荐使用
+appendfsync everysec     #每秒钟强制写入磁盘一次，在性能和持久化方面做了很好的折中，推荐
+# appendfsync no    #完全依赖os，性能最好,持久化没保证</pre><strong><span style="color:#ff0000">优化aof日志文件：</span></strong><br/>&#13;
+aof 的方式也同时带来了另一个问题。持久化文件会变的越来越大。例如我们调用incr test命令100次，文件中必须保存全部的100条命令，其实有99条都是多余的。因为要恢复数据库的状态其实文件中保存一条set test 100就够了。为了压缩aof的持久化文件。redis提供了bgrewriteaof命令。收到此命令redis将使用与快照类似的方式将内存中的数据以命令的方式保存到临时文件中，最后替换原来的文件。具体过程如下：<br/>&#13;
+1.  redis调用fork ，现在有父子两个进程<br/>&#13;
+2. 子进程根据内存中的数据库快照，往临时文件中写入重建数据库状态的命令<br/>&#13;
+3. 父进程继续处理client请求，除了把写命令写入到原来的aof文件中。同时把收到的写命令缓存起来。这样就能保证如果子进程重写失败的话并不会出问题。<br/>&#13;
+4. 当子进程把快照内容写入已命令方式写到临时文件中后，子进程发信号通知父进程。然后父进程把缓存的写命令也写入到临时文件。<br/>&#13;
+5. 现在父进程可以使用临时文件替换老的aof文件，并重命名，后面收到的写命令也开始往新的aof文件中追加。<br/><span style="color:#ff6666">注意：</span><br/>&#13;
+重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似。&#13;
+&#13;
+                      </div>  </body>
+            </html>

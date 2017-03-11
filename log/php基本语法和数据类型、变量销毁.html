@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="font-size:18px"><strong>1、PHP基本语法：</strong></span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>HTML和php混合使用；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>一个语句以;（分号）结束；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>如何定义一个变量，和变量的使用；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/><span style="white-space:pre"/>php中定义一个变量要以$符号开头：$a = 34;</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>变量的数据类型不是固定不变的，根据赋值的变化而变化（运行时变量赋值决定）；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>php是弱数据类型编程语言； </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>php区分大小写；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>一个有效的变量名由字母或者下划线开头，后面跟上任意数量的字母，数字，或者下划线；</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/></span></p>&#13;
+<pre code_snippet_id="649699" snippet_file_name="blog_20150421_1_8095684" name="code" class="php">&lt;span style="font-size:18px;"&gt;	&lt;?php
+		echo "abc&lt;br/&gt;";
+		$a = 23;
+		var_dump($a);  //var_dump() 函数，返回变量的数据类型和值
+		echo "&lt;br/&gt;";
+		echo $a;
+	?&gt;&lt;/span&gt;</pre>&#13;
+<p><span style="font-size:18px"><span style="font-family:'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif; line-height:16.7999992370605px">PHP 语句和 PHP 变量都是区分大小写的。</span><br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p><span style="font-size:18px"><br/></span></p>&#13;
+<p/>&#13;
+<p><span style="font-size:18px"><strong>2、php数据类型;</strong></span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>基本数据类型：</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   整型 int    </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   浮点类型   float  double </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   布尔类型   bool</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   字符串类型  string</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>复合数据类型：</span></p>&#13;
+<p><span style="font-size:18px">   数组  array</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   对象   object</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>特殊数据类型：</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   NULL类型</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>   资源类型  resource</span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/></span></p>&#13;
+<p><span style="font-size:18px"><strong>3、PHP数据类型细节介绍：</strong></span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre code_snippet_id="649699" snippet_file_name="blog_20150425_2_3002607" name="code" class="php">&lt;?php
+	echo "abc&lt;br/&gt;";
+	$a = 23;
+	var_dump($a);  //var_dump() 函数，返回变量的数据类型和值
+	echo "&lt;br/&gt;";
+	echo $a."&lt;br/&gt;";
+	//?	整型可以用三种格式：十进制、十六进制（前缀是 0x）或八进制（前缀是 0）
+	$x = 0x8C; // 十六进制数，输出时以十进制输出
+	var_dump($x);
+	echo "&lt;br&gt;";
+	echo $x;
+	echo "&lt;br/&gt;";
+	$x = 047; // 八进制数，输出时以十进制输出
+	var_dump($x);
+	echo "&lt;br/&gt;";
+	echo $x;
+	echo PHP_INT_SIZE;  //输出整型值得字长
+	echo "&lt;br&gt;";
+	echo PHP_INT_MAX;    //输出整型值的最大值
+	echo "&lt;br&gt;";
+	$a = 435;
+	$b = 576;
+	echo $a.'++'.$b;  //php变量前后的点是连接的意思（把前后两个字符连接起来），不加是不对的
+	echo "&lt;br&gt;";
+	$asd = 2147483647;
+	var_dump($asd);  
+	echo "&lt;br&gt;";
+	$asd = 2147483648;
+	var_dump($asd);   //如果给出的值超出了integer的范围，将会被解释为float型
+	echo "&lt;br&gt;";echo "&lt;br&gt;";
+	//浮点数的最大精度为14位，精度计算从数字左边第一个不是0的数字开始,超出精度的数，按照四舍五入去掉
+	$a=0.12345678901234567;
+	echo $a;echo "&lt;br&gt;";   //输出0.12345678901235
+	$a=1234.12345678901234567;
+	echo $a;     //输出1234.123456789
+	echo "&lt;br&gt;"; 
+	$a=789.8812345678543;    //小数点不算位数
+	echo $a;
+	echo "&lt;br&gt;";
+	//定义字符串时可以用双引号也可用单引号，两者区别如下：
+	//当一个变量包含在""号中时，会输出他的值；而包含在''中是输出其字符本身。
+	$i = 90;
+	$user1 = "asdfg$i";   //双引号
+	$user2 = 'asdfg$i';
+	echo $user1;   //输出asdfg90
+	echo "&lt;br&gt;"; 
+	echo $user2;  //输出asdfg$i
+	echo "&lt;br&gt;"; 	
+?&gt;</pre>&#13;
+<p><br/></p>&#13;
+<p><span style="font-size:18px">4、php变量说明： </span></p>&#13;
+<p><span style="font-size:18px"><span style="white-space:pre"/>如果在函数中，我们不希望使用某个变量，或者是希望彻底的不在使用某个变量，则可以使用 unset(变量名); 方法，将该变量彻底删除（销毁变量）。</span></p>&#13;
+<p><span style="font-size:18px">例：</span></p>&#13;
+<p><span style="font-size:18px"/></p>&#13;
+<pre code_snippet_id="649699" snippet_file_name="blog_20150503_3_1009991" name="code" class="php">&lt;?php 	
+$a = 24; 
+unset($a);
+echo $a;		
+?&gt;</pre>结果会提示：<strong>Notice</strong>: Undefined variable: a <br/><br/><p/>&#13;
+<p><br/></p>&#13;
+<p><br/></p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

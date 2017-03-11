@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<h2><br/></h2>&#13;
+<p><span style="color:rgb(51,51,51)">strlen</span><span style="color:rgb(51,51,51)">是函数，而sizeof</span>是算符</p>&#13;
+<p>strlen函数，用来求字符串的长度，sizeof函数是用来求指定变量或变量类型（操作数）等所占用内存的大小且存储大小由操作数的类型决定。</p>&#13;
+<p>　　若操作数具有类型char、unsigned char或signed char，其结果等于1。 </p>&#13;
+<p>ANSI C正式规定字符类型为1字节。 其他类型：int（4）、unsigned int（4） 、short int（2）、unsigned short（2） 、longint（4） 、unsigned long（4）、float（4）、double（8）、longdouble（8）</p>&#13;
+<p>当操作数是指针时，sizeof依赖于编译器。例如Microsoft C/C++7.0中，near类指针字节数为2，far、huge类指针字节数为4。一般Unix的指针字节数为4，&#13;
+<span style="background:yellow">一般来说指针字节数为4</span>。</p>&#13;
+<p>例1： </p>&#13;
+<p>int*p;    int a[5];</p>&#13;
+<p>p= a;</p>&#13;
+<p>sizeof(p)的结果是4。</p>&#13;
+<p>例2：</p>&#13;
+<p> const char*pstars[]={"aa","bb","cc","dd"};</p>&#13;
+<p>constint starCount=size of pstars/sizeof pstars[0];</p>&#13;
+<p>sizeofpstars[0]的结果是4</p>&#13;
+<p>当操作数具有数组类型时，其结果是数组的总字节数。</p>&#13;
+<p>例如：int a[12];    sizeof(a)的结果是12 * 4 = 48。</p>&#13;
+<p>联合类型操作数的sizeof是其最大字节成员的字节数。结构类型操作数的sizeof是这种类型对象的总字节数，包括任何垫补在内。  </p>&#13;
+<p>　　让我们看如下结构：</p>&#13;
+<p>　　struct {char b; double x;} a;</p>&#13;
+<p>vc6.0结果为16</p>&#13;
+<p>这是因为编译器在考虑对齐问题时，在结构中插入空位以控制各成员对象的地址对齐。如double类型的结构成员x要放在被8整除的地址。</p>&#13;
+<p>对于静态数组处理：</p>&#13;
+<p>     char str[20]="0123456789";</p>&#13;
+<p>     strlen(str)=10;   //表示数组中字符串的长度</p>&#13;
+<p>     sizeof(str)=20;   //表示数组变量分配的长度</p>&#13;
+<p>   对于指针处理：</p>&#13;
+<p>     char *str="0123456789";</p>&#13;
+<p>     strlen(str)=10;     //表示字符串的长度</p>&#13;
+<p>     sizeof(str)=4;      //表示指针变量的所占内存大小</p>&#13;
+<p>     sizeof(*str)=1;     //表示'0'这个字符变量的所占内存大小</p>&#13;
+<p>  对于数组：</p>&#13;
+<p>char x[]="string";<br/>&#13;
+   x[0]=0;    x[1]='\0';</p>&#13;
+<p align="left">计算：sizeof(x) = 7      strlen(x) =0     </p>&#13;
+<p>    声明x的时候x里面存储的是"string\0"，最后的\0是结束符，所以sizeof(x)就是7。<br/>&#13;
+而\0的asccii码值为0，strlen(x)是计算到\0位置，strlen(x)也就是0了</p>&#13;
+<p>    <span style="background:yellow">如果操作数是函数中的数组形参或函数类型的形参，sizeof</span>给出其指针的大小。</p>&#13;
+<p>例如：  </p>&#13;
+<p/><pre name="code" class="plain">void Func(int*c)
+{
+    printf("%d/n",sizeof(c));
+}
+void Func(intc[13])
+{
+    printf("%d/n",sizeof(c));
+}</pre><br/><br/><p>打印的都是4。</p>&#13;
+<p/>&#13;
+<p> </p>&#13;
+<p/>&#13;
+<p>Strlen函数以符号\0结束</p>&#13;
+&#13;
+                      </div>  </body>
+            </html><!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        &#13;
+<p><span style="color:rgb(51,51,51)">strlen</span><span style="color:rgb(51,51,51)">是函数，而sizeof</span>是算符</p>&#13;
+<p>strlen函数，用来求字符串的长度，sizeof函数是用来求指定变量或变量类型（操作数）等所占用内存的大小且存储大小由操作数的类型决定。</p>&#13;
+<p>　　若操作数具有类型char、unsigned char或signed char，其结果等于1。 </p>&#13;
+<p>ANSI C正式规定字符类型为1字节。 其他类型：int（4）、unsigned int（4） 、short int（2）、unsigned short（2） 、longint（4） 、unsigned long（4）、float（4）、double（8）、longdouble（8）</p>&#13;
+<p>当操作数是指针时，sizeof依赖于编译器。例如Microsoft C/C++7.0中，near类指针字节数为2，far、huge类指针字节数为4。一般Unix的指针字节数为4，&#13;
+<span style="background:yellow">一般来说指针字节数为4</span>。</p>&#13;
+<p>例1： </p>&#13;
+<p>int*p;    int a[5];</p>&#13;
+<p>p= a;</p>&#13;
+<p>sizeof(p)的结果是4。</p>&#13;
+<p>例2：</p>&#13;
+<p> const char*pstars[]={"aa","bb","cc","dd"};</p>&#13;
+<p>constint starCount=size of pstars/sizeof pstars[0];</p>&#13;
+<p>sizeofpstars[0]的结果是4</p>&#13;
+<p>当操作数具有数组类型时，其结果是数组的总字节数。</p>&#13;
+<p>例如：int a[12];    sizeof(a)的结果是12 * 4 = 48。</p>&#13;
+<p>联合类型操作数的sizeof是其最大字节成员的字节数。结构类型操作数的sizeof是这种类型对象的总字节数，包括任何垫补在内。  </p>&#13;
+<p>　　让我们看如下结构：</p>&#13;
+<p>　　struct {char b; double x;} a;</p>&#13;
+<p>　　vc6.0结果为16</p>&#13;
+<p>对于静态数组处理：</p>&#13;
+<p>     char str[20]="0123456789";</p>&#13;
+<p>     strlen(str)=10;   //表示数组中字符串的长度</p>&#13;
+<p>     sizeof(str)=20;   //表示数组变量分配的长度</p>&#13;
+<p>   对于指针处理：</p>&#13;
+<p>     char *str="0123456789";</p>&#13;
+<p>     strlen(str)=10;     //表示字符串的长度</p>&#13;
+<p>     sizeof(str)=4;      //表示指针变量的所占内存大小</p>&#13;
+<p>     sizeof(*str)=1;     //表示'0'这个字符变量的所占内存大小</p>&#13;
+<p>  对于数组：</p>&#13;
+<p>charx[]="string";<br/>&#13;
+   x[0]=0;    x[1]='\0';</p>&#13;
+<p align="left">计算：sizeof(x) = 7      strlen(x) =0     </p>&#13;
+<p>    声明x的时候x里面存储的是"string\0"，最后的\0是结束符，所以sizeof(x)就是7。<br/>&#13;
+而\0的asccii码值为0，strlen(x)是计算到\0位置，strlen(x)也就是0了</p>&#13;
+&#13;
+                      </div>  </body>
+            </html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>防XSS攻击代码：</p>
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">/**
+ * 安全过滤函数
+ *
+ *<span class="hljs-phpdoc"> @param</span> $string
+ *<span class="hljs-phpdoc"> @return</span> string
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">safe_replace</span><span class="hljs-params">(<span class="hljs-variable">$string</span>)</span> {</span>
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'%20'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'%27'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'%2527'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'*'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'"'</span>,<span class="hljs-string">'&amp;quot;'</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">"'"</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'"'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">';'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'&lt;'</span>,<span class="hljs-string">'&amp;lt;'</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'&gt;'</span>,<span class="hljs-string">'&amp;gt;'</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">"{"</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'}'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-variable">$string</span> = str_replace(<span class="hljs-string">'\\'</span>,<span class="hljs-string">''</span>,<span class="hljs-variable">$string</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$string</span>;
+}</code></pre>
+
+<p>代码实例：</p>
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-variable">$user_name</span> = strim(<span class="hljs-variable">$_REQUEST</span>[<span class="hljs-string">'user_name'</span>]);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">strim</span><span class="hljs-params">(<span class="hljs-variable">$str</span>)</span>
+{</span>
+    <span class="hljs-comment">//trim() 函数移除字符串两侧的空白字符或其他预定义字符。</span>
+    <span class="hljs-comment">//htmlspecialchars() 函数把预定义的字符转换为 HTML 实体(防xss攻击)。</span>
+    <span class="hljs-comment">//预定义的字符是：</span>
+    <span class="hljs-comment">//&amp; （和号）成为 &amp;amp;</span>
+    <span class="hljs-comment">//" （双引号）成为 &amp;quot;</span>
+    <span class="hljs-comment">//' （单引号）成为 '</span>
+    <span class="hljs-comment">//&lt; （小于）成为 &amp;lt;</span>
+    <span class="hljs-comment">//&gt; （大于）成为 &amp;gt;</span>
+    <span class="hljs-keyword">return</span> quotes(htmlspecialchars(trim(<span class="hljs-variable">$str</span>)));
+}
+<span class="hljs-comment">//防sql注入</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">quotes</span><span class="hljs-params">(<span class="hljs-variable">$content</span>)</span>
+{</span>
+    <span class="hljs-comment">//if $content is an array</span>
+    <span class="hljs-keyword">if</span> (is_array(<span class="hljs-variable">$content</span>))
+    {
+        <span class="hljs-keyword">foreach</span> (<span class="hljs-variable">$content</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$key</span>=&gt;<span class="hljs-variable">$value</span>)
+        {
+            <span class="hljs-comment">//$content[$key] = mysql_real_escape_string($value);</span>
+            <span class="hljs-comment">/*addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。
+            预定义字符是：
+            单引号（'）
+            双引号（"）
+            反斜杠（\）
+            NULL */</span>
+            <span class="hljs-variable">$content</span>[<span class="hljs-variable">$key</span>] = addslashes(<span class="hljs-variable">$value</span>);
+        }
+    } <span class="hljs-keyword">else</span>
+    {
+        <span class="hljs-comment">//if $content is not an array</span>
+        <span class="hljs-comment">//$content=mysql_real_escape_string($content);</span>
+        <span class="hljs-variable">$content</span>=addslashes(<span class="hljs-variable">$content</span>);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$content</span>;
+}
+
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+
+
+<pre class="prettyprint"><code class=" hljs php"><span class="hljs-comment">//过滤sql注入</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">filter_injection</span><span class="hljs-params">(&amp;<span class="hljs-variable">$request</span>)</span>
+{</span>
+    <span class="hljs-variable">$pattern</span> = <span class="hljs-string">"/(select[\s])|(insert[\s])|(update[\s])|(delete[\s])|(from[\s])|(where[\s])/i"</span>;
+    <span class="hljs-keyword">foreach</span>(<span class="hljs-variable">$request</span> <span class="hljs-keyword">as</span> <span class="hljs-variable">$k</span>=&gt;<span class="hljs-variable">$v</span>)
+    {
+                <span class="hljs-keyword">if</span>(preg_match(<span class="hljs-variable">$pattern</span>,<span class="hljs-variable">$k</span>,<span class="hljs-variable">$match</span>))
+                {
+                        <span class="hljs-keyword">die</span>(<span class="hljs-string">"SQL Injection denied!"</span>);
+                }
+
+                <span class="hljs-keyword">if</span>(is_array(<span class="hljs-variable">$v</span>))
+                {
+                    filter_injection(<span class="hljs-variable">$request</span>[<span class="hljs-variable">$k</span>]);
+                }
+                <span class="hljs-keyword">else</span>
+                {
+                    <span class="hljs-keyword">if</span>(preg_match(<span class="hljs-variable">$pattern</span>,<span class="hljs-variable">$v</span>,<span class="hljs-variable">$match</span>))
+                    {
+                        <span class="hljs-keyword">die</span>(<span class="hljs-string">"SQL Injection denied!"</span>);
+                    }
+                }
+    }
+
+}</code></pre>
+
+<p>防sql注入： <br/><strong>mysql_real_escape_string()</strong> 函数转义 SQL 语句中使用的字符串中的特殊字符。 <br/>
+下列字符受影响： <br/>
+\x00 <br/>
+\n <br/>
+\r <br/>
+\ <br/>
+’ <br/>
+” <br/>
+\x1a <br/>
+如果成功，则该函数返回被转义的字符串。如果失败，则返回 false。 <br/>
+语法 <br/>
+mysql_real_escape_string(string,connection) <br/>
+参数 描述 <br/>
+string 必需。规定要转义的字符串。 <br/>
+connection 可选。规定 MySQL 连接。如果未规定，则使用上一个连接。</p>
+
+<p>对于纯数字或数字型字符串的校验可以用  <br/><strong>is_numeric()</strong>检测变量是否为数字或数字字符串 <br/>
+实例：</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs xml"><span class="php"><span class="hljs-preprocessor">&lt;?php</span> 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get_numeric</span><span class="hljs-params">(<span class="hljs-variable">$val</span>)</span> {</span> 
+  <span class="hljs-keyword">if</span> (is_numeric(<span class="hljs-variable">$val</span>)) { 
+    <span class="hljs-keyword">return</span> <span class="hljs-variable">$val</span> + <span class="hljs-number">0</span>; 
+  } 
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+} 
+<span class="hljs-preprocessor">?&gt;</span></span></code></pre>
+
+<p><strong>is_array</strong> — 检测变量是否是数组 <br/>
+bool is_array ( mixed $var ) <br/>
+如果 var 是 array，则返回 TRUE，否则返回 FALSE。</p>
+
+<p><strong>is_dir</strong> 判断给定文件名是否是一个目录 <br/>
+bool is_dir ( string $filename ) <br/>
+判断给定文件名是否是一个目录。 <br/>
+如果文件名存在，并且是个目录，返回 TRUE，否则返回FALSE。</p>
+
+<p><strong>is_file</strong> — 判断给定文件名是否为一个正常的文件 <br/>
+bool is_file ( string $filename ) <br/>
+判断给定文件名是否为一个正常的文件。 <br/>
+如果文件存在且为正常的文件则返回 TRUE，否则返回 FALSE。 <br/>
+Note: 因为 PHP 的整数类型是有符号整型而且很多平台使用 32 位整型，对 2GB 以上的文件，一些文件系统函数可能返回无法预期的结果 。</p>
+
+<p><strong>is_bool</strong> — 检测变量是否是布尔型 <br/>
+bool is_bool ( mixed $var )如果 var 是 boolean 则返回 TRUE。</p>
+
+<p><strong>is_string</strong> — 检测变量是否是字符串 <br/>
+bool is_string ( mixed $var ) <br/>
+如果 var 是 string 则返回 TRUE，否则返回 FALSE。</p>
+
+<p><strong>is_int</strong> — 检测变量是否是整数 <br/>
+bool is_int ( mixed $var ) <br/>
+如果 var 是 integer 则返回 TRUE，否则返回 FALSE。 <br/>
+Note: <br/>
+若想测试一个变量是否是数字或数字字符串（如表单输入，它们通常为字符串），必须使用 is_numeric()。</p>
+
+<p><strong>is_float</strong> — 检测变量是否是浮点型 <br/>
+bool is_float ( mixed $var ) <br/>
+如果 var 是 float 则返回 TRUE，否则返回 FALSE。 <br/>
+Note: <br/>
+若想测试一个变量是否是数字或数字字符串（如表单输入，它们通常为字符串），必须使用 is_numeric()。</p>
+
+<p><strong>is_null</strong> — 检测变量是否为 NULL <br/>
+bool is_null ( mixed $var ) <br/>
+如果 var 是 null 则返回 TRUE，否则返回 FALSE。</p>
+
+<p><strong>is_readable</strong> — 判断给定文件名是否可读 <br/>
+bool is_readable ( string $filename )判断给定文件名是否存在并且可读。如果由 filename 指定的文件或目录存在并且可读则返回 TRUE，否则返回 FALSE。</p>
+
+<p><strong>is_writable</strong> — 判断给定的文件名是否可写 <br/>
+bool is_writable ( string $filename ) <br/>
+如果文件存在并且可写则返回 TRUE。filename 参数可以是一个允许进行是否可写检查的目录名。</p>
+
+<p><strong>file_exists</strong> — 检查文件或目录是否存在 <br/>
+bool file_exists ( string $filename ) <br/>
+检查文件或目录是否存在。 <br/>
+在 Windows 中要用 //computername/share/filename 或者 \computername\share\filename 来检查网络中的共享文件。 <br/>
+如果由 filename 指定的文件或目录存在则返回 TRUE，否则返回 FALSE。</p>
+
+<p><strong>is_executable</strong> — 判断给定文件名是否可执行 <br/>
+bool is_executable ( string $filename )判断给定文件名是否可执行。如果文件存在且可执行则返回 TRUE，错误时返回FALSE。</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

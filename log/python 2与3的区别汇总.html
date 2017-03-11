@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>1、输出语句print：</strong></p>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"Hello, World!"</span>;</code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python3</span>
+print(<span class="hljs-string">"Hello, World!"</span>); <span class="hljs-comment"># python3中输出语句作为内置函数使用</span></code></pre>
+
+<p><strong>2、输入语句</strong></p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/env python</span>
+<span class="hljs-comment">#-*- coding:utf8 -*-</span>
+name = raw_input(<span class="hljs-string">"请输入用户名:"</span>)
+<span class="hljs-keyword">print</span> name</code></pre>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python3</span>
+
+str = input(<span class="hljs-string">"请输入："</span>);
+<span class="hljs-keyword">print</span> (<span class="hljs-string">"你输入的内容是: "</span>, str)</code></pre>
+
+<p><strong>3、编码问题：</strong></p>
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python</span>
+<span class="hljs-comment"># -*- coding: UTF-8 -*-</span>
+<span class="hljs-string">'''
+Python2.X中默认的编码格式是 ASCII 格式，在没修改编码格式时无法正确打印汉字，所以在读取中文时会报错。
+解决方法为只要在文件开头加入 # -*- coding: UTF-8 -*- 或者 #coding=utf-8 就行了。
+'''</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">"你好，世界"</span>;</code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-python hljs "><span class="hljs-comment">#!/usr/bin/python3</span>
+<span class="hljs-string">'''
+Python3.X 源码文件默认使用utf-8编码，所以可以正常解析中文，无需指定 UTF-8 编码。
+'''</span>
+<span class="hljs-keyword">print</span> (<span class="hljs-string">"你好，世界"</span>);</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

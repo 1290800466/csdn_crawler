@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p><strong>两种工作流程</strong></p>
+
+
+
+<pre class="prettyprint"><code class=" hljs haml">协作开发工作流程 : 这种情况是最复杂的情况, 多人团队共同开发一个项目;
+-<span class="ruby">- 与远程仓库同步 <span class="hljs-symbol">:</span> git pull ;
+</span>-<span class="ruby">- 修改文件 <span class="hljs-symbol">:</span> 添加 删除 修改文件;
+</span>-<span class="ruby">- 查看变更 <span class="hljs-symbol">:</span> git status ;
+</span>-<span class="ruby">- 载入变更 <span class="hljs-symbol">:</span>添加文件, 先使用git add fileName, 在使用 git commit -m <span class="hljs-string">'note'</span> 载入变更; 如果是删除 修改文件, 直接使用 git commit -m <span class="hljs-string">'note'</span> 提交;
+</span>-<span class="ruby">- 重复 <span class="hljs-symbol">:</span> 重复执行 修改文件 查看变更 载入变更 提交载入动作;
+</span>-<span class="ruby">- 上传 <span class="hljs-symbol">:</span> 使用 git push 命令将项目源码提交带<span class="hljs-constant">GitHub</span>中去;
+</span>
+单独开发工作流程 : 如果是个人独立开发, 仅追踪本地文件变更, 就不需要提交到服务器上, 因为Git是分布式的;该示例不会上传, 仅在本地进行操作;
+-<span class="ruby">- 修改文件 <span class="hljs-symbol">:</span> 
+</span>-<span class="ruby">- 提交变更 <span class="hljs-symbol">:</span> git commit -m <span class="hljs-string">'note'</span>
+</span>-<span class="ruby">- 重复 <span class="hljs-symbol">:</span> </span></code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

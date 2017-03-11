@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>1、复制表结构及数据到新表</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 新表<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> 旧表</span></code></pre>
+
+<p>这种方法会将oldtable中所有的内容都拷贝过来，当然我们可以用delete from newtable;来删除。 <br/>
+不过这种方法的一个最不好的地方就是新表中没有了旧表的primary key、Extra（auto_increment）等属性。需要自己用"alter"添加，而且容易搞错。</p>
+
+<p>2、只复制表结构到新表</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 新表<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> 旧表<span class="hljs-keyword">WHERE</span> <span class="hljs-number">1</span>=<span class="hljs-number">2</span>
+#或
+<span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> 新表<span class="hljs-keyword">LIKE</span> 旧表</span></code></pre>
+
+<p>3、复制旧表的数据到新表(假设两个表结构一样)</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> 新表<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> 旧表</span></code></pre>
+
+<p>4、复制旧表的数据到新表(假设两个表结构不一样)</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs lasso">INSERT <span class="hljs-keyword">INTO</span> 新表(字段<span class="hljs-number">1</span>,字段<span class="hljs-number">2</span>,<span class="hljs-attribute">...</span><span class="hljs-attribute">...</span><span class="hljs-built_in">.</span>) <span class="hljs-keyword">SELECT</span> 字段<span class="hljs-number">1</span>,字段<span class="hljs-number">2</span>,<span class="hljs-attribute">...</span><span class="hljs-attribute">...</span> FROM 旧表</code></pre>
+
+<p>5、可以将表1结构复制到表2</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">INTO</span> 表<span class="hljs-number">2</span> <span class="hljs-keyword">FROM</span> 表<span class="hljs-number">1</span> <span class="hljs-keyword">WHERE</span> <span class="hljs-number">1</span>=<span class="hljs-number">2</span></span></code></pre>
+
+<p>6、可以将表1内容全部复制到表2</p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">INTO</span> 表<span class="hljs-number">2</span> <span class="hljs-keyword">FROM</span> 表<span class="hljs-number">1</span></span></code></pre>
+
+<p>7、 </p>
+
+
+
+<pre class="prettyprint"><code class=" hljs sql"><span class="hljs-operator"><span class="hljs-keyword">show</span> <span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> 旧表;</span></code></pre>
+
+<p>这样会将旧表的创建命令列出。我们只需要将该命令拷贝出来，更改table的名字，就可以建立一个完全一样的表</p>
+
+<p>8、mysqldump <br/>
+用mysqldump将表dump出来，改名字后再导回去或者直接在命令行中运行</p></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>

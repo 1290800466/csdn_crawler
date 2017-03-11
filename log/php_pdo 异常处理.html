@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+            <html>
+              <head>
+                <meta http-equiv="content-type" content="text/html; charset=utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+                <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+                <title></title>
+              </head>
+              <body><div class="skin_detail" id="article_content">&#13;
+                        <div class="markdown_views"><p>pdo异常处理设置：</p>
+
+<p>设置PDO::ATTR_ERRMODE ，有以下三个值：</p>
+
+<pre class="prettyprint"><code class=" hljs css"><span class="hljs-tag">PDO</span><span class="hljs-pseudo">::ERRMODE_SILENT</span>： 默认模式，不主动报错，需要主动以 $<span class="hljs-tag">pdo-</span>&gt;<span class="hljs-tag">errorInfo</span>()的形式获取错误信息。
+
+<span class="hljs-tag">PDO</span><span class="hljs-pseudo">::ERRMODE_WARNING</span>: 引发 <span class="hljs-tag">E_WARNING</span> 错误，主动报错
+
+<span class="hljs-tag">PDO</span><span class="hljs-pseudo">::ERRMODE_EXCEPTION</span>: 主动抛出 <span class="hljs-tag">exceptions</span> 异常，需要以<span class="hljs-tag">try</span><span class="hljs-rules">{<span class="hljs-rule">}</span></span><span class="hljs-tag">cath</span>()<span class="hljs-rules">{<span class="hljs-rule">}</span></span>输出错误信息。</code></pre>
+
+<p>实例： <br/>
+方式一：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-comment">//默认是不提示的 需要用 errorCode() errorInfo();</span>
+<span class="hljs-keyword">try</span>{
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+    <span class="hljs-comment">//下面这句是默认设置，有无均可</span>
+    <span class="hljs-variable">$pdo</span>-&gt;setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_SILENT);
+}<span class="hljs-keyword">catch</span>(PDOException <span class="hljs-variable">$e</span>){
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into stuu values(null,'jike','w',55)"</span>;
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$pdo</span>-&gt;exec(<span class="hljs-variable">$sql</span>);
+<span class="hljs-keyword">if</span>(<span class="hljs-variable">$res</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">"OK"</span>;
+}<span class="hljs-keyword">else</span>{
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$pdo</span>-&gt;errorCode();
+    print_r(<span class="hljs-variable">$pdo</span>-&gt;errorInfo());
+} </code></pre>
+
+<p>方式二：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">try</span>{
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+    <span class="hljs-comment">//主动以警告的形式报错</span>
+    <span class="hljs-variable">$pdo</span>-&gt;setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
+}<span class="hljs-keyword">catch</span>(PDOException <span class="hljs-variable">$e</span>){
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into stuu values(null,'jike','w',55)"</span>;
+<span class="hljs-comment">//若有错误直接在浏览器页面中显示错误信息</span>
+<span class="hljs-variable">$res</span> = <span class="hljs-variable">$pdo</span>-&gt;exec(<span class="hljs-variable">$sql</span>);</code></pre>
+
+<p>方式三：</p>
+
+<pre class="prettyprint"><code class="language-php hljs "><span class="hljs-preprocessor">&lt;?php</span>
+<span class="hljs-keyword">try</span>{
+    <span class="hljs-variable">$pdo</span> = <span class="hljs-keyword">new</span> PDO(<span class="hljs-string">"mysql:host=localhost;dbname=jikexueyuan"</span>,<span class="hljs-string">"root"</span>,<span class="hljs-string">""</span>);
+    <span class="hljs-comment">//主动抛出异常</span>
+    <span class="hljs-variable">$pdo</span>-&gt;setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION );
+}<span class="hljs-keyword">catch</span>(PDOException <span class="hljs-variable">$e</span>){
+    <span class="hljs-keyword">die</span>(<span class="hljs-string">"数据库连接失败"</span>.<span class="hljs-variable">$e</span>-&gt;getMessage());
+}
+<span class="hljs-variable">$sql</span> = <span class="hljs-string">"insert into stuu values(null,'jike','w',55)"</span>;
+<span class="hljs-comment">//用try{}catch(){}抓取异常</span>
+<span class="hljs-keyword">try</span>{
+    <span class="hljs-variable">$res</span> = <span class="hljs-variable">$pdo</span>-&gt;exec(<span class="hljs-variable">$sql</span>);
+}<span class="hljs-keyword">catch</span>(PDOException <span class="hljs-variable">$e</span>){
+    <span class="hljs-keyword">echo</span> <span class="hljs-variable">$e</span>-&gt;getMessage();
+}</code></pre></div><link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0"/></div>  </body>
+            </html>
